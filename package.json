@@ -1,0 +1,87 @@
+{
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "router-chain-ts-sdk",
+  "author": "Chota-Bheem-Codes",
+  "module": "dist/router-chain-ts-sdk.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/router-chain-ts-sdk.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/router-chain-ts-sdk.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^8.0.1",
+    "husky": "^8.0.1",
+    "size-limit": "^8.0.1",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.8.2"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.5.8",
+    "@cosmjs/proto-signing": "^0.28.13",
+    "@cosmjs/stargate": "^0.28.13",
+    "@improbable-eng/grpc-web": "^0.15.0",
+    "@improbable-eng/grpc-web-node-http-transport": "^0.15.0",
+    "@injectivelabs/chain-api": "^1.8.0-rc8",
+    "@injectivelabs/exceptions": "^1.0.9",
+    "@injectivelabs/exchange-api": "^2.2.77",
+    "@injectivelabs/indexer-api": "^1.0.15",
+    "@injectivelabs/networks": "^1.0.14",
+    "@injectivelabs/sdk-ts": "^1.0.113",
+    "@injectivelabs/token-metadata": "^1.0.22",
+    "@injectivelabs/ts-types": "^1.0.8",
+    "@injectivelabs/tx-ts": "^1.0.31",
+    "@injectivelabs/utils": "^1.0.12",
+    "@metamask/eth-sig-util": "^4.0.1",
+    "@types/google-protobuf": "^3.15.5",
+    "bech32": "^2.0.0",
+    "bip39": "^3.0.4",
+    "eth-crypto": "^2.3.0",
+    "ethereumjs-abi": "^0.6.8",
+    "ethereumjs-util": "^7.1.4",
+    "ethers": "^5.6.4",
+    "ethjs-util": "^0.1.6",
+    "graphql": "^16.3.0",
+    "jscrypto": "^1.0.3",
+    "keccak256": "^1.0.6",
+    "link-module-alias": "^1.2.0",
+    "secp256k1": "^4.0.3",
+    "shx": "^0.3.2",
+    "snakecase-keys": "^5.4.1"
+  }
+}
