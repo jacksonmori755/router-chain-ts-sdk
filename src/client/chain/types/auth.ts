@@ -1,4 +1,4 @@
-import { EthAccount } from '@injectivelabs/chain-api/injective/types/v1beta1/account_pb'
+import { EthAccount } from '@routerprotocol/chain-api/types/account_pb'
 
 export interface AuthModuleParams {
   maxMemoCharacters: number

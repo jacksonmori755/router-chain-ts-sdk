@@ -1,4 +1,4 @@
-import { MsgRevoke as BaseMsgRevoke } from '@injectivelabs/chain-api/cosmos/authz/v1beta1/tx_pb'
+import { MsgRevoke as BaseMsgRevoke } from '@routerprotocol/chain-api/cosmos/authz/v1beta1/tx_pb'
 import { MsgBase } from '../../MsgBase'
 
 export declare namespace MsgRevoke {

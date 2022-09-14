@@ -4,7 +4,7 @@ import {
   // QueryAccountsResponse,
   // QueryAccountResponse,
   QueryParamsResponse,
-} from '@injectivelabs/chain-api/cosmos/auth/v1beta1/query_pb'
+} from '@routerprotocol/chain-api/cosmos/auth/v1beta1/query_pb'
 import { Any } from 'google-protobuf/google/protobuf/any_pb'
 import { grpcPaginationToPagination } from '../../../utils/pagination'
 import { uint8ArrayToString } from '../../../utils'

@@ -19,83 +19,87 @@ import {
   QueryParamsResponse as QueryStakingParamsResponse,
   QueryValidatorUnbondingDelegationsRequest,
   QueryValidatorUnbondingDelegationsResponse,
-} from '@injectivelabs/chain-api/cosmos/staking/v1beta1/query_pb'
-import { Query as StakingQuery } from '@injectivelabs/chain-api/cosmos/staking/v1beta1/query_pb_service'
-import BaseConsumer from '../../BaseGrpcConsumer'
-import { PaginationOption } from '../../../types/pagination'
-import { paginationRequestFromPagination } from '../../../utils/pagination'
-import { ChainGrpcStakingTransformer } from '../transformers'
+} from '@routerprotocol/chain-api/cosmos/staking/v1beta1/query_pb';
+import { Query as StakingQuery } from '@routerprotocol/chain-api/cosmos/staking/v1beta1/query_pb_service';
+import BaseConsumer from '../../BaseGrpcConsumer';
+import { PaginationOption } from '../../../types/pagination';
+import { paginationRequestFromPagination } from '../../../utils/pagination';
+import { ChainGrpcStakingTransformer } from '../transformers';
 
 /**
  * @category Chain Grpc API
  */
 export class ChainGrpcStakingApi extends BaseConsumer {
   async fetchModuleParams() {
-    const request = new QueryStakingParamsRequest()
+    const request = new QueryStakingParamsRequest();
 
     try {
       const response = await this.request<
         QueryStakingParamsRequest,
         QueryStakingParamsResponse,
         typeof StakingQuery.Params
-      >(request, StakingQuery.Params)
+      >(request, StakingQuery.Params);
 
       return ChainGrpcStakingTransformer.moduleParamsResponseToModuleParams(
-        response,
-      )
-    } catch (e: any) {
-      throw new Error(e.message)
+        response
+      );
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
   async fetchPool() {
-    const request = new QueryPoolRequest()
+    const request = new QueryPoolRequest();
 
     try {
       const response = await this.request<
         QueryPoolRequest,
         QueryPoolResponse,
         typeof StakingQuery.Pool
-      >(request, StakingQuery.Pool)
+      >(request, StakingQuery.Pool);
 
-      return ChainGrpcStakingTransformer.poolResponseToPool(response)
-    } catch (e: any) {
-      throw new Error(e.message)
+      return ChainGrpcStakingTransformer.poolResponseToPool(response);
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
   async fetchValidators() {
-    const request = new QueryValidatorsRequest()
+    const request = new QueryValidatorsRequest();
 
     try {
       const response = await this.request<
         QueryValidatorsRequest,
         QueryValidatorsResponse,
         typeof StakingQuery.Validators
-      >(request, StakingQuery.Validators)
+      >(request, StakingQuery.Validators);
 
       return ChainGrpcStakingTransformer.validatorsResponseToValidators(
-        response,
-      )
-    } catch (e: any) {
-      throw new Error(e.message)
+        response
+      );
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
   async fetchValidator(address: string) {
-    const request = new QueryValidatorRequest()
-    request.setValidatorAddr(address)
+    const request = new QueryValidatorRequest();
+    request.setValidatorAddr(address);
 
     try {
       const response = await this.request<
         QueryValidatorRequest,
         QueryValidatorResponse,
         typeof StakingQuery.Validator
-      >(request, StakingQuery.Validator)
+      >(request, StakingQuery.Validator);
 
-      return ChainGrpcStakingTransformer.validatorResponseToValidator(response)
-    } catch (e: any) {
-      throw new Error(e.message)
+      return ChainGrpcStakingTransformer.validatorResponseToValidator(response);
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
@@ -103,16 +107,16 @@ export class ChainGrpcStakingApi extends BaseConsumer {
     validatorAddress,
     pagination,
   }: {
-    validatorAddress: string
-    pagination?: PaginationOption
+    validatorAddress: string;
+    pagination?: PaginationOption;
   }) {
-    const request = new QueryValidatorDelegationsRequest()
-    request.setValidatorAddr(validatorAddress)
+    const request = new QueryValidatorDelegationsRequest();
+    request.setValidatorAddr(validatorAddress);
 
-    const paginationForRequest = paginationRequestFromPagination(pagination)
+    const paginationForRequest = paginationRequestFromPagination(pagination);
 
     if (paginationForRequest) {
-      request.setPagination(paginationForRequest)
+      request.setPagination(paginationForRequest);
     }
 
     try {
@@ -120,13 +124,14 @@ export class ChainGrpcStakingApi extends BaseConsumer {
         QueryValidatorDelegationsRequest,
         QueryValidatorDelegationsResponse,
         typeof StakingQuery.ValidatorDelegations
-      >(request, StakingQuery.ValidatorDelegations)
+      >(request, StakingQuery.ValidatorDelegations);
 
       return ChainGrpcStakingTransformer.delegationsResponseToDelegations(
-        response,
-      )
-    } catch (e: any) {
-      throw new Error(e.message)
+        response
+      );
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
@@ -134,16 +139,16 @@ export class ChainGrpcStakingApi extends BaseConsumer {
     validatorAddress,
     pagination,
   }: {
-    validatorAddress: string
-    pagination?: PaginationOption
+    validatorAddress: string;
+    pagination?: PaginationOption;
   }) {
-    const request = new QueryValidatorDelegationsRequest()
-    request.setValidatorAddr(validatorAddress)
+    const request = new QueryValidatorDelegationsRequest();
+    request.setValidatorAddr(validatorAddress);
 
-    const paginationForRequest = paginationRequestFromPagination(pagination)
+    const paginationForRequest = paginationRequestFromPagination(pagination);
 
     if (paginationForRequest) {
-      request.setPagination(paginationForRequest)
+      request.setPagination(paginationForRequest);
     }
 
     try {
@@ -151,17 +156,21 @@ export class ChainGrpcStakingApi extends BaseConsumer {
         QueryValidatorDelegationsRequest,
         QueryValidatorDelegationsResponse,
         typeof StakingQuery.ValidatorDelegations
-      >(request, StakingQuery.ValidatorDelegations)
+      >(request, StakingQuery.ValidatorDelegations);
 
       return ChainGrpcStakingTransformer.delegationsResponseToDelegations(
-        response,
-      )
-    } catch (e: any) {
+        response
+      );
+    } catch (e) {
+      //@ts-ignore
       if (e.message.includes('does not exist')) {
-        return { delegations: [], pagination: { total: 0, next: '' } }
+        return {
+          delegations: [],
+          pagination: { total: 0, next: '' },
+        };
       }
-
-      throw new Error(e.message)
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
@@ -169,16 +178,16 @@ export class ChainGrpcStakingApi extends BaseConsumer {
     validatorAddress,
     pagination,
   }: {
-    validatorAddress: string
-    pagination?: PaginationOption
+    validatorAddress: string;
+    pagination?: PaginationOption;
   }) {
-    const request = new QueryValidatorUnbondingDelegationsRequest()
-    request.setValidatorAddr(validatorAddress)
+    const request = new QueryValidatorUnbondingDelegationsRequest();
+    request.setValidatorAddr(validatorAddress);
 
-    const paginationForRequest = paginationRequestFromPagination(pagination)
+    const paginationForRequest = paginationRequestFromPagination(pagination);
 
     if (paginationForRequest) {
-      request.setPagination(paginationForRequest)
+      request.setPagination(paginationForRequest);
     }
 
     try {
@@ -186,13 +195,14 @@ export class ChainGrpcStakingApi extends BaseConsumer {
         QueryValidatorUnbondingDelegationsRequest,
         QueryValidatorUnbondingDelegationsResponse,
         typeof StakingQuery.ValidatorUnbondingDelegations
-      >(request, StakingQuery.ValidatorUnbondingDelegations)
+      >(request, StakingQuery.ValidatorUnbondingDelegations);
 
       return ChainGrpcStakingTransformer.unBondingDelegationsResponseToUnBondingDelegations(
-        response,
-      )
-    } catch (e: any) {
-      throw new Error(e.message)
+        response
+      );
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
@@ -200,16 +210,16 @@ export class ChainGrpcStakingApi extends BaseConsumer {
     validatorAddress,
     pagination,
   }: {
-    validatorAddress: string
-    pagination?: PaginationOption
+    validatorAddress: string;
+    pagination?: PaginationOption;
   }) {
-    const request = new QueryValidatorUnbondingDelegationsRequest()
-    request.setValidatorAddr(validatorAddress)
+    const request = new QueryValidatorUnbondingDelegationsRequest();
+    request.setValidatorAddr(validatorAddress);
 
-    const paginationForRequest = paginationRequestFromPagination(pagination)
+    const paginationForRequest = paginationRequestFromPagination(pagination);
 
     if (paginationForRequest) {
-      request.setPagination(paginationForRequest)
+      request.setPagination(paginationForRequest);
     }
 
     try {
@@ -217,17 +227,21 @@ export class ChainGrpcStakingApi extends BaseConsumer {
         QueryValidatorUnbondingDelegationsRequest,
         QueryValidatorUnbondingDelegationsResponse,
         typeof StakingQuery.ValidatorUnbondingDelegations
-      >(request, StakingQuery.ValidatorUnbondingDelegations)
+      >(request, StakingQuery.ValidatorUnbondingDelegations);
 
       return ChainGrpcStakingTransformer.unBondingDelegationsResponseToUnBondingDelegations(
-        response,
-      )
-    } catch (e: any) {
+        response
+      );
+    } catch (e) {
+      //@ts-ignore
       if (e.message.includes('does not exist')) {
-        return { unbondingDelegations: [], pagination: { total: 0, next: '' } }
+        return {
+          unbondingDelegations: [],
+          pagination: { total: 0, next: '' },
+        };
       }
-
-      throw new Error(e.message)
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
@@ -235,25 +249,26 @@ export class ChainGrpcStakingApi extends BaseConsumer {
     injectiveAddress,
     validatorAddress,
   }: {
-    injectiveAddress: string
-    validatorAddress: string
+    injectiveAddress: string;
+    validatorAddress: string;
   }) {
-    const request = new QueryDelegationRequest()
-    request.setDelegatorAddr(injectiveAddress)
-    request.setValidatorAddr(validatorAddress)
+    const request = new QueryDelegationRequest();
+    request.setDelegatorAddr(injectiveAddress);
+    request.setValidatorAddr(validatorAddress);
 
     try {
       const response = await this.request<
         QueryDelegationRequest,
         QueryDelegationResponse,
         typeof StakingQuery.Delegation
-      >(request, StakingQuery.Delegation)
+      >(request, StakingQuery.Delegation);
 
       return ChainGrpcStakingTransformer.delegationResponseToDelegation(
-        response,
-      )
-    } catch (e: any) {
-      throw new Error(e.message)
+        response
+      );
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
@@ -261,16 +276,16 @@ export class ChainGrpcStakingApi extends BaseConsumer {
     injectiveAddress,
     pagination,
   }: {
-    injectiveAddress: string
-    pagination?: PaginationOption
+    injectiveAddress: string;
+    pagination?: PaginationOption;
   }) {
-    const request = new QueryDelegatorDelegationsRequest()
-    request.setDelegatorAddr(injectiveAddress)
+    const request = new QueryDelegatorDelegationsRequest();
+    request.setDelegatorAddr(injectiveAddress);
 
-    const paginationForRequest = paginationRequestFromPagination(pagination)
+    const paginationForRequest = paginationRequestFromPagination(pagination);
 
     if (paginationForRequest) {
-      request.setPagination(paginationForRequest)
+      request.setPagination(paginationForRequest);
     }
 
     try {
@@ -278,13 +293,14 @@ export class ChainGrpcStakingApi extends BaseConsumer {
         QueryDelegatorDelegationsRequest,
         QueryDelegatorDelegationsResponse,
         typeof StakingQuery.DelegatorDelegations
-      >(request, StakingQuery.DelegatorDelegations)
+      >(request, StakingQuery.DelegatorDelegations);
 
       return ChainGrpcStakingTransformer.delegationsResponseToDelegations(
-        response,
-      )
-    } catch (e: any) {
-      throw new Error(e.message)
+        response
+      );
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
@@ -292,16 +308,16 @@ export class ChainGrpcStakingApi extends BaseConsumer {
     injectiveAddress,
     pagination,
   }: {
-    injectiveAddress: string
-    pagination?: PaginationOption
+    injectiveAddress: string;
+    pagination?: PaginationOption;
   }) {
-    const request = new QueryDelegatorDelegationsRequest()
-    request.setDelegatorAddr(injectiveAddress)
+    const request = new QueryDelegatorDelegationsRequest();
+    request.setDelegatorAddr(injectiveAddress);
 
-    const paginationForRequest = paginationRequestFromPagination(pagination)
+    const paginationForRequest = paginationRequestFromPagination(pagination);
 
     if (paginationForRequest) {
-      request.setPagination(paginationForRequest)
+      request.setPagination(paginationForRequest);
     }
 
     try {
@@ -309,17 +325,21 @@ export class ChainGrpcStakingApi extends BaseConsumer {
         QueryDelegatorDelegationsRequest,
         QueryDelegatorDelegationsResponse,
         typeof StakingQuery.DelegatorDelegations
-      >(request, StakingQuery.DelegatorDelegations)
+      >(request, StakingQuery.DelegatorDelegations);
 
       return ChainGrpcStakingTransformer.delegationsResponseToDelegations(
-        response,
-      )
-    } catch (e: any) {
+        response
+      );
+    } catch (e) {
+      //@ts-ignore
       if (e.message.includes('does not exist')) {
-        return { delegations: [], pagination: { total: 0, next: '' } }
+        return {
+          delegations: [],
+          pagination: { total: 0, next: '' },
+        };
       }
-
-      throw new Error(e.message)
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
@@ -327,16 +347,16 @@ export class ChainGrpcStakingApi extends BaseConsumer {
     validatorAddress,
     pagination,
   }: {
-    validatorAddress: string
-    pagination?: PaginationOption
+    validatorAddress: string;
+    pagination?: PaginationOption;
   }) {
-    const request = new QueryValidatorDelegationsRequest()
-    request.setValidatorAddr(validatorAddress)
+    const request = new QueryValidatorDelegationsRequest();
+    request.setValidatorAddr(validatorAddress);
 
-    const paginationForRequest = paginationRequestFromPagination(pagination)
+    const paginationForRequest = paginationRequestFromPagination(pagination);
 
     if (paginationForRequest) {
-      request.setPagination(paginationForRequest)
+      request.setPagination(paginationForRequest);
     }
 
     try {
@@ -344,13 +364,14 @@ export class ChainGrpcStakingApi extends BaseConsumer {
         QueryValidatorDelegationsRequest,
         QueryValidatorDelegationsResponse,
         typeof StakingQuery.ValidatorDelegations
-      >(request, StakingQuery.ValidatorDelegations)
+      >(request, StakingQuery.ValidatorDelegations);
 
       return ChainGrpcStakingTransformer.delegationsResponseToDelegations(
-        response,
-      )
-    } catch (e: any) {
-      throw new Error(e.message)
+        response
+      );
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
@@ -358,16 +379,16 @@ export class ChainGrpcStakingApi extends BaseConsumer {
     validatorAddress,
     pagination,
   }: {
-    validatorAddress: string
-    pagination?: PaginationOption
+    validatorAddress: string;
+    pagination?: PaginationOption;
   }) {
-    const request = new QueryValidatorDelegationsRequest()
-    request.setValidatorAddr(validatorAddress)
+    const request = new QueryValidatorDelegationsRequest();
+    request.setValidatorAddr(validatorAddress);
 
-    const paginationForRequest = paginationRequestFromPagination(pagination)
+    const paginationForRequest = paginationRequestFromPagination(pagination);
 
     if (paginationForRequest) {
-      request.setPagination(paginationForRequest)
+      request.setPagination(paginationForRequest);
     }
 
     try {
@@ -375,17 +396,21 @@ export class ChainGrpcStakingApi extends BaseConsumer {
         QueryValidatorDelegationsRequest,
         QueryValidatorDelegationsResponse,
         typeof StakingQuery.ValidatorDelegations
-      >(request, StakingQuery.ValidatorDelegations)
+      >(request, StakingQuery.ValidatorDelegations);
 
       return ChainGrpcStakingTransformer.delegationsResponseToDelegations(
-        response,
-      )
-    } catch (e: any) {
+        response
+      );
+    } catch (e) {
+      //@ts-ignore
       if (e.message.includes('does not exist')) {
-        return { delegations: [], pagination: { total: 0, next: '' } }
+        return {
+          delegations: [],
+          pagination: { total: 0, next: '' },
+        };
       }
-
-      throw new Error(e.message)
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
@@ -393,16 +418,16 @@ export class ChainGrpcStakingApi extends BaseConsumer {
     injectiveAddress,
     pagination,
   }: {
-    injectiveAddress: string
-    pagination?: PaginationOption
+    injectiveAddress: string;
+    pagination?: PaginationOption;
   }) {
-    const request = new QueryDelegatorUnbondingDelegationsRequest()
-    request.setDelegatorAddr(injectiveAddress)
+    const request = new QueryDelegatorUnbondingDelegationsRequest();
+    request.setDelegatorAddr(injectiveAddress);
 
-    const paginationForRequest = paginationRequestFromPagination(pagination)
+    const paginationForRequest = paginationRequestFromPagination(pagination);
 
     if (paginationForRequest) {
-      request.setPagination(paginationForRequest)
+      request.setPagination(paginationForRequest);
     }
 
     try {
@@ -410,13 +435,14 @@ export class ChainGrpcStakingApi extends BaseConsumer {
         QueryDelegatorUnbondingDelegationsRequest,
         QueryDelegatorUnbondingDelegationsResponse,
         typeof StakingQuery.DelegatorUnbondingDelegations
-      >(request, StakingQuery.DelegatorUnbondingDelegations)
+      >(request, StakingQuery.DelegatorUnbondingDelegations);
 
       return ChainGrpcStakingTransformer.unBondingDelegationsResponseToUnBondingDelegations(
-        response,
-      )
-    } catch (e: any) {
-      throw new Error(e.message)
+        response
+      );
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
@@ -424,16 +450,16 @@ export class ChainGrpcStakingApi extends BaseConsumer {
     injectiveAddress,
     pagination,
   }: {
-    injectiveAddress: string
-    pagination?: PaginationOption
+    injectiveAddress: string;
+    pagination?: PaginationOption;
   }) {
-    const request = new QueryDelegatorUnbondingDelegationsRequest()
-    request.setDelegatorAddr(injectiveAddress)
+    const request = new QueryDelegatorUnbondingDelegationsRequest();
+    request.setDelegatorAddr(injectiveAddress);
 
-    const paginationForRequest = paginationRequestFromPagination(pagination)
+    const paginationForRequest = paginationRequestFromPagination(pagination);
 
     if (paginationForRequest) {
-      request.setPagination(paginationForRequest)
+      request.setPagination(paginationForRequest);
     }
 
     try {
@@ -441,17 +467,21 @@ export class ChainGrpcStakingApi extends BaseConsumer {
         QueryDelegatorUnbondingDelegationsRequest,
         QueryDelegatorUnbondingDelegationsResponse,
         typeof StakingQuery.DelegatorUnbondingDelegations
-      >(request, StakingQuery.DelegatorUnbondingDelegations)
+      >(request, StakingQuery.DelegatorUnbondingDelegations);
 
       return ChainGrpcStakingTransformer.unBondingDelegationsResponseToUnBondingDelegations(
-        response,
-      )
-    } catch (e: any) {
+        response
+      );
+    } catch (e) {
+      //@ts-ignore
       if (e.message.includes('does not exist')) {
-        return { unbondingDelegations: [], pagination: { total: 0, next: '' } }
+        return {
+          unbondingDelegations: [],
+          pagination: { total: 0, next: '' },
+        };
       }
-
-      throw new Error(e.message)
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
@@ -459,16 +489,16 @@ export class ChainGrpcStakingApi extends BaseConsumer {
     injectiveAddress,
     pagination,
   }: {
-    injectiveAddress: string
-    pagination?: PaginationOption
+    injectiveAddress: string;
+    pagination?: PaginationOption;
   }) {
-    const request = new QueryRedelegationsRequest()
-    request.setDelegatorAddr(injectiveAddress)
+    const request = new QueryRedelegationsRequest();
+    request.setDelegatorAddr(injectiveAddress);
 
-    const paginationForRequest = paginationRequestFromPagination(pagination)
+    const paginationForRequest = paginationRequestFromPagination(pagination);
 
     if (paginationForRequest) {
-      request.setPagination(paginationForRequest)
+      request.setPagination(paginationForRequest);
     }
 
     try {
@@ -476,13 +506,14 @@ export class ChainGrpcStakingApi extends BaseConsumer {
         QueryRedelegationsRequest,
         QueryRedelegationsResponse,
         typeof StakingQuery.Redelegations
-      >(request, StakingQuery.Redelegations)
+      >(request, StakingQuery.Redelegations);
 
       return ChainGrpcStakingTransformer.reDelegationsResponseToReDelegations(
-        response,
-      )
-    } catch (e: any) {
-      throw new Error(e.message)
+        response
+      );
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
@@ -490,16 +521,16 @@ export class ChainGrpcStakingApi extends BaseConsumer {
     injectiveAddress,
     pagination,
   }: {
-    injectiveAddress: string
-    pagination?: PaginationOption
+    injectiveAddress: string;
+    pagination?: PaginationOption;
   }) {
-    const request = new QueryRedelegationsRequest()
-    request.setDelegatorAddr(injectiveAddress)
+    const request = new QueryRedelegationsRequest();
+    request.setDelegatorAddr(injectiveAddress);
 
-    const paginationForRequest = paginationRequestFromPagination(pagination)
+    const paginationForRequest = paginationRequestFromPagination(pagination);
 
     if (paginationForRequest) {
-      request.setPagination(paginationForRequest)
+      request.setPagination(paginationForRequest);
     }
 
     try {
@@ -507,17 +538,21 @@ export class ChainGrpcStakingApi extends BaseConsumer {
         QueryRedelegationsRequest,
         QueryRedelegationsResponse,
         typeof StakingQuery.Redelegations
-      >(request, StakingQuery.Redelegations)
+      >(request, StakingQuery.Redelegations);
 
       return ChainGrpcStakingTransformer.reDelegationsResponseToReDelegations(
-        response,
-      )
-    } catch (e: any) {
+        response
+      );
+    } catch (e) {
+      //@ts-ignore
       if (e.message.includes('does not exist')) {
-        return { redelegations: [], pagination: { total: 0, next: '' } }
+        return {
+          redelegations: [],
+          pagination: { total: 0, next: '' },
+        };
       }
-
-      throw new Error(e.message)
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 }

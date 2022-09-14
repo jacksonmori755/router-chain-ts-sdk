@@ -1,5 +1,5 @@
-export * from './chain'
-// export * from './exchange'
-export * from './indexer'
-export * from './gql'
-export * from './wasm'
+export * from './chain';
+export * from './wasm';
+export * from './TxGrpcClient';
+export * from './TxRestClient';
+export * from './TxClient';

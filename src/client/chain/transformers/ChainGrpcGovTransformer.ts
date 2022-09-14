@@ -5,7 +5,7 @@ import {
   QueryDepositsResponse,
   QueryTallyResultResponse,
   QueryVotesResponse,
-} from '@injectivelabs/chain-api/cosmos/gov/v1beta1/query_pb'
+} from '@routerprotocol/chain-api/cosmos/gov/v1beta1/query_pb'
 import { uint8ArrayToString } from '../../../utils'
 import {
   GovModuleStateParams,

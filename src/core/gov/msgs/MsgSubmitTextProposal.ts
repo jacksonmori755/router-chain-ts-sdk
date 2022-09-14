@@ -1,8 +1,8 @@
-import { MsgSubmitProposal as BaseMsgSubmitProposal } from '@injectivelabs/chain-api/cosmos/gov/v1beta1/tx_pb'
-import { Coin } from '@injectivelabs/chain-api/cosmos/base/v1beta1/coin_pb'
+import { MsgSubmitProposal as BaseMsgSubmitProposal } from '@routerprotocol/chain-api/cosmos/gov/v1beta1/tx_pb'
+import { Coin } from '@routerprotocol/chain-api/cosmos/base/v1beta1/coin_pb'
 import snakeCaseKeys from 'snakecase-keys'
 import { Any } from 'google-protobuf/google/protobuf/any_pb'
-import { TextProposal } from '@injectivelabs/chain-api/cosmos/gov/v1beta1/gov_pb'
+import { TextProposal } from '@routerprotocol/chain-api/cosmos/gov/v1beta1/gov_pb'
 import { MsgBase } from '../../MsgBase'
 
 export declare namespace MsgSubmitTextProposal {

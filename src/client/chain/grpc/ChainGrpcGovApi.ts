@@ -11,46 +11,47 @@ import {
   QueryTallyResultResponse,
   QueryVotesRequest,
   QueryVotesResponse,
-} from '@injectivelabs/chain-api/cosmos/gov/v1beta1/query_pb'
-import { Query as GovernanceQuery } from '@injectivelabs/chain-api/cosmos/gov/v1beta1/query_pb_service'
-import { ProposalStatusMap } from '@injectivelabs/chain-api/cosmos/gov/v1beta1/gov_pb'
-import BaseConsumer from '../../BaseGrpcConsumer'
-import { PaginationOption } from '../../../types/pagination'
-import { paginationRequestFromPagination } from '../../../utils/pagination'
-import { ChainGrpcGovTransformer } from '../transformers/ChainGrpcGovTransformer'
+} from '@routerprotocol/chain-api/cosmos/gov/v1beta1/query_pb';
+import { Query as GovernanceQuery } from '@routerprotocol/chain-api/cosmos/gov/v1beta1/query_pb_service';
+import { ProposalStatusMap } from '@routerprotocol/chain-api/cosmos/gov/v1beta1/gov_pb';
+import BaseConsumer from '../../BaseGrpcConsumer';
+import { PaginationOption } from '../../../types/pagination';
+import { paginationRequestFromPagination } from '../../../utils/pagination';
+import { ChainGrpcGovTransformer } from '../transformers/ChainGrpcGovTransformer';
 
 /**
  * @category Chain Grpc API
  */
 export class ChainGrpcGovApi extends BaseConsumer {
   async fetchModuleParams() {
-    const paramTypes = ['voting', 'deposit', 'tallying']
-    const requests = paramTypes.map((type) => {
-      const request = new QueryGovernanceParamsRequest()
-      request.setParamsType(type)
+    const paramTypes = ['voting', 'deposit', 'tallying'];
+    const requests = paramTypes.map(type => {
+      const request = new QueryGovernanceParamsRequest();
+      request.setParamsType(type);
 
-      return request
-    })
+      return request;
+    });
 
     try {
       const responses = await Promise.all(
-        requests.map((request) =>
+        requests.map(request =>
           this.request<
             QueryGovernanceParamsRequest,
             QueryGovernanceParamsResponse,
             typeof GovernanceQuery.Params
-          >(request, GovernanceQuery.Params),
-        ),
-      )
-      const [votingParams, depositParams, tallyParams] = responses
+          >(request, GovernanceQuery.Params)
+        )
+      );
+      const [votingParams, depositParams, tallyParams] = responses;
 
       return ChainGrpcGovTransformer.moduleParamsResponseToModuleParamsByType({
         votingParams: votingParams.getVotingParams()!,
         tallyParams: tallyParams.getTallyParams()!,
         depositParams: depositParams.getDepositParams()!,
-      })
-    } catch (e: any) {
-      throw new Error(e.message)
+      });
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
@@ -58,17 +59,17 @@ export class ChainGrpcGovApi extends BaseConsumer {
     status,
     pagination,
   }: {
-    status: ProposalStatusMap[keyof ProposalStatusMap]
-    pagination?: PaginationOption
+    status: ProposalStatusMap[keyof ProposalStatusMap];
+    pagination?: PaginationOption;
   }) {
-    const request = new QueryProposalsRequest()
+    const request = new QueryProposalsRequest();
 
-    request.setProposalStatus(status)
+    request.setProposalStatus(status);
 
-    const paginationForRequest = paginationRequestFromPagination(pagination)
+    const paginationForRequest = paginationRequestFromPagination(pagination);
 
     if (paginationForRequest) {
-      request.setPagination(paginationForRequest)
+      request.setPagination(paginationForRequest);
     }
 
     try {
@@ -76,29 +77,31 @@ export class ChainGrpcGovApi extends BaseConsumer {
         QueryProposalsRequest,
         QueryProposalsResponse,
         typeof GovernanceQuery.Proposals
-      >(request, GovernanceQuery.Proposals)
+      >(request, GovernanceQuery.Proposals);
 
-      return ChainGrpcGovTransformer.proposalsResponseToProposals(response)
-    } catch (e: any) {
-      throw new Error(e.message)
+      return ChainGrpcGovTransformer.proposalsResponseToProposals(response);
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
   async fetchProposal(proposalId: number) {
-    const request = new QueryProposalRequest()
+    const request = new QueryProposalRequest();
 
-    request.setProposalId(proposalId)
+    request.setProposalId(proposalId);
 
     try {
       const response = await this.request<
         QueryProposalRequest,
         QueryProposalResponse,
         typeof GovernanceQuery.Proposal
-      >(request, GovernanceQuery.Proposal)
+      >(request, GovernanceQuery.Proposal);
 
-      return ChainGrpcGovTransformer.proposalResponseToProposal(response)
-    } catch (e: any) {
-      throw new Error(e.message)
+      return ChainGrpcGovTransformer.proposalResponseToProposal(response);
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
@@ -106,17 +109,17 @@ export class ChainGrpcGovApi extends BaseConsumer {
     proposalId,
     pagination,
   }: {
-    proposalId: number
-    pagination?: PaginationOption
+    proposalId: number;
+    pagination?: PaginationOption;
   }) {
-    const request = new QueryDepositsRequest()
+    const request = new QueryDepositsRequest();
 
-    request.setProposalId(proposalId)
+    request.setProposalId(proposalId);
 
-    const paginationForRequest = paginationRequestFromPagination(pagination)
+    const paginationForRequest = paginationRequestFromPagination(pagination);
 
     if (paginationForRequest) {
-      request.setPagination(paginationForRequest)
+      request.setPagination(paginationForRequest);
     }
 
     try {
@@ -124,11 +127,12 @@ export class ChainGrpcGovApi extends BaseConsumer {
         QueryDepositsRequest,
         QueryDepositsResponse,
         typeof GovernanceQuery.Deposits
-      >(request, GovernanceQuery.Deposits)
+      >(request, GovernanceQuery.Deposits);
 
-      return ChainGrpcGovTransformer.depositsResponseToDeposits(response)
-    } catch (e: any) {
-      throw new Error(e.message)
+      return ChainGrpcGovTransformer.depositsResponseToDeposits(response);
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
@@ -136,46 +140,48 @@ export class ChainGrpcGovApi extends BaseConsumer {
     proposalId,
     pagination,
   }: {
-    proposalId: number
-    pagination?: PaginationOption
+    proposalId: number;
+    pagination?: PaginationOption;
   }) {
-    const request = new QueryVotesRequest()
+    const request = new QueryVotesRequest();
 
-    request.setProposalId(proposalId)
+    request.setProposalId(proposalId);
 
-    const paginationForRequest = paginationRequestFromPagination(pagination)
+    const paginationForRequest = paginationRequestFromPagination(pagination);
 
     if (paginationForRequest) {
-      request.setPagination(paginationForRequest)
+      request.setPagination(paginationForRequest);
     }
     try {
       const response = await this.request<
         QueryVotesRequest,
         QueryVotesResponse,
         typeof GovernanceQuery.Votes
-      >(request, GovernanceQuery.Votes)
+      >(request, GovernanceQuery.Votes);
 
-      return ChainGrpcGovTransformer.votesResponseToVotes(response)
-    } catch (e: any) {
-      throw new Error(e.message)
+      return ChainGrpcGovTransformer.votesResponseToVotes(response);
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 
   async fetchProposalTally(proposalId: number) {
-    const request = new QueryTallyResultRequest()
+    const request = new QueryTallyResultRequest();
 
-    request.setProposalId(proposalId)
+    request.setProposalId(proposalId);
 
     try {
       const response = await this.request<
         QueryTallyResultRequest,
         QueryTallyResultResponse,
         typeof GovernanceQuery.TallyResult
-      >(request, GovernanceQuery.TallyResult)
+      >(request, GovernanceQuery.TallyResult);
 
-      return ChainGrpcGovTransformer.tallyResultResponseToTallyResult(response)
-    } catch (e: any) {
-      throw new Error(e.message)
+      return ChainGrpcGovTransformer.tallyResultResponseToTallyResult(response);
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
   }
 }

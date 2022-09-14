@@ -1,5 +1,5 @@
-import { MsgVote as BaseMsgVote } from '@injectivelabs/chain-api/cosmos/gov/v1beta1/tx_pb'
-import { VoteOptionMap } from '@injectivelabs/chain-api/cosmos/gov/v1beta1/gov_pb'
+import { MsgVote as BaseMsgVote } from '@routerprotocol/chain-api/cosmos/gov/v1beta1/tx_pb'
+import { VoteOptionMap } from '@routerprotocol/chain-api/cosmos/gov/v1beta1/gov_pb'
 import { MsgBase } from '../../MsgBase'
 
 export declare namespace MsgVote {

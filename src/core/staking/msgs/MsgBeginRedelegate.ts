@@ -1,5 +1,5 @@
-import { MsgBeginRedelegate as BaseMsgBeginRedelegate } from '@injectivelabs/chain-api/cosmos/staking/v1beta1/tx_pb'
-import { Coin } from '@injectivelabs/chain-api/cosmos/base/v1beta1/coin_pb'
+import { MsgBeginRedelegate as BaseMsgBeginRedelegate } from '@routerprotocol/chain-api/cosmos/staking/v1beta1/tx_pb'
+import { Coin } from '@routerprotocol/chain-api/cosmos/base/v1beta1/coin_pb'
 import { MsgBase } from '../../MsgBase'
 
 export declare namespace MsgBeginRedelegate {

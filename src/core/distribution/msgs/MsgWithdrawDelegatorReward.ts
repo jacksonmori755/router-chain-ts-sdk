@@ -1,4 +1,4 @@
-import { MsgWithdrawDelegatorReward as BaseMsgWithdrawDelegatorReward } from '@injectivelabs/chain-api/cosmos/distribution/v1beta1/tx_pb'
+import { MsgWithdrawDelegatorReward as BaseMsgWithdrawDelegatorReward } from '@routerprotocol/chain-api/cosmos/distribution/v1beta1/tx_pb'
 import { MsgBase } from '../../MsgBase'
 
 export declare namespace MsgWithdrawDelegatorReward {

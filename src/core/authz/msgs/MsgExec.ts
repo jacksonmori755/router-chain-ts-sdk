@@ -1,4 +1,4 @@
-import { MsgExec as BaseMsgExec } from '@injectivelabs/chain-api/cosmos/authz/v1beta1/tx_pb'
+import { MsgExec as BaseMsgExec } from '@routerprotocol/chain-api/cosmos/authz/v1beta1/tx_pb'
 import { Any } from 'google-protobuf/google/protobuf/any_pb'
 
 import { MsgBase } from '../../MsgBase'

@@ -1,8 +1,8 @@
-import { MsgGrant as BaseMsgGrant } from '@injectivelabs/chain-api/cosmos/authz/v1beta1/tx_pb'
+import { MsgGrant as BaseMsgGrant } from '@routerprotocol/chain-api/cosmos/authz/v1beta1/tx_pb'
 import {
   GenericAuthorization,
   Grant,
-} from '@injectivelabs/chain-api/cosmos/authz/v1beta1/authz_pb'
+} from '@routerprotocol/chain-api/cosmos/authz/v1beta1/authz_pb'
 import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb'
 import { Any } from 'google-protobuf/google/protobuf/any_pb'
 import { MsgBase } from '../../MsgBase'

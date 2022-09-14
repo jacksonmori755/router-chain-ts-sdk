@@ -10,7 +10,7 @@ import {
   RedelegationResponse as GrpcReDelegationResponse,
   Params as GrpcStakingParams,
   Pool as GrpcPool,
-} from '@injectivelabs/chain-api/cosmos/staking/v1beta1/staking_pb'
+} from '@routerprotocol/chain-api/cosmos/staking/v1beta1/staking_pb'
 
 export interface StakingModuleParams
   extends Omit<GrpcStakingParams.AsObject, 'unbondingTime'> {

@@ -1,6 +1,6 @@
-import { Coin } from '@injectivelabs/chain-api/cosmos/base/v1beta1/coin_pb'
-import { MsgTransfer as BaseMsgTransfer } from '@injectivelabs/chain-api/ibc/applications/transfer/v1/tx_pb'
-import { Height } from '@injectivelabs/chain-api/ibc/core/client/v1/client_pb'
+import { Coin } from '@routerprotocol/chain-api/cosmos/base/v1beta1/coin_pb'
+import { MsgTransfer as BaseMsgTransfer } from '@routerprotocol/chain-api/ibc/applications/transfer/v1/tx_pb'
+import { Height } from '@routerprotocol/chain-api/ibc/core/client/v1/client_pb'
 import { MsgBase } from '../../MsgBase'
 
 export declare namespace MsgTransfer {

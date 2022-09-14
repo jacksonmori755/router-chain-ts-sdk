@@ -1,5 +1,5 @@
-import { MsgDeposit as BaseMsgDeposit } from '@injectivelabs/chain-api/cosmos/gov/v1beta1/tx_pb'
-import { Coin } from '@injectivelabs/chain-api/cosmos/base/v1beta1/coin_pb'
+import { MsgDeposit as BaseMsgDeposit } from '@routerprotocol/chain-api/cosmos/gov/v1beta1/tx_pb'
+import { Coin } from '@routerprotocol/chain-api/cosmos/base/v1beta1/coin_pb'
 import snakeCaseKeys from 'snakecase-keys'
 import { MsgBase } from '../../MsgBase'
 

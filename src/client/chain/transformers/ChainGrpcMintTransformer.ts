@@ -1,4 +1,4 @@
-import { QueryParamsResponse } from '@injectivelabs/chain-api/cosmos/mint/v1beta1/query_pb'
+import { QueryParamsResponse } from '@routerprotocol/chain-api/cosmos/mint/v1beta1/query_pb'
 import { MinModuleParams } from '../types/mint'
 
 /**

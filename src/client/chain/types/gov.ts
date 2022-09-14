@@ -7,22 +7,22 @@ import {
   TallyResult as GrpcTallyResult,
   Vote as GrpcVote,
   ProposalStatusMap as GrpcProposalStatus,
-} from '@injectivelabs/chain-api/cosmos/gov/v1beta1/gov_pb'
-import { Coin } from '@injectivelabs/ts-types'
+} from '@routerprotocol/chain-api/cosmos/gov/v1beta1/gov_pb';
+import { Coin } from '../../../ts-types';
 
 export interface GovModuleStateParams {
   votingParams: {
-    votingPeriod: number
-  }
+    votingPeriod: number;
+  };
   tallyParams: {
-    quorum: string
-    threshold: string
-    vetoThreshold: string
-  }
+    quorum: string;
+    threshold: string;
+    vetoThreshold: string;
+  };
   depositParams: {
-    minDepositList: Coin[]
-    maxDepositPeriod: number
-  }
+    minDepositList: Coin[];
+    maxDepositPeriod: number;
+  };
 }
 
 export enum ProposalStatus {
@@ -43,35 +43,35 @@ export enum VoteOption {
 }
 
 export interface Proposal {
-  proposalId: number
-  content: any
-  type: string
-  status: ProposalStatus
-  submitTime: number
-  finalTallyResult: GrpcTallyResult.AsObject | undefined
-  totalDeposits: Coin[]
-  votingStartTime: number
-  votingEndTime: number
-  depositEndTime: number
+  proposalId: number;
+  content: any;
+  type: string;
+  status: ProposalStatus;
+  submitTime: number;
+  finalTallyResult: GrpcTallyResult.AsObject | undefined;
+  totalDeposits: Coin[];
+  votingStartTime: number;
+  votingEndTime: number;
+  depositEndTime: number;
 }
 
 export type Vote = {
-  proposalId: number
-  voter: string
-  option: VoteOption
-}
+  proposalId: number;
+  voter: string;
+  option: VoteOption;
+};
 
 export type TallyResult = {
-  yes: string
-  abstain: string
-  no: string
-  noWithVeto: string
-}
+  yes: string;
+  abstain: string;
+  no: string;
+  noWithVeto: string;
+};
 
 export type ProposalDeposit = {
-  depositor: string
-  amounts: Coin[]
-}
+  depositor: string;
+  amounts: Coin[];
+};
 
 export {
   GrpcProposal,
@@ -82,4 +82,4 @@ export {
   GrpcTallyResult,
   GrpcVote,
   GrpcProposalStatus,
-}
+};

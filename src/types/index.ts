@@ -1,11 +1,10 @@
-import { Coin as GrpcCoin } from '@injectivelabs/chain-api/cosmos/base/v1beta1/coin_pb'
+import { Coin as GrpcCoin } from '@routerprotocol/chain-api/cosmos/base/v1beta1/coin_pb';
 
-export * from './exchange'
-export * from './pagination'
+export * from './pagination';
 
 export interface Coin {
-  denom: string
-  amount: string
+  denom: string;
+  amount: string;
 }
 
 export enum StreamOperation {
@@ -16,4 +15,4 @@ export enum StreamOperation {
   Invalidate = 'invalidate',
 }
 
-export { GrpcCoin }
+export { GrpcCoin };
