@@ -1,4 +1,4 @@
-import BaseRestConsumer from '../../BaseRestConsumer'
+import BaseRestConsumer from '../../BaseRestConsumer';
 import { AccountResponse, RestApiResponse } from '../types/auth-rest';
 
 /**
@@ -12,9 +12,9 @@ export class ChainRestAuthApi extends BaseRestConsumer {
    */
   public async fetchAccount(address: string): Promise<AccountResponse> {
     const response = (await this.client.get(
-      `cosmos/auth/v1beta1/accounts/${address}`,
-    )) as RestApiResponse<AccountResponse>
+      `cosmos/auth/v1beta1/accounts/${address}`
+    )) as RestApiResponse<AccountResponse>;
 
-    return response.data
+    return response.data;
   }
 }
