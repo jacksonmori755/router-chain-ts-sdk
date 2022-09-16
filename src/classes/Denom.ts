@@ -78,7 +78,7 @@ export class Denom {
     this.denom = denom;
 
     const endpoints = getEndpointsForNetwork(network);
-    this.ibcApi = new ChainGrpcIbcApi(endpoints.sentryGrpcApi);
+    this.ibcApi = new ChainGrpcIbcApi(endpoints.grpcEndpoint);
     this.tokenMetaUtil = TokenMetaUtilFactory.make(network);
   }
 

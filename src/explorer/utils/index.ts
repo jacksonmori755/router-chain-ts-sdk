@@ -1,15 +1,15 @@
-import { gqlApis } from '../constants';
 import { KeyValueAny } from '../types';
 import axios from 'axios';
+import { getUrlEndpointForNetwork, Network } from '../../networks';
 
 export const gqlFetcher = async (
-  chainEnvironment: string,
+  chainEnvironment: Network,
   queryTag: String,
   options: KeyValueAny
 ) => {
   try {
     const response = await axios.post(
-      gqlApis[chainEnvironment],
+      getUrlEndpointForNetwork(chainEnvironment).explorerGql,
       {
         query: queryTag,
         variables: options,

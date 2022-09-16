@@ -1,5 +1,5 @@
 import { TxRaw } from '@routerprotocol/chain-api/cosmos/tx/v1beta1/tx_pb';
-import { hashToHex } from '../utils';
+import { hashToHex } from '../../utils';
 
 export class TxClient {
   /**

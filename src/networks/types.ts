@@ -1,26 +1,30 @@
 export enum Network {
   Local = 'local',
-  Public = 'public',
   Devnet = 'devnet',
-  Devnet1 = 'devnet1',
   Testnet = 'testnet',
-  TestnetK8s = 'testnetK8s',
   Mainnet = 'mainnet',
-  Staging = 'staging',
-  MainnetStaging = 'mainnetStaging',
-  MainnetK8s = 'mainnetK8s',
-  MainnetOld = 'mainnetOld',
 }
 
+export const getNetworkType = (type: string) => {
+  switch (type.toLowerCase()) {
+    case 'local':
+      return Network.Local;
+    case 'devnet':
+      return Network.Devnet;
+    case 'testnet':
+      return Network.Testnet;
+    case 'mainnet':
+      return Network.Mainnet;
+    default:
+      return Network.Devnet;
+  }
+};
+
 export type NetworkEndpoints = {
-  exchangeApi: string // @deprecated
-  indexerApi: string
-  sentryGrpcApi: string
-  sentryHttpApi: string
-  tendermintApi?: string
-  chronosApi?: string
-  exchangeWeb3GatewayApi?: string
-}
+  explorerGql: string;
+  lcdEndpoint: string;
+  grpcEndpoint: string;
+};
 
 export type UrlEndpoints = NetworkEndpoints /** Deprecated */
 

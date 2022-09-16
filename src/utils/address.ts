@@ -16,3 +16,12 @@ export const getAddressFromRouterAddress = (address: string): string => {
     bech32.fromWords(bech32.decode(address).words)
   ).toString('hex')}`;
 };
+
+export const isValidAddress = (address: string) => {
+  try {
+    const decoded = bech32.decode(address).words;
+    return !!decoded;
+  } catch {
+    return false;
+  }
+};

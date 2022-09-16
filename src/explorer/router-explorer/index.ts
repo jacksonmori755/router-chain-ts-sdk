@@ -1,12 +1,18 @@
-import { latestBlockQuery, specificBlockQuery } from "../queries";
-import { gqlFetcher } from "../utils";
+import { getNetworkType, Network } from '../../networks';
+import {
+  latestBlockQuery,
+  latestTransactionsQuery,
+  specificBlockQuery,
+  specificTransactionQuery,
+} from '../queries';
+import { gqlFetcher } from '../utils';
 
 export class RouterExplorer {
-  public readonly chainEnvironment: string;
+  public readonly chainEnvironment: Network;
   public readonly applicationAddress: string;
 
-  constructor(chainEnvironment: string, applicationAddress: string) {
-    this.chainEnvironment = chainEnvironment;
+  constructor(chainEnvironment: string, applicationAddress: string = '') {
+    this.chainEnvironment = getNetworkType(chainEnvironment);
     this.applicationAddress = applicationAddress;
   }
 
@@ -35,22 +41,58 @@ export class RouterExplorer {
   // }
 
   //Fetch latest blocks from explorer db
-  
-  public async getLatestBlocks(limit: Number = 10, offset: Number = 1){
+
+  public async getLatestBlocks(limit: Number = 10, offset: Number = 1) {
     try {
-      const data = gqlFetcher(this.chainEnvironment,latestBlockQuery,{limit:limit,offset:offset})
-      return data
+      const data = await gqlFetcher(this.chainEnvironment, latestBlockQuery, {
+        limit: limit,
+        offset: offset,
+      });
+      return data;
     } catch (e) {
       console.log(`Error | getLatestBlocks | ${e}`);
     }
   }
 
-  public async getBlockByHeight(height: Number){
+  public async getBlockByHeight(height: Number) {
     try {
-      const data = gqlFetcher(this.chainEnvironment,specificBlockQuery,{height:height})
-      return data
+      const data = await gqlFetcher(this.chainEnvironment, specificBlockQuery, {
+        height: height,
+      });
+      return data;
     } catch (e) {
       console.log(`Error | getLatestBlocks | ${e}`);
+    }
+  }
+
+  public async getLatestTransactions(limit: Number = 10, offset: Number = 1) {
+    try {
+      const data = await gqlFetcher(
+        this.chainEnvironment,
+        latestTransactionsQuery,
+        {
+          limit: limit,
+          offset: offset,
+        }
+      );
+      return data;
+    } catch (e) {
+      console.log(`Error | getLatestTransactions | ${e}`);
+    }
+  }
+
+  public async getTransactionByHash(hash: String) {
+    try {
+      const data = await gqlFetcher(
+        this.chainEnvironment,
+        specificTransactionQuery,
+        {
+          hash: hash,
+        }
+      );
+      return data;
+    } catch (e) {
+      console.log(`Error | getLatestTransactions | ${e}`);
     }
   }
 }

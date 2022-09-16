@@ -1,2 +1,2 @@
-export { ChainRestAuthApi } from './ChainRestAuthApi'
-export { ChainRestTendermintApi } from './ChainRestTendermintApi'
+export { ChainRestAuthApi } from './ChainRestAuthApi';
+export { ChainRestTendermintApi } from './ChainRestTendermintApi';

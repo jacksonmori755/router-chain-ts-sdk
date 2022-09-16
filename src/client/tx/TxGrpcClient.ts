@@ -12,7 +12,7 @@ import {
   TxResponse,
 } from '@routerprotocol/chain-api/cosmos/base/abci/v1beta1/abci_pb';
 import { TxRaw } from '@routerprotocol/chain-api/cosmos/tx/v1beta1/tx_pb';
-import { isServerSide } from '../utils';
+import { isServerSide } from '../../utils';
 
 export class TxGrpcClient {
   public txService: ServiceClient;

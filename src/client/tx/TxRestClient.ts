@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
 import { TxRaw } from '@routerprotocol/chain-api/cosmos/tx/v1beta1/tx_pb';
-import { HttpClient } from '../utils/classes';
+import { HttpClient } from '../../utils/classes';
 import {
   Wait,
   Block,
@@ -17,11 +17,11 @@ import {
   SyncTxBroadcastResult,
   BlockTxBroadcastResult,
   TxSearchResult,
-} from '../types/tx-rest-client';
-import { APIParams, TxSearchOptions } from '../types/rest-client';
-import { BlockInfo } from '../types/block';
+} from '../../types/tx-rest-client';
+import { APIParams, TxSearchOptions } from '../../types/rest-client';
+import { BlockInfo } from '../../types/block';
 import { TxClient } from './TxClient';
-import { hashToHex } from '../utils/crypto';
+import { hashToHex } from '../../utils/crypto';
 
 export function isTxError<
   C extends TxSuccess | TxError | {},
