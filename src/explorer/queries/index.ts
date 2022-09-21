@@ -76,5 +76,46 @@ export const specificTransactionQuery = `
 }
 `;
 
+export const latestInboundsQuery = `
+  query getLatestInbounds($limit: Int!, $offset: Int!){
+    paginatedInbound(sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+    totalRecords
+    inbounds{
+      attestationId
+      chainType
+      attestationType
+      chainId
+      eventNonce
+      blockHeight
+      sourceTxHash
+      sourceSender
+      routerBridgeContract
+      payload
+      status
+      formAttestationId
+    }
+  }
+}
+`;
+
+export const specificInboundQuery = `
+  query getInboundByFormAttestationId($formAttestationId: String!){
+  inbound(formAttestationId:$formAttestationId){
+    attestationId
+    chainType
+    attestationType
+    chainId
+    eventNonce
+    blockHeight
+    sourceTxHash
+    sourceSender
+    routerBridgeContract
+    payload
+    status
+    formAttestationId
+  }
+}
+`;
+
 
 //const x = gql(latestBlockQuery) for apollo client DocumentNode

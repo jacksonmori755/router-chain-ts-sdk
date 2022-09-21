@@ -1,8 +1,10 @@
 import { getNetworkType, Network } from '../../networks';
 import {
   latestBlockQuery,
+  latestInboundsQuery,
   latestTransactionsQuery,
   specificBlockQuery,
+  specificInboundQuery,
   specificTransactionQuery,
 } from '../queries';
 import { gqlFetcher } from '../utils';
@@ -93,6 +95,36 @@ export class RouterExplorer {
       return data;
     } catch (e) {
       console.log(`Error | getLatestTransactions | ${e}`);
+    }
+  }
+  public async getLatestInbounds(limit: Number = 10, offset: Number = 1) {
+    try {
+      const data = await gqlFetcher(
+        this.chainEnvironment,
+        latestInboundsQuery,
+        {
+          limit: limit,
+          offset: offset,
+        }
+      );
+      return data;
+    } catch (e) {
+      console.log(`Error | getLatestInbounds | ${e}`);
+    }
+  }
+
+  public async getInboundByAttestationId(formAttestationId: String) {
+    try {
+      const data = await gqlFetcher(
+        this.chainEnvironment,
+        specificInboundQuery,
+        {
+          formAttestationId: formAttestationId,
+        }
+      );
+      return data;
+    } catch (e) {
+      console.log(`Error | getLatestInbounds | ${e}`);
     }
   }
 }

@@ -86,12 +86,12 @@ const urlEndpointsLocal: NetworkEndpoints = {
   const txService = new TxGrpcClient('tcp://devnet-alpha.routerprotocol.com');
 
   /** Simulate transaction */
-  // const simulationResponse = await txService.simulate(txRaw);
-  // console.log(
-  //   `Transaction simulation response: ${JSON.stringify(
-  //     simulationResponse.gasInfo
-  //   )}`
-  // );
+  const simulationResponse = await txService.simulate(txRaw);
+  console.log(
+    `Transaction simulation response: ${JSON.stringify(
+      simulationResponse.gasInfo
+    )}`
+  );
 
   /** Broadcast transaction */
   const txResponse = await txService.broadcast(txRaw);
