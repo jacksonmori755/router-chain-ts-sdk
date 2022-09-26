@@ -98,6 +98,28 @@ export const latestInboundsQuery = `
 }
 `;
 
+export const searchSpecificInboundQuery = `
+  query getLatestInbounds($searchTerm: String!,$limit: Int!, $offset: Int!){
+    paginatedInbound(where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm,routerBridgeContract:$searchTerm,formAttestationId:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+    totalRecords
+    inbounds{
+      attestationId
+      chainType
+      attestationType
+      chainId
+      eventNonce
+      blockHeight
+      sourceTxHash
+      sourceSender
+      routerBridgeContract
+      payload
+      status
+      formAttestationId
+    }
+  }
+}
+`;
+
 export const specificInboundQuery = `
   query getInboundByFormAttestationId($formAttestationId: String!){
   inbound(formAttestationId:$formAttestationId){

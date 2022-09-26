@@ -33,6 +33,21 @@ export interface BlockType {
   processed: Number;
 }
 
+export interface InboundType {
+  attestationId: String;
+  chainType: String;
+  attestationType: String;
+  chainId: String;
+  eventNonce: Number;
+  blockHeight: Number;
+  sourceTxHash: String;
+  sourceSender: String;
+  routerBridgeContract: String;
+  payload: String;
+  status: String;
+  formAttestationId: String;
+}
+
 export interface PaginatedBlock {
   totalRecords: Number;
   blocks: BlockType[];
@@ -41,4 +56,9 @@ export interface PaginatedBlock {
 export interface PaginatedTransaction {
   totalRecords: Number;
   transactions: TransactionType[];
+}
+
+export interface PaginatedInbound {
+  totalRecords: Number;
+  inbounds: InboundType[];
 }
