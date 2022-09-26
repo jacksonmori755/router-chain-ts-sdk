@@ -18,7 +18,7 @@ export const latestBlockQuery = `
         gasWanted
         gasUsed
         fee
-        eventLogs
+        event_logs
         success
       }
     }
@@ -34,6 +34,19 @@ export const specificBlockQuery = `
     proposer
     txn_count
     timestamp
+    transactions{
+         _id
+        height
+        sender
+        status
+        receiver
+        timeStamp
+        gasWanted
+        gasUsed
+        fee
+        event_logs
+        success
+    }
   }
 }
 `;
@@ -43,16 +56,16 @@ export const latestTransactionsQuery = `
     totalRecords
   transactions{
      _id
-  height
-  sender
-  status
-  receiver
-  timeStamp
-  gasWanted
-  gasUsed
-  fee
-  eventLogs
-  success
+    height
+    sender
+    status
+    receiver
+    timeStamp
+    gasWanted
+    gasUsed
+    fee
+    event_logs
+    success
   }
   }
 }
@@ -61,17 +74,17 @@ export const latestTransactionsQuery = `
 export const specificTransactionQuery = `
   query getTransactionByHash($hash: String!){
   transaction(_id:$hash){
-   _id
-  height
-  sender
-  status
-  receiver
-  timeStamp
-  gasWanted
-  gasUsed
-  fee
-  eventLogs
-  success
+    _id
+    height
+    sender
+    status
+    receiver
+    timeStamp
+    gasWanted
+    gasUsed
+    fee
+    event_logs
+    success
   }
 }
 `;

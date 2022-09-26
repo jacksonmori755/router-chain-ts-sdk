@@ -16,7 +16,7 @@ export interface TransactionType {
   gasWanted: String;
   gasUsed: String;
   fee: String;
-  eventLogs: String;
+  event_logs: String;
   success: String;
   txnRaw: String;
   rawLog: String;
@@ -31,6 +31,7 @@ export interface BlockType {
   total_gas: String;
   block_reward: String;
   processed: Number;
+  transactions: TransactionType[];
 }
 
 export interface InboundType {
