@@ -29,7 +29,7 @@ export type MapOfTypedDataField = Map<string, TypedDataField[]>;
 export const getEip712Domain = (ethereumChainId: EthereumChainId) => {
   return {
     domain: {
-      name: 'Injective Web3',
+      name: 'Router Web3',
       version: '1.0.0',
       chainId: '0x' + new BigNumberInBase(ethereumChainId).toString(16),
       salt: '0',

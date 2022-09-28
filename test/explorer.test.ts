@@ -54,14 +54,41 @@ describe('Queries Test', () => {
                                  //   console.log('Inbound =>', JSON.stringify(inbound));
                                  //   expect(inbound).toBeDefined();
                                  // });
-                                 it('Fetch individual transaction by its hash', async () => {
-                                   const paginatedInbound = await explorer.getInboundBySearch(
-                                     'CHAIN_TYPE_EVM-1-1'
-                                   );
-                                   console.log(
-                                     'inbound =>',
-                                     JSON.stringify(paginatedInbound)
-                                   );
-                                   expect(paginatedInbound).toBeDefined();
-                                 });
+                                 //  it('Fetch individual transaction by its hash', async () => {
+                                 //    const paginatedInbound = await explorer.getInboundBySearch(
+                                 //      'CHAIN_TYPE_EVM-1-1'
+                                 //    );
+                                 //    console.log(
+                                 //      'inbound =>',
+                                 //      JSON.stringify(paginatedInbound)
+                                 //    );
+                                 //    expect(paginatedInbound).toBeDefined();
+                                 //  });
+                                 //  it('Fetch Outbound', async () => {
+                                 //    const latestOutbounds = await explorer.getLatestOutbounds(
+                                 //      10,
+                                 //      1
+                                 //    );
+                                 //    console.log(
+                                 //      'latestOutbounds =>',
+                                 //      JSON.stringify(latestOutbounds)
+                                 //    );
+                                 //    expect(latestOutbounds).toBeDefined();
+                                 //  });
+                                 // it('Fetch individual Outbound by its formAttestationId', async () => {
+                                 //   const Outbound = await explorer.getOutboundByAttestationId(
+                                 //     'CHAIN_TYPE_EVM-80001-1'
+                                 //   );
+                                 //   console.log('Outbound =>', JSON.stringify(Outbound));
+                                 //   expect(Outbound).toBeDefined();
+                                 // });
+                                 // it('Fetch individual transaction by its hash', async () => {
+                                 //   const paginatedOutbound = await explorer.getOutboundBySearch(
+                                 //     'CHAIN_TYPE_EVM',
+                                 //     '80001',
+                                 //     'router1hrpna9v7vs3stzyd4z3xf00676kf78zpe2u5ksvljswn2vnjp3ys8kpdc7'
+                                 //   );
+                                 //   console.log('Outbound =>', JSON.stringify(paginatedOutbound));
+                                 //   expect(paginatedOutbound).toBeDefined();
+                                 // });
                                });

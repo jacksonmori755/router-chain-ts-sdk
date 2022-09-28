@@ -7,7 +7,7 @@ import {
   QueryParamsResponse as QueryDistributionParamsResponse,
 } from '@routerprotocol/chain-api/cosmos/distribution/v1beta1/query_pb';
 import { Query as DistributionQuery } from '@routerprotocol/chain-api/cosmos/distribution/v1beta1/query_pb_service';
-import { Coin } from '../../../ts-types';
+import { Coin } from '../../../types';
 import BaseConsumer from '../../BaseGrpcConsumer';
 import { ChainGrpcDistributionTransformer } from '../transformers';
 import { ValidatorRewards } from '../types/distribution';

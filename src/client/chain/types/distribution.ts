@@ -2,7 +2,7 @@ import {
   DelegationDelegatorReward as GrpcDelegationDelegatorReward,
   Params as GrpcDistributionParams,
 } from '@routerprotocol/chain-api/cosmos/distribution/v1beta1/distribution_pb';
-import { Coin } from '../../../ts-types';
+import { Coin } from '../../../types';
 
 export interface DistributionModuleParams {
   communityTax: string;

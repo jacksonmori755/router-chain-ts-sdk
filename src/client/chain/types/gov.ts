@@ -8,7 +8,7 @@ import {
   Vote as GrpcVote,
   ProposalStatusMap as GrpcProposalStatus,
 } from '@routerprotocol/chain-api/cosmos/gov/v1beta1/gov_pb';
-import { Coin } from '../../../ts-types';
+import { Coin } from '../../../types';
 
 export interface GovModuleStateParams {
   votingParams: {

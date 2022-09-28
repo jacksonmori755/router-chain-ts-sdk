@@ -1,18 +1,18 @@
-export interface Coin {
-  denom: string
-  amount: string
-}
+// export interface Coin {
+//   denom: string
+//   amount: string
+// }
 
-export enum StreamOperation {
-  Insert = 'insert',
-  Delete = 'delete',
-  Replace = 'replace',
-  Update = 'update',
-  Invalidate = 'invalidate',
-}
+// export enum StreamOperation {
+//   Insert = 'insert',
+//   Delete = 'delete',
+//   Replace = 'replace',
+//   Update = 'update',
+//   Invalidate = 'invalidate',
+// }
 
 export enum CosmosChainId {
-  Injective = 'injective-1',
+  Router = 'router-1',
   Cosmoshub = 'cosmoshub-4',
   Juno = 'juno-1',
   Osmosis = 'osmosis-1',
@@ -26,11 +26,11 @@ export enum CosmosChainId {
 }
 
 export enum TestnetCosmosChainId {
-  Injective = 'injective-888',
+  Router = 'router-888',
   Cosmoshub = 'cosmoshub-testnet',
 }
 
 export enum DevnetCosmosChainId {
-  Injective = 'injective-777',
-  Injective1 = 'injective-777',
+  Router = 'router-777',
+  router1 = 'router-777',
 }

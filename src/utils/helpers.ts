@@ -1,7 +1,7 @@
 import { ComposerResponse, Web3GatewayMessage } from '../ts-types';
 import snakeCaseKeys from 'snakecase-keys';
 import { Coin as GrpcCoin } from '@routerprotocol/chain-api/cosmos/base/v1beta1/coin_pb';
-import { Coin } from '../ts-types';
+import { Coin } from '../types';
 
 export const sleep = (timeout: number): Promise<void> =>
   new Promise(resolve => setTimeout(resolve, timeout));

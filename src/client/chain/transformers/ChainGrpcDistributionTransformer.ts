@@ -4,7 +4,7 @@ import {
   QueryDelegationTotalRewardsResponse,
 } from '@routerprotocol/chain-api/cosmos/distribution/v1beta1/query_pb';
 import { cosmosSdkDecToBigNumber } from '../../../utils';
-import { Coin } from '../../../ts-types';
+import { Coin } from '../../../types';
 import { DistributionModuleParams } from '../types/distribution';
 import { ValidatorRewards } from '../types/distribution';
 

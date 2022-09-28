@@ -113,7 +113,7 @@ export const latestInboundsQuery = `
 
 export const searchSpecificInboundQuery = `
   query getLatestInbounds($searchTerm: String!,$limit: Int!, $offset: Int!){
-    paginatedInbound(where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm,routerBridgeContract:$searchTerm,formAttestationId:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+    paginatedInbound(where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm,routerBridgeContract:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     inbounds{
       attestationId
@@ -147,6 +147,66 @@ export const specificInboundQuery = `
     routerBridgeContract
     payload
     status
+    formAttestationId
+  }
+}
+`;
+//sortBy:{blockHeight:desc},
+export const latestOutboundsQuery = `
+  query getLatestOutbounds($limit: Int!, $offset: Int!){
+    paginatedOutbound(limit:$limit,offset:$offset){
+    totalRecords
+    outbounds{
+      outgoingTxNonce
+      destinationChainType
+      destinationChainId
+      relayerFee
+      outgoingTxFee
+      isAtomic
+      sourceAddress
+      expiryTimestamp
+      status
+      contractCalls
+      formAttestationId
+    }
+  }
+}
+`;
+
+export const searchSpecificOutboundQuery = `
+  query getLatestOutbounds($destinationChainType: String!,$destinationChainId: String!,$sourceAddress: String!,$limit: Int!, $offset: Int!){
+    paginatedOutbound(where:{destinationChainType:$destinationChainType,destinationChainId:$destinationChainId,sourceAddress:$sourceAddress},sortBy:{outgoingTxNonce:desc},limit:$limit,offset:$offset){
+    totalRecords
+    outbounds{
+      outgoingTxNonce
+      destinationChainType
+      destinationChainId
+      relayerFee
+      outgoingTxFee
+      isAtomic
+      sourceAddress
+      expiryTimestamp
+      status
+      contractCalls
+      formAttestationId
+    }
+  }
+}
+`;
+
+export const specificOutboundQuery = `
+  query getOutboundByFormAttestationId($formAttestationId: String!){
+  outbound(formAttestationId:$formAttestationId){
+    outgoingTxNonce
+    destinationChainType
+    destinationChainId
+    relayerFee
+    outgoingTxFee
+    isAtomic
+    sourceAddress
+    expiryTimestamp
+    status
+    contractCalls
     formAttestationId
   }
 }

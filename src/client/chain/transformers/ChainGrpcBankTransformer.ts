@@ -1,5 +1,5 @@
 import { GrpcCoin, Pagination } from '../../../types';
-import { Coin } from '../../../ts-types';
+import { Coin } from '../../../types';
 import {
   QueryAllBalancesResponse,
   QueryBalanceResponse,
