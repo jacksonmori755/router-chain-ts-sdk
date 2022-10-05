@@ -113,7 +113,7 @@ export const latestInboundsQuery = `
 
 export const searchSpecificInboundQuery = `
   query getLatestInbounds($searchTerm: String!,$limit: Int!, $offset: Int!){
-    paginatedInbound(where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm,routerBridgeContract:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+    paginatedInbound(where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm,routerBridgeContract:$searchTerm,formAttestationId:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     inbounds{
       attestationId

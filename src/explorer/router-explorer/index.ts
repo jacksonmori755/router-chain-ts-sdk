@@ -190,7 +190,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      console.log(`Error | getLatestOutbounds | ${e}`);
+      console.log(`Error | getOutboundBySearch | ${e}`);
     }
   }
 
@@ -205,7 +205,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      console.log(`Error | getLatestOutbounds | ${e}`);
+      console.log(`Error | getOutboundByAttestationId | ${e}`);
     }
   }
 }

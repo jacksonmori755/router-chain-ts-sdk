@@ -49,6 +49,20 @@ export interface InboundType {
   formAttestationId: String;
 }
 
+export interface OutboundType {
+  outgoingTxNonce: Number;
+  destinationChainType: String;
+  destinationChainId: String;
+  relayerFee: String;
+  outgoingTxFee: String;
+  isAtomic: Boolean;
+  sourceAddress: String;
+  expiryTimestamp: Number;
+  status: String;
+  contractCalls: String;
+  formAttestationId: String;
+}
+
 export interface PaginatedBlock {
   totalRecords: Number;
   blocks: BlockType[];
@@ -62,4 +76,9 @@ export interface PaginatedTransaction {
 export interface PaginatedInbound {
   totalRecords: Number;
   inbounds: InboundType[];
+}
+
+export interface PaginatedOutbound {
+  totalRecords: Number;
+  outbounds: OutboundType[];
 }

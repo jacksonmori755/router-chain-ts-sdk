@@ -29,3 +29,8 @@ export type NetworkEndpoints = {
 export type UrlEndpoints = NetworkEndpoints /** Deprecated */
 
 export type ChainInfo = { feeDenom: string; chainId: string; env: string }
+
+export type ChainConfigurationtype = {
+  name: string;
+  chainId: string;
+};

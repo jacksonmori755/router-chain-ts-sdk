@@ -82,13 +82,16 @@ describe('Queries Test', () => {
                                  //   console.log('Outbound =>', JSON.stringify(Outbound));
                                  //   expect(Outbound).toBeDefined();
                                  // });
-                                 // it('Fetch individual transaction by its hash', async () => {
-                                 //   const paginatedOutbound = await explorer.getOutboundBySearch(
-                                 //     'CHAIN_TYPE_EVM',
-                                 //     '80001',
-                                 //     'router1hrpna9v7vs3stzyd4z3xf00676kf78zpe2u5ksvljswn2vnjp3ys8kpdc7'
-                                 //   );
-                                 //   console.log('Outbound =>', JSON.stringify(paginatedOutbound));
-                                 //   expect(paginatedOutbound).toBeDefined();
-                                 // });
+                                 it('Fetch individual transaction by its hash', async () => {
+                                   const paginatedOutbound = await explorer.getOutboundBySearch(
+                                     'CHAIN_TYPE_EVM',
+                                     '80001',
+                                     'router1hrpna9v7vs3stzyd4z3xf00676kf78zpe2u5ksvljswn2vnjp3ys8kpdc7'
+                                   );
+                                   console.log(
+                                     'Outbound =>',
+                                     JSON.stringify(paginatedOutbound)
+                                   );
+                                   expect(paginatedOutbound).toBeDefined();
+                                 });
                                });
