@@ -1,22 +1,25 @@
 import {
   devnetChainInfo,
+  dockerChainInfo,
   localChainInfo,
   mainnetChainInfo,
   testnetChainInfo,
-} from './chainInfos'
+} from './chainInfos';
 import {
   urlEndpointsMainnet,
   urlEndpointsLocal,
   urlEndpointsTestnet,
   urlEndpointsDevnet,
+  urlEndpointsDocker,
 } from './endpoints';
-import { ChainInfo, Network, NetworkEndpoints } from './types'
+import { ChainInfo, Network, NetworkEndpoints } from './types';
 
 export const networkEndpoints: Record<Network, NetworkEndpoints> = {
   [Network.Mainnet]: urlEndpointsMainnet,
   [Network.Devnet]: urlEndpointsDevnet,
   [Network.Testnet]: urlEndpointsTestnet,
   [Network.Local]: urlEndpointsLocal,
+  [Network.Docker]: urlEndpointsDocker,
 };
 
 export const chainInfos: Record<Network, ChainInfo> = {
@@ -24,6 +27,7 @@ export const chainInfos: Record<Network, ChainInfo> = {
   [Network.Devnet]: devnetChainInfo,
   [Network.Testnet]: testnetChainInfo,
   [Network.Local]: localChainInfo,
+  [Network.Docker]: dockerChainInfo,
 };
 
 export const getUrlEndpointForNetwork = (network: Network): NetworkEndpoints =>

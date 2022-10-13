@@ -24,6 +24,12 @@ export const localChainInfo: ChainInfo = {
   env: 'local',
 };
 
+export const dockerChainInfo: ChainInfo = {
+  feeDenom: 'router',
+  chainId: 'router-1',
+  env: 'docker',
+};
+
 export enum ChainType {
   EVM = 'CHAIN_TYPE_EVM',
 }

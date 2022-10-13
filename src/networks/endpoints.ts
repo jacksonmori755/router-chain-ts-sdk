@@ -23,3 +23,9 @@ export const urlEndpointsLocal: NetworkEndpoints = {
   lcdEndpoint: 'https://devnet-alpha.lcd.routerprotocol.com',
   grpcEndpoint: 'https://devnet-alpha.grpcweb.routerprotocol.com',
 };
+
+export const urlEndpointsDocker: NetworkEndpoints = {
+  explorerGql: 'http://host.docker.internal:3000/gql/query',
+  lcdEndpoint: 'https://devnet-alpha.lcd.routerprotocol.com',
+  grpcEndpoint: 'https://devnet-alpha.grpcweb.routerprotocol.com',
+};
