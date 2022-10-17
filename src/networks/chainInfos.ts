@@ -37,16 +37,44 @@ export enum ChainType {
 export const ChainTypes = [ChainType.EVM];
 
 export const ChainIdByChainType: {
-  [key: string]: ChainConfigurationtype[];
-} = {
-  [ChainType.EVM]: [
-    {
-      chainId: '80001',
-      name: 'Matic Testnet',
-    },
-    {
-      chainId: '1',
-      name: 'Georli',
-    },
-  ],
-};
+         [key: string]: ChainConfigurationtype[];
+       } = {
+         [ChainType.EVM]: [
+           {
+             chainId: '3',
+             name: 'Ropsten',
+             logoURI:
+               'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=023',
+           },
+           {
+             chainId: '4',
+             name: 'Rinkeby',
+             logoURI:
+               'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=023',
+           },
+           {
+             chainId: '5',
+             name: 'Georli',
+             logoURI:
+               'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=023',
+           },
+           {
+             chainId: '42',
+             name: 'Kovan',
+             logoURI:
+               'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=023',
+           },
+           {
+             chainId: '1',
+             name: 'Georli',
+             logoURI:
+               'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=023',
+           },
+           {
+             chainId: '80001',
+             name: 'Matic Testnet',
+             logoURI:
+               'https://cryptologos.cc/logos/polygon-matic-logo.png?v=023',
+           },
+         ],
+       };
