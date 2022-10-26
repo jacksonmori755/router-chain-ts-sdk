@@ -6,8 +6,8 @@ import { Coin } from '../types';
 export const sleep = (timeout: number): Promise<void> =>
   new Promise(resolve => setTimeout(resolve, timeout));
 
-// dexport const isServerSide = () => true;
-export const isServerSide = () => typeof window === 'undefined';
+export const isServerSide = () => true;
+//export const isServerSide = () => typeof window === 'undefined';
 
 export const getWeb3GatewayMessage = <T>(
   message: T,

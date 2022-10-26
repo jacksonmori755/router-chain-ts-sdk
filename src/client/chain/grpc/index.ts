@@ -5,3 +5,4 @@ export { ChainGrpcGovApi } from './ChainGrpcGovApi';
 export { ChainGrpcIbcApi } from './ChainGrpcIbcApi';
 export { ChainGrpcMintApi } from './ChainGrpcMintApi';
 export { ChainGrpcStakingApi } from './ChainGrpcStakingApi';
+export { ChainGrpcWasmApi } from './ChainGrpcWasmApi';

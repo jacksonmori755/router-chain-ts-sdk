@@ -1,5 +1,4 @@
-export const latestBlockQuery = `
-  query getLatestBlocks($limit: Int!, $offset: Int!){
+export const latestBlockQuery = `query getLatestBlocks($limit: Int!, $offset: Int!){
   paginatedBlock(sortBy:{_id:desc},limit:$limit,offset:$offset){
     totalRecords
     blocks{
@@ -53,6 +52,27 @@ export const specificBlockQuery = `
 export const latestTransactionsQuery = `
   query getLatestTransactions($limit: Int!, $offset: Int!){
     paginatedTransaction(sortBy:{height:desc,timeStamp:desc},limit:$limit,offset:$offset){
+    totalRecords
+  transactions{
+     _id
+    height
+    sender
+    status
+    receiver
+    timeStamp
+    gasWanted
+    gasUsed
+    fee
+    event_logs
+    success
+  }
+  }
+}
+`;
+
+export const latestTransactionsOfAddressQuery = `
+  query getLatestTransactions($address: String!,$limit: Int!, $offset: Int!){
+    paginatedTransaction(where_or:{sender:$address, receiver:$address}, sortBy:{height:desc,timeStamp:desc},limit:$limit,offset:$offset){
     totalRecords
   transactions{
      _id
@@ -211,6 +231,5 @@ export const specificOutboundQuery = `
   }
 }
 `;
-
 
 //const x = gql(latestBlockQuery) for apollo client DocumentNode

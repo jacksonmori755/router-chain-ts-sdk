@@ -6,3 +6,4 @@ export * from './ibc';
 export * from './staking';
 export * from './msgs';
 export * from './eip712';
+export * from './wasm';

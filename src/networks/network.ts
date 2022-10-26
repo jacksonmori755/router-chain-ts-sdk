@@ -30,14 +30,11 @@ export const chainInfos: Record<Network, ChainInfo> = {
   [Network.Docker]: dockerChainInfo,
 };
 
-export const getUrlEndpointForNetwork = (network: Network): NetworkEndpoints =>
-  networkEndpoints[network]
-
 export const getEndpointsForNetwork = (network: Network): NetworkEndpoints =>
-  networkEndpoints[network]
+  networkEndpoints[network];
 
 export const getChainInfoForNetwork = (network: Network): ChainInfo =>
-  chainInfos[network]
+  chainInfos[network];
 
 export const getNetworkInfo = (
   network: Network,
