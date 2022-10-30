@@ -90,19 +90,22 @@ export abstract class ConcreteException extends Error implements Exception {
   }
 
   public setStack(stack: string) {
-    super.stack = stack
-    this.stack = stack
-  }
+                                   //@ts-ignore
+                                   super.stack = stack;
+                                   this.stack = stack;
+                                 }
 
   public setName(name: string) {
-    super.name = name
-    this.name = name
-  }
+                                 //@ts-ignore
+                                 super.name = name;
+                                 this.name = name;
+                               }
 
   public setMessage(message: string) {
-    super.message = message
-    this.message = message
-  }
+                                       //@ts-ignore
+                                       super.message = message;
+                                       this.message = message;
+                                     }
 
   public setContextModule(contextModule: string) {
     this.contextModule = contextModule
