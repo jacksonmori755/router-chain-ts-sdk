@@ -21,6 +21,7 @@ import { DirectSignResponse } from '@cosmjs/proto-signing';
 import { DEFAULT_STD_FEE } from '../utils';
 import { EthereumChainId } from '../ts-types';
 import { createAny, createAnyMessage } from './utils';
+import { SignDoc as CosmosSignDoc } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
 
 export type MsgArg = {
   type: string;
@@ -263,17 +264,6 @@ export const createTransaction = ({
   };
 };
 
-export const createTxRawFromSigResponse = (
-  signatureResponse: DirectSignResponse
-) => {
-  const txRaw = new TxRaw();
-  txRaw.setAuthInfoBytes(signatureResponse.signed.authInfoBytes);
-  txRaw.setBodyBytes(signatureResponse.signed.bodyBytes);
-  txRaw.setSignaturesList([signatureResponse.signature.signature]);
-
-  return txRaw;
-};
-
 export const createTxRawEIP712 = (
   txRaw: TxRaw,
   extension: ExtensionOptionsWeb3Tx
@@ -311,4 +301,43 @@ export const createWeb3Extension = ({
   }
 
   return web3Extension;
+};
+
+/**
+ * Used when we get a DirectSignResponse from
+ * Cosmos native wallets like Keplr, Leap, etc after
+ * the TxRaw has been signed.
+ *
+ * The reason why we need to create a new TxRaw and
+ * not use the one that we passed to signing is that the users
+ * can change the gas fees and that will alter the original
+ * TxRaw which will cause signature miss match if we broadcast
+ * that transaction on chain
+ * @returns TxRaw
+ */
+export const createTxRawFromSigResponse = (
+  signatureResponse: DirectSignResponse
+) => {
+  const txRaw = new TxRaw();
+  txRaw.setAuthInfoBytes(signatureResponse.signed.authInfoBytes);
+  txRaw.setBodyBytes(signatureResponse.signed.bodyBytes);
+  txRaw.setSignaturesList([signatureResponse.signature.signature]);
+
+  return txRaw;
+};
+
+export const createTransactionAndCosmosSignDoc = (
+  args: CreateTransactionArgs
+) => {
+  const result = createTransaction(args);
+
+  return {
+    ...result,
+    cosmosSignDoc: CosmosSignDoc.fromPartial({
+      bodyBytes: result.bodyBytes,
+      authInfoBytes: result.authInfoBytes,
+      accountNumber: result.accountNumber,
+      chainId: args.chainId,
+    }),
+  };
 };
