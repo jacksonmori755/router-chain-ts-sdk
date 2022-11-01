@@ -3,6 +3,7 @@ import BigNumberInBase from '../utils/classes/BigNumber/BigNumberInBase';
 import snakecaseKeys from 'snakecase-keys';
 import { DEFAULT_GAS_LIMIT, DEFAULT_STD_FEE } from '../utils';
 import { Msgs } from './msgs';
+import { getTypesIncludingFeePayer } from './utils';
 
 export type Eip712ConvertTxArgs = {
   accountNumber: string;
@@ -262,6 +263,46 @@ export const objectKeysToEip712Types = (
 
   return output;
 };
+
+export const getEip712TypedData = ({
+  msgs,
+  tx,
+  fee,
+  ethereumChainId,
+}: {
+  msgs: Msgs | Msgs[];
+  tx: Eip712ConvertTxArgs;
+  fee?: Eip712ConvertFeeArgs;
+  ethereumChainId: EthereumChainId;
+}) => {
+  const messages = Array.isArray(msgs) ? msgs : [msgs];
+  const eip712Msgs = messages.map(m => m.toEip712());
+  const eip712MessageTypes = messages[0].toEip712Types();
+
+  const types = getDefaultEip712Types();
+  const typesWithMessageTypes = {
+    types: {
+      ...types.types,
+      ...Object.fromEntries(eip712MessageTypes),
+    },
+  };
+  const typesWithFeePayer = getTypesIncludingFeePayer({
+    fee,
+    types: typesWithMessageTypes,
+  });
+
+  return {
+    primaryType: 'Tx',
+    ...typesWithFeePayer,
+    ...getEip712Domain(ethereumChainId),
+    message: {
+      ...getEipTxDetails(tx),
+      ...getEip712Fee(fee),
+      msgs: eip712Msgs,
+    },
+  };
+};
+
 
 export const protoTypeToAminoType = (type: string): string => {
   const actualType = type.startsWith('/') ? type.substring(1) : type;
