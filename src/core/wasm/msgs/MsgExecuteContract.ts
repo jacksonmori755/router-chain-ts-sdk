@@ -5,7 +5,7 @@ import { MsgBase } from '../../MsgBase';
 
 export declare namespace MsgExecuteContract {
   export interface Params {
-    amount?: {
+    funds?: {
       denom: string;
       amount: string;
     };
@@ -59,11 +59,11 @@ export default class MsgExecuteContract extends MsgBase<
     message.setSender(params.sender);
     message.setContract(params.contractAddress);
 
-    if (params.amount) {
+    if (params.funds) {
       const funds = new Coin();
 
-      funds.setAmount(params.amount.amount);
-      funds.setDenom(params.amount.denom);
+      funds.setAmount(params.funds.amount);
+      funds.setDenom(params.funds.denom);
 
       message.setFundsList([funds]);
     }
