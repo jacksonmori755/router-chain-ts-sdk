@@ -26,6 +26,7 @@ import {
   GrpcUnaryRequestException,
   UnspecifiedErrorCode,
 } from '../../../exceptions';
+import { fromBase64 } from '../../../utils';
 
 /**
  * @category Chain Grpc API
@@ -145,7 +146,9 @@ export class ChainGrpcWasmApi extends BaseConsumer {
         typeof WasmQuery.SmartContractState
       >(request, WasmQuery.SmartContractState);
 
-      return response.toObject();
+      const { data } = response.toObject();
+      const responseText = fromBase64(data.toString());
+      return responseText;
     } catch (e) {
       if (e instanceof GrpcUnaryRequestException) {
         throw e;
