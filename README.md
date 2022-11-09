@@ -1,104 +1,464 @@
+# Overview
 
-# TSDX User Guide
+sdk-ts is an utility built to interact with Router Chain from node.js or browser based applications. With the functions present inside the sdk-ts you can broadly do the following things -
 
-Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
+- Read from Router Chain
+- Create a transaction
+- Sign a transaction
+- Broadcast a transaction to Router Chain
 
-> This TSDX setup is meant for developing libraries (not apps!) that can be published to NPM. If you’re looking to build a Node app, you could use `ts-node-dev`, plain `ts-node`, or simple `tsc`.
+You can add sdk-ts package in your node project via yarn or npm -
 
-> If you’re new to TypeScript, checkout [this handy cheatsheet](https://devhints.io/typescript)
-
-## Commands
-
-TSDX scaffolds your new library inside `/src`.
-
-To run TSDX, use:
-
-```bash
-npm start # or yarn start
+```jsx
+yarn add @routerprotocol/router-chain-sdk-ts
+(or) 
+npm i @routerprotocol/router-chain-sdk-ts
 ```
 
-This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
+## Usage/Examples
 
-To do a one-off build, use `npm run build` or `yarn build`.
+Below is an example given that demonstrates how to fetch balance - 
 
-To run tests, use `npm test` or `yarn test`.
+```jsx
+import {getEndpointsForNetwork} from "@routerprotocol/router-chain-sdk-ts"
 
-## Configuration
+const network = getEndpointsForNetwork(networkEnvironment);
+const bankClient = new ChainGrpcBankApi(grpcEndpoint);
 
-Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
-
-### Jest
-
-Jest tests are set up to run with `npm test` or `yarn test`.
-
-### Bundle Analysis
-
-[`size-limit`](https://github.com/ai/size-limit) is set up to calculate the real cost of your library with `npm run size` and visualize the bundle with `npm run analyze`.
-
-#### Setup Files
-
-This is the folder structure we set up for you:
-
-```txt
-/src
-  index.tsx       # EDIT THIS
-/test
-  blah.test.tsx   # EDIT THIS
-.gitignore
-package.json
-README.md         # EDIT THIS
-tsconfig.json
-```
-
-### Rollup
-
-TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
-
-### TypeScript
-
-`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
-
-## Continuous Integration
-
-### GitHub Actions
-
-Two actions are added by default:
-
-- `main` which installs deps w/ cache, lints, tests, and builds on all pushes against a Node and OS matrix
-- `size` which comments cost comparison of your library on every pull request using [`size-limit`](https://github.com/ai/size-limit)
-
-## Optimizations
-
-Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
-
-```js
-// ./types/index.d.ts
-declare var __DEV__: boolean;
-
-// inside your code...
-if (__DEV__) {
-  console.log('foo');
+/* Fetch all balances for a account */
+   const accountBalances = await bankClient.fetchBalances(
+     "router16sqwdtdxjl6zdvx49rvayhkyelfrhavpmknxh9"
+   );
+   console.log(accountBalances);
+/* 
+{
+  balances: [ { denom: 'router', amount: '1000000000000000000000' } ],
+  pagination: { total: 1, next: '' }
 }
+*/
+
+/* Fetch a particular account's balance for a particular denom */
+  const routersBalances = await bankClient.fetchBalance({
+    accountAddress: "router16sqwdtdxjl6zdvx49rvayhkyelfrhavpmknxh9",
+    denom: "router",
+   });
+  console.log(routersBalances);
+/* 
+{ denom: 'router', amount: '1000000000000000000000' }
+*/
 ```
 
-You can also choose to install and use [invariant](https://github.com/palmerhq/tsdx#invariant) and [warning](https://github.com/palmerhq/tsdx#warning) functions.
+Function `createTransaction`  returns the raw transaction and signed bytes. The `signbytes` can be signed and broadcast it to the chain. 
 
-## Module Formats
+```jsx
+const {
+  DEFAULT_STD_FEE,
+  createTransaction
+} = require("@routerprotocol/router-chain-sdk-ts");  
+  
+/** Create Raw Transaction */
+    const { signBytes, txRaw } = createTransaction({
+      message: message.toDirectSign(),
+      memo: "",
+      fee: DEFAULT_STD_FEE,
+      pubKey: publicKey,
+      sequence: parseInt(aliceAccount.account.base_account.sequence, 10),
+      accountNumber: parseInt(
+        aliceAccount.account.base_account.account_number,
+        10
+      ),
+      chainId: CHAIN_ID,
+    });
+```
 
-CJS, ESModules, and UMD module formats are supported.
+Given below an example of bank transaction which can be used to send transfer funds -
 
-The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
+```jsx
+const {
+  getEndpointsForNetwork,
+  ChainRestAuthApi,
+  PrivateKey,
+  DEFAULT_STD_FEE,
+  TxRestClient,
+  createTransaction,
+  MsgSend,
+  privateKeyToPublicKeyBase64,
+  isValidAddress,
+	devnetChainInfo
+} = require("@routerprotocol/router-chain-sdk-ts");
 
-## Named Exports
+const ROUTER_TO_SEND = "10";
 
-Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
+const amount = {
+  amount: expandDecimals(ROUTER_TO_SEND, 18).toString(),
+  denom: "router",
+};
 
-## Including Styles
+const network = getEndpointsForNetwork(networkEnvironment);
+const privateKeyHash = FAUCET_ACCOUNT_KEY;
 
-There are many ways to ship styles, including with CSS-in-JS. TSDX has no opinion on this, configure how you like.
+/** Intializing Faucet wallet from the private key */
+const privateKey = PrivateKey.fromPrivateKey(privateKeyHash);
+const alice = privateKey.toBech32();
+const alice_pubkey = privateKey.toPublicKey();
 
-For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
+const publicKey = privateKeyToPublicKeyBase64(
+  Buffer.from(privateKeyHash, "hex")
+);
 
-## Publishing to NPM
+/** Prepare the Message */
+const message = MsgSend.fromJSON({
+  amount,
+  srcRouterAddress: alice,
+  dstRouterAddress: destinationAddress,
+});
 
-We recommend using [np](https://github.com/sindresorhus/np).
+/** Get Faucet Accounts details */
+const aliceAccount = await new ChainRestAuthApi(
+  network.lcdEndpoint
+).fetchAccount(alice);
+
+/** Create Raw Transaction */
+const { signBytes, txRaw } = createTransaction({
+  message: message.toDirectSign(),
+  memo: "",
+  fee: DEFAULT_STD_FEE,
+  pubKey: publicKey,
+  sequence: parseInt(aliceAccount.account.base_account.sequence, 10),
+  accountNumber: parseInt(
+    aliceAccount.account.base_account.account_number,
+    10
+  ),
+  chainId: devnetChainInfo.chainId,
+});
+
+/** Sign transaction */
+const signature = await privateKey.sign(signBytes);
+
+/** Append Signatures */
+txRaw.setSignaturesList([signature]);
+
+const txService = new TxRestClient(network.lcdEndpoint);
+
+/** Broadcast transaction */
+const txResponse = await txService.broadcast(txRaw);
+
+console.log(
+  `Broadcasted transaction hash: ${JSON.stringify(txResponse.txhash)}`
+);
+
+```
+
+Given below is an example of how `MsgStoreCode` can be used to upload a wasm contract file to router chain - 
+
+```jsx
+import {
+  getEndpointsForNetwork,
+  getNetworkType,
+  MsgStoreCode,
+  PrivateKey,
+  privateKeyToPublicKeyBase64,
+  ChainRestAuthApi,
+  createTransaction,
+  DEFAULT_STD_FEE,
+	BigNumberInBase,
+  TxGrpcClient,
+  TxRestClient,
+  MsgInstantiateContract,
+} from '../../router-chain-ts-sdk/src/';
+import { sha256 } from '@cosmjs/crypto';
+import { logs } from '@cosmjs/stargate';
+import pako from 'pako';
+import _m0 from 'protobufjs/minimal';
+import * as fs from 'fs';
+
+const privateKey = PrivateKey.fromPrivateKey(privateKeyHash);
+
+const alice = privateKey.toBech32();
+const alice_pubkey = privateKey.toPublicKey();
+
+const publicKey = privateKeyToPublicKeyBase64(
+	Buffer.from(privateKeyHash, "hex")
+);
+
+const restClient = new TxRestClient(network.lcdEndpoint);
+
+/** Get Faucet Accounts details */
+  const aliceAccount = await new ChainRestAuthApi(
+    network.lcdEndpoint
+  ).fetchAccount(alice);
+  console.log(`aliceAccount => ${JSON.stringify(aliceAccount)}`);
+
+  const compressed = pako.gzip(wasmCode, { level: 9 });
+
+  const storeCodeMsg = MsgStoreCode.fromJSON({
+    sender: alice,
+    wasm: wasmCode,
+  });
+
+  const { signBytes, txRaw } = createTransaction({
+		message: storeCodeMsg.toDirectSign(),
+		memo: "",
+		fee: {
+			amount: [
+				{
+					amount: new BigNumberInBase(4000000000)
+						.times(500000000)
+						.toString(),
+					denom: "router",
+				},
+			],
+			gas: (500000000).toString(),
+		},
+		pubKey: publicKey,
+		sequence: parseInt(aliceAccount.account.base_account.sequence, 10),
+		accountNumber: parseInt(
+			aliceAccount.account.base_account.account_number,
+			10
+		),
+		chainId: "router-1",
+	});
+
+  /** Sign transaction */
+  const signature = await privateKey.sign(signBytes);
+
+  /** Append Signatures */
+  txRaw.setSignaturesList([signature]);
+
+  /** Broadcast transaction */
+  let txxResponse = await restClient.broadcast(txRaw);
+	let txResponse = await restClient. waitTxBroadcast(txxResponse.txhash);
+	console.log(`txResponse =>`, JSON.stringify(txResponse));
+
+  const parsedLogs = logs.parseRawLog(txResponse.raw_log);
+  const codeIdAttr = logs.findAttribute(parsedLogs, 'store_code', 'code_id');
+  const codeId = Number.parseInt(codeIdAttr.value, 10),
+  console.log(`deployedContract code id  =>`, codeId);
+```
+
+With `MsgInstantiateContract` we can instantiate the deployed contract with `codeId` -  
+
+```jsx
+import {
+  getEndpointsForNetwork,
+  getNetworkType,
+  MsgStoreCode,
+  PrivateKey,
+  privateKeyToPublicKeyBase64,
+  ChainRestAuthApi,
+  createTransaction,
+  DEFAULT_STD_FEE,
+	BigNumberInBase,
+  TxGrpcClient,
+  TxRestClient,
+  MsgInstantiateContract,
+} from '../../router-chain-ts-sdk/src/';
+import { sha256 } from '@cosmjs/crypto';
+import { logs } from '@cosmjs/stargate';
+import pako from 'pako';
+import _m0 from 'protobufjs/minimal';
+import * as fs from 'fs';
+
+const privateKey = PrivateKey.fromPrivateKey(privateKeyHash);
+
+const alice = privateKey.toBech32();
+const alice_pubkey = privateKey.toPublicKey();
+
+const publicKey = privateKeyToPublicKeyBase64(
+	Buffer.from(privateKeyHash, "hex")
+);
+
+const restClient = new TxRestClient(network.lcdEndpoint);
+const aliceAccount = await new ChainRestAuthApi(
+		network.lcdEndpoint
+	).fetchAccount(alice);
+	console.log(`aliceAccount => ${JSON.stringify(aliceAccount)}`);
+
+	const intantiateContractMsg = MsgInstantiateContract.fromJSON({
+		sender: alice,
+		admin: alice,
+		codeId: deployedContract.codeId,
+		label: "Mayank! Hello World",
+		msg: {},
+	});
+
+	const instantiateTx = createTransaction({
+		message: intantiateContractMsg.toDirectSign(),
+		memo: "",
+		fee: {
+			amount: [
+				{
+					amount: new BigNumberInBase(4000000000).times(500000000).toString(),
+					denom: "router",
+				},
+			],
+			gas: (500000000).toString(),
+		},
+		pubKey: publicKey,
+		sequence: parseInt(aliceAccount.account.base_account.sequence, 10), 
+		accountNumber: parseInt(
+			aliceAccount.account.base_account.account_number,
+			10
+		),
+		chainId: "router-1",
+	});
+
+	/** Sign transaction */
+	const signature = await privateKey.sign(instantiateTx.signBytes);
+
+	/** Append Signatures */
+	instantiateTx.txRaw.setSignaturesList([signature]);
+	const txService = new TxGrpcClient(network.grpcEndpoint);
+
+	/** Broadcast transaction */
+	const txResponse = await restClient.broadcast(instantiateTx.txRaw);
+	console.log(
+		`Broadcasted Instantiate transaction hash: ${JSON.stringify(
+			txResponse.txhash
+		)}`
+	);``
+	const parsedLogs = logs.parseRawLog(txResponse1.raw_log);
+	const contractAddressAttr = logs.findAttribute(
+		parsedLogs,
+		"instantiate",
+		"_contract_address"
+	);
+	console.log(`Deployed contract address =>`, contractAddressAttr);
+```
+
+Query any contract on Router Chain with these functions - 
+
+```jsx
+import { toUtf8, ChainGrpcWasmApi, getEndpointsForNetwork, getNetworkType, ChainGrpcBankApi } from "../../router-chain-ts-sdk/src";
+
+const network = getEndpointsForNetwork(getNetworkType("devnet"));
+
+const wasmClient = new ChainGrpcWasmApi(network.grpcEndpoint);
+const bankClient = new ChainGrpcBankApi(network.grpcEndpoint);
+const request = {
+address: "router1aaf9r6s7nxhysuegqrxv0wpm27ypyv4886medd3mrkrw6t4yfcns8a2l0y",
+queryData: toUtf8(JSON.stringify({fetch_white_listed_contract: {},})),
+};
+const fetchRawContractStateResult = await wasmClient.fetchRawContractState(
+request.address,
+request.queryData
+);
+console.log("fetchRawContractState DATA =>", fetchRawContractStateResult);
+
+const fetchContractCodeResult = await wasmClient.fetchContractCode(7);
+console.log("fetchContractCodeResult =>", fetchContractCodeResult);
+
+const fetchContractCodesResult = await wasmClient.fetchContractCodes();
+console.log("fetchContractCodesResult =>", fetchContractCodesResult);
+
+const fetchContractCodeContractsResult = await wasmClient.fetchContractCodeContracts(7);
+console.log("fetchContractCodeContractsResult =>", fetchContractCodeContractsResult);
+
+const fetchContractHistoryResult = await wasmClient.fetchContractHistory(
+request.address
+);
+console.log("fetchContractHistoryResult =>", fetchContractHistoryResult);
+
+const fetchContractInfoResult = await wasmClient.fetchContractInfo(
+request.address
+);
+console.log("fetchContractInfoResult =>", fetchContractInfoResult);
+
+const fetchSmartContractStateResult = await wasmClient.fetchSmartContractState(
+request.address,
+request.queryData
+);
+console.log("fetchSmartContractStateResult =>", fetchSmartContractStateResult);
+
+const fetchBalanceResult = await bankClient.fetchBalance({
+accountAddress: "router1m0s0544sgdczf2sm6l8v6py7rrpr8a2cvnjezx",
+denom: "router",
+});
+console.log("fetchBalanceResult =>", fetchBalanceResult);
+```
+
+With `MsgExecuteContract` you can execute any query on Router Chain - 
+
+```jsx
+import {
+	getEndpointsForNetwork,
+	getNetworkType,
+	MsgStoreCode,
+	PrivateKey,
+	privateKeyToPublicKeyBase64,
+	ChainRestAuthApi,
+	createTransaction,
+	DEFAULT_STD_FEE,
+	BigNumberInBase,
+	TxGrpcClient,
+	TxRestClient,
+	MsgInstantiateContract,
+} from "../../router-chain-ts-sdk/src/";
+import { sha256 } from "@cosmjs/crypto";
+import { logs } from "@cosmjs/stargate";
+import pako from "pako";
+import _m0 from "protobufjs/minimal";
+import { MsgExecuteContract } from "@routerprotocol/router-chain-sdk-ts";
+
+const privateKey = PrivateKey.fromPrivateKey(privateKeyHash);
+
+const alice = privateKey.toBech32();
+const alice_pubkey = privateKey.toPublicKey();
+
+const publicKey = privateKeyToPublicKeyBase64(
+	Buffer.from(privateKeyHash, "hex")
+);
+const restClient = new TxRestClient(network.lcdEndpoint);
+
+/** Get Faucet Accounts details */
+	const aliceAccount = await new ChainRestAuthApi(
+		network.lcdEndpoint
+	).fetchAccount(alice);
+
+	const executeContractMsg = MsgExecuteContract.fromJSON({
+		sender: alice,
+		action: "white_list_application_contract",
+		contractAddress:
+			"router1aaf9r6s7nxhysuegqrxv0wpm27ypyv4886medd3mrkrw6t4yfcns8a2l0y",
+		msg: {
+				chain_id: "80001",
+				chain_type: 0,
+				contract_address: [
+					171, 132, 131, 246, 77, 156, 109, 30, 207, 155, 132, 154, 230, 119,
+					221, 51, 21, 131, 92, 178,
+				],
+			},
+	});
+
+	const { signBytes, txRaw } = createTransaction({
+		message: executeContractMsg.toDirectSign(),
+		memo: "",
+		fee: {
+			amount: [
+				{
+					amount: new BigNumberInBase(4000000000).times(500000000).toString(),
+					denom: "router",
+				},
+			],
+			gas: (500000000).toString(),
+		},
+		pubKey: publicKey,
+		sequence: parseInt(aliceAccount.account.base_account.sequence, 10),
+		accountNumber: parseInt(
+			aliceAccount.account.base_account.account_number,
+			10
+		),
+		chainId: "router-1",
+	});
+
+	/** Sign transaction */
+	const signature = await privateKey.sign(signBytes);
+
+	/** Append Signatures */
+	txRaw.setSignaturesList([signature]);
+
+	/** Broadcast transaction */
+  let txxResponse = await restClient.broadcast(txRaw);
+	let txResponse = await restClient.waitTxBroadcast(txxResponse.txhash);
+	console.log(`txResponse =>`,(txResponse));
+```
