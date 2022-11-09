@@ -51,12 +51,12 @@ export interface InboundType {
     status: string;
     txnHash: string;
     timestamp: string;
-  };
+  }[];
   confirmations: {
     validator: string;
     txnHash: string;
     timestamp: string;
-  };
+  }[];
 }
 
 export interface OutboundType {
