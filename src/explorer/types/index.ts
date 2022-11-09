@@ -47,6 +47,16 @@ export interface InboundType {
   payload: String;
   status: String;
   formAttestationId: String;
+  historyStatus: {
+    status: string;
+    txnHash: string;
+    timestamp: string;
+  };
+  confirmations: {
+    validator: string;
+    txnHash: string;
+    timestamp: string;
+  };
 }
 
 export interface OutboundType {
