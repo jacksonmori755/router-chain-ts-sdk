@@ -129,6 +129,16 @@ export const latestInboundsQuery = `
       payload
       status
       formAttestationId
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      confirmations{
+        validator
+        txnHash
+        timestamp
+      }
     }
   }
 }
@@ -151,6 +161,16 @@ export const latestApplicationsInboundsQuery = `
       payload
       status
       formAttestationId
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      confirmations{
+        validator
+        txnHash
+        timestamp
+      }
     }
   }
 }
@@ -173,6 +193,16 @@ export const searchSpecificInboundQuery = `
       payload
       status
       formAttestationId
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      confirmations{
+        validator
+        txnHash
+        timestamp
+      }
     }
   }
 }
