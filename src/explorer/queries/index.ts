@@ -65,6 +65,7 @@ export const latestTransactionsQuery = `
     fee
     event_logs
     success
+    rawLog
   }
   }
 }
@@ -86,6 +87,7 @@ export const latestTransactionsOfAddressQuery = `
     fee
     event_logs
     success
+    rawLog
   }
   }
 }
@@ -105,6 +107,7 @@ export const specificTransactionQuery = `
     fee
     event_logs
     success
+    rawLog
   }
 }
 `;
@@ -112,6 +115,28 @@ export const specificTransactionQuery = `
 export const latestInboundsQuery = `
   query getLatestInbounds($limit: Int!, $offset: Int!){
     paginatedInbound(sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+    totalRecords
+    inbounds{
+      attestationId
+      chainType
+      attestationType
+      chainId
+      eventNonce
+      blockHeight
+      sourceTxHash
+      sourceSender
+      routerBridgeContract
+      payload
+      status
+      formAttestationId
+    }
+  }
+}
+`;
+
+export const latestApplicationsInboundsQuery = `
+  query getLatestInbounds($address: String! $limit: Int!, $offset: Int!){
+    paginatedInbound(where:{routerBridgeContract:$address},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     inbounds{
       attestationId
@@ -153,6 +178,38 @@ export const searchSpecificInboundQuery = `
 }
 `;
 
+export const filterApplicationInboundQuery = `
+  query getLatestInbounds($address: String!, $searchTerm: String!,$limit: Int!, $offset: Int!){
+    paginatedInbound(where:{routerBridgeContract:$address},where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+    totalRecords
+    inbounds{
+      attestationId
+      chainType
+      attestationType
+      chainId
+      eventNonce
+      blockHeight
+      sourceTxHash
+      sourceSender
+      routerBridgeContract
+      payload
+      status
+      formAttestationId
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      confirmations{
+        validator
+        txnHash
+        timestamp
+      }
+    }
+  }
+}
+`;
+
 export const specificInboundQuery = `
   query getInboundByFormAttestationId($formAttestationId: String!){
   inbound(formAttestationId:$formAttestationId){
@@ -168,6 +225,16 @@ export const specificInboundQuery = `
     payload
     status
     formAttestationId
+    historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      confirmations{
+        validator
+        txnHash
+        timestamp
+      }
   }
 }
 `;
@@ -193,9 +260,51 @@ export const latestOutboundsQuery = `
 }
 `;
 
+export const latestApplicationsOutboundsQuery = `
+  query getLatestOutbounds($address:String!, $limit: Int!, $offset: Int!){
+    paginatedOutbound(where:{sourceAddress:$address},limit:$limit,offset:$offset){
+    totalRecords
+    outbounds{
+      outgoingTxNonce
+      destinationChainType
+      destinationChainId
+      relayerFee
+      outgoingTxFee
+      isAtomic
+      sourceAddress
+      expiryTimestamp
+      status
+      contractCalls
+      formAttestationId
+    }
+  }
+}
+`;
+
 export const searchSpecificOutboundQuery = `
   query getLatestOutbounds($destinationChainType: String!,$destinationChainId: String!,$sourceAddress: String!,$limit: Int!, $offset: Int!){
     paginatedOutbound(where:{destinationChainType:$destinationChainType,destinationChainId:$destinationChainId,sourceAddress:$sourceAddress},sortBy:{outgoingTxNonce:desc},limit:$limit,offset:$offset){
+    totalRecords
+    outbounds{
+      outgoingTxNonce
+      destinationChainType
+      destinationChainId
+      relayerFee
+      outgoingTxFee
+      isAtomic
+      sourceAddress
+      expiryTimestamp
+      status
+      contractCalls
+      formAttestationId
+    }
+  }
+}
+`;
+
+export const filterApplicationOutboundQuery = `
+  query getLatestOutbounds($destinationChainType: String!,$destinationChainId: String!,$address: String!,$limit: Int!, $offset: Int!){
+    paginatedOutbound(where:{sourceAddress:$address},where_or:{destinationChainType:$destinationChainType,destinationChainId:$destinationChainId},sortBy:{outgoingTxNonce:desc},limit:$limit,offset:$offset){
     totalRecords
     outbounds{
       outgoingTxNonce
