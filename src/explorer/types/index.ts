@@ -81,19 +81,19 @@ export interface OutboundType {
     status: string;
     txnhash: string;
     timestamp: string;
-    blockheight: number;
+    blockHeight: number;
   }[];
   outboundSignatures: {
     validator: string;
     txnhash: string;
     timestamp: string;
-    blockheight: number;
+    blockHeight: number;
   }[];
   outboundACKSignatures: {
     validator: string;
     txnhash: string;
     timestamp: string;
-    blockheight: number;
+    blockHeight: number;
   }[];
   confirmations: {
     validator: string;
