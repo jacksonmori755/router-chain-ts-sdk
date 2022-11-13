@@ -320,16 +320,15 @@ export const latestOutboundsQuery = `
         status
         payload
       }
-      contractAckResponses
       confirmations{
         validator
         txnHash
         timestamp
       	blockHeight
       }
+      contractAckResponses
     }
     }
-  }
 }
 `;
 
@@ -388,7 +387,6 @@ export const latestApplicationsOutboundsQuery = `
       }
     }
     }
-  }
 }
 `;
 
@@ -447,7 +445,6 @@ export const searchSpecificOutboundQuery = `
       }
     }
     }
-  }
 }
 `;
 
@@ -506,7 +503,6 @@ export const filterApplicationOutboundQuery = `
       }
     }
     }
-  }
 }
 `;
 
@@ -554,13 +550,13 @@ export const specificOutboundQuery = `
         status
         payload
       }
-      contractAckResponses
       confirmations{
         validator
         txnHash
         timestamp
       	blockHeight
       }
+      contractAckResponses
   }
 }
 `;
