@@ -19,6 +19,7 @@ export const latestBlockQuery = `query getLatestBlocks($limit: Int!, $offset: In
         fee
         event_logs
         success
+        routePrice
       }
     }
   }
@@ -45,6 +46,7 @@ export const specificBlockQuery = `
         fee
         event_logs
         success
+        routePrice
     }
   }
 }
@@ -66,6 +68,7 @@ export const latestTransactionsQuery = `
     event_logs
     success
     rawLog
+    routePrice
   }
   }
 }
@@ -88,6 +91,7 @@ export const latestTransactionsOfAddressQuery = `
     event_logs
     success
     rawLog
+    routePrice
   }
   }
 }
@@ -108,6 +112,7 @@ export const specificTransactionQuery = `
     event_logs
     success
     rawLog
+    routePrice
   }
 }
 `;
@@ -284,6 +289,7 @@ export const latestOutboundsQuery = `
       expiryTimestamp
       status
       contractCalls
+      ackFormAttestationId
       formAttestationId
       attestationId
       outgoingTxNonce
@@ -295,11 +301,19 @@ export const latestOutboundsQuery = `
         status
         txnHash
         timestamp
+        blockHeight
       }
-     confirmations{
+     outboundSignatures{
         validator
         txnHash
         timestamp
+      	blockHeight
+      }
+      outboundACKSignatures{
+        validator
+        txnHash
+        timestamp
+      	blockHeight
       }
       contractsExecutionData{
         destContractAddress
@@ -307,6 +321,13 @@ export const latestOutboundsQuery = `
         payload
       }
       contractAckResponses
+      confirmations{
+        validator
+        txnHash
+        timestamp
+      	blockHeight
+      }
+    }
     }
   }
 }
@@ -327,6 +348,7 @@ export const latestApplicationsOutboundsQuery = `
       expiryTimestamp
       status
       contractCalls
+      ackFormAttestationId
       formAttestationId
       attestationId
       outgoingTxNonce
@@ -338,11 +360,19 @@ export const latestApplicationsOutboundsQuery = `
         status
         txnHash
         timestamp
+        blockHeight
       }
-     confirmations{
+     outboundSignatures{
         validator
         txnHash
         timestamp
+      	blockHeight
+      }
+      outboundACKSignatures{
+        validator
+        txnHash
+        timestamp
+      	blockHeight
       }
       contractsExecutionData{
         destContractAddress
@@ -350,6 +380,13 @@ export const latestApplicationsOutboundsQuery = `
         payload
       }
       contractAckResponses
+      confirmations{
+        validator
+        txnHash
+        timestamp
+      	blockHeight
+      }
+    }
     }
   }
 }
@@ -370,6 +407,7 @@ export const searchSpecificOutboundQuery = `
       expiryTimestamp
       status
       contractCalls
+      ackFormAttestationId
       formAttestationId
       attestationId
       outgoingTxNonce
@@ -381,11 +419,19 @@ export const searchSpecificOutboundQuery = `
         status
         txnHash
         timestamp
+        blockHeight
       }
-     confirmations{
+     outboundSignatures{
         validator
         txnHash
         timestamp
+      	blockHeight
+      }
+      outboundACKSignatures{
+        validator
+        txnHash
+        timestamp
+      	blockHeight
       }
       contractsExecutionData{
         destContractAddress
@@ -393,6 +439,13 @@ export const searchSpecificOutboundQuery = `
         payload
       }
       contractAckResponses
+      confirmations{
+        validator
+        txnHash
+        timestamp
+      	blockHeight
+      }
+    }
     }
   }
 }
@@ -413,6 +466,7 @@ export const filterApplicationOutboundQuery = `
       expiryTimestamp
       status
       contractCalls
+      ackFormAttestationId
       formAttestationId
       attestationId
       outgoingTxNonce
@@ -424,11 +478,19 @@ export const filterApplicationOutboundQuery = `
         status
         txnHash
         timestamp
+        blockHeight
       }
-     confirmations{
+     outboundSignatures{
         validator
         txnHash
         timestamp
+      	blockHeight
+      }
+      outboundACKSignatures{
+        validator
+        txnHash
+        timestamp
+      	blockHeight
       }
       contractsExecutionData{
         destContractAddress
@@ -436,6 +498,13 @@ export const filterApplicationOutboundQuery = `
         payload
       }
       contractAckResponses
+      confirmations{
+        validator
+        txnHash
+        timestamp
+      	blockHeight
+      }
+    }
     }
   }
 }
@@ -444,7 +513,7 @@ export const filterApplicationOutboundQuery = `
 export const specificOutboundQuery = `
   query getOutboundByFormAttestationId($formAttestationId: String!){
   outbound(formAttestationId:$formAttestationId){
-    eventNonce
+      ventNonce
       destinationChainType
       destinationChainId
       relayerFee
@@ -454,6 +523,7 @@ export const specificOutboundQuery = `
       expiryTimestamp
       status
       contractCalls
+      ackFormAttestationId
       formAttestationId
       attestationId
       outgoingTxNonce
@@ -465,11 +535,19 @@ export const specificOutboundQuery = `
         status
         txnHash
         timestamp
+        blockHeight
       }
-     confirmations{
+     outboundSignatures{
         validator
         txnHash
         timestamp
+      	blockHeight
+      }
+      outboundACKSignatures{
+        validator
+        txnHash
+        timestamp
+      	blockHeight
       }
       contractsExecutionData{
         destContractAddress
@@ -477,6 +555,12 @@ export const specificOutboundQuery = `
         payload
       }
       contractAckResponses
+      confirmations{
+        validator
+        txnHash
+        timestamp
+      	blockHeight
+      }
   }
 }
 `;

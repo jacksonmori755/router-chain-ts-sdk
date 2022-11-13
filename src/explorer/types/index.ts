@@ -20,6 +20,7 @@ export interface TransactionType {
   success: String;
   txnRaw: String;
   rawLog: String;
+  routePrice: string;
 }
 
 export interface BlockType {
@@ -76,15 +77,29 @@ export interface OutboundType {
   destinationTxHash: String;
   feeConsumed: Number;
   blockHeight: Number;
-  historyStatus: {
+  historystatus: {
     status: string;
-    txnHash: string;
+    txnhash: string;
     timestamp: string;
+    blockheight: number;
+  }[];
+  outboundsignatures: {
+    validator: string;
+    txnhash: string;
+    timestamp: string;
+    blockheight: number;
+  }[];
+  outboundacksignatures: {
+    validator: string;
+    txnhash: string;
+    timestamp: string;
+    blockheight: number;
   }[];
   confirmations: {
     validator: string;
     txnHash: string;
     timestamp: string;
+    blockHeight: number;
   }[];
   contractsExecutionData: {
     destContractAddress: String;
