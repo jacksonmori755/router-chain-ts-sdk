@@ -296,7 +296,7 @@ export const latestOutboundsQuery = `
         txnHash
         timestamp
       }
-      signatures{
+     confirmations{
         validator
         txnHash
         timestamp
@@ -339,7 +339,7 @@ export const latestApplicationsOutboundsQuery = `
         txnHash
         timestamp
       }
-      signatures{
+     confirmations{
         validator
         txnHash
         timestamp
@@ -382,7 +382,7 @@ export const searchSpecificOutboundQuery = `
         txnHash
         timestamp
       }
-      signatures{
+     confirmations{
         validator
         txnHash
         timestamp
@@ -425,7 +425,7 @@ export const filterApplicationOutboundQuery = `
         txnHash
         timestamp
       }
-      signatures{
+     confirmations{
         validator
         txnHash
         timestamp
@@ -466,7 +466,7 @@ export const specificOutboundQuery = `
         txnHash
         timestamp
       }
-      signatures{
+     confirmations{
         validator
         txnHash
         timestamp
