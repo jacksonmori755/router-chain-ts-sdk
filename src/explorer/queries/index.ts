@@ -279,7 +279,7 @@ export const latestOutboundsQuery = `
       destinationChainId
       relayerFee
       outgoingTxFee
-      isAtomic: Boolean!
+      isAtomic
       sourceAddress
       expiryTimestamp
       status
@@ -296,7 +296,7 @@ export const latestOutboundsQuery = `
         txnHash
         timestamp
       }
-      confirmations{
+      signatures{
         validator
         txnHash
         timestamp
@@ -308,6 +308,7 @@ export const latestOutboundsQuery = `
       }
       contractAckResponses
     }
+}
   }
 }
 `;
@@ -322,7 +323,7 @@ export const latestApplicationsOutboundsQuery = `
       destinationChainId
       relayerFee
       outgoingTxFee
-      isAtomic: Boolean!
+      isAtomic
       sourceAddress
       expiryTimestamp
       status
@@ -339,7 +340,7 @@ export const latestApplicationsOutboundsQuery = `
         txnHash
         timestamp
       }
-      confirmations{
+      signatures{
         validator
         txnHash
         timestamp
@@ -351,6 +352,7 @@ export const latestApplicationsOutboundsQuery = `
       }
       contractAckResponses
     }
+}
   }
 }
 `;
@@ -365,7 +367,7 @@ export const searchSpecificOutboundQuery = `
       destinationChainId
       relayerFee
       outgoingTxFee
-      isAtomic: Boolean!
+      isAtomic
       sourceAddress
       expiryTimestamp
       status
@@ -382,7 +384,7 @@ export const searchSpecificOutboundQuery = `
         txnHash
         timestamp
       }
-      confirmations{
+      signatures{
         validator
         txnHash
         timestamp
@@ -394,6 +396,7 @@ export const searchSpecificOutboundQuery = `
       }
       contractAckResponses
     }
+}
   }
 }
 `;
@@ -408,7 +411,7 @@ export const filterApplicationOutboundQuery = `
       destinationChainId
       relayerFee
       outgoingTxFee
-      isAtomic: Boolean!
+      isAtomic
       sourceAddress
       expiryTimestamp
       status
@@ -425,7 +428,7 @@ export const filterApplicationOutboundQuery = `
         txnHash
         timestamp
       }
-      confirmations{
+      signatures{
         validator
         txnHash
         timestamp
@@ -437,6 +440,7 @@ export const filterApplicationOutboundQuery = `
       }
       contractAckResponses
     }
+}
   }
 }
 `;
@@ -445,28 +449,28 @@ export const specificOutboundQuery = `
   query getOutboundByFormAttestationId($formAttestationId: String!){
   outbound(formAttestationId:$formAttestationId){
     eventNonce
-    destinationChainType
-    destinationChainId
-    relayerFee
-    outgoingTxFee
-    isAtomic: Boolean!
-    sourceAddress
-    expiryTimestamp
-    status
-    contractCalls
-    formAttestationId
-    attestationId
-    outgoingTxNonce
-    outboundTxRequestedBy
-    destinationTxHash
-    feeConsumed
-    blockHeight
-    historyStatus{
+      destinationChainType
+      destinationChainId
+      relayerFee
+      outgoingTxFee
+      isAtomic
+      sourceAddress
+      expiryTimestamp
+      status
+      contractCalls
+      formAttestationId
+      attestationId
+      outgoingTxNonce
+      outboundTxRequestedBy
+      destinationTxHash
+      feeConsumed
+      blockHeight
+      historyStatus{
         status
         txnHash
         timestamp
       }
-      confirmations{
+      signatures{
         validator
         txnHash
         timestamp
