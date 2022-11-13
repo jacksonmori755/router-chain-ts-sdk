@@ -71,6 +71,27 @@ export interface OutboundType {
   status: String;
   contractCalls: String;
   formAttestationId: String;
+  attestationId: String;
+  outboundTxRequestedBy: String;
+  destinationTxHash: String;
+  feeConsumed: Number;
+  blockHeight: Number;
+  historyStatus: {
+    status: string;
+    txnHash: string;
+    timestamp: string;
+  }[];
+  confirmations: {
+    validator: string;
+    txnHash: string;
+    timestamp: string;
+  }[];
+  contractsExecutionData: {
+    destContractAddress: String;
+    status: Boolean;
+    payload: String;
+  }[];
+  contractAckResponses: Boolean[];
 }
 
 export interface PaginatedBlock {
