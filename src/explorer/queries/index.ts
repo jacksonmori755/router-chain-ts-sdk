@@ -274,17 +274,39 @@ export const latestOutboundsQuery = `
     paginatedOutbound(limit:$limit,offset:$offset){
     totalRecords
     outbounds{
-      outgoingTxNonce
+      eventNonce
       destinationChainType
       destinationChainId
       relayerFee
       outgoingTxFee
-      isAtomic
+      isAtomic: Boolean!
       sourceAddress
       expiryTimestamp
       status
       contractCalls
       formAttestationId
+      attestationId
+      outgoingTxNonce
+      outboundTxRequestedBy
+      destinationTxHash
+      feeConsumed
+      blockHeight
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      confirmations{
+        validator
+        txnHash
+        timestamp
+      }
+      contractsExecutionData{
+        destContractAddress
+        status
+        payload
+      }
+      contractAckResponses
     }
   }
 }
@@ -295,17 +317,39 @@ export const latestApplicationsOutboundsQuery = `
     paginatedOutbound(where:{sourceAddress:$address},limit:$limit,offset:$offset){
     totalRecords
     outbounds{
-      outgoingTxNonce
+      eventNonce
       destinationChainType
       destinationChainId
       relayerFee
       outgoingTxFee
-      isAtomic
+      isAtomic: Boolean!
       sourceAddress
       expiryTimestamp
       status
       contractCalls
       formAttestationId
+      attestationId
+      outgoingTxNonce
+      outboundTxRequestedBy
+      destinationTxHash
+      feeConsumed
+      blockHeight
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      confirmations{
+        validator
+        txnHash
+        timestamp
+      }
+      contractsExecutionData{
+        destContractAddress
+        status
+        payload
+      }
+      contractAckResponses
     }
   }
 }
@@ -316,17 +360,39 @@ export const searchSpecificOutboundQuery = `
     paginatedOutbound(where:{destinationChainType:$destinationChainType,destinationChainId:$destinationChainId,sourceAddress:$sourceAddress},sortBy:{outgoingTxNonce:desc},limit:$limit,offset:$offset){
     totalRecords
     outbounds{
-      outgoingTxNonce
+      eventNonce
       destinationChainType
       destinationChainId
       relayerFee
       outgoingTxFee
-      isAtomic
+      isAtomic: Boolean!
       sourceAddress
       expiryTimestamp
       status
       contractCalls
       formAttestationId
+      attestationId
+      outgoingTxNonce
+      outboundTxRequestedBy
+      destinationTxHash
+      feeConsumed
+      blockHeight
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      confirmations{
+        validator
+        txnHash
+        timestamp
+      }
+      contractsExecutionData{
+        destContractAddress
+        status
+        payload
+      }
+      contractAckResponses
     }
   }
 }
@@ -337,17 +403,39 @@ export const filterApplicationOutboundQuery = `
     paginatedOutbound(where:{sourceAddress:$address},where_or:{destinationChainType:$destinationChainType,destinationChainId:$destinationChainId},sortBy:{outgoingTxNonce:desc},limit:$limit,offset:$offset){
     totalRecords
     outbounds{
-      outgoingTxNonce
+      eventNonce
       destinationChainType
       destinationChainId
       relayerFee
       outgoingTxFee
-      isAtomic
+      isAtomic: Boolean!
       sourceAddress
       expiryTimestamp
       status
       contractCalls
       formAttestationId
+      attestationId
+      outgoingTxNonce
+      outboundTxRequestedBy
+      destinationTxHash
+      feeConsumed
+      blockHeight
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      confirmations{
+        validator
+        txnHash
+        timestamp
+      }
+      contractsExecutionData{
+        destContractAddress
+        status
+        payload
+      }
+      contractAckResponses
     }
   }
 }
@@ -356,17 +444,39 @@ export const filterApplicationOutboundQuery = `
 export const specificOutboundQuery = `
   query getOutboundByFormAttestationId($formAttestationId: String!){
   outbound(formAttestationId:$formAttestationId){
-    outgoingTxNonce
+    eventNonce
     destinationChainType
     destinationChainId
     relayerFee
     outgoingTxFee
-    isAtomic
+    isAtomic: Boolean!
     sourceAddress
     expiryTimestamp
     status
     contractCalls
     formAttestationId
+    attestationId
+    outgoingTxNonce
+    outboundTxRequestedBy
+    destinationTxHash
+    feeConsumed
+    blockHeight
+    historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      confirmations{
+        validator
+        txnHash
+        timestamp
+      }
+      contractsExecutionData{
+        destContractAddress
+        status
+        payload
+      }
+      contractAckResponses
   }
 }
 `;
