@@ -148,7 +148,9 @@ export class ChainGrpcWasmApi extends BaseConsumer {
 
       const { data } = response.toObject();
       const responseText = fromBase64(data.toString());
-      return responseText;
+      return {
+        data: responseText,
+      };
     } catch (e) {
       if (e instanceof GrpcUnaryRequestException) {
         throw e;
