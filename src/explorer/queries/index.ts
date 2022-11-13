@@ -308,7 +308,6 @@ export const latestOutboundsQuery = `
       }
       contractAckResponses
     }
-}
   }
 }
 `;
@@ -352,7 +351,6 @@ export const latestApplicationsOutboundsQuery = `
       }
       contractAckResponses
     }
-}
   }
 }
 `;
@@ -396,7 +394,6 @@ export const searchSpecificOutboundQuery = `
       }
       contractAckResponses
     }
-}
   }
 }
 `;
@@ -440,7 +437,6 @@ export const filterApplicationOutboundQuery = `
       }
       contractAckResponses
     }
-}
   }
 }
 `;
