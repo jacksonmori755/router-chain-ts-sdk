@@ -77,19 +77,19 @@ export interface OutboundType {
   destinationTxHash: String;
   feeConsumed: Number;
   blockHeight: Number;
-  historystatus: {
+  historyStatus: {
     status: string;
     txnhash: string;
     timestamp: string;
     blockheight: number;
   }[];
-  outboundsignatures: {
+  outboundSignatures: {
     validator: string;
     txnhash: string;
     timestamp: string;
     blockheight: number;
   }[];
-  outboundacksignatures: {
+  outboundACKSignatures: {
     validator: string;
     txnhash: string;
     timestamp: string;
