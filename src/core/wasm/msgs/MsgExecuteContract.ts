@@ -1,5 +1,6 @@
 import { Coin } from '@routerprotocol/chain-api/cosmos/base/v1beta1/coin_pb';
 import { MsgExecuteContract as BaseMsgExecuteContract } from '@routerprotocol/chain-api/cosmwasm/wasm/v1/tx_pb';
+import snakeCaseKeys from 'snakecase-keys';
 import { toUtf8 } from '../../../utils';
 import { MsgBase } from '../../MsgBase';
 
@@ -81,12 +82,24 @@ export default class MsgExecuteContract extends MsgBase<
   }
 
   public toAmino(): MsgExecuteContract.Amino {
+    const { params } = this;
     const proto = this.toProto();
-
-    return {
-      type: 'wasm/MsgExecuteContract',
-      ...proto.toObject(),
+    const message = {
+      ...snakeCaseKeys(proto.toObject()),
+      ...(params.funds && {
+        funds: proto
+          .getFundsList()
+          .map(amount => snakeCaseKeys(amount.toObject())),
+      }),
     };
+
+    // @ts-ignore
+    delete message.funds_list;
+
+    return ({
+      type: 'wasm/MsgExecuteContract',
+      ...message,
+    } as unknown) as MsgExecuteContract.Amino;
   }
 
   public toWeb3(): MsgExecuteContract.Web3 {

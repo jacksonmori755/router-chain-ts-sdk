@@ -57,7 +57,8 @@ export const mapMultipleComposerResponseMessages = <T, R>(
     }
   );
 
-export const objectToJson = (
+
+       export const objectToJson = (
          object: Record<string, any>,
          params?:
            | {
@@ -74,7 +75,7 @@ export const objectToJson = (
          return JSON.stringify(object, replacer, indentation);
        };
 
-export const protoObjectToJson = (
+       export const protoObjectToJson = (
          object: any,
          params?:
            | {
@@ -95,12 +96,12 @@ export const protoObjectToJson = (
          return objectToJson(object, { replacer, indentation });
        };
 
-export const grpcCoinToUiCoin = (coin: GrpcCoin): Coin => ({
+       export const grpcCoinToUiCoin = (coin: GrpcCoin): Coin => ({
          amount: coin.getAmount(),
          denom: coin.getDenom(),
        });
 
-export const uint8ArrayToString = (
+       export const uint8ArrayToString = (
          string: string | Uint8Array | null | undefined
        ): string => {
          if (!string) {
@@ -111,7 +112,29 @@ export const uint8ArrayToString = (
            return string as string;
          }
 
-         // TODO: uncomment
-         // return new TextDecoder().decode(string)
-         return '';
+         return new TextDecoder().decode(string);
+       };
+
+       export const toPascalCase = (str: string): string => {
+         return `${str}`
+           .toLowerCase()
+           .replace(new RegExp(/[-_]+/, 'g'), ' ')
+           .replace(new RegExp(/[^\w\s]/, 'g'), '')
+           .replace(
+             new RegExp(/\s+(.)(\w*)/, 'g'),
+             (_$1, $2, $3) => `${$2.toUpperCase() + $3}`
+           )
+           .replace(new RegExp(/\w/), s => s.toUpperCase());
+       };
+
+       export const snakeToPascal = (str: string): string => {
+         return str
+           .split('/')
+           .map(snake =>
+             snake
+               .split('_')
+               .map(substr => substr.charAt(0).toUpperCase() + substr.slice(1))
+               .join('')
+           )
+           .join('/');
        };

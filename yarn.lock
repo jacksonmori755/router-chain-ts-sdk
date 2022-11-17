@@ -7237,9 +7237,9 @@ snake-case@^3.0.4:
     dot-case "^3.0.4"
     tslib "^2.0.3"
 
-snakecase-keys@^5.1.2:
+snakecase-keys@^5.4.1:
   version "5.4.4"
-  resolved "https://registry.npmjs.org/snakecase-keys/-/snakecase-keys-5.4.4.tgz"
+  resolved "https://registry.yarnpkg.com/snakecase-keys/-/snakecase-keys-5.4.4.tgz#28745b0175863ffc292ad97d96fe4e8e288a87a2"
   integrity sha512-YTywJG93yxwHLgrYLZjlC75moVEX04LZM4FHfihjHe1FCXm+QaLOFfSf535aXOAd0ArVQMWUAe8ZPm4VtWyXaA==
   dependencies:
     map-obj "^4.1.0"
