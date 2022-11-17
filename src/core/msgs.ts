@@ -9,6 +9,11 @@ import MsgDelegate from './staking/msgs/MsgDelegate';
 import MsgUndelegate from './staking/msgs/MsgUndelegate';
 import MsgBeginRedelegate from './staking/msgs/MsgBeginRedelegate';
 import { MsgSubmitProposal } from './gov';
+import {
+  MsgExecuteContract,
+  MsgInstantiateContract,
+  MsgStoreCode,
+} from './wasm';
 
 /**
  * @category Messages
@@ -24,4 +29,8 @@ export type Msgs =
   | MsgTransfer
   | MsgDelegate
   | MsgUndelegate
-  | MsgBeginRedelegate;
+  | MsgBeginRedelegate
+  | MsgStoreCode
+  | MsgInstantiateContract
+  | MsgExecuteContract;
+
