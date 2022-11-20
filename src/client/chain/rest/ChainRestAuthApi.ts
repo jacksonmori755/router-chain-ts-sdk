@@ -1,5 +1,15 @@
-import BaseRestConsumer from '../../BaseRestConsumer'
-import { AccountResponse, RestApiResponse } from '../types/auth-rest';
+import {
+  HttpRequestException,
+  UnspecifiedErrorCode,
+} from '../../../exceptions';
+import BaseRestConsumer from '../../BaseRestConsumer';
+import { ChainModule } from '../types';
+import {
+  AccountResponse,
+  BaseAccountRestResponse,
+  CosmosAccountRestResponse,
+  RestApiResponse,
+} from '../types/auth-rest';
 
 /**
  * @category Chain Rest API
@@ -11,10 +21,53 @@ export class ChainRestAuthApi extends BaseRestConsumer {
    * @param address address of account to look up
    */
   public async fetchAccount(address: string): Promise<AccountResponse> {
-    const response = (await this.client.get(
-      `cosmos/auth/v1beta1/accounts/${address}`,
-    )) as RestApiResponse<AccountResponse>
+    try {
+      const response = (await this.get(
+        `cosmos/auth/v1beta1/accounts/${address}`
+      )) as RestApiResponse<AccountResponse>;
 
-    return response.data
+      return response.data;
+    } catch (e) {
+      if (e instanceof HttpRequestException) {
+        throw e;
+      }
+
+      throw new HttpRequestException(new Error((e as any).message), {
+        code: UnspecifiedErrorCode,
+        contextModule: ChainModule.Auth,
+      });
+    }
+  }
+
+  /**
+   * Looks up the account information for any cosmos chain address.
+   *
+   * @param address address of account to look up
+   */
+  public async fetchCosmosAccount(
+    address: string
+  ): Promise<BaseAccountRestResponse> {
+    try {
+      const isInjectiveAddress =
+        address.startsWith('inj') || address.startsWith('evmos');
+      const response = (await this.get(
+        `cosmos/auth/v1beta1/accounts/${address}`
+      )) as RestApiResponse<AccountResponse | CosmosAccountRestResponse>;
+
+      const baseAccount = isInjectiveAddress
+        ? (response.data as AccountResponse).account.base_account
+        : (response.data as CosmosAccountRestResponse).account;
+
+      return baseAccount;
+    } catch (e) {
+      if (e instanceof HttpRequestException) {
+        throw e;
+      }
+
+      throw new HttpRequestException(new Error((e as any).message), {
+        code: UnspecifiedErrorCode,
+        contextModule: ChainModule.Auth,
+      });
+    }
   }
 }
