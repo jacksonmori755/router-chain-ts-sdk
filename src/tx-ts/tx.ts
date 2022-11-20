@@ -20,7 +20,7 @@ import { PubKey } from '@routerprotocol/chain-api/crypto/ethsecp256k1/keys_pb';
 //import { DirectSignResponse } from '@cosmjs/proto-signing';
 import { DEFAULT_STD_FEE } from '../utils';
 //import { EthereumChainId } from '../ts-types';
-import { createAny, createAnyMessage } from './utils';
+import { createAny, createAnyMessage } from './helpers';
 //import { SignDoc as CosmosSignDoc } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
 
 export type MsgArg = {
