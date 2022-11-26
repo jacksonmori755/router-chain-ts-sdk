@@ -83,9 +83,9 @@ export const getPublicKey = ({
   let proto;
   let path;
 
-  if (chainId.startsWith('injective')) {
+  if (chainId.startsWith('router')) {
     proto = new PubKey();
-    path = '/injective.crypto.v1beta1.ethsecp256k1.PubKey';
+    path = '/router.crypto.v1beta1.ethsecp256k1.PubKey';
   } else if (chainId.startsWith('evmos')) {
     proto = new PubKey();
     path = '/ethermint.crypto.v1.ethsecp256k1.PubKey';

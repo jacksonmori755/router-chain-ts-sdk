@@ -276,7 +276,7 @@ export const specificInboundQuery = `
 //sortBy:{blockHeight:desc},
 export const latestOutboundsQuery = `
   query getLatestOutbounds($limit: Int!, $offset: Int!){
-    paginatedOutbound(limit:$limit,offset:$offset){
+    paginatedOutbound(sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     outbounds{
       eventNonce
@@ -334,7 +334,7 @@ export const latestOutboundsQuery = `
 
 export const latestApplicationsOutboundsQuery = `
   query getLatestOutbounds($address:String!, $limit: Int!, $offset: Int!){
-    paginatedOutbound(where:{sourceAddress:$address},limit:$limit,offset:$offset){
+    paginatedOutbound(where:{sourceAddress:$address},sortBy:{outgoingTxNonce:desc},limit:$limit,offset:$offset){
     totalRecords
     outbounds{
       eventNonce
@@ -392,7 +392,7 @@ export const latestApplicationsOutboundsQuery = `
 
 export const searchSpecificOutboundQuery = `
   query getLatestOutbounds($destinationChainType: String!,$destinationChainId: String!,$sourceAddress: String!,$limit: Int!, $offset: Int!){
-    paginatedOutbound(where:{destinationChainType:$destinationChainType,destinationChainId:$destinationChainId,sourceAddress:$sourceAddress},sortBy:{outgoingTxNonce:desc},limit:$limit,offset:$offset){
+    paginatedOutbound(where:{destinationChainType:$destinationChainType,destinationChainId:$destinationChainId,sourceAddress:$sourceAddress},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     outbounds{
       eventNonce

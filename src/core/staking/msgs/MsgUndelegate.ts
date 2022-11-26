@@ -5,11 +5,11 @@ import { MsgBase } from '../../MsgBase'
 export declare namespace MsgUndelegate {
   export interface Params {
     amount: {
-      denom: string
-      amount: string
-    }
-    validatorAddress: string
-    injectiveAddress: string
+      denom: string;
+      amount: string;
+    };
+    validatorAddress: string;
+    routerAddress: string;
   }
   export interface DirectSign {
     type: '/cosmos.staking.v1beta1.MsgUndelegate'
@@ -54,7 +54,7 @@ export default class MsgUndelegate extends MsgBase<
 
     const message = new BaseMsgUndelegate()
     message.setAmount(coinAmount)
-    message.setDelegatorAddress(params.injectiveAddress)
+    message.setDelegatorAddress(params.routerAddress);
     message.setValidatorAddress(params.validatorAddress)
 
     return message

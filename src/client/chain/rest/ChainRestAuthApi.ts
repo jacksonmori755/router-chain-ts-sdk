@@ -48,13 +48,12 @@ export class ChainRestAuthApi extends BaseRestConsumer {
     address: string
   ): Promise<BaseAccountRestResponse> {
     try {
-      const isInjectiveAddress =
-        address.startsWith('inj') || address.startsWith('evmos');
+      const isRouterAddress = address.startsWith('router');
       const response = (await this.get(
         `cosmos/auth/v1beta1/accounts/${address}`
       )) as RestApiResponse<AccountResponse | CosmosAccountRestResponse>;
 
-      const baseAccount = isInjectiveAddress
+      const baseAccount = isRouterAddress
         ? (response.data as AccountResponse).account.base_account
         : (response.data as CosmosAccountRestResponse).account;
 

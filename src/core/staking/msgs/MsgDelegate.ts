@@ -5,11 +5,11 @@ import { MsgBase } from '../../MsgBase'
 export declare namespace MsgDelegate {
   export interface Params {
     amount: {
-      denom: string
-      amount: string
-    }
-    validatorAddress: string
-    injectiveAddress: string
+      denom: string;
+      amount: string;
+    };
+    validatorAddress: string;
+    routerAddress: string;
   }
   export interface DirectSign {
     type: '/cosmos.staking.v1beta1.MsgDelegate'
@@ -54,7 +54,7 @@ export default class MsgDelegate extends MsgBase<
 
     const message = new BaseMsgDelegate()
     message.setAmount(coinAmount)
-    message.setDelegatorAddress(params.injectiveAddress)
+    message.setDelegatorAddress(params.routerAddress);
     message.setValidatorAddress(params.validatorAddress)
 
     return message
