@@ -85,7 +85,7 @@ export const getPublicKey = ({
 
   if (chainId.startsWith('router')) {
     proto = new PubKey();
-    path = '/router.crypto.v1beta1.ethsecp256k1.PubKey';
+    path = 'routerprotocol.routerchain.crypto.ethsecp256k1.PubKey';
   } else if (chainId.startsWith('evmos')) {
     proto = new PubKey();
     path = '/ethermint.crypto.v1.ethsecp256k1.PubKey';

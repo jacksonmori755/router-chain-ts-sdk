@@ -200,7 +200,7 @@ export const createTxRawEIP712 = (
   const body = TxBody.deserializeBinary(txRaw.getBodyBytes_asU8());
   const extensionAny = createAny(
     extension.serializeBinary(),
-    '/router.types.v1beta1.ExtensionOptionsWeb3Tx'
+    '/routerprotocol.routerchain.types.ExtensionOptionsWeb3Tx'
   );
   body.addExtensionOptions(extensionAny);
 
