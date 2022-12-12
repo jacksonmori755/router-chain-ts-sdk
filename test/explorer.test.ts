@@ -2,17 +2,27 @@ import { RouterExplorer } from '../src';
 
 describe('Queries Test', () => {
                                  const explorer = new RouterExplorer('local');
-                                  it('Fetch Outbound', async () => {
-                                    const latestOutbounds = await explorer.getLatestOutbounds(
-                                      10,
-                                      1
-                                    );
-                                    console.log(
-                                      'latestOutbounds =>',
-                                      JSON.stringify(latestOutbounds)
-                                    );
-                                    expect(latestOutbounds).toBeDefined();
-                                  });
+                                 // it('Fetch Outbound', async () => {
+                                 //   const latestOutbounds = await explorer.getLatestOutbounds(
+                                 //     10,
+                                 //     1
+                                 //   );
+                                 //   console.log(
+                                 //     'latestOutbounds =>',
+                                 //     JSON.stringify(latestOutbounds)
+                                 //   );
+                                 //   expect(latestOutbounds).toBeDefined();
+                                 // });
+                                 it('Fetch individual Outbound by its formAttestationId', async () => {
+                                   const Outbound = await explorer.getOutboundByAttestationId(
+                                     'CHAIN_TYPE_EVM-7545-7-router1nc5tatafv6eyq7llkr2gv50ff9e22mnf70qgjlv737ktmt4eswrqr68fws'
+                                   );
+                                   console.log(
+                                     'Outbound =>',
+                                     JSON.stringify(Outbound)
+                                   );
+                                   expect(Outbound).toBeDefined();
+                                 });
                                });
 
 
@@ -122,13 +132,6 @@ describe('Queries Test', () => {
   //    );
   //    expect(latestOutbounds).toBeDefined();
   //  });
-  // it('Fetch individual Outbound by its formAttestationId', async () => {
-  //   const Outbound = await explorer.getOutboundByAttestationId(
-  //     'CHAIN_TYPE_EVM-80001-1'
-  //   );
-  //   console.log('Outbound =>', JSON.stringify(Outbound));
-  //   expect(Outbound).toBeDefined();
-  // });
   //  it('Fetch individual transaction by its hash', async () => {
   //    const paginatedOutbound = await explorer.getOutboundBySearch(
   //      'CHAIN_TYPE_EVM',

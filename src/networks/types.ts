@@ -27,6 +27,7 @@ export type NetworkEndpoints = {
   explorerGql: string;
   lcdEndpoint: string;
   grpcEndpoint: string;
+  tmEndpoint: string;
 };
 
 export type UrlEndpoints = NetworkEndpoints /** Deprecated */

@@ -1,3 +1,11 @@
+import { GeneralException } from '../exceptions';
+import {
+  ChainId,
+  CosmosChainId,
+  DevnetCosmosChainId,
+  EthereumChainId,
+  TestnetCosmosChainId,
+} from '../ts-types';
 import {
   devnetChainInfo,
   dockerChainInfo,
@@ -12,7 +20,7 @@ import {
   urlEndpointsDevnet,
   urlEndpointsDocker,
 } from './endpoints';
-import { ChainInfo, Network, NetworkEndpoints } from './types';
+import { ChainInfo, getNetworkType, Network, NetworkEndpoints } from './types';
 
 export const networkEndpoints: Record<Network, NetworkEndpoints> = {
   [Network.Mainnet]: urlEndpointsMainnet,
@@ -30,15 +38,108 @@ export const chainInfos: Record<Network, ChainInfo> = {
   [Network.Docker]: dockerChainInfo,
 };
 
+export const ethChainId: Record<Network, EthereumChainId> = {
+  [Network.Mainnet]: EthereumChainId.Mainnet,
+  [Network.Devnet]: EthereumChainId.Goerli,
+  [Network.Testnet]: EthereumChainId.Goerli,
+  [Network.Local]: EthereumChainId.Goerli,
+  [Network.Docker]: EthereumChainId.Goerli,
+};
+
 export const getEndpointsForNetwork = (network: Network): NetworkEndpoints =>
   networkEndpoints[network];
 
 export const getChainInfoForNetwork = (network: Network): ChainInfo =>
   chainInfos[network];
 
+export const getEthereumChainIdForNetwork = (
+  network: Network
+): EthereumChainId => ethChainId[network];
+
 export const getNetworkInfo = (
-  network: Network,
-): ChainInfo & NetworkEndpoints => ({
-  ...chainInfos[network],
-  ...networkEndpoints[network],
-})
+         network: Network
+       ): ChainInfo & NetworkEndpoints => ({
+         ...chainInfos[network],
+         ...networkEndpoints[network],
+       });
+
+export const getEndpointsFromChainId = (
+  chainId: TestnetCosmosChainId | CosmosChainId | ChainId | DevnetCosmosChainId
+): { rpc: string; rest: string } => {
+  switch (chainId) {
+    case CosmosChainId.Router:
+      return {
+        rpc: getEndpointsForNetwork(getNetworkType('mainnet')).tmEndpoint,
+        rest: getEndpointsForNetwork(getNetworkType('mainnet')).lcdEndpoint,
+      };
+    case TestnetCosmosChainId.Router:
+      return {
+        rpc: getEndpointsForNetwork(getNetworkType('testnet')).tmEndpoint,
+        rest: getEndpointsForNetwork(getNetworkType('testnet')).lcdEndpoint,
+      };
+    case DevnetCosmosChainId.Router:
+      return {
+        rpc: getEndpointsForNetwork(getNetworkType('devnet')).tmEndpoint,
+        rest: getEndpointsForNetwork(getNetworkType('devnet')).lcdEndpoint,
+      };
+    case CosmosChainId.Cosmoshub:
+      return {
+        rpc: 'https://tm.cosmos.injective.network',
+        rest: 'https://lcd.cosmos.injective.network',
+      };
+    case CosmosChainId.Osmosis:
+      return {
+        rpc: 'https://tm.osmosis.injective.network',
+        rest: 'https://lcd.osmosis.injective.network',
+      };
+    case CosmosChainId.Juno:
+      return {
+        rpc: 'https://tm.juno.injective.network',
+        rest: 'https://lcd.juno.injective.network',
+      };
+    case CosmosChainId.Terra:
+      return {
+        rpc: 'https://tm.terra.injective.network',
+        rest: 'https://lcd.terra.injective.network',
+      };
+    case CosmosChainId.TerraUST:
+      return {
+        rpc: 'https://tm.terra.injective.network',
+        rest: 'https://lcd.terra.injective.network',
+      };
+    case CosmosChainId.Axelar:
+      return {
+        rpc: 'https://tm.axelar.injective.network',
+        rest: 'https://lcd.axelar.injective.network',
+      };
+    case CosmosChainId.Evmos:
+      return {
+        rpc: 'https://tm.evmos.injective.network',
+        rest: 'https://lcd.evmos.injective.network',
+      };
+    case CosmosChainId.Persistence:
+      return {
+        rpc: 'https://tm.persistence.injective.network',
+        rest: 'https://lcd.persistence.injective.network',
+      };
+    case CosmosChainId.Secret:
+      return {
+        rpc: 'https://tm.secret.injective.network',
+        rest: 'https://lcd.secret.injective.network',
+      };
+    case CosmosChainId.Chihuahua:
+      return {
+        rpc: 'https://rpc.chihuahua.wtf',
+        rest: 'https://api.chihuahua.wtf',
+      };
+    case TestnetCosmosChainId.Cosmoshub:
+      return {
+        rpc: 'https://testnet.tm.cosmos.injective.dev',
+        rest: 'https://testnet.lcd.cosmos.injective.dev',
+      };
+    default:
+      throw new GeneralException(
+        new Error(`Endpoints for ${chainId} not found`)
+      );
+  }
+};

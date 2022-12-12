@@ -16,124 +16,124 @@ import { ValidatorRewards } from '../types/distribution';
  * @category Chain Grpc API
  */
 export class ChainGrpcDistributionApi extends BaseConsumer {
-  async fetchModuleParams() {
-    const request = new QueryDistributionParamsRequest();
+         async fetchModuleParams() {
+           const request = new QueryDistributionParamsRequest();
 
-    try {
-      const response = await this.request<
-        QueryDistributionParamsRequest,
-        QueryDistributionParamsResponse,
-        typeof DistributionQuery.Params
-      >(request, DistributionQuery.Params);
+           try {
+             const response = await this.request<
+               QueryDistributionParamsRequest,
+               QueryDistributionParamsResponse,
+               typeof DistributionQuery.Params
+             >(request, DistributionQuery.Params);
 
-      return ChainGrpcDistributionTransformer.moduleParamsResponseToModuleParams(
-        response
-      );
-    } catch (e) {
-      //@ts-ignore
-      throw new Error(e.message);
-    }
-  }
+             return ChainGrpcDistributionTransformer.moduleParamsResponseToModuleParams(
+               response
+             );
+           } catch (e) {
+             //@ts-ignore
+             throw new Error(e.message);
+           }
+         }
 
-  async fetchDelegatorRewardsForValidator({
-    delegatorAddress,
-    validatorAddress,
-  }: {
-    delegatorAddress: string;
-    validatorAddress: string;
-  }) {
-    const request = new QueryDelegationRewardsRequest();
-    request.setValidatorAddress(validatorAddress);
-    request.setDelegatorAddress(delegatorAddress);
+         async fetchDelegatorRewardsForValidator({
+           delegatorAddress,
+           validatorAddress,
+         }: {
+           delegatorAddress: string;
+           validatorAddress: string;
+         }) {
+           const request = new QueryDelegationRewardsRequest();
+           request.setValidatorAddress(validatorAddress);
+           request.setDelegatorAddress(delegatorAddress);
 
-    try {
-      const response = await this.request<
-        QueryDelegationRewardsRequest,
-        QueryDelegationRewardsResponse,
-        typeof DistributionQuery.DelegationRewards
-      >(request, DistributionQuery.DelegationRewards);
+           try {
+             const response = await this.request<
+               QueryDelegationRewardsRequest,
+               QueryDelegationRewardsResponse,
+               typeof DistributionQuery.DelegationRewards
+             >(request, DistributionQuery.DelegationRewards);
 
-      return ChainGrpcDistributionTransformer.delegationRewardResponseToReward(
-        response
-      );
-    } catch (e) {
-      //@ts-ignore
-      throw new Error(e.message);
-    }
-  }
+             return ChainGrpcDistributionTransformer.delegationRewardResponseToReward(
+               response
+             );
+           } catch (e) {
+             //@ts-ignore
+             throw new Error(e.message);
+           }
+         }
 
-  async fetchDelegatorRewardsForValidatorNoThrow({
-    delegatorAddress,
-    validatorAddress,
-  }: {
-    delegatorAddress: string;
-    validatorAddress: string;
-  }) {
-    const request = new QueryDelegationRewardsRequest();
-    request.setValidatorAddress(validatorAddress);
-    request.setDelegatorAddress(delegatorAddress);
+         async fetchDelegatorRewardsForValidatorNoThrow({
+           delegatorAddress,
+           validatorAddress,
+         }: {
+           delegatorAddress: string;
+           validatorAddress: string;
+         }) {
+           const request = new QueryDelegationRewardsRequest();
+           request.setValidatorAddress(validatorAddress);
+           request.setDelegatorAddress(delegatorAddress);
 
-    try {
-      const response = await this.request<
-        QueryDelegationRewardsRequest,
-        QueryDelegationRewardsResponse,
-        typeof DistributionQuery.DelegationRewards
-      >(request, DistributionQuery.DelegationRewards);
+           try {
+             const response = await this.request<
+               QueryDelegationRewardsRequest,
+               QueryDelegationRewardsResponse,
+               typeof DistributionQuery.DelegationRewards
+             >(request, DistributionQuery.DelegationRewards);
 
-      return ChainGrpcDistributionTransformer.delegationRewardResponseToReward(
-        response
-      );
-    } catch (e) {
-      //@ts-ignore
-      if (e.message.includes('does not exist')) {
-        return [] as Coin[];
-      }
-      //@ts-ignore
-      throw new Error(e.message);
-    }
-  }
+             return ChainGrpcDistributionTransformer.delegationRewardResponseToReward(
+               response
+             );
+           } catch (e) {
+             //@ts-ignore
+             if (e.message.includes('does not exist')) {
+               return [] as Coin[];
+             }
+             //@ts-ignore
+             throw new Error(e.message);
+           }
+         }
 
-  async fetchDelegatorRewards(injectiveAddress: string) {
-    const request = new QueryDelegationTotalRewardsRequest();
-    request.setDelegatorAddress(injectiveAddress);
+         async fetchDelegatorRewards(routerAddress: string) {
+           const request = new QueryDelegationTotalRewardsRequest();
+           request.setDelegatorAddress(routerAddress);
 
-    try {
-      const response = await this.request<
-        QueryDelegationTotalRewardsRequest,
-        QueryDelegationTotalRewardsResponse,
-        typeof DistributionQuery.DelegationTotalRewards
-      >(request, DistributionQuery.DelegationTotalRewards);
+           try {
+             const response = await this.request<
+               QueryDelegationTotalRewardsRequest,
+               QueryDelegationTotalRewardsResponse,
+               typeof DistributionQuery.DelegationTotalRewards
+             >(request, DistributionQuery.DelegationTotalRewards);
 
-      return ChainGrpcDistributionTransformer.totalDelegationRewardResponseToTotalReward(
-        response
-      );
-    } catch (e) {
-      //@ts-ignore
-      throw new Error(e.message);
-    }
-  }
+             return ChainGrpcDistributionTransformer.totalDelegationRewardResponseToTotalReward(
+               response
+             );
+           } catch (e) {
+             //@ts-ignore
+             throw new Error(e.message);
+           }
+         }
 
-  async fetchDelegatorRewardsNoThrow(injectiveAddress: string) {
-    const request = new QueryDelegationTotalRewardsRequest();
-    request.setDelegatorAddress(injectiveAddress);
+         async fetchDelegatorRewardsNoThrow(routerAddress: string) {
+           const request = new QueryDelegationTotalRewardsRequest();
+           request.setDelegatorAddress(routerAddress);
 
-    try {
-      const response = await this.request<
-        QueryDelegationTotalRewardsRequest,
-        QueryDelegationTotalRewardsResponse,
-        typeof DistributionQuery.DelegationTotalRewards
-      >(request, DistributionQuery.DelegationTotalRewards);
+           try {
+             const response = await this.request<
+               QueryDelegationTotalRewardsRequest,
+               QueryDelegationTotalRewardsResponse,
+               typeof DistributionQuery.DelegationTotalRewards
+             >(request, DistributionQuery.DelegationTotalRewards);
 
-      return ChainGrpcDistributionTransformer.totalDelegationRewardResponseToTotalReward(
-        response
-      );
-    } catch (e) {
-      //@ts-ignore
-      if (e.message.includes('does not exist')) {
-        return [] as ValidatorRewards[];
-      }
-      //@ts-ignore
-      throw new Error(e.message);
-    }
-  }
-}
+             return ChainGrpcDistributionTransformer.totalDelegationRewardResponseToTotalReward(
+               response
+             );
+           } catch (e) {
+             //@ts-ignore
+             if (e.message.includes('does not exist')) {
+               return [] as ValidatorRewards[];
+             }
+             //@ts-ignore
+             throw new Error(e.message);
+           }
+         }
+       }

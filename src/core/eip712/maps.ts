@@ -19,13 +19,8 @@ export const objectKeysToEip712Types = (
       continue;
     }
 
-    console.log('object => ', object, 'property => ', property);
-
     const val = snakecaseKeys(object)[property];
     const type = typeof val;
-
-    console.log('VAL =>', val);
-    console.log('type =>', type);
 
     if (type === 'boolean') {
       types.push({ name: property, type: 'bool' });

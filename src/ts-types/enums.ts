@@ -13,13 +13,3 @@ export enum ChainId {
   Testnet = 'router-1',
   Devnet = 'router-1',
 }
-
-export enum Wallet {
-  Metamask = 'metamask',
-  Ledger = 'ledger',
-  LedgerLegacy = 'ledger-legacy',
-  Trezor = 'trezor',
-  Keplr = 'keplr',
-  Torus = 'torus',
-  WalletConnect = 'wallet-connect',
-}

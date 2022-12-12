@@ -7,3 +7,4 @@ export * from './client';
 export * from './types';
 export * from './explorer';
 export * from './ts-types';
+export * from './wallet';

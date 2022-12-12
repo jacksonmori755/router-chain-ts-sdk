@@ -8,15 +8,15 @@ export type ExecDataRepresentation<Data> = {
   }
 }
 
-export type ExecDataRepresentationWithInjectiveExec<Data> = {
-  injective_exec: {
-    origin: string
-    name: string
+export type ExecDataRepresentationWithRouterExec<Data> = {
+  router_exec: {
+    origin: string;
+    name: string;
     args: {
-      [key: string]: { args: Data }
-    }
-  }
-}
+      [key: string]: { args: Data };
+    };
+  };
+};
 
 export const dataToExecData = <T>(
   data: T,
@@ -37,16 +37,16 @@ export const dataToExecData = <T>(
   }
 }
 
-export const dataToExecDataWithInjectiveExec = <T>(
+export const dataToExecDataWithRouterExec = <T>(
   data: T,
   execParams: {
-    origin: string
-    name: string
-    action: string
-  },
-): ExecDataRepresentationWithInjectiveExec<T> => {
+    origin: string;
+    name: string;
+    action: string;
+  }
+): ExecDataRepresentationWithRouterExec<T> => {
   return {
-    injective_exec: {
+    router_exec: {
       origin: execParams.origin,
       name: execParams.name,
       args: {
@@ -55,8 +55,8 @@ export const dataToExecDataWithInjectiveExec = <T>(
         },
       },
     },
-  }
-}
+  };
+};
 
 export abstract class ExecArgsBase<Params, DataRepresentation> {
   params: Params
