@@ -14,6 +14,7 @@ import {
   MsgInstantiateContract,
   MsgStoreCode,
 } from './wasm';
+import { MsgWithdrawDelegatorReward } from './distribution';
 
 /**
  * @category Messages
@@ -29,6 +30,7 @@ export type Msgs =
   | MsgTransfer
   | MsgDelegate
   | MsgUndelegate
+  | MsgWithdrawDelegatorReward
   | MsgBeginRedelegate
   | MsgStoreCode
   | MsgInstantiateContract

@@ -1,92 +1,95 @@
-import { MsgWithdrawDelegatorReward as BaseMsgWithdrawDelegatorReward } from '@routerprotocol/chain-api/cosmos/distribution/v1beta1/tx_pb'
-import { MsgBase } from '../../MsgBase'
+import { MsgWithdrawDelegatorReward as BaseMsgWithdrawDelegatorReward } from '@routerprotocol/chain-api/cosmos/distribution/v1beta1/tx_pb';
+import { MsgBase } from '../../MsgBase';
 
 export declare namespace MsgWithdrawDelegatorReward {
   export interface Params {
-    delegatorAddress: string
-    validatorAddress: string
+    delegatorAddress: string;
+    validatorAddress: string;
   }
 
   export interface DirectSign {
-    type: '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward'
-    message: BaseMsgWithdrawDelegatorReward
+    type: '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward';
+    message: BaseMsgWithdrawDelegatorReward;
   }
 
   export interface Data extends BaseMsgWithdrawDelegatorReward.AsObject {
-    '@type': '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward'
+    '@type': '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward';
   }
 
   export interface Amino extends BaseMsgWithdrawDelegatorReward.AsObject {
-    type: 'cosmos-sdk/MsgWithdrawDelegatorReward'
+    type: 'cosmos-sdk/MsgWithdrawDelegationReward';
   }
 
   export interface Web3 extends BaseMsgWithdrawDelegatorReward.AsObject {
-    '@type': '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward'
+    '@type': '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward';
   }
 
-  export type Proto = BaseMsgWithdrawDelegatorReward
+  export type Proto = BaseMsgWithdrawDelegatorReward;
 }
 
 /**
  * @category Messages
  */
 export default class MsgWithdrawDelegatorReward extends MsgBase<
-  MsgWithdrawDelegatorReward.Params,
-  MsgWithdrawDelegatorReward.Data,
-  MsgWithdrawDelegatorReward.Proto,
-  MsgWithdrawDelegatorReward.Amino,
-  MsgWithdrawDelegatorReward.DirectSign
-> {
-  static fromJSON(
-    params: MsgWithdrawDelegatorReward.Params,
-  ): MsgWithdrawDelegatorReward {
-    return new MsgWithdrawDelegatorReward(params)
-  }
+                 MsgWithdrawDelegatorReward.Params,
+                 MsgWithdrawDelegatorReward.Data,
+                 MsgWithdrawDelegatorReward.Proto,
+                 MsgWithdrawDelegatorReward.Amino,
+                 MsgWithdrawDelegatorReward.DirectSign
+               > {
+                 static fromJSON(
+                   params: MsgWithdrawDelegatorReward.Params
+                 ): MsgWithdrawDelegatorReward {
+                   return new MsgWithdrawDelegatorReward(params);
+                 }
 
-  public toProto(): MsgWithdrawDelegatorReward.Proto {
-    const { params } = this
+                 public toProto(): MsgWithdrawDelegatorReward.Proto {
+                   const { params } = this;
 
-    const message = new BaseMsgWithdrawDelegatorReward()
-    message.setDelegatorAddress(params.delegatorAddress)
-    message.setValidatorAddress(params.validatorAddress)
+                   const message = new BaseMsgWithdrawDelegatorReward();
+                   message.setDelegatorAddress(params.delegatorAddress);
+                   message.setValidatorAddress(params.validatorAddress);
 
-    return message
-  }
+                   return message;
+                 }
 
-  public toData(): MsgWithdrawDelegatorReward.Data {
-    const proto = this.toProto()
+                 public toData(): MsgWithdrawDelegatorReward.Data {
+                   const proto = this.toProto();
 
-    return {
-      '@type': '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
-      ...proto.toObject(),
-    }
-  }
+                   return {
+                     '@type':
+                       '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
+                     ...proto.toObject(),
+                   };
+                 }
 
-  public toAmino(): MsgWithdrawDelegatorReward.Amino {
-    const proto = this.toProto()
+                 public toAmino(): MsgWithdrawDelegatorReward.Amino {
+                   const proto = this.toProto();
 
-    return {
-      type: 'cosmos-sdk/MsgWithdrawDelegatorReward',
-      ...proto.toObject(),
-    }
-  }
+                   return {
+                     type: 'cosmos-sdk/MsgWithdrawDelegationReward',
+                     ...proto.toObject(),
+                   };
+                 }
 
-  public toWeb3(): MsgWithdrawDelegatorReward.Web3 {
-    const amino = this.toAmino()
-    const { type, ...rest } = amino
+                 public toWeb3(): MsgWithdrawDelegatorReward.Web3 {
+                   const amino = this.toAmino();
+                   const { type, ...rest } = amino;
 
-    return {
-      '@type': '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
-      ...rest,
-    }
-  }
+                   return {
+                     '@type':
+                       '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
+                     ...rest,
+                   };
+                 }
 
-  public toDirectSign(): MsgWithdrawDelegatorReward.DirectSign {
-    const proto = this.toProto()
+                 public toDirectSign(): MsgWithdrawDelegatorReward.DirectSign {
+                   const proto = this.toProto();
 
-    return {
-      type: '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
-      message: proto,
-    }
-  }
-}
+                   return {
+                     type:
+                       '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
+                     message: proto,
+                   };
+                 }
+               }
