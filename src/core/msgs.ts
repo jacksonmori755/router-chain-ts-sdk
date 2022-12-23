@@ -13,6 +13,8 @@ import {
   MsgExecuteContract,
   MsgInstantiateContract,
   MsgStoreCode,
+  MsgUpdateAdmin,
+  MsgMigrateContract,
 } from './wasm';
 import { MsgWithdrawDelegatorReward } from './distribution';
 
@@ -34,5 +36,7 @@ export type Msgs =
   | MsgBeginRedelegate
   | MsgStoreCode
   | MsgInstantiateContract
-  | MsgExecuteContract;
+  | MsgExecuteContract
+  | MsgUpdateAdmin
+  | MsgMigrateContract;
 
