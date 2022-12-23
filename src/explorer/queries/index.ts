@@ -509,7 +509,7 @@ export const filterApplicationOutboundQuery = `
 export const specificOutboundQuery = `
   query getOutboundByFormAttestationId($formAttestationId: String!){
   outbound(formAttestationId:$formAttestationId){
-      ventNonce
+      eventNonce
       destinationChainType
       destinationChainId
       relayerFee
