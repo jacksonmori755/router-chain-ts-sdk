@@ -53,6 +53,13 @@ export class RouterExplorer {
 
   //Fetch latest blocks from explorer db
 
+  /**
+   * Fetches latest Blocks
+   * @param {string} limit Page Limit
+   * @param {string} offset Page Number
+   * @return {Blocks}
+   * @throws {Error}
+   */
   public async getLatestBlocks(limit: Number = 10, offset: Number = 1) {
     try {
       const data = await gqlFetcher(this.chainEnvironment, latestBlockQuery, {
@@ -65,6 +72,12 @@ export class RouterExplorer {
     }
   }
 
+  /**
+   * Fetches specific Block
+   * @param {string} height BlocjHeight
+   * @return {Block}
+   * @throws {Error}
+   */
   public async getBlockByHeight(height: Number) {
     try {
       const data = await gqlFetcher(this.chainEnvironment, specificBlockQuery, {
@@ -75,7 +88,13 @@ export class RouterExplorer {
       console.log(`Error | getLatestBlocks | ${e}`);
     }
   }
-
+  /**
+   * Fetches latest Transactions
+   * @param {string} limit Page Limit
+   * @param {string} offset Page Number
+   * @return {Transactions}
+   * @throws {Error}
+   */
   public async getLatestTransactions(limit: Number = 10, offset: Number = 1) {
     try {
       const data = await gqlFetcher(
@@ -93,7 +112,14 @@ export class RouterExplorer {
       console.log(`Error | getLatestTransactions | ${e}`);
     }
   }
-
+  /**
+   * Fetches latest Transactions for a specific address
+   * @param {string} address Address
+   * @param {string} limit Page Limit
+   * @param {string} offset Page Number
+   * @return {Transactions}
+   * @throws {Error}
+   */
   public async getLatestTransactionsByAddress(
     address: String,
     limit: Number = 10,
@@ -114,7 +140,12 @@ export class RouterExplorer {
       console.log(`Error | getLatestTransactions | ${e}`);
     }
   }
-
+  /**
+   * Fetches specific Transaction
+   * @param {string} hash
+   * @return {Transaction}
+   * @throws {Error}
+   */
   public async getTransactionByHash(hash: String) {
     try {
       const data = await gqlFetcher(
@@ -129,6 +160,13 @@ export class RouterExplorer {
       console.log(`Error | getLatestTransactions | ${e}`);
     }
   }
+  /**
+   * Fetches latest Inbounds
+   * @param {string} limit Page Limit
+   * @param {string} offset Page Number
+   * @return {Inbounds}
+   * @throws {Error}
+   */
   public async getLatestInbounds(limit: Number = 10, offset: Number = 1) {
     try {
       const data = await gqlFetcher(
@@ -147,7 +185,14 @@ export class RouterExplorer {
       console.log(`Error | getLatestInbounds | ${e}`);
     }
   }
-
+  /**
+   * Fetches filtered outbound by search term
+   * @param {string} searchTerm Could be source sender address or source transaction hash or router contract address
+   * @param {string} limit Page Limit
+   * @param {string} offset Page Number
+   * @return {Inbounds}
+   * @throws {Error}
+   */
   public async getInboundBySearch(
     searchTerm: String,
     limit: Number = 10,
@@ -169,6 +214,16 @@ export class RouterExplorer {
     }
   }
   //For Application specific contracts
+
+  /**
+   * Fetches filtered inbounds application specific
+   * @param {string} searchTerm Could be source sender address or source transaction hash or router contract address
+   * @param {string} limit Page Limit
+   * @param {string} offset Page Number
+   * @return {Blocks}
+   * @throws {Error}
+   */
+
   public async getFilteredInbounds(
     searchTerm: String,
     limit: Number = 10,
@@ -190,7 +245,12 @@ export class RouterExplorer {
       console.log(`Error | getLatestInbounds | ${e}`);
     }
   }
-
+  /**
+   * Fetches specific inbound
+   * @param {string} formAttestationId
+   * @return {Inbound}
+   * @throws {Error}
+   */
   public async getInboundByAttestationId(formAttestationId: String) {
     try {
       const data = await gqlFetcher(
@@ -205,6 +265,14 @@ export class RouterExplorer {
       console.log(`Error | getLatestInbounds | ${e}`);
     }
   }
+
+  /**
+   * Fetches latest Outbounds
+   * @param {string} limit Page Limit
+   * @param {string} offset Page Number
+   * @return {Outbounds}
+   * @throws {Error}
+   */
 
   public async getLatestOutbounds(limit: Number = 10, offset: Number = 1) {
     try {
@@ -224,7 +292,16 @@ export class RouterExplorer {
       console.log(`Error | getLatestOutbounds | ${e}`);
     }
   }
-
+  /**
+   * Fetches specific Outbounds
+   * @param {string} destinationChainType
+   * @param {string} destinationChainId
+   * @param {string} sourceAddress
+   * @param {string} limit Page Limit
+   * @param {string} offset Page Number
+   * @return {Outbounds}
+   * @throws {Error}
+   */
   public async getOutboundBySearch(
     destinationChainType: String,
     destinationChainId: String,
@@ -250,6 +327,16 @@ export class RouterExplorer {
     }
   }
   //For Application specific contracts
+  /**
+   * Fetches application specific Outbounds
+   * @param {string} destinationChainType
+   * @param {string} destinationChainId
+   * @param {string} sourceAddress
+   * @param {string} limit Page Limit
+   * @param {string} offset Page Number
+   * @return {Outbounds}
+   * @throws {Error}
+   */
   public async getFilteredOutbounds(
     destinationChainType: String,
     destinationChainId: String,
@@ -273,7 +360,12 @@ export class RouterExplorer {
       console.log(`Error | getOutboundBySearch | ${e}`);
     }
   }
-
+  /**
+   * Fetches specific Outbound
+   * @param {string} formAttestationId
+   * @return {Outbound}
+   * @throws {Error}
+   */
   public async getOutboundByAttestationId(formAttestationId: String) {
     try {
       const data = await gqlFetcher(
