@@ -15,6 +15,70 @@ yarn add @routerprotocol/router-chain-sdk-ts
 npm i @routerprotocol/router-chain-sdk-ts
 ```
 
+## UI Support
+
+For using the package with UI it is recommended to use node version v18.12.1 and above 
+
+With create-next-app this package works totally fine , just make sure your node version is v18.12.1 or higher.
+
+With create-react-app the package might give you webpack errors to resolve it follow the steps below -  
+
+```jsx
+1. Install craco 
+	 yarn add -D @craco/craco
+2. Add craco.config.js file in your project directory with same path as package.json
+	 craco.config.js content below - 
+
+		const { ProvidePlugin } = require("webpack");
+		module.exports = {
+		  webpack: {
+		    configure: (webpackConfig) => {
+		      return {
+		        ...webpackConfig,
+		        resolve: {
+		          ...webpackConfig.resolve,
+		          fallback: {
+		            ...(webpackConfig.resolve?.fallback ?? {}),
+		            path: require.resolve("path-browserify"),
+		            stream: require.resolve("stream-browserify"),
+		            buffer: require.resolve("buffer/"),
+		            crypto: require.resolve("crypto-browserify"),
+		            http: require.resolve("stream-http"),
+		            https: require.resolve("https-browserify"),
+		            os: require.resolve("os-browserify/browser"),
+		            assert: require.resolve("assert/"),
+		            url: require.resolve("url/"),
+		          },
+		        },
+		        plugins: [
+		          ...(webpackConfig.plugins ?? []),
+		          new ProvidePlugin({
+		            Buffer: ["buffer", "Buffer"],
+		          }),
+		          new ProvidePlugin({
+		            process: "process/browser",
+		          }),
+		        ],
+		      };
+		    },
+		  },
+		};
+
+3. Do add these packages 
+	 yarn add path-browserify stream-browserify stream-http https-browserify os-browserify assert url
+
+4. Replace these scripts in package.json
+		"scripts": {
+		-  ~~"start": "react-scripts start"~~
+		+  "start": "craco start"
+		-  ~~"build": "react-scripts build"~~
+		+  "build": "craco build"
+		-  ~~"test": "react-scripts test"~~
+		+  "test": "craco test"
+		}
+5. yarn start and the webpack errors should be gone.
+```
+
 ## Usage/Examples
 
 Below is an example given that demonstrates how to fetch balance - 
@@ -23,7 +87,7 @@ Below is an example given that demonstrates how to fetch balance -
 import {getEndpointsForNetwork} from "@routerprotocol/router-chain-sdk-ts"
 
 const network = getEndpointsForNetwork(networkEnvironment);
-const bankClient = new ChainGrpcBankApi(grpcEndpoint);
+const bankClient = new ChainGrpcBankApi(network.grpcEndpoint);
 
 /* Fetch all balances for a account */
    const accountBalances = await bankClient.fetchBalances(
