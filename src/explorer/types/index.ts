@@ -157,5 +157,5 @@ export interface PaginatedOutbound {
 
 export interface PaginatedCrossTalk {
   totalRecords: Number;
-  outbounds: CrossTalkType[];
+  crossTalks: CrossTalkType[];
 }
