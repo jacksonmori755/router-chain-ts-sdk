@@ -561,4 +561,133 @@ export const specificOutboundQuery = `
 }
 `;
 
+export const latestCrossTalksQuery = `
+  query getLatestCrossTalks($limit: Int!, $offset: Int!){
+    paginatedCrossTalk(sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+    totalRecords
+    crossTalks{
+      attestationId
+      formAttestationId
+      eventNonce
+      blockHeight
+      sourceChainType
+      sourceChainId
+      sourceTxHash
+      destinationChainType
+      destinationChainId
+      destinationGasLimit
+      destinationGasPrice
+      requestSender
+      requestNonce
+      isAtomic
+      expiryTimestamp
+      ackType
+      ackGasLimit
+      ackGasPrice
+      contractsExecutionData{
+        destContractAddress
+        status
+        payload
+      }
+    }
+    }
+}
+`;
+
+export const latestApplicationsCrossTalksQuery = `
+  query getLatestCrossTalks($address:String!, $limit: Int!, $offset: Int!){
+    paginatedCrossTalk(where:{requestSender:$address},sortBy:{requestNonce:desc},limit:$limit,offset:$offset){
+    totalRecords
+    crossTalks{
+      attestationId
+      formAttestationId
+      eventNonce
+      blockHeight
+      sourceChainType
+      sourceChainId
+      sourceTxHash
+      destinationChainType
+      destinationChainId
+      destinationGasLimit
+      destinationGasPrice
+      requestSender
+      requestNonce
+      isAtomic
+      expiryTimestamp
+      ackType
+      ackGasLimit
+      ackGasPrice
+      contractsExecutionData{
+        destContractAddress
+        status
+        payload
+      }
+    }
+    }
+}
+`;
+
+export const searchSpecificCrossTalkQuery = `
+  query getLatestCrossTalks($destinationChainType: String!,$destinationChainId: String!,$sourceAddress: String!,$limit: Int!, $offset: Int!){
+    paginatedCrossTalk(where:{destinationChainType:$destinationChainType,destinationChainId:$destinationChainId,requestSender:$sourceAddress},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+    totalRecords
+    crossTalks{
+     attestationId
+      formAttestationId
+      eventNonce
+      blockHeight
+      sourceChainType
+      sourceChainId
+      sourceTxHash
+      destinationChainType
+      destinationChainId
+      destinationGasLimit
+      destinationGasPrice
+      requestSender
+      requestNonce
+      isAtomic
+      expiryTimestamp
+      ackType
+      ackGasLimit
+      ackGasPrice
+      contractsExecutionData{
+        destContractAddress
+        status
+        payload
+      }
+    }
+    }
+}
+`;
+
+export const specificCrossTalkQuery = `
+  query getCrossTalkByFormAttestationId($formAttestationId: String!){
+  crossTalk(formAttestationId:$formAttestationId){
+      attestationId
+      formAttestationId
+      eventNonce
+      blockHeight
+      sourceChainType
+      sourceChainId
+      sourceTxHash
+      destinationChainType
+      destinationChainId
+      destinationGasLimit
+      destinationGasPrice
+      requestSender
+      requestNonce
+      isAtomic
+      expiryTimestamp
+      ackType
+      ackGasLimit
+      ackGasPrice
+      contractsExecutionData{
+        destContractAddress
+        status
+        payload
+      }
+  }
+}
+`;
+
 //const x = gql(latestBlockQuery) for apollo client DocumentNode

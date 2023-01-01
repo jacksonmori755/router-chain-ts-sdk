@@ -1,9 +1,9 @@
-export interface KeyValueString{
-    [key:string]: string
+export interface KeyValueString {
+  [key: string]: string;
 }
 
-export interface KeyValueAny{
-    [key:string]: any
+export interface KeyValueAny {
+  [key: string]: any;
 }
 
 export interface TransactionType {
@@ -109,6 +109,32 @@ export interface OutboundType {
   contractAckResponses: Boolean[];
 }
 
+export interface CrossTalkType {
+  attestationId: String;
+  formAttestationId: String;
+  eventNonce: Number;
+  blockHeight: Number;
+  sourceChainType: String;
+  sourceChainId: String;
+  sourceTxHash: String;
+  destinationChainType: String;
+  destinationChainId: String;
+  destinationGasLimit: Number;
+  destinationGasPrice: Number;
+  requestSender: String;
+  requestNonce: Number;
+  isAtomic: Boolean;
+  expiryTimestamp: Number;
+  ackType: Number;
+  ackGasLimit: Number;
+  ackGasPrice: Number;
+  contractsExecutionData: {
+    destContractAddress: String;
+    status: Boolean;
+    payload: String;
+  }[];
+}
+
 export interface PaginatedBlock {
   totalRecords: Number;
   blocks: BlockType[];
@@ -127,4 +153,9 @@ export interface PaginatedInbound {
 export interface PaginatedOutbound {
   totalRecords: Number;
   outbounds: OutboundType[];
+}
+
+export interface PaginatedCrossTalk {
+  totalRecords: Number;
+  outbounds: CrossTalkType[];
 }
