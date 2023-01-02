@@ -586,11 +586,11 @@ export const latestCrossTalksQuery = `
       ackGasLimit
       ackGasPrice
       historyStatus{
-   status
-   txnhash
-   timestamp
-   blockHeight
- }
+        status
+        txnHash
+        timestamp
+        blockHeight
+      }
       contractsExecutionData{
         destContractAddress
         status
@@ -642,11 +642,11 @@ export const searchSpecificCrossTalkQuery = `
       ackGasLimit
       ackGasPrice
        historyStatus{
-   status
-   txnhash
-   timestamp
-   blockHeight
- }
+        status
+        txnHash
+        timestamp
+        blockHeight
+      }
       contractsExecutionData{
         destContractAddress
         status
@@ -696,11 +696,11 @@ export const specificCrossTalkQuery = `
       ackGasLimit
       ackGasPrice
        historyStatus{
-   status
-   txnhash
-   timestamp
-   blockHeight
- }
+        status
+        txnHash
+        timestamp
+        blockHeight
+      }
       contractsExecutionData{
         destContractAddress
         status

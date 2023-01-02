@@ -79,19 +79,19 @@ export interface OutboundType {
   blockHeight: Number;
   historyStatus: {
     status: string;
-    txnhash: string;
+    txnHash: string;
     timestamp: string;
     blockHeight: number;
   }[];
   outboundSignatures: {
     validator: string;
-    txnhash: string;
+    txnHash: string;
     timestamp: string;
     blockHeight: number;
   }[];
   outboundACKSignatures: {
     validator: string;
-    txnhash: string;
+    txnHash: string;
     timestamp: string;
     blockHeight: number;
   }[];
@@ -131,7 +131,7 @@ export interface CrossTalkType {
   ackGasPrice: Number;
   historyStatus: {
     status: string;
-    txnhash: string;
+    txnHash: string;
     timestamp: string;
     blockHeight: number;
   }[];
