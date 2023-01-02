@@ -49,7 +49,7 @@ const urlEndpointsLocal: NetworkEndpoints = {
   // /** Prepare the Message */
   const amount = {
     amount: new BigNumberInBase(0.01).toWei().toFixed(),
-    denom: "router",
+    denom: 'route',
   };
 
   const msg = MsgSend.fromJSON({

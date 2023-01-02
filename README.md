@@ -96,7 +96,7 @@ const bankClient = new ChainGrpcBankApi(network.grpcEndpoint);
    console.log(accountBalances);
 /* 
 {
-  balances: [ { denom: 'router', amount: '1000000000000000000000' } ],
+  balances: [ { denom: 'route', amount: '1000000000000000000000' } ],
   pagination: { total: 1, next: '' }
 }
 */
@@ -104,11 +104,11 @@ const bankClient = new ChainGrpcBankApi(network.grpcEndpoint);
 /* Fetch a particular account's balance for a particular denom */
   const routersBalances = await bankClient.fetchBalance({
     accountAddress: "router16sqwdtdxjl6zdvx49rvayhkyelfrhavpmknxh9",
-    denom: "router",
+    denom: "route",
    });
   console.log(routersBalances);
 /* 
-{ denom: 'router', amount: '1000000000000000000000' }
+{ denom: 'route', amount: '1000000000000000000000' }
 */
 ```
 
@@ -155,7 +155,7 @@ const ROUTER_TO_SEND = "10";
 
 const amount = {
   amount: expandDecimals(ROUTER_TO_SEND, 18).toString(),
-  denom: "router",
+  denom: "route",
 };
 
 const network = getEndpointsForNetwork(networkEnvironment);
@@ -269,7 +269,7 @@ const restClient = new TxRestClient(network.lcdEndpoint);
 					amount: new BigNumberInBase(4000000000)
 						.times(500000000)
 						.toString(),
-					denom: "router",
+					denom: "route",
 				},
 			],
 			gas: (500000000).toString(),
@@ -353,7 +353,7 @@ const aliceAccount = await new ChainRestAuthApi(
 			amount: [
 				{
 					amount: new BigNumberInBase(4000000000).times(500000000).toString(),
-					denom: "router",
+					denom: "route",
 				},
 			],
 			gas: (500000000).toString(),
@@ -436,7 +436,7 @@ console.log("fetchSmartContractStateResult =>", fetchSmartContractStateResult);
 
 const fetchBalanceResult = await bankClient.fetchBalance({
 accountAddress: "router1m0s0544sgdczf2sm6l8v6py7rrpr8a2cvnjezx",
-denom: "router",
+denom: "route",
 });
 console.log("fetchBalanceResult =>", fetchBalanceResult);
 ```
@@ -501,7 +501,7 @@ const restClient = new TxRestClient(network.lcdEndpoint);
 			amount: [
 				{
 					amount: new BigNumberInBase(4000000000).times(500000000).toString(),
-					denom: "router",
+					denom: "route",
 				},
 			],
 			gas: (500000000).toString(),

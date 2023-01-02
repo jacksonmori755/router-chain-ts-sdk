@@ -35,7 +35,7 @@
 //   // /** Prepare the Message */
 //   const amount = {
 //     amount: '1000000000000000',
-//     denom: 'router',
+//     denom: 'route',
 //   };
 
 //   const message = MsgSend.fromJSON({

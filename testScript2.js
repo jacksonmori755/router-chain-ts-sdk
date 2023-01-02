@@ -10,8 +10,8 @@ const client = await SigningStargateClient.connectWithSigner(rpcEndpoint, wallet
 
 const recipient = "router10ugpyau4anvygzhcfejzmq3jjl7qfs9hk4537s";
 const amount = {
-  denom: "router",
-  amount: "123",
+  denom: 'route',
+  amount: '123',
 };
 const result = await client.sendTokens(firstAccount.address, recipient, [amount], "Have fun with your star coins");
 assertIsBroadcastTxSuccess(result);
