@@ -7,8 +7,10 @@ import {
   TestnetCosmosChainId,
 } from '../ts-types';
 import {
+  alphaDevnetChainInfo,
   devnetChainInfo,
   dockerChainInfo,
+  internalDevnetChainInfo,
   localChainInfo,
   mainnetChainInfo,
   testnetChainInfo,
@@ -19,6 +21,8 @@ import {
   urlEndpointsTestnet,
   urlEndpointsDevnet,
   urlEndpointsDocker,
+  urlEndpointsAlphaDevnet,
+  urlEndpointsInternalDevnet,
 } from './endpoints';
 import { ChainInfo, getNetworkType, Network, NetworkEndpoints } from './types';
 
@@ -28,6 +32,8 @@ export const networkEndpoints: Record<Network, NetworkEndpoints> = {
   [Network.Testnet]: urlEndpointsTestnet,
   [Network.Local]: urlEndpointsLocal,
   [Network.Docker]: urlEndpointsDocker,
+  [Network.AlphaDevnet]: urlEndpointsAlphaDevnet,
+  [Network.InternalDevnet]: urlEndpointsInternalDevnet,
 };
 
 export const chainInfos: Record<Network, ChainInfo> = {
@@ -36,6 +42,8 @@ export const chainInfos: Record<Network, ChainInfo> = {
   [Network.Testnet]: testnetChainInfo,
   [Network.Local]: localChainInfo,
   [Network.Docker]: dockerChainInfo,
+  [Network.AlphaDevnet]: alphaDevnetChainInfo,
+  [Network.InternalDevnet]: internalDevnetChainInfo,
 };
 
 export const ethChainId: Record<Network, EthereumChainId> = {
@@ -44,6 +52,8 @@ export const ethChainId: Record<Network, EthereumChainId> = {
   [Network.Testnet]: EthereumChainId.Goerli,
   [Network.Local]: EthereumChainId.Goerli,
   [Network.Docker]: EthereumChainId.Goerli,
+  [Network.AlphaDevnet]: EthereumChainId.Goerli,
+  [Network.InternalDevnet]: EthereumChainId.Goerli,
 };
 
 export const getEndpointsForNetwork = (network: Network): NetworkEndpoints =>
