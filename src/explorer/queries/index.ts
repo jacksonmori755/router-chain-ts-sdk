@@ -575,6 +575,7 @@ export const latestCrossTalksQuery = `
       sourceTxHash
       destinationChainType
       destinationChainId
+      destinationTxHash
       destinationGasLimit
       destinationGasPrice
       requestSender
@@ -589,39 +590,22 @@ export const latestCrossTalksQuery = `
         status
         payload
       }
-    }
-    }
-}
-`;
-
-export const latestApplicationsCrossTalksQuery = `
-  query getLatestCrossTalks($address:String!, $limit: Int!, $offset: Int!){
-    paginatedCrossTalk(where:{requestSender:$address},sortBy:{requestNonce:desc},limit:$limit,offset:$offset){
-    totalRecords
-    crossTalks{
-      attestationId
-      formAttestationId
-      eventNonce
+      eventConfirmSignatures{
+      validator
+      txnHash
+      timestamp
       blockHeight
-      sourceChainType
-      sourceChainId
-      sourceTxHash
-      destinationChainType
-      destinationChainId
-      destinationGasLimit
-      destinationGasPrice
-      requestSender
-      requestNonce
-      isAtomic
-      expiryTimestamp
-      ackType
-      ackGasLimit
-      ackGasPrice
-      contractsExecutionData{
-        destContractAddress
-        status
-        payload
-      }
+      signature
+      ethSigner
+    }
+    eventAckConfirmSignatures{
+      validator
+      txnHash
+      timestamp
+      blockHeight
+      signature
+      ethSigner
+    }
     }
     }
 }
@@ -641,6 +625,7 @@ export const searchSpecificCrossTalkQuery = `
       sourceTxHash
       destinationChainType
       destinationChainId
+      destinationTxHash
       destinationGasLimit
       destinationGasPrice
       requestSender
@@ -655,6 +640,22 @@ export const searchSpecificCrossTalkQuery = `
         status
         payload
       }
+      eventConfirmSignatures{
+      validator
+      txnHash
+      timestamp
+      blockHeight
+      signature
+      ethSigner
+    }
+    eventAckConfirmSignatures{
+      validator
+      txnHash
+      timestamp
+      blockHeight
+      signature
+      ethSigner
+    }
     }
     }
 }
@@ -671,6 +672,7 @@ export const specificCrossTalkQuery = `
       sourceChainId
       sourceTxHash
       destinationChainType
+      destinationTxHash
       destinationChainId
       destinationGasLimit
       destinationGasPrice
@@ -686,6 +688,22 @@ export const specificCrossTalkQuery = `
         status
         payload
       }
+      eventConfirmSignatures{
+      validator
+      txnHash
+      timestamp
+      blockHeight
+      signature
+      ethSigner
+    }
+    eventAckConfirmSignatures{
+      validator
+      txnHash
+      timestamp
+      blockHeight
+      signature
+      ethSigner
+    }
   }
 }
 `;

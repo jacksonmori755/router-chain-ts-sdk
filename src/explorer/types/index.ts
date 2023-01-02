@@ -119,6 +119,7 @@ export interface CrossTalkType {
   sourceTxHash: String;
   destinationChainType: String;
   destinationChainId: String;
+  destinationTxHash: String;
   destinationGasLimit: Number;
   destinationGasPrice: Number;
   requestSender: String;
@@ -138,6 +139,22 @@ export interface CrossTalkType {
     destContractAddress: String;
     status: Boolean;
     payload: String;
+  }[];
+  eventConfirmSignatures: {
+    validator: String;
+    txnHash: String;
+    timestamp: String;
+    blockHeight: String;
+    signature: String;
+    ethSigner: String;
+  }[];
+  eventAckConfirmSignatures: {
+    validator: String;
+    txnHash: String;
+    timestamp: String;
+    blockHeight: String;
+    signature: String;
+    ethSigner: String;
   }[];
 }
 

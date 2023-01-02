@@ -3,10 +3,8 @@ import { RouterExplorer } from '../src';
 describe('Queries Test', () => {
   const explorer = new RouterExplorer('local');
   it('Fetch Crosstalk by search - ', async () => {
-    const CrossTalks = await explorer.getCrossTalkBySearch(
-      'CHAIN_TYPE_EVM',
-      '43113',
-      '0x7256A1B8221e4dFbe113761c0d284CC14bA6cCbe'
+    const CrossTalks = await explorer.getCrossTalkByAttestationId(
+      'CHAIN_TYPE_EVM-80001-2'
     );
     console.log('Crosstalk =>', JSON.stringify(CrossTalks));
     expect(CrossTalks).toBeDefined();
