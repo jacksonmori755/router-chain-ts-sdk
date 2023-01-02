@@ -128,6 +128,12 @@ export interface CrossTalkType {
   ackType: Number;
   ackGasLimit: Number;
   ackGasPrice: Number;
+  historyStatus: {
+    status: string;
+    txnhash: string;
+    timestamp: string;
+    blockHeight: number;
+  }[];
   contractsExecutionData: {
     destContractAddress: String;
     status: Boolean;

@@ -1,4 +1,4 @@
-import { NetworkEndpoints } from './types'
+import { NetworkEndpoints } from './types';
 
 export const urlEndpointsMainnet: NetworkEndpoints = {
   explorerGql: 'https://alpha-explorer-api.routerprotocol.com/gql/query',
@@ -14,11 +14,25 @@ export const urlEndpointsTestnet: NetworkEndpoints = {
   tmEndpoint: 'https://devnet-alpha.tm.routerprotocol.com/',
 };
 
-export const urlEndpointsDevnet: NetworkEndpoints = {
+export const urlEndpointsInternalDevnet: NetworkEndpoints = {
+  explorerGql: 'https://alpha-explorer-api.routerprotocol.com/gql/query',
+  lcdEndpoint: 'https://devnet-internal.lcd.routerprotocol.com',
+  grpcEndpoint: 'https://devnet-internal.grpcweb.routerprotocol.com',
+  tmEndpoint: 'https://devnet-internal.tm.routerprotocol.com/',
+};
+
+export const urlEndpointsAlphaDevnet: NetworkEndpoints = {
   explorerGql: 'https://alpha-explorer-api.routerprotocol.com/gql/query',
   lcdEndpoint: 'https://devnet-alpha.lcd.routerprotocol.com',
   grpcEndpoint: 'https://devnet-alpha.grpcweb.routerprotocol.com',
   tmEndpoint: 'https://devnet-alpha.tm.routerprotocol.com/',
+};
+
+export const urlEndpointsDevnet: NetworkEndpoints = {
+  explorerGql: 'https://devnet-explorer-api.routerprotocol.com/gql/query',
+  lcdEndpoint: 'https://devnet.lcd.routerprotocol.com',
+  grpcEndpoint: 'https://devnet.grpcweb.routerprotocol.com',
+  tmEndpoint: 'https://devnet.tm.routerprotocol.com/',
 };
 
 export const urlEndpointsLocal: NetworkEndpoints = {
