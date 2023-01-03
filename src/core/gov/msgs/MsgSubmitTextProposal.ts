@@ -37,7 +37,7 @@ export declare namespace MsgSubmitTextProposal {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgSubmitTextProposal extends MsgBase<
   MsgSubmitTextProposal.Params,

@@ -13,7 +13,7 @@ import { ChainGrpcDistributionTransformer } from '../transformers';
 import { ValidatorRewards } from '../types/distribution';
 
 /**
- * @category Chain Grpc API
+ * @group gRPC API
  */
 export class ChainGrpcDistributionApi extends BaseConsumer {
          async fetchModuleParams() {

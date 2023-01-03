@@ -30,7 +30,7 @@ export declare namespace MsgUpdateAdmin {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgUpdateAdmin extends MsgBase<
   MsgUpdateAdmin.Params,

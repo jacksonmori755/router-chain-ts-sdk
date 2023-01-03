@@ -65,7 +65,7 @@ export const tokenMetaToToken = (
 };
 
 /**
- * @category Utility Classes
+ * @group Util
  */
 export class Denom {
   protected denom: string;

@@ -7,7 +7,7 @@ import { ChainGrpcMintApi } from './grpc/ChainGrpcMintApi';
 import { ChainGrpcStakingApi } from './grpc/ChainGrpcStakingApi';
 
 /**
- * @category Chain Grpc API
+ * @group gRPC API
  * @hidden
  */
 export class ChainGrpcClient {

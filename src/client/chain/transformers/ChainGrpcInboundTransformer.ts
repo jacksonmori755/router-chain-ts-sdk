@@ -3,9 +3,6 @@ import {
   } from '@routerprotocol/chain-api/inbound/query_pb';
 import { IncomingTx } from '@routerprotocol/chain-api/inbound/incoming_tx_pb';
 
-/**
- * @category Chain Grpc Transformer
- */
 export class ChainGrpcInboundTransformer {
 
     static incomingTx(

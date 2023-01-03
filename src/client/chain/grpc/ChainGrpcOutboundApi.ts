@@ -15,7 +15,17 @@ import BaseConsumer from '../../BaseGrpcConsumer';
 import { ChainGrpcOutboundTransformer } from '../transformers';
 
 /**
- * @category Chain Grpc API
+ * The Outbound module receives request from application-specific contract on Router chain and forward it to the contract on destination third-party chain.
+ * 
+ * @group gRPC API
+ * 
+ * @example
+ * To use Outbound methods, initialise a {@link ChainGrpcOutboundApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
+ * ```ts
+ * const endpoint =  networkEndpoints["alpha devnet"];
+ * const client = new ChainGrpcOutboundApi(endpoint.grpcEndpoint);
+ * const response = await client.fetchAllOutgoingBatchTx();
+ * ```
  */
 export class ChainGrpcOutboundApi extends BaseConsumer {
 

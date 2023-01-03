@@ -29,7 +29,7 @@ export declare namespace MsgRevoke {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgRevoke extends MsgBase<
   MsgRevoke.Params,

@@ -3,7 +3,7 @@ import { AccountResponse, BaseAccountRestResponse } from '../client';
 import { AccountDetails } from '../types/auth';
 
 /**
- * @category Utility Classes
+ * @group Util
  */
 export class BaseAccount extends Address {
   public accountNumber: number;

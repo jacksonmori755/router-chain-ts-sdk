@@ -41,7 +41,7 @@ export declare namespace MsgTransfer {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgTransfer extends MsgBase<
   MsgTransfer.Params,

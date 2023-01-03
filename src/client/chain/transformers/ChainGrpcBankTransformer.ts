@@ -9,9 +9,6 @@ import {
 import { BankModuleParams, TotalSupply } from '../types';
 import { grpcPaginationToPagination } from '../../../utils/pagination';
 
-/**
- * @category Chain Grpc Transformer
- */
 export class ChainGrpcBankTransformer {
   static grpcCoinToCoin(coin: GrpcCoin): Coin {
     return {

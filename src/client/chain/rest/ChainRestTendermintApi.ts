@@ -5,7 +5,7 @@ import {
 } from '../types/tendermint-rest';
 
 /**
- * @category Chain Rest API
+ * @group REST API
  */
 export class ChainRestTendermintApi extends BaseRestConsumer {
   async fetchLatestBlock(): Promise<BlockLatestRestResponse['block']> {

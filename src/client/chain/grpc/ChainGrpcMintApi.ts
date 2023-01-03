@@ -16,7 +16,7 @@ import {
 import { ChainGrpcMintTransformer } from '../transformers/ChainGrpcMintTransformer';
 
 /**
- * @category Chain Grpc API
+ * @group gRPC API
  */
 export class ChainGrpcMintApi extends BaseConsumer {
   async fetchModuleParams() {

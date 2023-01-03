@@ -34,7 +34,7 @@ export declare namespace MsgStoreCode {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgStoreCode extends MsgBase<
   MsgStoreCode.Params,
@@ -43,10 +43,20 @@ export default class MsgStoreCode extends MsgBase<
   MsgStoreCode.Amino,
   MsgStoreCode.DirectSign
 > {
+
+  /**
+   * 
+   * @param params 
+   * @returns 
+   */
   static fromJSON(params: MsgStoreCode.Params): MsgStoreCode {
     return new MsgStoreCode(params);
   }
 
+  /**
+   * 
+   * @returns 
+   */
   public toProto(): MsgStoreCode.Proto {
     const { params } = this;
 
@@ -68,6 +78,10 @@ export default class MsgStoreCode extends MsgBase<
     return message;
   }
 
+  /**
+   * 
+   * @returns 
+   */
   public toData(): MsgStoreCode.Data {
     const proto = this.toProto();
 
@@ -77,6 +91,10 @@ export default class MsgStoreCode extends MsgBase<
     };
   }
 
+  /**
+   * 
+   * @returns 
+   */
   public toAmino(): MsgStoreCode.Amino {
     const proto = this.toProto();
     const message = {
@@ -91,6 +109,10 @@ export default class MsgStoreCode extends MsgBase<
     } as unknown) as MsgStoreCode.Amino;
   }
 
+  /**
+   * 
+   * @returns 
+   */
   public toWeb3(): MsgStoreCode.Web3 {
     const amino = this.toAmino();
     const { type, ...rest } = amino;
@@ -101,6 +123,10 @@ export default class MsgStoreCode extends MsgBase<
     } as unknown) as MsgStoreCode.Web3;
   }
 
+  /**
+   * 
+   * @returns 
+   */
   public toDirectSign(): MsgStoreCode.DirectSign {
     const proto = this.toProto();
 

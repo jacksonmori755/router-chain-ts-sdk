@@ -20,7 +20,7 @@ import { paginationRequestFromPagination } from '../../../utils/pagination';
 import { ChainGrpcGovTransformer } from '../transformers/ChainGrpcGovTransformer';
 
 /**
- * @category Chain Grpc API
+ * @group gRPC API
  */
 export class ChainGrpcGovApi extends BaseConsumer {
   async fetchModuleParams() {

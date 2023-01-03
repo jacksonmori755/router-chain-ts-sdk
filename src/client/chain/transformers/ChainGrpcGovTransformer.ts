@@ -23,9 +23,6 @@ import { Pagination } from '../../../types/index'
 import { grpcPaginationToPagination } from '../../../utils/pagination'
 import { cosmosSdkDecToBigNumber } from '../../../utils'
 
-/**
- * @category Chain Grpc Transformer
- */
 export class ChainGrpcGovTransformer {
   static moduleParamsResponseToModuleParams(
     response: QueryGovernanceParamsResponse,

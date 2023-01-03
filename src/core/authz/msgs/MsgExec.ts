@@ -31,7 +31,7 @@ export declare namespace MsgExec {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgExec extends MsgBase<
   MsgExec.Params,

@@ -7,7 +7,7 @@ import secp256k1, { publicKeyConvert } from 'secp256k1';
 import { Address } from './Address';
 import { keccak256 } from 'js-sha3';
 /**
- * @category Crypto Utility Classes
+ * @group Util
  */
 function addLeading0x(str: string) {
   if (!str.startsWith('0x')) return '0x' + str;

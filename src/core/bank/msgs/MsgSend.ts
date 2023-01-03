@@ -34,7 +34,7 @@ export declare namespace MsgSend {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgSend extends MsgBase<
   MsgSend.Params,

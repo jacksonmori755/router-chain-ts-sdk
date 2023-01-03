@@ -37,7 +37,7 @@ export declare namespace MsgExecuteContract {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgExecuteContract extends MsgBase<
   MsgExecuteContract.Params,

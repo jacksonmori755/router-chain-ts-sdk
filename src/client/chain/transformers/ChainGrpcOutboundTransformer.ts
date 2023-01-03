@@ -11,9 +11,6 @@ import { ContractCall } from '@routerprotocol/chain-api/outbound/contract_call_p
 import { grpcPaginationToPagination } from '../../../utils/pagination';
 import { Coin } from '@routerprotocol/chain-api/cosmos/base/v1beta1/coin_pb'
 
-/**
- * @category Chain Grpc Transformer
- */
 export class ChainGrpcOutboundTransformer {
 
     static allOutgoingBatchTx(
