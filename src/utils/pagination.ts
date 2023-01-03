@@ -42,13 +42,13 @@ export const generatePagination = (
     return;
   }
 
-  if (!pagination.next) {
+  if (!pagination.nextKey) {
     return;
   }
 
   return {
     pagination: {
-      key: pagination.next,
+      key: pagination.nextKey,
     },
   };
 };
@@ -74,36 +74,34 @@ export const pageResponseToPagination = ({
     return {
       prev: null,
       current: null,
-      next: null,
+      nextKey: null,
     };
   }
 
-  const next = paginationUint8ArrayToString(newPagination.next);
+  const nextKey = paginationUint8ArrayToString(newPagination.nextKey);
 
   if (!oldPagination) {
     return {
       prev: null,
       current: null,
-      next,
+      nextKey,
     };
   }
 
   return {
     prev: oldPagination.current,
-    current: oldPagination.next,
-    next,
+    current: oldPagination.nextKey,
+    nextKey,
   };
 };
 
 export const grpcPaginationToPagination = (
   pagination: PageResponse | undefined
-): Pagination => {
+): PageResponse.AsObject => {
   return {
     total: pagination
-      ? parseInt(paginationUint8ArrayToString(pagination.getTotal()), 10)
-      : 0,
-    next: pagination
-      ? paginationUint8ArrayToString(pagination.getNextKey_asB64())
-      : '',
+      ? pagination.getTotal() : 0,
+    nextKey: pagination
+      ? pagination.getNextKey_asB64(): '',
   };
 };

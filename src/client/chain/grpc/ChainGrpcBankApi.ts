@@ -37,6 +37,13 @@ export class ChainGrpcBankApi extends BaseConsumer {
     }
   }
 
+  /**
+   * Get balance of a coin.
+   * 
+   * @param accountAddress account address.
+   * @param denom coin denomination.
+   * @returns balance.
+   */
   async fetchBalance({
     accountAddress,
     denom,
@@ -62,6 +69,12 @@ export class ChainGrpcBankApi extends BaseConsumer {
     }
   }
 
+  /**
+   * Get balance of all coins
+   * 
+   * @param address account address.
+   * @returns list of balances.
+   */
   async fetchBalances(address: string) {
     const request = new QueryAllBalancesRequest();
     request.setAddress(address);
@@ -80,6 +93,12 @@ export class ChainGrpcBankApi extends BaseConsumer {
     }
   }
 
+  /**
+   * Get total supply of coins.
+   * 
+   * @param pagination pagination options (optional param).
+   * @returns total supply.
+   */
   async fetchTotalSupply(pagination?: PaginationOption) {
     const request = new QueryTotalSupplyRequest();
     const paginationForRequest = paginationRequestFromPagination(pagination);
