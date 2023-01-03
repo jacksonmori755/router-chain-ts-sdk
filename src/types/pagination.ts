@@ -9,13 +9,13 @@ export interface PaginationOption {
 }
 
 export interface PagePagination {
-  next: string | null
+  nextKey: string | null
   prev: string | null
   current: string | null
 }
 
 export interface Pagination {
-  next: string | null
+  nextKey: string | Uint8Array
   total: number
 }
 

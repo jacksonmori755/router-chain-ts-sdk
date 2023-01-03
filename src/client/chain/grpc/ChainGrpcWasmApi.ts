@@ -128,6 +128,12 @@ export class ChainGrpcWasmApi extends BaseConsumer {
     }
   }
 
+  /**
+   * 
+   * @param contractAddress contract address.
+   * @param queryData query data.
+   * @returns smart contract state data.
+   */
   async fetchSmartContractState(
     contractAddress: string,
     query?: string | Uint8Array
@@ -163,6 +169,12 @@ export class ChainGrpcWasmApi extends BaseConsumer {
     }
   }
 
+  /**
+   * 
+   * @param contractAddress contract address.
+   * @param queryData query data.
+   * @returns raw contract state data.
+   */
   async fetchRawContractState(
     contractAddress: string,
     query?: string | Uint8Array

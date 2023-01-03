@@ -4,3 +4,7 @@ export * from './ChainGrpcGovTransformer';
 export * from './ChainGrpcMintTransformer';
 export * from './ChainGrpcStakingTransformer';
 export * from './ChainGrpcWasmTransformer';
+export * from './ChainGrpcAttestationTransformer';
+export * from './ChainGrpcMultiChainTransformer';
+export * from './ChainGrpcInboundTransformer';
+export * from './ChainGrpcOutboundTransformer';
