@@ -7,7 +7,7 @@ export const BECH32_PUBKEY_ACC_PREFIX = 'routerpub';
 export const BECH32_PUBKEY_VAL_PREFIX = 'routervaloperpub';
 export const BECH32_PUBKEY_CONS_PREFIX = 'routervalconspub';
 
-export const BECH32_ADDR_ACC_PREFIX = 'route';
+export const BECH32_ADDR_ACC_PREFIX = 'router';
 export const BECH32_ADDR_VAL_PREFIX = 'routervaloper';
 export const BECH32_ADDR_CONS_PREFIX = 'routervalcons';
 
