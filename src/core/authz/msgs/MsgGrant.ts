@@ -37,7 +37,7 @@ export declare namespace MsgGrant {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgGrant extends MsgBase<
   MsgGrant.Params,

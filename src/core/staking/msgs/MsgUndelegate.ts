@@ -32,7 +32,7 @@ export declare namespace MsgUndelegate {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgUndelegate extends MsgBase<
   MsgUndelegate.Params,

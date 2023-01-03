@@ -19,7 +19,7 @@ import {
 import { MsgWithdrawDelegatorReward } from './distribution';
 
 /**
- * @category Messages
+ * @group Message
  */
 export type Msgs =
   | MsgGrant

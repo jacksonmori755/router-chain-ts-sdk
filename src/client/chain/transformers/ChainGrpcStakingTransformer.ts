@@ -27,9 +27,6 @@ import { cosmosSdkDecToBigNumber, DUST_AMOUNT } from '../../../utils';
 import { grpcPaginationToPagination } from '../../../utils/pagination';
 import { Pagination } from '../../../types';
 
-/**
- * @category Chain Grpc Transformer
- */
 export class ChainGrpcStakingTransformer {
   static moduleParamsResponseToModuleParams(
     response: QueryStakingParamsResponse

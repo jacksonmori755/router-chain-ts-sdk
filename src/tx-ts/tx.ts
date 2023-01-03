@@ -34,7 +34,10 @@ export interface SignerDetails {
   accountNumber: number; // the account number of the signer of the transaction
 }
 
-/** @type {CreateTransactionWithSignersArgs} */
+/** 
+ * @hidden
+ * @type {CreateTransactionWithSignersArgs} 
+ * */
 export interface CreateTransactionWithSignersArgs {
   fee?: StdFee; // the fee to include in the transaction
   memo?: string; // the memo to include in the transaction
@@ -45,7 +48,10 @@ export interface CreateTransactionWithSignersArgs {
   timeoutHeight?: number; // the height at which the transaction should be considered invalid
 }
 
-/** @type {CreateTransactionArgs} */
+/**
+ * @hidden
+ * @type {CreateTransactionArgs} 
+ * */
 export interface CreateTransactionArgs {
   fee?: StdFee; // the fee to include in the transaction
   memo?: string; // the memo to include in the transaction
@@ -58,7 +64,10 @@ export interface CreateTransactionArgs {
   timeoutHeight?: number; // the height at which the transaction should be considered invalid
 }
 
-/** @type {CreateTransactionResult} */
+/**
+ * @hidden
+ * @type {CreateTransactionResult} 
+ * */
 export interface CreateTransactionResult {
   txRaw: TxRaw; // the Tx raw that was created
   signDoc: SignDoc; // the SignDoc that was created - used for signing of the transaction
@@ -233,6 +242,7 @@ export const createSigDoc = ({
 };
 
 /**
+ * @hidden
  * @typedef {Object} CreateTransactionWithSignersArgs
  * @param {CreateTransactionWithSignersArgs} params
  * @property {MsgArg | MsgArg[]} message - the Cosmos messages to wrap them in a transaction

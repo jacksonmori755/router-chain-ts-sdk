@@ -32,7 +32,7 @@ export declare namespace MsgDelegate {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgDelegate extends MsgBase<
   MsgDelegate.Params,

@@ -12,9 +12,6 @@ import { MsgSetOrchestratorAddress as Orchestrator } from '@routerprotocol/chain
 import { PageResponse } from '@routerprotocol/chain-api/cosmos/base/query/v1beta1/pagination_pb';
 import { grpcPaginationToPagination } from '../../../utils/pagination';
 
-/**
- * @category Chain Grpc Transformer
- */
 export class ChainGrpcAttestationTransformer {
 
     static latestValsetNonce(

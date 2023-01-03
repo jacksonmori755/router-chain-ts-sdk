@@ -3,7 +3,7 @@ import { objectKeysToEip712Types, TypedDataField } from './eip712'
 import { prepareSignBytes } from './utils'
 
 /**
- * @category Messages
+ * @group Message
  */
 export abstract class MsgBase<
   Params,

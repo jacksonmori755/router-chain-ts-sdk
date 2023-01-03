@@ -27,7 +27,7 @@ import { paginationRequestFromPagination } from '../../../utils/pagination';
 import { ChainGrpcStakingTransformer } from '../transformers';
 
 /**
- * @category Chain Grpc API
+ * @group gRPC API
  */
 export class ChainGrpcStakingApi extends BaseConsumer {
          async fetchModuleParams() {

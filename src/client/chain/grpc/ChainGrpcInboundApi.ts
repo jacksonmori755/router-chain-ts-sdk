@@ -7,16 +7,26 @@ import BaseConsumer from '../../BaseGrpcConsumer';
 import { ChainGrpcInboundTransformer } from '../transformers'
 
 /**
- * @category Chain Grpc API
+ * The Inbound module manages all inbound requests from third-party chains.
+ * 
+ * @group gRPC API
+ * 
+ * @example
+ * To use Inbound methods, initialise a {@link ChainGrpcInboundApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
+ * ```ts
+ * const endpoint =  networkEndpoints["alpha devnet"];
+ * const client = new ChainGrpcInboundApi(endpoint.grpcEndpoint);
+ * const response = await client.fetchIncomingTx(0, "7545", 4);
+ * ```
  */
 export class ChainGrpcInboundApi extends BaseConsumer {
 
   /**
    * To get incomming transaction.
    * 
-   * @param chainType 
-   * @param chainId 
-   * @param eventNonce 
+   * @param chainType source network chain type.
+   * @param chainId source network chain ID.
+   * @param eventNonce nonce.
    * @returns incoming transaction.
    */
   async fetchIncomingTx(

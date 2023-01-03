@@ -38,7 +38,7 @@ export declare namespace MsgInstantiateContract {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgInstantiateContract extends MsgBase<
   MsgInstantiateContract.Params,

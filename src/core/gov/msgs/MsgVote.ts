@@ -30,7 +30,7 @@ export declare namespace MsgVote {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgVote extends MsgBase<
   MsgVote.Params,

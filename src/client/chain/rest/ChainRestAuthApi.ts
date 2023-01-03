@@ -12,7 +12,7 @@ import {
 } from '../types/auth-rest';
 
 /**
- * @category Chain Rest API
+ * @group REST API
  */
 export class ChainRestAuthApi extends BaseRestConsumer {
          /**

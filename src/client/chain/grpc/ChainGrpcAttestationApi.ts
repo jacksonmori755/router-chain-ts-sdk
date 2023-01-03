@@ -17,7 +17,17 @@ import BaseConsumer from '../../BaseGrpcConsumer';
 import { ChainGrpcAttestationTransformer } from '../transformers';
 
 /**
- * @category Chain Grpc API
+ * The Attestation module is responsible for Valset (Validator set) and vote management.
+ * 
+ * @group gRPC API
+ * 
+ * @example
+ * To use Attestation methods, initialise a {@link ChainGrpcAttestationApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
+ * ```ts
+ * const endpoint =  networkEndpoints["alpha devnet"];
+ * const client = new ChainGrpcAttestationApi(endpoint.grpcEndpoint);
+ * const response = await client.fetchLatestValsetNonce();
+ * ```
  */
 export class ChainGrpcAttestationApi extends BaseConsumer {
 

@@ -26,6 +26,14 @@ import {
 } from './endpoints';
 import { ChainInfo, getNetworkType, Network, NetworkEndpoints } from './types';
 
+/**
+ * Supported network endpoints for Router chain. Also see {@link Network} for network names.
+ * 
+ * @example
+ * const endpoint =  networkEndpoints["alpha devnet"]; // here, 'alpha devnet' is network name
+ * 
+ * @group Network
+ */
 export const networkEndpoints: Record<Network, NetworkEndpoints> = {
   [Network.Mainnet]: urlEndpointsMainnet,
   [Network.Devnet]: urlEndpointsDevnet,
@@ -36,6 +44,11 @@ export const networkEndpoints: Record<Network, NetworkEndpoints> = {
   [Network.InternalDevnet]: urlEndpointsInternalDevnet,
 };
 
+/**
+ * Supported Router chain info.
+ * 
+ * @group Network
+ */
 export const chainInfos: Record<Network, ChainInfo> = {
   [Network.Mainnet]: mainnetChainInfo,
   [Network.Devnet]: devnetChainInfo,

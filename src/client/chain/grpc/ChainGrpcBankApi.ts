@@ -15,7 +15,17 @@ import { paginationRequestFromPagination } from '../../../utils/pagination';
 import { ChainGrpcBankTransformer } from '../transformers';
 
 /**
- * @category Chain Grpc API
+ * The bank module is responsible for handling multi-asset coin transfers between accounts.
+ * 
+ * @group gRPC API
+ * 
+ * @example
+ * To use Bank methods, initialise a {@link ChainGrpcBankApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
+ * ```ts
+ * const endpoint =  networkEndpoints["alpha devnet"];
+ * const bankClient = new ChainGrpcBankApi(endpoint.grpcEndpoint);
+ * const response = await bankClient.fetchBalances("router12avkt8c0lk76atge8f3pe2t6fj4jsc8038d742");
+ * ```
  */
 export class ChainGrpcBankApi extends BaseConsumer {
   async fetchModuleParams() {

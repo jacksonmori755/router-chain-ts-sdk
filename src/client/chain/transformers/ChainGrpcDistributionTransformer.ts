@@ -8,9 +8,6 @@ import { Coin } from '../../../types';
 import { DistributionModuleParams } from '../types/distribution';
 import { ValidatorRewards } from '../types/distribution';
 
-/**
- * @category Chain Grpc Transformer
- */
 export class ChainGrpcDistributionTransformer {
   static moduleParamsResponseToModuleParams(
     response: QueryParamsResponse

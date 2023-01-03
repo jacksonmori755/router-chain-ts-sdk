@@ -29,7 +29,17 @@ import {
 import { fromBase64 } from '../../../utils';
 
 /**
- * @category Chain Grpc API
+ * The Wasm module manages contract state and info.
+ * 
+ * @group gRPC API
+ * 
+ * @example
+ * To use Wasm methods, initialise a {@link ChainGrpcWasmApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
+ * ```ts
+ * const endpoint =  networkEndpoints["alpha devnet"];
+ * const client = new ChainGrpcWasmApi(endpoint.grpcEndpoint);
+ * const response = await client.fetchContractInfo(<contract-address>);
+ * ```
  */
 export class ChainGrpcWasmApi extends BaseConsumer {
   protected module: string = ChainModule.Wasm;

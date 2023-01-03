@@ -8,7 +8,7 @@ import {
 import BaseConsumer from '../../BaseGrpcConsumer';
 
 /**
- * @category Chain Grpc API
+ * @group gRPC API
  */
 export class ChainGrpcIbcApi extends BaseConsumer {
   async fetchDenomTrace(hash: string) {

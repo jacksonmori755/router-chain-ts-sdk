@@ -37,7 +37,7 @@ export declare namespace MsgEditValidator {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgEditValidator extends MsgBase<
   MsgEditValidator.Params,

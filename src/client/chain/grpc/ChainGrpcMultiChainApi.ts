@@ -8,6 +8,19 @@ import {
 import BaseConsumer from '../../BaseGrpcConsumer';
 import { ChainGrpcMultiChainTransformer } from '../transformers';
 
+/**
+ * The Multichain module is responsible for persisting the configuration of all supported chains by the Router chain and provides chain configuration related methods.
+ * 
+ * @group gRPC API
+ * 
+ * @example
+ * To use Multichain methods, initialise a {@link ChainGrpcMultiChainApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
+ * ```ts
+ * const endpoint =  networkEndpoints["alpha devnet"];
+ * const bankClient = new ChainGrpcMultiChainApi(endpoint.grpcEndpoint);
+ * const response = await bankClient.fetchAllChainConfig();
+ * ```
+ */
 export class ChainGrpcMultiChainApi extends BaseConsumer {
 
     /**

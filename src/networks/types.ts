@@ -1,3 +1,8 @@
+/**
+ * Different networks available on Router chain.
+ * 
+ * @group Network
+ */
 export enum Network {
   Local = 'local',
   InternalDevnet = 'internal devnet',

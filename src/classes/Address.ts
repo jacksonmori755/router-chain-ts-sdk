@@ -7,7 +7,7 @@ import {
 } from '../utils/constants';
 
 /**
- * @category Utility Classes
+ * @group Util
  */
 export class Address {
   public bech32Address: string;

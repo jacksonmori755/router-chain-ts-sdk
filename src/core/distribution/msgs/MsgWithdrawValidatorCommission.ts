@@ -27,7 +27,7 @@ export declare namespace MsgWithdrawValidatorCommission {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgWithdrawValidatorCommission extends MsgBase<
   MsgWithdrawValidatorCommission.Params,

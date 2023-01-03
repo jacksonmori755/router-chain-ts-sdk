@@ -32,7 +32,7 @@ export declare namespace MsgMigrateContract {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgMigrateContract extends MsgBase<
   MsgMigrateContract.Params,

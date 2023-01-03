@@ -1,8 +1,11 @@
-// typedoc.json
 {
     "$schema": "https://typedoc.org/schema.json",
     "entryPoints": [
         "./src"
     ],
+    "excludeInternal": true,
+    "excludePrivate": true,
+    "excludeNotDocumented": true,
+    "excludeExternals": true,
     "out": "docs"
 }

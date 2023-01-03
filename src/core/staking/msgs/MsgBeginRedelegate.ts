@@ -33,7 +33,7 @@ export declare namespace MsgBeginRedelegate {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgBeginRedelegate extends MsgBase<
   MsgBeginRedelegate.Params,

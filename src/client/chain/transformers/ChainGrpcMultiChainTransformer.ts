@@ -7,9 +7,6 @@ import { ChainConfig } from '@routerprotocol/chain-api/multichain/chain_config_p
 import { PageResponse } from '@routerprotocol/chain-api/cosmos/base/query/v1beta1/pagination_pb';
 import { grpcPaginationToPagination } from '../../../utils/pagination';
 
-/**
- * @category Chain Grpc Transformer
- */
 export class ChainGrpcMultiChainTransformer {
 
   static chainConfig(

@@ -28,7 +28,7 @@ export declare namespace MsgWithdrawDelegatorReward {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgWithdrawDelegatorReward extends MsgBase<
                  MsgWithdrawDelegatorReward.Params,

@@ -13,7 +13,7 @@ import { paginationRequestFromPagination } from '../../../utils/pagination';
 import { ChainGrpcAuthTransformer } from '../transformers/ChainGrpcAuthTransformer';
 
 /**
- * @category Chain Grpc API
+ * @group gRPC API
  */
 export class ChainGrpcAuthApi extends BaseConsumer {
   async fetchModuleParams() {
@@ -35,6 +35,11 @@ export class ChainGrpcAuthApi extends BaseConsumer {
     }
   }
 
+  /**
+   * Get account details.
+   * @param address account address.
+   * @returns account.
+   */
   async fetchAccount(address: string) {
     const request = new QueryAccountRequest();
 
@@ -54,6 +59,11 @@ export class ChainGrpcAuthApi extends BaseConsumer {
     }
   }
 
+  /**
+   * Get all accounts.
+   * @param pagination 
+   * @returns accounts.
+   */
   async fetchAccounts(pagination?: PaginationOption) {
     const request = new QueryAccountsRequest();
     const paginationForRequest = paginationRequestFromPagination(pagination);

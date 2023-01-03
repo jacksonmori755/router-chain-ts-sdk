@@ -34,7 +34,7 @@ export declare namespace MsgDeposit {
 }
 
 /**
- * @category Messages
+ * @group Message
  */
 export default class MsgDeposit extends MsgBase<
   MsgDeposit.Params,
