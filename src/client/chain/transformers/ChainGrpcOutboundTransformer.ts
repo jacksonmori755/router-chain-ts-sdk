@@ -9,7 +9,7 @@ import { OutgoingBatchTx } from '@routerprotocol/chain-api/outbound/outgoing_bat
 import { OutgoingBatchConfirm } from '@routerprotocol/chain-api/outbound/outgoing_batch_confirm_pb';
 import { ContractCall } from '@routerprotocol/chain-api/outbound/contract_call_pb';
 import { grpcPaginationToPagination } from '../../../utils/pagination';
-
+import { Coin } from '@routerprotocol/chain-api/cosmos/base/v1beta1/coin_pb'
 
 /**
  * @category Chain Grpc Transformer
@@ -105,8 +105,8 @@ export class ChainGrpcOutboundTransformer {
             destinationchaintype: outgoingBatchTx.getDestinationchaintype(),
             destinationchainid: outgoingBatchTx.getDestinationchainid(),
             contractcallsList: outgoingBatchTx.getContractcallsList().map(ChainGrpcOutboundTransformer.getContractCallObject),
-            relayerfee: relayerFee ? getCoinObject(relayerFee) : undefined,
-            outgoingtxfee: outgoingTxFee ? getCoinObject(outgoingTxFee) : undefined,
+            relayerfee: relayerFee ? ChainGrpcOutboundTransformer.getCoinObject(relayerFee) : undefined,
+            outgoingtxfee: outgoingTxFee ? ChainGrpcOutboundTransformer.getCoinObject(outgoingTxFee) : undefined,
             expirytimestamp: outgoingBatchTx.getExpirytimestamp(),
             isatomic: outgoingBatchTx.getIsatomic(),
             sourceaddress: outgoingBatchTx.getSourceaddress(),
@@ -120,6 +120,14 @@ export class ChainGrpcOutboundTransformer {
         return {
             destinationcontractaddress: contractCall.getDestinationcontractaddress(),
             payload: contractCall.getPayload(),
+        }
+    }
+
+    // TODO: move to utils
+    private static getCoinObject(coin: Coin): Coin.AsObject {
+        return {
+          denom: coin.getDenom(),
+          amount: coin.getAmount(),
         }
     }
 }
