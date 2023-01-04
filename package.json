@@ -53,6 +53,8 @@
     "ts-node": "^10.9.1",
     "tsdx": "^0.14.1",
     "tslib": "^2.4.0",
+    "typedoc": "^0.23.23",
+    "typedoc-plugin-markdown": "^3.14.0",
     "typescript": "^4.8.2"
   },
   "dependencies": {
@@ -115,7 +117,6 @@
     "snakecase-keys": "^5.4.1",
     "store2": "^2.12.0",
     "text-encoding": "^0.7.0",
-    "typedoc": "^0.23.23",
     "util": "^0.12.4",
     "web3": "^1.8.1",
     "web3-core": "^1.8.1"
