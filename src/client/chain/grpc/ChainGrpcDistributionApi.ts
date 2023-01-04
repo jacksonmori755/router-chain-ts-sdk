@@ -34,7 +34,13 @@ export class ChainGrpcDistributionApi extends BaseConsumer {
              throw new Error(e.message);
            }
          }
-
+         /**
+          * Get delegatore rewards for staking in a particular validators pool.
+          *
+          * @param delegatorAddress account address.
+          * @param validatorAddress coin denomination.
+          * @returns delegator rewards.
+          */
          async fetchDelegatorRewardsForValidator({
            delegatorAddress,
            validatorAddress,
@@ -61,7 +67,13 @@ export class ChainGrpcDistributionApi extends BaseConsumer {
              throw new Error(e.message);
            }
          }
-
+         /**
+          * Get delegatore rewards for staking in a particular validators pool.
+          *
+          * @param delegatorAddress account address.
+          * @param validatorAddress coin denomination.
+          * @returns delegator rewards.
+          */
          async fetchDelegatorRewardsForValidatorNoThrow({
            delegatorAddress,
            validatorAddress,
@@ -92,7 +104,12 @@ export class ChainGrpcDistributionApi extends BaseConsumer {
              throw new Error(e.message);
            }
          }
-
+         /**
+          * Get total staking rewards for an account address.
+          *
+          * @param routerAddress account address.
+          * @returns accounts rewards.
+          */
          async fetchDelegatorRewards(routerAddress: string) {
            const request = new QueryDelegationTotalRewardsRequest();
            request.setDelegatorAddress(routerAddress);
@@ -112,7 +129,12 @@ export class ChainGrpcDistributionApi extends BaseConsumer {
              throw new Error(e.message);
            }
          }
-
+         /**
+          * Get total staking rewards for an account address.
+          *
+          * @param routerAddress account address.
+          * @returns accounts rewards.
+          */
          async fetchDelegatorRewardsNoThrow(routerAddress: string) {
            const request = new QueryDelegationTotalRewardsRequest();
            request.setDelegatorAddress(routerAddress);

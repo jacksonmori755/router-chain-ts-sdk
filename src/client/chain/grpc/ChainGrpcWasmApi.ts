@@ -36,14 +36,19 @@ import { fromBase64 } from '../../../utils';
  * @example
  * To use Wasm methods, initialise a {@link ChainGrpcWasmApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
  * ```ts
- * const endpoint =  networkEndpoints["alpha devnet"];
- * const client = new ChainGrpcWasmApi(endpoint.grpcEndpoint);
+ * const endpoint =  getEndpointsForNetwork(getNetworkType('devnet')).grpcEndpoint
+ * const client = new ChainGrpcWasmApi(endpoint);
  * const response = await client.fetchContractInfo(<contract-address>);
  * ```
  */
 export class ChainGrpcWasmApi extends BaseConsumer {
   protected module: string = ChainModule.Wasm;
-
+  /**
+   * Get balance of a contract.
+   *
+   * @param contractAddress contract address.
+   * @returns balance.
+   */
   async fetchContractAccountsBalance({
     contractAddress,
     pagination,
@@ -80,7 +85,12 @@ export class ChainGrpcWasmApi extends BaseConsumer {
       });
     }
   }
-
+  /**
+   * Get contract info.
+   *
+   * @param contractAddress contract address.
+   * @returns contract info.
+   */
   async fetchContractInfo(contractAddress: string) {
     const request = new QueryAllContractStateRequest();
     request.setAddress(contractAddress);
@@ -111,7 +121,12 @@ export class ChainGrpcWasmApi extends BaseConsumer {
       });
     }
   }
-
+  /**
+   * Get contract's history.
+   *
+   * @param contractAddress contract address.
+   * @returns contract history.
+   */
   async fetchContractHistory(contractAddress: string) {
     const request = new QueryContractHistoryRequest();
     request.setAddress(contractAddress);
@@ -139,7 +154,8 @@ export class ChainGrpcWasmApi extends BaseConsumer {
   }
 
   /**
-   * 
+   * Get contract's state of the query made.
+   *
    * @param contractAddress contract address.
    * @param queryData query data.
    * @returns smart contract state data.
@@ -180,7 +196,7 @@ export class ChainGrpcWasmApi extends BaseConsumer {
   }
 
   /**
-   * 
+   *
    * @param contractAddress contract address.
    * @param queryData query data.
    * @returns raw contract state data.
