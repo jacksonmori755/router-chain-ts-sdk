@@ -21,6 +21,10 @@ import {
 } from '../queries';
 import { gqlFetcher } from '../utils';
 
+/**
+ * @group Router Scan Utility
+ */
+
 export class RouterExplorer {
   public readonly chainEnvironment: Network;
   public readonly applicationAddress: string | null;
