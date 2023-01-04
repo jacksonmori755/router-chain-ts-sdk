@@ -7,5 +7,6 @@
     "excludePrivate": true,
     "excludeNotDocumented": true,
     "excludeExternals": true,
-    "out": "docs"
+    "out": "docs",
+    "plugin": ["none"]
 }
