@@ -24,7 +24,7 @@ import { ChainGrpcAttestationTransformer } from '../transformers';
  * @example
  * To use Attestation methods, initialise a {@link ChainGrpcAttestationApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
  * ```ts
- * const endpoint =  networkEndpoints["alpha devnet"];
+ * const endpoint =  getEndpointsForNetwork(Network.Devnet).grpcEndpoint;
  * const client = new ChainGrpcAttestationApi(endpoint.grpcEndpoint);
  * const response = await client.fetchLatestValsetNonce();
  * ```

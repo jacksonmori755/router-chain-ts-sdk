@@ -14,7 +14,7 @@ import { ChainGrpcInboundTransformer } from '../transformers'
  * @example
  * To use Inbound methods, initialise a {@link ChainGrpcInboundApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
  * ```ts
- * const endpoint =  networkEndpoints["alpha devnet"];
+ * const endpoint =  getEndpointsForNetwork(Network.Devnet).grpcEndpoint;
  * const client = new ChainGrpcInboundApi(endpoint.grpcEndpoint);
  * const response = await client.fetchIncomingTx(0, "7545", 4);
  * ```

@@ -22,7 +22,7 @@ import { ChainGrpcOutboundTransformer } from '../transformers';
  * @example
  * To use Outbound methods, initialise a {@link ChainGrpcOutboundApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
  * ```ts
- * const endpoint =  networkEndpoints["alpha devnet"];
+ * const endpoint =  getEndpointsForNetwork(Network.Devnet).grpcEndpoint;
  * const client = new ChainGrpcOutboundApi(endpoint.grpcEndpoint);
  * const response = await client.fetchAllOutgoingBatchTx();
  * ```
