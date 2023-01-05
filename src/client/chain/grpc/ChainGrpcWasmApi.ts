@@ -36,7 +36,7 @@ import { fromBase64 } from '../../../utils';
  * @example
  * To use Wasm methods, initialise a {@link ChainGrpcWasmApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
  * ```ts
- * const endpoint =  getEndpointsForNetwork(getNetworkType('devnet')).grpcEndpoint
+ * const endpoint =  getEndpointsForNetwork(Network.Devnet).grpcEndpoint;
  * const client = new ChainGrpcWasmApi(endpoint);
  * const response = await client.fetchContractInfo(<contract-address>);
  * ```

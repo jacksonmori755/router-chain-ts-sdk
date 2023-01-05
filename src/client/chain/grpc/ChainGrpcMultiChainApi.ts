@@ -16,7 +16,7 @@ import { ChainGrpcMultiChainTransformer } from '../transformers';
  * @example
  * To use Multichain methods, initialise a {@link ChainGrpcMultiChainApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
  * ```ts
- * const endpoint =  networkEndpoints["alpha devnet"];
+ * const endpoint =  getEndpointsForNetwork(Network.Devnet).grpcEndpoint;
  * const bankClient = new ChainGrpcMultiChainApi(endpoint.grpcEndpoint);
  * const response = await bankClient.fetchAllChainConfig();
  * ```

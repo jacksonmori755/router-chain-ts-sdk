@@ -27,6 +27,7 @@ import {
 import { ChainInfo, getNetworkType, Network, NetworkEndpoints } from './types';
 
 /**
+ * @hidden
  * Supported network endpoints for Router chain. Also see {@link Network} for network names.
  * 
  * @example
@@ -34,7 +35,7 @@ import { ChainInfo, getNetworkType, Network, NetworkEndpoints } from './types';
  * 
  * @group Network
  */
-export const networkEndpoints: Record<Network, NetworkEndpoints> = {
+ const NETWORK_ENDPOINT: Record<Network, NetworkEndpoints> = {
   [Network.Mainnet]: urlEndpointsMainnet,
   [Network.Devnet]: urlEndpointsDevnet,
   [Network.Testnet]: urlEndpointsTestnet,
@@ -45,11 +46,12 @@ export const networkEndpoints: Record<Network, NetworkEndpoints> = {
 };
 
 /**
+ * @hidden
  * Supported Router chain info.
  * 
  * @group Network
  */
-export const chainInfos: Record<Network, ChainInfo> = {
+const CHAIN_INFO: Record<Network, ChainInfo> = {
   [Network.Mainnet]: mainnetChainInfo,
   [Network.Devnet]: devnetChainInfo,
   [Network.Testnet]: testnetChainInfo,
@@ -59,7 +61,7 @@ export const chainInfos: Record<Network, ChainInfo> = {
   [Network.InternalDevnet]: internalDevnetChainInfo,
 };
 
-export const ethChainId: Record<Network, EthereumChainId> = {
+const ETH_CHAINID: Record<Network, EthereumChainId> = {
   [Network.Mainnet]: EthereumChainId.Mainnet,
   [Network.Devnet]: EthereumChainId.Goerli,
   [Network.Testnet]: EthereumChainId.Goerli,
@@ -69,21 +71,29 @@ export const ethChainId: Record<Network, EthereumChainId> = {
   [Network.InternalDevnet]: EthereumChainId.Goerli,
 };
 
+/**
+ * Get endpoint object for a network. Also see {@link Network} for different networks on Router chain.
+ * 
+ * @example
+ * const endpoint =  getEndpointsForNetwork(Network.devnet);
+ * 
+ * @group Network
+ */
 export const getEndpointsForNetwork = (network: Network): NetworkEndpoints =>
-  networkEndpoints[network];
+  NETWORK_ENDPOINT[network];
 
 export const getChainInfoForNetwork = (network: Network): ChainInfo =>
-  chainInfos[network];
+  CHAIN_INFO[network];
 
 export const getEthereumChainIdForNetwork = (
   network: Network
-): EthereumChainId => ethChainId[network];
+): EthereumChainId => ETH_CHAINID[network];
 
 export const getNetworkInfo = (
          network: Network
        ): ChainInfo & NetworkEndpoints => ({
-         ...chainInfos[network],
-         ...networkEndpoints[network],
+         ...CHAIN_INFO[network],
+         ...NETWORK_ENDPOINT[network],
        });
 
 export const getEndpointsFromChainId = (
