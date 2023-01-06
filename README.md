@@ -1,145 +1,103 @@
 # Overview
 
-sdk-ts is an utility built to interact with Router Chain from node.js or browser based applications. With the functions present inside the sdk-ts you can broadly do the following things -
+SDK for Router chain.
 
-- Read from Router Chain
-- Create a transaction
-- Sign a transaction
-- Broadcast a transaction to Router Chain
+Refer to the documentation of Router chain SDK (ts): https://router-protocol.github.io/router-chain-ts-sdk/modules.html
 
-You can add sdk-ts package in your node project via yarn or npm -
 
-```jsx
+## Features
+
+With this SDK, broadly following things can be done on Router chain -
+- Create a transaction.
+- Sign a transaction.
+- Broadcast a transaction.
+- Read any data and state.
+
+
+## Installation
+
+```bash
 yarn add @routerprotocol/router-chain-sdk-ts
-(or) 
+```
+or
+```bash
 npm i @routerprotocol/router-chain-sdk-ts
 ```
 
-## UI Support
+## Code Snippets
 
-For using the package with UI it is recommended to use node version v18.12.1 and above 
+<details><summary>Fetch an account's balance.</summary>
+<p>
 
-With create-next-app this package works totally fine , just make sure your node version is v18.12.1 or higher.
+```ts
+import { getEndpointsForNetwork, Network } from "@routerprotocol/router-chain-sdk-ts";
 
-With create-react-app the package might give you webpack errors to resolve it follow the steps below -  
+const endpoint =  getEndpointsForNetwork(Network.Devnet);
+const bankClient = new ChainGrpcBankApi(endpoint.grpcEndpoint);
 
-```jsx
-1. Install craco 
-	 yarn add -D @craco/craco
-2. Add craco.config.js file in your project directory with same path as package.json
-	 craco.config.js content below - 
+// Fetch all balances of an account
+const accountBalances = await bankClient.fetchBalances("router16sqwdtdxjl6zdvx49rvayhkyelfrhavpmknxh9");
+console.log(accountBalances);
 
-		const { ProvidePlugin } = require("webpack");
-		module.exports = {
-		  webpack: {
-		    configure: (webpackConfig) => {
-		      return {
-		        ...webpackConfig,
-		        resolve: {
-		          ...webpackConfig.resolve,
-		          fallback: {
-		            ...(webpackConfig.resolve?.fallback ?? {}),
-		            path: require.resolve("path-browserify"),
-		            stream: require.resolve("stream-browserify"),
-		            buffer: require.resolve("buffer/"),
-		            crypto: require.resolve("crypto-browserify"),
-		            http: require.resolve("stream-http"),
-		            https: require.resolve("https-browserify"),
-		            os: require.resolve("os-browserify/browser"),
-		            assert: require.resolve("assert/"),
-		            url: require.resolve("url/"),
-		          },
-		        },
-		        plugins: [
-		          ...(webpackConfig.plugins ?? []),
-		          new ProvidePlugin({
-		            Buffer: ["buffer", "Buffer"],
-		          }),
-		          new ProvidePlugin({
-		            process: "process/browser",
-		          }),
-		        ],
-		      };
-		    },
-		  },
-		};
 
-3. Do add these packages 
-	 yarn add path-browserify stream-browserify stream-http https-browserify os-browserify assert url
-
-4. Replace these scripts in package.json
-		"scripts": {
-		-  ~~"start": "react-scripts start"~~
-		+  "start": "craco start"
-		-  ~~"build": "react-scripts build"~~
-		+  "build": "craco build"
-		-  ~~"test": "react-scripts test"~~
-		+  "test": "craco test"
-		}
-5. yarn start and the webpack errors should be gone.
+// Fetch particular coin's balance of an account
+const routersBalances = await bankClient.fetchBalance({    
+	accountAddress: "router16sqwdtdxjl6zdvx49rvayhkyelfrhavpmknxh9",
+	denom: "route",
+});
+console.log(routersBalances);
 ```
 
-## Usage/Examples
-
-Below is an example given that demonstrates how to fetch balance - 
-
-```jsx
-import {getEndpointsForNetwork} from "@routerprotocol/router-chain-sdk-ts"
-
-const network = getEndpointsForNetwork(networkEnvironment);
-const bankClient = new ChainGrpcBankApi(network.grpcEndpoint);
-
-/* Fetch all balances for a account */
-   const accountBalances = await bankClient.fetchBalances(
-     "router16sqwdtdxjl6zdvx49rvayhkyelfrhavpmknxh9"
-   );
-   console.log(accountBalances);
-/* 
+Sample response -
+```shell
 {
-  balances: [ { denom: 'route', amount: '1000000000000000000000' } ],
-  pagination: { total: 1, next: '' }
+	balances: [ { denom: 'route', amount: '1000000000000000000000' } ],
+	pagination: { total: 1, next: '' }
 }
-*/
 
-/* Fetch a particular account's balance for a particular denom */
-  const routersBalances = await bankClient.fetchBalance({
-    accountAddress: "router16sqwdtdxjl6zdvx49rvayhkyelfrhavpmknxh9",
-    denom: "route",
-   });
-  console.log(routersBalances);
-/* 
 { denom: 'route', amount: '1000000000000000000000' }
-*/
 ```
 
-Function `createTransaction`  returns the raw transaction and signed bytes. The `signbytes` can be signed and broadcast it to the chain. 
+</p>
+</details>
 
-```jsx
+
+<details><summary>Create a raw transaction.</summary>
+<p>
+
+`createTransaction` returns the raw transaction and signed bytes. The `signbytes` can be signed and broadcasted to the chain.
+```ts
 const {
   DEFAULT_STD_FEE,
   createTransaction
 } = require("@routerprotocol/router-chain-sdk-ts");  
-  
-/** Create Raw Transaction */
-    const { signBytes, txRaw } = createTransaction({
-      message: message.toDirectSign(),
-      memo: "",
-      fee: DEFAULT_STD_FEE,
-      pubKey: publicKey,
-      sequence: parseInt(aliceAccount.account.base_account.sequence, 10),
-      accountNumber: parseInt(
-        aliceAccount.account.base_account.account_number,
-        10
-      ),
-      chainId: CHAIN_ID,
-    });
+
+const { signBytes, txRaw } = createTransaction({
+	message: message.toDirectSign(),
+	memo: "",
+	fee: DEFAULT_STD_FEE,
+	pubKey: publicKey,
+	sequence: parseInt(aliceAccount.account.base_account.sequence, 10),
+	accountNumber: parseInt(
+	aliceAccount.account.base_account.account_number,
+	10
+	),
+	chainId: CHAIN_ID,
+});
 ```
 
-Given below an example of bank transaction which can be used to send transfer funds -
+</p>
+</details>
 
+
+<details><summary>Transfer funds.</summary>
+<p>
+
+Given below is an example of bank transaction which can be used to send transfer funds -
 ```jsx
 const {
   getEndpointsForNetwork,
+  Network,
   ChainRestAuthApi,
   PrivateKey,
   DEFAULT_STD_FEE,
@@ -158,7 +116,7 @@ const amount = {
   denom: "route",
 };
 
-const network = getEndpointsForNetwork(networkEnvironment);
+const endpoint =  getEndpointsForNetwork(Network.Devnet);
 const privateKeyHash = FAUCET_ACCOUNT_KEY;
 
 /** Intializing Faucet wallet from the private key */
@@ -178,9 +136,7 @@ const message = MsgSend.fromJSON({
 });
 
 /** Get Faucet Accounts details */
-const aliceAccount = await new ChainRestAuthApi(
-  network.lcdEndpoint
-).fetchAccount(alice);
+const aliceAccount = await new ChainRestAuthApi(endpoint.lcdEndpoint).fetchAccount(alice);
 
 /** Create Raw Transaction */
 const { signBytes, txRaw } = createTransaction({
@@ -202,7 +158,7 @@ const signature = await privateKey.sign(signBytes);
 /** Append Signatures */
 txRaw.setSignaturesList([signature]);
 
-const txService = new TxRestClient(network.lcdEndpoint);
+const txService = new TxRestClient(endpoint.lcdEndpoint);
 
 /** Broadcast transaction */
 const txResponse = await txService.broadcast(txRaw);
@@ -215,9 +171,10 @@ console.log(
 
 Given below is an example of how `MsgStoreCode` can be used to upload a wasm contract file to router chain - 
 
-```jsx
+```ts
 import {
   getEndpointsForNetwork,
+  Network,
   getNetworkType,
   MsgStoreCode,
   PrivateKey,
@@ -245,11 +202,13 @@ const publicKey = privateKeyToPublicKeyBase64(
 	Buffer.from(privateKeyHash, "hex")
 );
 
-const restClient = new TxRestClient(network.lcdEndpoint);
+const endpoint =  getEndpointsForNetwork(Network.Devnet);
+
+const restClient = new TxRestClient(endpoint.lcdEndpoint);
 
 /** Get Faucet Accounts details */
   const aliceAccount = await new ChainRestAuthApi(
-    network.lcdEndpoint
+    endpoint.lcdEndpoint
   ).fetchAccount(alice);
   console.log(`aliceAccount => ${JSON.stringify(aliceAccount)}`);
 
@@ -300,9 +259,15 @@ const restClient = new TxRestClient(network.lcdEndpoint);
   console.log(`deployedContract code id  =>`, codeId);
 ```
 
-With `MsgInstantiateContract` we can instantiate the deployed contract with `codeId` -  
+</p>
+</details>
 
-```jsx
+
+<details><summary>Instantiate a contract.</summary>
+<p>
+
+With `MsgInstantiateContract` we can instantiate the deployed contract with `codeId` -  
+```ts
 import {
   getEndpointsForNetwork,
   getNetworkType,
@@ -332,9 +297,11 @@ const publicKey = privateKeyToPublicKeyBase64(
 	Buffer.from(privateKeyHash, "hex")
 );
 
-const restClient = new TxRestClient(network.lcdEndpoint);
+const endpoint =  getEndpointsForNetwork(Network.Devnet);
+
+const restClient = new TxRestClient(endpoint.lcdEndpoint);
 const aliceAccount = await new ChainRestAuthApi(
-		network.lcdEndpoint
+		endpoint.lcdEndpoint
 	).fetchAccount(alice);
 	console.log(`aliceAccount => ${JSON.stringify(aliceAccount)}`);
 
@@ -372,7 +339,7 @@ const aliceAccount = await new ChainRestAuthApi(
 
 	/** Append Signatures */
 	instantiateTx.txRaw.setSignaturesList([signature]);
-	const txService = new TxGrpcClient(network.grpcEndpoint);
+	const txService = new TxGrpcClient(endpoint.grpcEndpoint);
 
 	/** Broadcast transaction */
 	const txResponse = await restClient.broadcast(instantiateTx.txRaw);
@@ -390,15 +357,20 @@ const aliceAccount = await new ChainRestAuthApi(
 	console.log(`Deployed contract address =>`, contractAddressAttr);
 ```
 
-Query any contract on Router Chain with these functions - 
+</p>
+</details>
 
-```jsx
+
+<details><summary>Query a contract.</summary>
+<p>
+
+```ts
 import { toUtf8, ChainGrpcWasmApi, getEndpointsForNetwork, getNetworkType, ChainGrpcBankApi } from "../../router-chain-ts-sdk/src";
 
-const network = getEndpointsForNetwork(getNetworkType("devnet"));
+const endpoint =  getEndpointsForNetwork(Network.Devnet);
 
-const wasmClient = new ChainGrpcWasmApi(network.grpcEndpoint);
-const bankClient = new ChainGrpcBankApi(network.grpcEndpoint);
+const wasmClient = new ChainGrpcWasmApi(endpoint.grpcEndpoint);
+const bankClient = new ChainGrpcBankApi(endpoint.grpcEndpoint);
 const request = {
 address: "router1aaf9r6s7nxhysuegqrxv0wpm27ypyv4886medd3mrkrw6t4yfcns8a2l0y",
 queryData: toUtf8(JSON.stringify({fetch_white_listed_contract: {},})),
@@ -441,9 +413,15 @@ denom: "route",
 console.log("fetchBalanceResult =>", fetchBalanceResult);
 ```
 
-With `MsgExecuteContract` you can execute any query on Router Chain - 
+</p>
+</details>
 
-```jsx
+
+<details><summary>Execute a query.</summary>
+<p>
+
+With `MsgExecuteContract` you can execute any query on Router Chain.
+```ts
 import {
 	getEndpointsForNetwork,
 	getNetworkType,
@@ -472,11 +450,11 @@ const alice_pubkey = privateKey.toPublicKey();
 const publicKey = privateKeyToPublicKeyBase64(
 	Buffer.from(privateKeyHash, "hex")
 );
-const restClient = new TxRestClient(network.lcdEndpoint);
+const restClient = new TxRestClient(endpoint.lcdEndpoint);
 
 /** Get Faucet Accounts details */
 	const aliceAccount = await new ChainRestAuthApi(
-		network.lcdEndpoint
+		endpoint.lcdEndpoint
 	).fetchAccount(alice);
 
 	const executeContractMsg = MsgExecuteContract.fromJSON({
@@ -526,3 +504,71 @@ const restClient = new TxRestClient(network.lcdEndpoint);
 	let txResponse = await restClient.waitTxBroadcast(txxResponse.txhash);
 	console.log(`txResponse =>`,(txResponse));
 ```
+
+</p>
+</details>
+
+## Common Errors
+
+For using the SDK with UI it is recommended to use node version v18.12.1 or above.
+
+If you get webpack errors when using with create-react-app, follow these steps -  
+
+1. Install craco and required packages.
+```bash
+yarn add -D @craco/craco
+```
+```bash
+yarn add path-browserify stream-browserify stream-http https-browserify os-browserify assert url
+```
+2. Add craco.config.js file in your project root.
+```jsx
+//craco.config.js
+
+const { ProvidePlugin } = require("webpack");
+module.exports = {
+	webpack: {
+	configure: (webpackConfig) => {
+		return {
+		...webpackConfig,
+		resolve: {
+			...webpackConfig.resolve,
+			fallback: {
+			...(webpackConfig.resolve?.fallback ?? {}),
+			path: require.resolve("path-browserify"),
+			stream: require.resolve("stream-browserify"),
+			buffer: require.resolve("buffer/"),
+			crypto: require.resolve("crypto-browserify"),
+			http: require.resolve("stream-http"),
+			https: require.resolve("https-browserify"),
+			os: require.resolve("os-browserify/browser"),
+			assert: require.resolve("assert/"),
+			url: require.resolve("url/"),
+			},
+		},
+		plugins: [
+			...(webpackConfig.plugins ?? []),
+			new ProvidePlugin({
+			Buffer: ["buffer", "Buffer"],
+			}),
+			new ProvidePlugin({
+			process: "process/browser",
+			}),
+		],
+		};
+	},
+	},
+};
+```
+3. Replace these scripts in package.json.
+```ts
+"scripts": {
+		-  ~~"start": "react-scripts start"~~
+		+  "start": "craco start"
+		-  ~~"build": "react-scripts build"~~
+		+  "build": "craco build"
+		-  ~~"test": "react-scripts test"~~
+		+  "test": "craco test"
+}
+```
+4. yarn start and the webpack errors should be gone.
