@@ -618,8 +618,8 @@ export const latestCrossTalksQuery = `
 `;
 
 export const searchSpecificCrossTalkQuery = `
-  query getLatestCrossTalks($destinationChainType: String!,$destinationChainId: String!,$sourceAddress: String!,$limit: Int!, $offset: Int!){
-    paginatedCrossTalk(where:{destinationChainType:$destinationChainType,destinationChainId:$destinationChainId,requestSender:$sourceAddress},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  query getLatestCrossTalks($searchTerm: String!,$limit: Int!, $offset: Int!){
+    paginatedCrossTalk(where_or:{sourceTxHash:$searchTerm,requestSender:$searchTerm,formAttestationId:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     crossTalks{
      attestationId

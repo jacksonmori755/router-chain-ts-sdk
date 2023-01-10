@@ -414,18 +414,14 @@ export class RouterExplorer {
   }
   /**
    * Fetches specific CrossTalks
-   * @param {string} destinationChainType
-   * @param {string} destinationChainId
-   * @param {string} sourceAddress
+   * @param {string} searchTerm Source Sender or Source Transaction Hash
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
    * @return {CrossTalks}
    * @throws {Error}
    */
   public async getCrossTalkBySearch(
-    destinationChainType: String,
-    destinationChainId: String,
-    sourceAddress: String,
+    searchTerm: String,
     limit: Number = 10,
     offset: Number = 1
   ) {
@@ -434,9 +430,7 @@ export class RouterExplorer {
         this.chainEnvironment,
         searchSpecificCrossTalkQuery,
         {
-          destinationChainType: destinationChainType,
-          destinationChainId: destinationChainId,
-          sourceAddress: sourceAddress,
+          searchTerm: searchTerm,
           limit: limit,
           offset: offset,
         }
