@@ -104,7 +104,8 @@ export interface OutboundType {
   contractsExecutionData: {
     destContractAddress: String;
     status: Boolean;
-    payload: String;
+    requestPayload: String;
+    responsePayload: String;
   }[];
   contractAckResponses: Boolean[];
 }
@@ -138,7 +139,8 @@ export interface CrossTalkType {
   contractsExecutionData: {
     destContractAddress: String;
     status: Boolean;
-    payload: String;
+    requestPayload: String;
+    responsePayload: String;
   }[];
   eventConfirmSignatures: {
     validator: String;

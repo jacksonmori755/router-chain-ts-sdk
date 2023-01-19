@@ -318,7 +318,8 @@ export const latestOutboundsQuery = `
       contractsExecutionData{
         destContractAddress
         status
-        payload
+        requestPayload
+        responsePayload
       }
       confirmations{
         validator
@@ -376,7 +377,8 @@ export const latestApplicationsOutboundsQuery = `
       contractsExecutionData{
         destContractAddress
         status
-        payload
+        requestPayload
+        responsePayload
       }
       contractAckResponses
       confirmations{
@@ -434,7 +436,8 @@ export const searchSpecificOutboundQuery = `
       contractsExecutionData{
         destContractAddress
         status
-        payload
+        requestPayload
+        responsePayload
       }
       contractAckResponses
       confirmations{
@@ -492,7 +495,8 @@ export const filterApplicationOutboundQuery = `
       contractsExecutionData{
         destContractAddress
         status
-        payload
+        requestPayload
+        responsePayload
       }
       contractAckResponses
       confirmations{
@@ -548,7 +552,8 @@ export const specificOutboundQuery = `
       contractsExecutionData{
         destContractAddress
         status
-        payload
+        requestPayload
+        responsePayload
       }
       confirmations{
         validator
@@ -594,7 +599,8 @@ export const latestCrossTalksQuery = `
       contractsExecutionData{
         destContractAddress
         status
-        payload
+        requestPayload
+        responsePayload
       }
       eventConfirmSignatures{
       validator
@@ -650,7 +656,8 @@ export const searchSpecificCrossTalkQuery = `
       contractsExecutionData{
         destContractAddress
         status
-        payload
+        requestPayload
+        responsePayload
       }
       eventConfirmSignatures{
       validator
@@ -704,7 +711,8 @@ export const specificCrossTalkQuery = `
       contractsExecutionData{
         destContractAddress
         status
-        payload
+        requestPayload
+        responsePayload
       }
       eventConfirmSignatures{
       validator

@@ -1,11 +1,9 @@
 import { RouterExplorer } from '../src';
 
 describe('Queries Test', () => {
-  const explorer = new RouterExplorer('devnet');
+  const explorer = new RouterExplorer('local');
   it('Fetch Crosstalk by search - ', async () => {
-    const CrossTalks = await explorer.getCrossTalkBySearch(
-      '0x708f9043c39a8f222fe60eea2ee8360a8cb7bd2b8b0f257e72726f4de2f47acc'
-    );
+    const CrossTalks = await explorer.getLatestCrossTalks(10, 1);
     console.log('Crosstalk =>', JSON.stringify(CrossTalks));
     expect(CrossTalks).toBeDefined();
   });
