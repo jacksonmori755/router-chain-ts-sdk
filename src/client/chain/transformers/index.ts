@@ -8,3 +8,4 @@ export * from './ChainGrpcAttestationTransformer';
 export * from './ChainGrpcMultiChainTransformer';
 export * from './ChainGrpcInboundTransformer';
 export * from './ChainGrpcOutboundTransformer';
+export * from './ChainGrpcCrossTalkTransformer';
