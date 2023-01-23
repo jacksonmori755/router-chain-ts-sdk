@@ -10,3 +10,4 @@ export { ChainGrpcAttestationApi } from './ChainGrpcAttestationApi';
 export { ChainGrpcMultiChainApi } from './ChainGrpcMultiChainApi';
 export { ChainGrpcInboundApi } from './ChainGrpcInboundApi';
 export { ChainGrpcOutboundApi } from './ChainGrpcOutboundApi';
+export { ChainGrpcCrossTalkApi } from './ChainGrpcCrossTalkApi';
