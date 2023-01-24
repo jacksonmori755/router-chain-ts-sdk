@@ -12,8 +12,18 @@ import {
 import BaseConsumer from '../../BaseGrpcConsumer';
 import { ChainGrpcCrossTalkTransformer } from '../transformers';
 
+/**
+ * The CrossTalk module is responsible for managing crosstalk requests.
+ * 
+ * @group gRPC API
+ *
+ */
 export class ChainGrpcCrossTalkApi extends BaseConsumer {
 
+    /**
+     * 
+     * @returns all crosstalk requests
+     */
     async fetchAllCrossTalkRequests() {
         const request = new QueryAllCrossTalkRequest();
 
@@ -31,6 +41,14 @@ export class ChainGrpcCrossTalkApi extends BaseConsumer {
         }
     }
 
+    /**
+     * 
+     * @param sourceChainType source chain type
+     * @param sourceChainId source chain ID
+     * @param eventNonce nonce
+     * @param claimHash 
+     * @returns all crosstalk request confirmations
+     */
     async fetchAllCrosstalkRequestConfirmations(sourceChainType: number, sourceChainId: string, eventNonce: number, claimHash: string) {
         const request = new QueryAllCrosstalkRequestConfirmRequest();
         request.setSourcechaintype(sourceChainType);
@@ -52,6 +70,10 @@ export class ChainGrpcCrossTalkApi extends BaseConsumer {
         }
     }
 
+    /**
+     * 
+     * @returns  all crosstalk acknowledgement requests
+     */
     async fetchAllCrossTalkAckRequests() {
         const request = new QueryAllCrossTalkAckRequest();
 
@@ -69,6 +91,14 @@ export class ChainGrpcCrossTalkApi extends BaseConsumer {
         }
     }
     
+    /**
+     * 
+     * @param chainType chain type
+     * @param chainId chain ID
+     * @param eventNonce nonce
+     * @param claimHash 
+     * @returns all crosstalk acknowledgment confirmation
+     */
     async fetchAllCrosstalkAckRequestConfirmations(chainType: number, chainId: string, eventNonce: number, claimHash: string) {
         const request = new QueryAllCrosstalkAckRequestConfirmRequest();
         request.setChaintype(chainType);
