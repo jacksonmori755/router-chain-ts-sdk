@@ -8,7 +8,7 @@ import { CrossTalkRequest } from "@routerprotocol/chain-api/crosstalk/cross_talk
  * @param crossTalkRequest 
  * @returns claim hash
  */
-export function getCrossTalkClaimHash(crossTalkRequest: CrossTalkRequest) {
+export function getCrossTalkClaimHash(crossTalkRequest: CrossTalkRequest) : Uint8Array {
     const path =
         crossTalkRequest.getEventnonce() +
         crossTalkRequest.getBlockheight() +
