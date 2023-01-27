@@ -6,7 +6,7 @@ import {
   AbsoluteTxPosition as GrpcAbsoluteTxPosition,
 } from '@routerprotocol/chain-api/cosmwasm/wasm/v1/types_pb';
 import { CodeInfoResponse as GrpcCodeInfoResponse } from '@routerprotocol/chain-api/cosmwasm/wasm/v1/query_pb';
-import { Pagination } from './../../../types/pagination';
+import { Pagination } from '../../../../types/pagination';
 
 export interface AbsoluteTxPosition {
   blockHeight: number;

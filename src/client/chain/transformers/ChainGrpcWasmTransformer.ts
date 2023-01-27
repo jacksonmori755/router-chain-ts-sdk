@@ -14,7 +14,7 @@ import {
   grpcContractInfo,
   CodeInfoResponse,
   GrpcCodeInfoResponse,
-} from '../types/wasm';
+} from '../types/custom/wasm';
 import { fromUtf8 } from '../../../utils';
 import { grpcPaginationToPagination } from './../../../utils/pagination';
 

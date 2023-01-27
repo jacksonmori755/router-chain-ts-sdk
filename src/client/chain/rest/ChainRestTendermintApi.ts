@@ -2,7 +2,7 @@ import BaseRestConsumer from '../../BaseRestConsumer'
 import {
   BlockLatestRestResponse,
   NodeInfoRestResponse,
-} from '../types/tendermint-rest';
+} from '../types/custom/tendermint-rest';
 
 /**
  * @group REST API
