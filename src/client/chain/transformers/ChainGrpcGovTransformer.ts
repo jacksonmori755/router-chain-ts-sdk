@@ -18,7 +18,7 @@ import {
   GrpcGovernanceDepositParams,
   GrpcGovernanceVotingParams,
   GrpcGovernanceTallyParams,
-} from '../types/gov'
+} from '../types/custom/gov'
 import { Pagination } from '../../../types/index'
 import { grpcPaginationToPagination } from '../../../utils/pagination'
 import { cosmosSdkDecToBigNumber } from '../../../utils'

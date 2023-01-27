@@ -22,7 +22,7 @@ import {
   ReDelegation,
   Pool,
   StakingModuleParams,
-} from '../types/staking';
+} from '../types/custom/staking';
 import { cosmosSdkDecToBigNumber, DUST_AMOUNT } from '../../../utils';
 import { grpcPaginationToPagination } from '../../../utils/pagination';
 import { Pagination } from '../../../types';

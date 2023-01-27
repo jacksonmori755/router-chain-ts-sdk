@@ -3,7 +3,6 @@ import { CrossTalkRequest } from "@routerprotocol/chain-api/crosstalk/cross_talk
 
 
 /**
- * @group Util
  * 
  * Calculates claim hash by doing sha256 of CrossTalkRequest data members.
  * @param crossTalkRequest 

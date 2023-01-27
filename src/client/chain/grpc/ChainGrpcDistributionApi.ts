@@ -10,7 +10,7 @@ import { Query as DistributionQuery } from '@routerprotocol/chain-api/cosmos/dis
 import { Coin } from '../../../types';
 import BaseConsumer from '../../BaseGrpcConsumer';
 import { ChainGrpcDistributionTransformer } from '../transformers';
-import { ValidatorRewards } from '../types/distribution';
+import { ValidatorRewards } from '../types/custom/distribution';
 
 /**
  * @group gRPC API
