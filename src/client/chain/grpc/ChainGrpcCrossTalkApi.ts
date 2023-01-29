@@ -25,26 +25,26 @@ import { ChainGrpcCrossTalkTransformer } from '../transformers';
 export class ChainGrpcCrossTalkApi extends BaseConsumer {
 
 
-        /**
+    /**
      * 
      * @returns get acrosstalk request
      */
-         async fetchCrossTalkRequest() {
-            const request = new QueryGetCrossTalkRequest();
-    
-            try {
-                const response = await this.request<
+    async fetchCrossTalkRequest() {
+        const request = new QueryGetCrossTalkRequest();
+
+        try {
+            const response = await this.request<
                 QueryGetCrossTalkRequest,
                 QueryGetCrossTalkRequestResponse,
                 typeof CrossTalkQuery.CrossTalkRequest
-                >(request, CrossTalkQuery.CrossTalkRequest);
-    
-                return ChainGrpcCrossTalkTransformer.crossTalkRequest(response);
-            } catch (e) {
-                //@ts-ignore
-                throw new Error(e.message);
-            }
+            >(request, CrossTalkQuery.CrossTalkRequest);
+
+            return ChainGrpcCrossTalkTransformer.crossTalkRequest(response);
+        } catch (e) {
+            //@ts-ignore
+            throw new Error(e.message);
         }
+    }
 
     /**
      * 
@@ -130,7 +130,7 @@ export class ChainGrpcCrossTalkApi extends BaseConsumer {
             typeof CrossTalkQuery.CrossTalkAckRequest
             >(request, CrossTalkQuery.CrossTalkAckRequest);
 
-            return ChainGrpcCrossTalkTransformer.crosstalkAckRequest(response);
+            return ChainGrpcCrossTalkTransformer.crossTalkAckRequest(response);
         } catch (e) {
             //@ts-ignore
             throw new Error(e.message);
@@ -159,7 +159,7 @@ export class ChainGrpcCrossTalkApi extends BaseConsumer {
             typeof CrossTalkQuery.CrosstalkAckRequestConfirmAll
             >(request, CrossTalkQuery.CrosstalkAckRequestConfirmAll);
 
-            return ChainGrpcCrossTalkTransformer.crossTalkAckRequest(response);
+            return ChainGrpcCrossTalkTransformer.allCrosstalkAckRequestConfirmations(response);
         } catch (e) {
             //@ts-ignore
             throw new Error(e.message);

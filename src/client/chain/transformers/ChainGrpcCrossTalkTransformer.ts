@@ -12,7 +12,6 @@ import { CrosstalkRequestConfirm } from '@routerprotocol/chain-api/crosstalk/cro
 import { CrossTalkAckRequest } from '@routerprotocol/chain-api/crosstalk/cross_talk_ack_request_pb';
 import { CrosstalkAckRequestConfirm } from '@routerprotocol/chain-api/crosstalk/crosstalk_ack_request_confirm_pb';
 import { grpcPaginationToPagination } from '../../../utils/pagination';
-import { QueryCrossTalkAckRequest } from '@routerprotocol/chain-api/crosstalk/query_pb_service';
 
 export class ChainGrpcCrossTalkTransformer {
 
