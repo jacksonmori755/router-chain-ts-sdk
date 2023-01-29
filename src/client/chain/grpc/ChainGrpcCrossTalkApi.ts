@@ -117,6 +117,13 @@ export class ChainGrpcCrossTalkApi extends BaseConsumer {
         }
     }
     
+    /**
+     * Get crosstalk acknowledgement request
+     * @param chainType 
+     * @param chainId 
+     * @param eventNonce 
+     * @returns 
+     */
     async fetchCrosstalkAckRequest(chainType: number, chainId: string, eventNonce: number) {
         const request = new QueryGetCrossTalkAckRequest();
         request.setChainType(chainType);
