@@ -2,7 +2,9 @@ import {
     QueryAllCrossTalkRequestResponse,
     QueryAllCrosstalkRequestConfirmResponse,
     QueryAllCrossTalkAckRequestResponse,
-    QueryAllCrosstalkAckRequestConfirmResponse
+    QueryAllCrosstalkAckRequestConfirmResponse,
+    QueryGetCrossTalkRequestResponse,
+    QueryGetCrossTalkAckRequestResponse
 } from '@routerprotocol/chain-api/crosstalk/query_pb';
 
 import { CrossTalkRequest } from "@routerprotocol/chain-api/crosstalk/cross_talk_request_pb";
@@ -10,8 +12,20 @@ import { CrosstalkRequestConfirm } from '@routerprotocol/chain-api/crosstalk/cro
 import { CrossTalkAckRequest } from '@routerprotocol/chain-api/crosstalk/cross_talk_ack_request_pb';
 import { CrosstalkAckRequestConfirm } from '@routerprotocol/chain-api/crosstalk/crosstalk_ack_request_confirm_pb';
 import { grpcPaginationToPagination } from '../../../utils/pagination';
+import { QueryCrossTalkAckRequest } from '@routerprotocol/chain-api/crosstalk/query_pb_service';
 
 export class ChainGrpcCrossTalkTransformer {
+
+    static crossTalkRequest(
+        response: QueryGetCrossTalkRequestResponse
+    ): QueryGetCrossTalkRequestResponse.AsObject {
+
+        const crosstalkrequest: CrossTalkRequest | undefined = response.getCrosstalkrequest();
+
+        return {
+            crosstalkrequest: crosstalkrequest ? ChainGrpcCrossTalkTransformer.getCrossTalkRequestObject(crosstalkrequest) : undefined
+        }
+    }
 
     static allCrossTalkRequest(
         response: QueryAllCrossTalkRequestResponse
@@ -43,6 +57,14 @@ export class ChainGrpcCrossTalkTransformer {
         return {
             crosstalkackrequestList: crosstalkackrequestList.map(ChainGrpcCrossTalkTransformer.getCrossTalkAckRequestObject),
             pagination: grpcPaginationToPagination(response.getPagination())
+        }
+    }
+
+    static crossTalkAckRequest(response: QueryGetCrossTalkAckRequestResponse): QueryGetCrossTalkAckRequestResponse.AsObject {
+        const crosstalkackrequest: CrossTalkAckRequest | undefined = response.getCrosstalkackrequest();
+
+        return {
+            crosstalkackrequest: crosstalkackrequest? ChainGrpcCrossTalkTransformer.getCrossTalkAckRequestObject(crosstalkackrequest) : undefined
         }
     }
 

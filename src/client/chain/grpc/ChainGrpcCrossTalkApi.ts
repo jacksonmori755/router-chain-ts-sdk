@@ -7,7 +7,11 @@ import {
     QueryAllCrossTalkAckRequest,
     QueryAllCrossTalkAckRequestResponse,
     QueryAllCrosstalkAckRequestConfirmRequest,
-    QueryAllCrosstalkAckRequestConfirmResponse
+    QueryAllCrosstalkAckRequestConfirmResponse,
+    QueryGetCrossTalkRequest,
+    QueryGetCrossTalkRequestResponse,
+    QueryGetCrossTalkAckRequest,
+    QueryGetCrossTalkAckRequestResponse
  } from '@routerprotocol/chain-api/crosstalk/query_pb';
 import BaseConsumer from '../../BaseGrpcConsumer';
 import { ChainGrpcCrossTalkTransformer } from '../transformers';
@@ -19,6 +23,28 @@ import { ChainGrpcCrossTalkTransformer } from '../transformers';
  *
  */
 export class ChainGrpcCrossTalkApi extends BaseConsumer {
+
+
+        /**
+     * 
+     * @returns get acrosstalk request
+     */
+         async fetchCrossTalkRequest() {
+            const request = new QueryGetCrossTalkRequest();
+    
+            try {
+                const response = await this.request<
+                QueryGetCrossTalkRequest,
+                QueryGetCrossTalkRequestResponse,
+                typeof CrossTalkQuery.CrossTalkRequest
+                >(request, CrossTalkQuery.CrossTalkRequest);
+    
+                return ChainGrpcCrossTalkTransformer.crossTalkRequest(response);
+            } catch (e) {
+                //@ts-ignore
+                throw new Error(e.message);
+            }
+        }
 
     /**
      * 
@@ -91,6 +117,26 @@ export class ChainGrpcCrossTalkApi extends BaseConsumer {
         }
     }
     
+    async fetchCrosstalkAckRequest(chainType: number, chainId: string, eventNonce: number) {
+        const request = new QueryGetCrossTalkAckRequest();
+        request.setChainType(chainType);
+        request.setChainId(chainId);
+        request.setEventNonce(eventNonce);
+
+        try {
+            const response = await this.request<
+            QueryGetCrossTalkAckRequest,
+            QueryGetCrossTalkAckRequestResponse,
+            typeof CrossTalkQuery.CrossTalkAckRequest
+            >(request, CrossTalkQuery.CrossTalkAckRequest);
+
+            return ChainGrpcCrossTalkTransformer.crosstalkAckRequest(response);
+        } catch (e) {
+            //@ts-ignore
+            throw new Error(e.message);
+        }
+    }
+
     /**
      * 
      * @param chainType chain type
@@ -113,7 +159,7 @@ export class ChainGrpcCrossTalkApi extends BaseConsumer {
             typeof CrossTalkQuery.CrosstalkAckRequestConfirmAll
             >(request, CrossTalkQuery.CrosstalkAckRequestConfirmAll);
 
-            return ChainGrpcCrossTalkTransformer.allCrosstalkAckRequestConfirmations(response);
+            return ChainGrpcCrossTalkTransformer.crossTalkAckRequest(response);
         } catch (e) {
             //@ts-ignore
             throw new Error(e.message);
