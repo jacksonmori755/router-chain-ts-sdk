@@ -2,7 +2,9 @@ import {
     QueryAllCrossTalkRequestResponse,
     QueryAllCrosstalkRequestConfirmResponse,
     QueryAllCrossTalkAckRequestResponse,
-    QueryAllCrosstalkAckRequestConfirmResponse
+    QueryAllCrosstalkAckRequestConfirmResponse,
+    QueryGetCrossTalkRequestResponse,
+    QueryGetCrossTalkAckRequestResponse
 } from '@routerprotocol/chain-api/crosstalk/query_pb';
 
 import { CrossTalkRequest } from "@routerprotocol/chain-api/crosstalk/cross_talk_request_pb";
@@ -12,6 +14,17 @@ import { CrosstalkAckRequestConfirm } from '@routerprotocol/chain-api/crosstalk/
 import { grpcPaginationToPagination } from '../../../utils/pagination';
 
 export class ChainGrpcCrossTalkTransformer {
+
+    static crossTalkRequest(
+        response: QueryGetCrossTalkRequestResponse
+    ): QueryGetCrossTalkRequestResponse.AsObject {
+
+        const crosstalkrequest: CrossTalkRequest | undefined = response.getCrosstalkrequest();
+
+        return {
+            crosstalkrequest: crosstalkrequest ? ChainGrpcCrossTalkTransformer.getCrossTalkRequestObject(crosstalkrequest) : undefined
+        }
+    }
 
     static allCrossTalkRequest(
         response: QueryAllCrossTalkRequestResponse
@@ -43,6 +56,14 @@ export class ChainGrpcCrossTalkTransformer {
         return {
             crosstalkackrequestList: crosstalkackrequestList.map(ChainGrpcCrossTalkTransformer.getCrossTalkAckRequestObject),
             pagination: grpcPaginationToPagination(response.getPagination())
+        }
+    }
+
+    static crossTalkAckRequest(response: QueryGetCrossTalkAckRequestResponse): QueryGetCrossTalkAckRequestResponse.AsObject {
+        const crosstalkackrequest: CrossTalkAckRequest | undefined = response.getCrosstalkackrequest();
+
+        return {
+            crosstalkackrequest: crosstalkackrequest? ChainGrpcCrossTalkTransformer.getCrossTalkAckRequestObject(crosstalkackrequest) : undefined
         }
     }
 

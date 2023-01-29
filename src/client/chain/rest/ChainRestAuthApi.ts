@@ -9,7 +9,7 @@ import {
   BaseAccountRestResponse,
   CosmosAccountRestResponse,
   RestApiResponse,
-} from '../types/auth-rest';
+} from '../types/custom/auth-rest';
 
 /**
  * @group REST API

@@ -8,7 +8,7 @@ import {
 import { Any } from 'google-protobuf/google/protobuf/any_pb'
 import { grpcPaginationToPagination } from '../../../utils/pagination'
 import { uint8ArrayToString } from '../../../utils'
-import { Account, AuthModuleParams, EthAccount } from '../types/auth'
+import { Account, AuthModuleParams, EthAccount } from '../types/custom/auth'
 
 export class ChainGrpcAuthTransformer {
   static moduleParamsResponseToModuleParams(
