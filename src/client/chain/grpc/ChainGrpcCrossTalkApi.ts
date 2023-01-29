@@ -20,7 +20,14 @@ import { ChainGrpcCrossTalkTransformer } from '../transformers';
  * The CrossTalk module is responsible for managing crosstalk requests.
  * 
  * @group gRPC API
- *
+ * 
+ *  @example
+ * To use CrossTalk methods, initialise a {@link ChainGrpcCrossTalkApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
+ * ```ts
+ * const endpoint =  getEndpointsForNetwork(Network.Devnet).grpcEndpoint;
+ * const client = new ChainGrpcCrossTalkApi(endpoint);
+ * const response = await client.fetchAllCrossTalkRequests();
+ * ```
  */
 export class ChainGrpcCrossTalkApi extends BaseConsumer {
 
