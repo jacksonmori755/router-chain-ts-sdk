@@ -29,8 +29,11 @@ export class ChainGrpcCrossTalkApi extends BaseConsumer {
      * 
      * @returns get acrosstalk request
      */
-    async fetchCrossTalkRequest() {
+    async fetchCrossTalkRequest(chainType: number, chainId: string, eventNonce: number) {
         const request = new QueryGetCrossTalkRequest();
+        request.setChainType(chainType);
+        request.setChainId(chainId);
+        request.setEventNonce(eventNonce);
 
         try {
             const response = await this.request<
