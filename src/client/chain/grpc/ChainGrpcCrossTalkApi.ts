@@ -15,6 +15,7 @@ import {
  } from '@routerprotocol/chain-api/crosstalk/query_pb';
 import BaseConsumer from '../../BaseGrpcConsumer';
 import { ChainGrpcCrossTalkTransformer } from '../transformers';
+import { PageRequest } from "@routerprotocol/chain-api/cosmos/base/query/v1beta1/pagination_pb";
 
 /**
  * The CrossTalk module is responsible for managing crosstalk requests.
@@ -60,8 +61,9 @@ export class ChainGrpcCrossTalkApi extends BaseConsumer {
      * 
      * @returns all crosstalk requests
      */
-    async fetchAllCrossTalkRequests() {
+    async fetchAllCrossTalkRequests(pagination: PageRequest) {
         const request = new QueryAllCrossTalkRequest();
+        request.setPagination(pagination);
 
         try {
             const response = await this.request<
@@ -110,8 +112,9 @@ export class ChainGrpcCrossTalkApi extends BaseConsumer {
      * 
      * @returns  all crosstalk acknowledgement requests
      */
-    async fetchAllCrossTalkAckRequests() {
+    async fetchAllCrossTalkAckRequests(pagination: PageRequest) {
         const request = new QueryAllCrossTalkAckRequest();
+        request.setPagination(pagination);
 
         try {
             const response = await this.request<

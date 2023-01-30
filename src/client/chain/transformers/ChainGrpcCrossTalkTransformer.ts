@@ -31,7 +31,6 @@ export class ChainGrpcCrossTalkTransformer {
     ): QueryAllCrossTalkRequestResponse.AsObject {
 
         const crosstalkrequestList: CrossTalkRequest[] = response.getCrosstalkrequestList();
-
         return {
             crosstalkrequestList: crosstalkrequestList.map(ChainGrpcCrossTalkTransformer.getCrossTalkRequestObject),
             pagination: grpcPaginationToPagination(response.getPagination())
