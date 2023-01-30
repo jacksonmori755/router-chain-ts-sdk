@@ -61,7 +61,7 @@ export class ChainGrpcCrossTalkApi extends BaseConsumer {
      * 
      * @returns all crosstalk requests
      */
-    async fetchAllCrossTalkRequests(pagination: PageRequest) {
+    async fetchAllCrossTalkRequests(pagination?: PageRequest) {
         const request = new QueryAllCrossTalkRequest();
         request.setPagination(pagination);
 
@@ -112,7 +112,7 @@ export class ChainGrpcCrossTalkApi extends BaseConsumer {
      * 
      * @returns  all crosstalk acknowledgement requests
      */
-    async fetchAllCrossTalkAckRequests(pagination: PageRequest) {
+    async fetchAllCrossTalkAckRequests(pagination?: PageRequest) {
         const request = new QueryAllCrossTalkAckRequest();
         request.setPagination(pagination);
 
