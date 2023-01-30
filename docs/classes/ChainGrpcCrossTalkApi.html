@@ -17,6 +17,10 @@
 <h1>Class ChainGrpcCrossTalkApi</h1></div>
 <section class="tsd-panel tsd-comment">
 <div class="tsd-comment tsd-typography"><p>The CrossTalk module is responsible for managing crosstalk requests.</p>
+
+<h3>Example</h3><p>To use CrossTalk methods, initialise a <a href="ChainGrpcCrossTalkApi.html">ChainGrpcCrossTalkApi</a> object to with a gRPC endpoint. An endpoint can be retrieved by using networkEndpoints.</p>
+<pre><code class="language-ts"><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">endpoint</span><span class="hl-0"> =  </span><span class="hl-6">getEndpointsForNetwork</span><span class="hl-0">(</span><span class="hl-2">Network</span><span class="hl-0">.</span><span class="hl-2">Devnet</span><span class="hl-0">).</span><span class="hl-2">grpcEndpoint</span><span class="hl-0">;</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">client</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">ChainGrpcCrossTalkApi</span><span class="hl-0">(</span><span class="hl-2">endpoint</span><span class="hl-0">);</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">response</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-2">client</span><span class="hl-0">.</span><span class="hl-6">fetchAllCrossTalkRequests</span><span class="hl-0">();</span>
+</code></pre>
 </div></section>
 <section class="tsd-panel tsd-hierarchy">
 <h4>Hierarchy</h4>
@@ -25,7 +29,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">ChainGrpcCrossTalkApi</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/83f105e/src/client/chain/grpc/ChainGrpcCrossTalkApi.ts#L25">src/client/chain/grpc/ChainGrpcCrossTalkApi.ts:25</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/4322ed2/src/client/chain/grpc/ChainGrpcCrossTalkApi.ts#L32">src/client/chain/grpc/ChainGrpcCrossTalkApi.ts:32</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -52,7 +56,7 @@
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AsObject</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/83f105e/src/client/chain/grpc/ChainGrpcCrossTalkApi.ts#L103">src/client/chain/grpc/ChainGrpcCrossTalkApi.ts:103</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/4322ed2/src/client/chain/grpc/ChainGrpcCrossTalkApi.ts#L113">src/client/chain/grpc/ChainGrpcCrossTalkApi.ts:113</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="fetchAllCrossTalkRequests" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>fetch<wbr/>All<wbr/>Cross<wbr/>Talk<wbr/>Requests</span><a href="#fetchAllCrossTalkRequests" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -63,7 +67,7 @@
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AsObject</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/83f105e/src/client/chain/grpc/ChainGrpcCrossTalkApi.ts#L53">src/client/chain/grpc/ChainGrpcCrossTalkApi.ts:53</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/4322ed2/src/client/chain/grpc/ChainGrpcCrossTalkApi.ts#L63">src/client/chain/grpc/ChainGrpcCrossTalkApi.ts:63</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="fetchAllCrosstalkAckRequestConfirmations" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>fetch<wbr/>All<wbr/>Crosstalk<wbr/>Ack<wbr/>Request<wbr/>Confirmations</span><a href="#fetchAllCrosstalkAckRequestConfirmations" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -91,7 +95,7 @@
 <h5>claimHash: <span class="tsd-signature-type">string</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AsObject</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/83f105e/src/client/chain/grpc/ChainGrpcCrossTalkApi.ts#L155">src/client/chain/grpc/ChainGrpcCrossTalkApi.ts:155</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/4322ed2/src/client/chain/grpc/ChainGrpcCrossTalkApi.ts#L165">src/client/chain/grpc/ChainGrpcCrossTalkApi.ts:165</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="fetchAllCrosstalkRequestConfirmations" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>fetch<wbr/>All<wbr/>Crosstalk<wbr/>Request<wbr/>Confirmations</span><a href="#fetchAllCrosstalkRequestConfirmations" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -119,18 +123,27 @@
 <h5>claimHash: <span class="tsd-signature-type">string</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AsObject</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/83f105e/src/client/chain/grpc/ChainGrpcCrossTalkApi.ts#L78">src/client/chain/grpc/ChainGrpcCrossTalkApi.ts:78</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/4322ed2/src/client/chain/grpc/ChainGrpcCrossTalkApi.ts#L88">src/client/chain/grpc/ChainGrpcCrossTalkApi.ts:88</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="fetchCrossTalkRequest" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>fetch<wbr/>Cross<wbr/>Talk<wbr/>Request</span><a href="#fetchCrossTalkRequest" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-<li class="tsd-signature tsd-anchor-link" id="fetchCrossTalkRequest.fetchCrossTalkRequest-1">fetch<wbr/>Cross<wbr/>Talk<wbr/>Request<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AsObject</span><span class="tsd-signature-symbol">&gt;</span><a href="#fetchCrossTalkRequest.fetchCrossTalkRequest-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="fetchCrossTalkRequest.fetchCrossTalkRequest-1">fetch<wbr/>Cross<wbr/>Talk<wbr/>Request<span class="tsd-signature-symbol">(</span>chainType<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, chainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, eventNonce<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AsObject</span><span class="tsd-signature-symbol">&gt;</span><a href="#fetchCrossTalkRequest.fetchCrossTalkRequest-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography">
 <h3>Returns</h3><p>get acrosstalk request</p>
 </div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>chainType: <span class="tsd-signature-type">number</span></h5></li>
+<li>
+<h5>chainId: <span class="tsd-signature-type">string</span></h5></li>
+<li>
+<h5>eventNonce: <span class="tsd-signature-type">number</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AsObject</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/83f105e/src/client/chain/grpc/ChainGrpcCrossTalkApi.ts#L32">src/client/chain/grpc/ChainGrpcCrossTalkApi.ts:32</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/4322ed2/src/client/chain/grpc/ChainGrpcCrossTalkApi.ts#L39">src/client/chain/grpc/ChainGrpcCrossTalkApi.ts:39</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="fetchCrosstalkAckRequest" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>fetch<wbr/>Crosstalk<wbr/>Ack<wbr/>Request</span><a href="#fetchCrosstalkAckRequest" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -150,7 +163,7 @@
 <h5>eventNonce: <span class="tsd-signature-type">number</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AsObject</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/83f105e/src/client/chain/grpc/ChainGrpcCrossTalkApi.ts#L127">src/client/chain/grpc/ChainGrpcCrossTalkApi.ts:127</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/4322ed2/src/client/chain/grpc/ChainGrpcCrossTalkApi.ts#L137">src/client/chain/grpc/ChainGrpcCrossTalkApi.ts:137</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
