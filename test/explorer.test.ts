@@ -3,7 +3,7 @@ import { RouterExplorer } from '../src';
 describe('Queries Test', () => {
   const explorer = new RouterExplorer('local');
   it('Fetch Crosstalk by search - ', async () => {
-    const CrossTalks = await explorer.getLatestCrossTalks(10, 1);
+    const CrossTalks = await explorer.getLatestInbounds(10, 1);
     console.log('Crosstalk =>', JSON.stringify(CrossTalks));
     expect(CrossTalks).toBeDefined();
   });
