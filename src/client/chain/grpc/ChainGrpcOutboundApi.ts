@@ -13,6 +13,7 @@ import {
 } from '@routerprotocol/chain-api/outbound/query_pb';
 import BaseConsumer from '../../BaseGrpcConsumer';
 import { ChainGrpcOutboundTransformer } from '../transformers';
+import { PageRequest } from '@routerprotocol/chain-api/cosmos/base/query/v1beta1/pagination_pb';
 
 /**
  * The Outbound module receives request from application-specific contract on Router chain and forward it to the contract on destination third-party chain.
@@ -33,8 +34,9 @@ export class ChainGrpcOutboundApi extends BaseConsumer {
    * 
    * @returns all outgoing batch transaction list.
    */
-  async fetchAllOutgoingBatchTx() {
+  async fetchAllOutgoingBatchTx(pagination?: PageRequest) {
     const request = new QueryAllOutgoingBatchTxRequest();
+    request.setPagination(pagination);
 
     try {
       const response = await this.request<

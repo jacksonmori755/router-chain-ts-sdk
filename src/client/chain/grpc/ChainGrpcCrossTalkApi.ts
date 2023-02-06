@@ -58,7 +58,7 @@ export class ChainGrpcCrossTalkApi extends BaseConsumer {
     }
 
     /**
-     * 
+     * @param pagination
      * @returns all crosstalk requests
      */
     async fetchAllCrossTalkRequests(pagination?: PageRequest) {
@@ -85,14 +85,16 @@ export class ChainGrpcCrossTalkApi extends BaseConsumer {
      * @param sourceChainId source chain ID
      * @param eventNonce nonce
      * @param claimHash 
+     * @param pagination
      * @returns all crosstalk request confirmations
      */
-    async fetchAllCrosstalkRequestConfirmations(sourceChainType: number, sourceChainId: string, eventNonce: number, claimHash: string) {
+    async fetchAllCrosstalkRequestConfirmations(sourceChainType: number, sourceChainId: string, eventNonce: number, claimHash: string, pagination?: PageRequest) {
         const request = new QueryAllCrosstalkRequestConfirmRequest();
         request.setSourcechaintype(sourceChainType);
         request.setSourcechainid(sourceChainId);
         request.setEventnonce(eventNonce);
         request.setClaimhash(claimHash);
+        request.setPagination(pagination)
 
         try {
             const response = await this.request<
@@ -163,14 +165,16 @@ export class ChainGrpcCrossTalkApi extends BaseConsumer {
      * @param chainId chain ID
      * @param eventNonce nonce
      * @param claimHash 
+     * @param pagination
      * @returns all crosstalk acknowledgment confirmation
      */
-    async fetchAllCrosstalkAckRequestConfirmations(chainType: number, chainId: string, eventNonce: number, claimHash: string) {
+    async fetchAllCrosstalkAckRequestConfirmations(chainType: number, chainId: string, eventNonce: number, claimHash: string, pagination?: PageRequest) {
         const request = new QueryAllCrosstalkAckRequestConfirmRequest();
         request.setChaintype(chainType);
         request.setChainid(chainId);
         request.setEventnonce(eventNonce);
         request.setClaimhash(claimHash);
+        request.setPagination(pagination)
 
         try {
             const response = await this.request<
