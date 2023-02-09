@@ -60,6 +60,7 @@ export interface InboundType {
     txnHash: string;
     timestamp: string;
   }[];
+  outbounds: OutboundType[];
 }
 
 export interface OutboundType {
