@@ -913,6 +913,7 @@ export const latestCrossTalksQuery = `
       destinationTxHash
       destinationGasLimit
       destinationGasPrice
+      requestTxOrigin
       requestSender
       requestNonce
       isAtomic
@@ -1014,6 +1015,7 @@ export const specificCrossTalkQuery = `
       destinationChainId
       destinationGasLimit
       destinationGasPrice
+      requestTxOrigin
       requestSender
       requestNonce
       isAtomic
@@ -1100,7 +1102,7 @@ export const specificCrossTalkQuery = `
 `;
 export const searchSpecificCrossTalkQuery = `
   query getCrossTalkByFormAttestationId($searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrossTalk(where_or:{sourceTxHash:$searchTerm, requestSender:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  paginatedCrossTalk(where_or:{sourceTxHash:$searchTerm, requestTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     crossTalks{
       attestationId
@@ -1116,6 +1118,7 @@ export const searchSpecificCrossTalkQuery = `
       destinationGasLimit
       destinationGasPrice
       requestSender
+      requestTxOrigin
       requestNonce
       isAtomic
       expiryTimestamp
