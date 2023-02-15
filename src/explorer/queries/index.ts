@@ -146,6 +146,7 @@ export const latestInboundsQuery = `
         timestamp
         blockHeight
       }
+      feePayer
       outbounds{
       eventNonce
       destinationChainType
@@ -237,6 +238,7 @@ export const latestApplicationsInboundsQuery = `
         timestamp
         blockHeight
       }
+      feePayer
       outbounds{
       eventNonce
       destinationChainType
@@ -328,6 +330,7 @@ export const searchSpecificInboundQuery = `
         timestamp
         blockHeight
       }
+      feePayer
       outbounds{
       eventNonce
       destinationChainType
@@ -419,6 +422,7 @@ export const filterApplicationInboundQuery = `
         timestamp
         blockHeight   
       }
+      feePayer
       outbounds{
       eventNonce
       destinationChainType
@@ -508,6 +512,7 @@ export const specificInboundQuery = `
         timestamp
         blockHeight
       }
+    feePayer
     outbounds{
     eventNonce
     destinationChainType
@@ -908,6 +913,7 @@ export const latestCrossTalksQuery = `
       destinationTxHash
       destinationGasLimit
       destinationGasPrice
+      requestTxOrigin
       requestSender
       requestNonce
       isAtomic
@@ -921,70 +927,47 @@ export const latestCrossTalksQuery = `
       destinationTxFeeInRoute
       relayerFeeInRoute
       refundFeeInRoute
+      AckRequest{
+        ackgaslimit
+        ackgasprice
+        eventattestationvote
+        status
+        claimhash
+        txfeeinroute
+        chaintype
+        chainid
+        eventnonce
+        customformattestationid
+        ackreceiptrequest{
+          relayerfeeinroute
+          refundfeeinroute
+          ackreceiptkey
+          status
+          claimhash
+          historystatus{
+            status
+            txnHash
+            timestamp
+          }
+          ackreceipt{
+             eventnonce
+             blockheight
+             relayerrouteraddress
+             chaintype
+             chainid
+             txhash
+             eventidentifier
+             status
+          }
+        }
+        voter
+        historystatus{
+          status
+          txnHash
+          timestamp
+        }
+       }
       historyStatus{
-        status
-        txnHash
-        timestamp
-        blockHeight
-      }
-      contractsExecutionData{
-        destContractAddress
-        status
-        requestPayload
-        responsePayload
-      }
-      eventConfirmSignatures{
-      validator
-      txnHash
-      timestamp
-      blockHeight
-      signature
-      ethSigner
-    }
-    eventAckConfirmSignatures{
-      validator
-      txnHash
-      timestamp
-      blockHeight
-      signature
-      ethSigner
-    }
-    }
-    }
-}
-`;
-
-export const searchSpecificCrossTalkQuery = `
-  query getLatestCrossTalks($searchTerm: String!,$limit: Int!, $offset: Int!){
-    paginatedCrossTalk(where_or:{sourceTxHash:$searchTerm,requestSender:$searchTerm,formAttestationId:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
-    totalRecords
-    crossTalks{
-     attestationId
-      formAttestationId
-      eventNonce
-      blockHeight
-      sourceChainType
-      sourceChainId
-      sourceTxHash
-      destinationChainType
-      destinationChainId
-      destinationTxHash
-      destinationGasLimit
-      destinationGasPrice
-      requestSender
-      requestNonce
-      isAtomic
-      expiryTimestamp
-      ackType
-      ackGasLimit
-      ackGasPrice
-      isReadCall
-      requestTxOrigin
-      claimHash
-      destinationTxFeeInRoute
-      relayerFeeInRoute
-      refundFeeInRoute
-       historyStatus{
         status
         txnHash
         timestamp
@@ -1032,6 +1015,7 @@ export const specificCrossTalkQuery = `
       destinationChainId
       destinationGasLimit
       destinationGasPrice
+      requestTxOrigin
       requestSender
       requestNonce
       isAtomic
@@ -1045,6 +1029,46 @@ export const specificCrossTalkQuery = `
       destinationTxFeeInRoute
       relayerFeeInRoute
       refundFeeInRoute
+        AckRequest{
+        ackgaslimit
+        ackgasprice
+        eventattestationvote
+        status
+        claimhash
+        txfeeinroute
+        chaintype
+        chainid
+        eventnonce
+        customformattestationid
+        ackreceiptrequest{
+          relayerfeeinroute
+          refundfeeinroute
+          ackreceiptkey
+          status
+          claimhash
+          historystatus{
+            status
+            txnHash
+            timestamp
+          }
+          ackreceipt{
+             eventnonce
+             blockheight
+             relayerrouteraddress
+             chaintype
+             chainid
+             txhash
+             eventidentifier
+             status
+          }
+        }
+        voter
+        historystatus{
+          status
+          txnHash
+          timestamp
+        }
+       }
        historyStatus{
         status
         txnHash
@@ -1074,6 +1098,109 @@ export const specificCrossTalkQuery = `
       ethSigner
     }
   }
+}
+`;
+export const searchSpecificCrossTalkQuery = `
+  query getCrossTalkByFormAttestationId($searchTerm: String! ,$limit: Int!, $offset: Int!){
+  paginatedCrossTalk(where_or:{sourceTxHash:$searchTerm, requestTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+    totalRecords
+    crossTalks{
+      attestationId
+      formAttestationId
+      eventNonce
+      blockHeight
+      sourceChainType
+      sourceChainId
+      sourceTxHash
+      destinationChainType
+      destinationChainId
+      destinationTxHash
+      destinationGasLimit
+      destinationGasPrice
+      requestSender
+      requestTxOrigin
+      requestNonce
+      isAtomic
+      expiryTimestamp
+      ackType
+      ackGasLimit
+      ackGasPrice
+      isReadCall
+      requestTxOrigin
+      claimHash
+      destinationTxFeeInRoute
+      relayerFeeInRoute
+      refundFeeInRoute
+      AckRequest{
+        ackgaslimit
+        ackgasprice
+        eventattestationvote
+        status
+        claimhash
+        txfeeinroute
+        chaintype
+        chainid
+        eventnonce
+        customformattestationid
+        ackreceiptrequest{
+          relayerfeeinroute
+          refundfeeinroute
+          ackreceiptkey
+          status
+          claimhash
+          historystatus{
+            status
+            txnHash
+            timestamp
+          }
+          ackreceipt{
+             eventnonce
+             blockheight
+             relayerrouteraddress
+             chaintype
+             chainid
+             txhash
+             eventidentifier
+             status
+          }
+        }
+        voter
+        historystatus{
+          status
+          txnHash
+          timestamp
+        }
+       }
+      historyStatus{
+        status
+        txnHash
+        timestamp
+        blockHeight
+      }
+      contractsExecutionData{
+        destContractAddress
+        status
+        requestPayload
+        responsePayload
+      }
+      eventConfirmSignatures{
+      validator
+      txnHash
+      timestamp
+      blockHeight
+      signature
+      ethSigner
+    }
+    eventAckConfirmSignatures{
+      validator
+      txnHash
+      timestamp
+      blockHeight
+      signature
+      ethSigner
+    }
+    }
+    }
 }
 `;
 

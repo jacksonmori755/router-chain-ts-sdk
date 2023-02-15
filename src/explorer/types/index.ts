@@ -49,6 +49,7 @@ export interface InboundType {
   status: string;
   formAttestationId: string;
   delegationErrorResponse: string;
+  feePayer: string;
   historyStatus: {
     status: string;
     txnHash: string;
@@ -119,6 +120,49 @@ export interface OutboundType {
   contractAckResponses: Boolean[];
 }
 
+interface HistoryStatusType {
+  status: string;
+  txnHash: string;
+  timestamp: string;
+}
+
+interface AckReceipt {
+  eventnonce: number;
+  blockheight: number;
+  relayerrouteraddress: string;
+  chaintype: number;
+  chainid: string;
+  txhash: string;
+  eventidentifier: number;
+  status: number;
+}
+
+interface AckReceiptRequest {
+  relayerfeeinroute: string;
+  refundfeeinroute: string;
+  ackreceiptkey: string;
+  status: string;
+  claimhash: string;
+  historystatus: HistoryStatusType[];
+  ackreceipt: AckReceipt;
+}
+
+interface AckRequest {
+  ackgaslimit: number;
+  ackgasprice: number;
+  eventattestationvote: string;
+  status: string;
+  claimhash: string;
+  txfeeinroute: string;
+  chaintype: string;
+  chainid: string;
+  eventnonce: number;
+  customformattestationid: string;
+  ackreceiptrequest: AckReceiptRequest;
+  voter: string[];
+  historystatus: HistoryStatusType[];
+}
+
 export interface CrossTalkType {
   attestationId: string;
   formAttestationId: string;
@@ -145,6 +189,7 @@ export interface CrossTalkType {
   destinationTxFeeInRoute: string;
   relayerFeeInRoute: string;
   refundFeeInRoute: string;
+  AckRequest: AckRequest;
   historyStatus: {
     status: string;
     txnHash: string;
