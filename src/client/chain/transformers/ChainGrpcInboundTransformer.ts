@@ -33,6 +33,9 @@ export class ChainGrpcInboundTransformer {
             sourcesender: incomingTx.getSourcesender(),
             routerbridgecontract: incomingTx.getRouterbridgecontract(),
             payload: incomingTx.getPayload(),
+            gaslimit: incomingTx.getGaslimit(),
+            txfeeinroute: incomingTx.getTxfeeinroute() ? incomingTx.getTxfeeinroute()?.toObject() : undefined,
+            feepayer: incomingTx.getFeepayer(),
             status: incomingTx.getStatus()
         }
     }

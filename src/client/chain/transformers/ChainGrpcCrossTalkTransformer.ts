@@ -88,7 +88,10 @@ export class ChainGrpcCrossTalkTransformer {
             destinationchainid: crossTalkRequest.getDestinationchainid(),
             destinationgaslimit: crossTalkRequest.getDestinationgaslimit(),
             destinationgasprice: crossTalkRequest.getDestinationgasprice(),
+            destinationtxfeeinroute: crossTalkRequest.getDestinationtxfeeinroute()? crossTalkRequest.getDestinationtxfeeinroute()?.toObject(): undefined,
             requestsender: crossTalkRequest.getRequestsender(),
+            requesttxorigin: crossTalkRequest.getRequesttxorigin(),
+            isreadcall: crossTalkRequest.getIsreadcall(),
             requestnonce: crossTalkRequest.getRequestnonce(),
             isatomic: crossTalkRequest.getIsatomic(),
             expirytimestamp: crossTalkRequest.getExpirytimestamp(),
@@ -97,6 +100,7 @@ export class ChainGrpcCrossTalkTransformer {
             acktype: crossTalkRequest.getAcktype(),
             ackgaslimit: crossTalkRequest.getAckgaslimit(),
             ackgasprice: crossTalkRequest.getAckgasprice(),
+            feepayer: crossTalkRequest.getFeepayer(),
             status: crossTalkRequest.getStatus(),
         }
 
@@ -134,9 +138,12 @@ export class ChainGrpcCrossTalkTransformer {
             crosstalknonce: crossTalkAckRequest.getCrosstalknonce(),
             contractackresponses: crossTalkAckRequest.getContractackresponses(),
             execode: crossTalkAckRequest.getExecode(),
-            status: crossTalkAckRequest.getStatus(),
+            execstatus: crossTalkAckRequest.getExecstatus(),
             execflagsList: crossTalkAckRequest.getExecflagsList(),
             execdataList: crossTalkAckRequest.getExecdataList(),
+            feeconsumedinroute: crossTalkAckRequest.getFeeconsumedinroute() ? crossTalkAckRequest.getFeeconsumedinroute()?.toObject() : undefined,
+            feedeductedinrouteforack: crossTalkAckRequest.getFeedeductedinrouteforack() ? crossTalkAckRequest.getFeedeductedinrouteforack()?.toObject() : undefined,
+            status: crossTalkAckRequest.getStatus(),
         }
 
     }
