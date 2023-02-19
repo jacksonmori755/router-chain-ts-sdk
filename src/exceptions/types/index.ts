@@ -23,16 +23,25 @@ export enum ErrorType {
 }
 
 export interface ErrorContext {
-  code?: ErrorCode
-  type?: ErrorType
-  contextModule?: string
+  code?: ErrorCode;
+  type?: ErrorType;
+
+  /**
+   * Additional context needed for the exception
+   */
+  context?: string;
+
+  /**
+   * Where is the exception thrown
+   */
+  contextModule?: string;
 
   /**
    * Needed when we get a code error from a Http/Grpc Request
    * and we need to specify the error code for the particular message
    * for example why the transaction has failed
    * */
-  contextCode?: ErrorContextCode
+  contextCode?: ErrorContextCode;
 }
 
 export interface Exception {

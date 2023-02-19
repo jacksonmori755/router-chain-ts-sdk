@@ -1,4 +1,3 @@
-import { StdFee } from '@cosmjs/amino';
 import keccak256 from 'keccak256';
 import {
   TxBody,
@@ -21,63 +20,13 @@ import { PubKey } from '@routerprotocol/chain-api/crypto/ethsecp256k1/keys_pb';
 import { DEFAULT_STD_FEE } from '../utils';
 //import { EthereumChainId } from '../ts-types';
 import { createAny, createAnyMessage } from './helpers';
+import {
+  CreateTransactionArgs,
+  CreateTransactionResult,
+  CreateTransactionWithSignersArgs,
+  MsgArg,
+} from '../types';
 //import { SignDoc as CosmosSignDoc } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
-
-export type MsgArg = {
-  type: string;
-  message: any;
-};
-
-export interface SignerDetails {
-  pubKey: string; // the pubKey of the signer of the transaction in base64
-  sequence: number; // the sequence (nonce) of the signer of the transaction
-  accountNumber: number; // the account number of the signer of the transaction
-}
-
-/** 
- * @hidden
- * @type {CreateTransactionWithSignersArgs} 
- * */
-export interface CreateTransactionWithSignersArgs {
-  fee?: StdFee; // the fee to include in the transaction
-  memo?: string; // the memo to include in the transaction
-  chainId: string; // the chain id of the chain that the transaction is going to be broadcasted to
-  message: MsgArg | MsgArg[]; // the message that should be packed into the transaction
-  signers: SignerDetails | SignerDetails[]; // the signers of the transaction
-  signMode?: SignModeMap[keyof SignModeMap];
-  timeoutHeight?: number; // the height at which the transaction should be considered invalid
-}
-
-/**
- * @hidden
- * @type {CreateTransactionArgs} 
- * */
-export interface CreateTransactionArgs {
-  fee?: StdFee; // the fee to include in the transaction
-  memo?: string; // the memo to include in the transaction
-  chainId: string; // the chain id of the chain that the transaction is going to be broadcasted to
-  message: MsgArg | MsgArg[]; // the message that should be packed into the transaction
-  pubKey: string; // the pubKey of the signer of the transaction in base64
-  sequence: number; // the sequence (nonce) of the signer of the transaction
-  accountNumber: number; // the account number of the signer of the transaction
-  signMode?: SignModeMap[keyof SignModeMap];
-  timeoutHeight?: number; // the height at which the transaction should be considered invalid
-}
-
-/**
- * @hidden
- * @type {CreateTransactionResult} 
- * */
-export interface CreateTransactionResult {
-  txRaw: TxRaw; // the Tx raw that was created
-  signDoc: SignDoc; // the SignDoc that was created - used for signing of the transaction
-  bodyBytes: Uint8Array; // the body bytes of the transaction
-  signers: SignerDetails | SignerDetails[]; // the signers of the transaction
-  signer: SignerDetails; // the signer of the transaction
-  authInfoBytes: Uint8Array; // the auth info bytes of the transaction
-  signBytes: Uint8Array; // the sign bytes of the transaction (SignDoc serialized to binary)
-  signHashedBytes: Uint8Array; // the sign bytes of the transaction (SignDoc serialized to binary) and hashed using keccak256
-}
 
 export const SIGN_DIRECT = SignMode.SIGN_MODE_DIRECT;
 export const SIGN_AMINO = SignMode.SIGN_MODE_LEGACY_AMINO_JSON;
@@ -109,57 +58,57 @@ export const getPublicKey = ({
 };
 
 export const createBody = ({
-         message,
-         memo = '',
-         timeoutHeight,
-       }: {
-         message: MsgArg | MsgArg[];
-         memo?: string;
-         timeoutHeight?: number;
-       }) => {
-         const messages = Array.isArray(message) ? message : [message];
+  message,
+  memo = '',
+  timeoutHeight,
+}: {
+  message: MsgArg | MsgArg[];
+  memo?: string;
+  timeoutHeight?: number;
+}) => {
+  const messages = Array.isArray(message) ? message : [message];
 
-         const txBody = new TxBody();
-         txBody.setMessagesList(
-           messages.map(message =>
-             createAnyMessage({
-               value: message.message,
-               type: message.type,
-             })
-           )
-         );
-         txBody.setMemo(memo);
+  const txBody = new TxBody();
+  txBody.setMessagesList(
+    messages.map(message =>
+      createAnyMessage({
+        value: message.message,
+        type: message.type,
+      })
+    )
+  );
+  txBody.setMemo(memo);
 
-         if (timeoutHeight) {
-           txBody.setTimeoutHeight(timeoutHeight);
-         }
+  if (timeoutHeight) {
+    txBody.setTimeoutHeight(timeoutHeight);
+  }
 
-         return txBody;
-       };
+  return txBody;
+};
 
 export const createFee = ({
-         fee,
-         payer,
-         gasLimit,
-       }: {
-         fee: { amount: string; denom: string };
-         payer?: string;
-         gasLimit: number;
-       }) => {
-         const feeAmount = new Coin();
-         feeAmount.setAmount(fee.amount);
-         feeAmount.setDenom(fee.denom);
+  fee,
+  payer,
+  gasLimit,
+}: {
+  fee: { amount: string; denom: string };
+  payer?: string;
+  gasLimit: number;
+}) => {
+  const feeAmount = new Coin();
+  feeAmount.setAmount(fee.amount);
+  feeAmount.setDenom(fee.denom);
 
-         const feeProto = new Fee();
-         feeProto.setGasLimit(gasLimit);
-         feeProto.setAmountList([feeAmount]);
+  const feeProto = new Fee();
+  feeProto.setGasLimit(gasLimit);
+  feeProto.setAmountList([feeAmount]);
 
-         if (payer) {
-           feeProto.setPayer(payer);
-         }
+  if (payer) {
+    feeProto.setPayer(payer);
+  }
 
-         return feeProto;
-       };
+  return feeProto;
+};
 
 export const createSigners = ({
   chainId,
@@ -208,18 +157,18 @@ export const createSignerInfo = ({
 };
 
 export const createAuthInfo = ({
-         signerInfo,
-         fee,
-       }: {
-         signerInfo: SignerInfo[];
-         fee: Fee;
-       }) => {
-         const authInfo = new AuthInfo();
-         authInfo.setSignerInfosList(signerInfo);
-         authInfo.setFee(fee);
+  signerInfo,
+  fee,
+}: {
+  signerInfo: SignerInfo[];
+  fee: Fee;
+}) => {
+  const authInfo = new AuthInfo();
+  authInfo.setSignerInfosList(signerInfo);
+  authInfo.setFee(fee);
 
-         return authInfo;
-       };
+  return authInfo;
+};
 
 export const createSigDoc = ({
   bodyBytes,
@@ -264,60 +213,60 @@ export const createSigDoc = ({
  * @returns {CreateTransactionResult} result
  */
 export const createTransactionWithSigners = ({
-         signers,
-         chainId,
-         message,
-         timeoutHeight,
-         memo = '',
-         fee = DEFAULT_STD_FEE,
-         signMode = SIGN_DIRECT,
-       }: CreateTransactionWithSignersArgs): CreateTransactionResult => {
-         const actualSigners = Array.isArray(signers) ? signers : [signers];
-         const [signer] = actualSigners;
+  signers,
+  chainId,
+  message,
+  timeoutHeight,
+  memo = '',
+  fee = DEFAULT_STD_FEE,
+  signMode = SIGN_DIRECT,
+}: CreateTransactionWithSignersArgs): CreateTransactionResult => {
+  const actualSigners = Array.isArray(signers) ? signers : [signers];
+  const [signer] = actualSigners;
 
-         const body = createBody({ message, memo, timeoutHeight });
-         const feeMessage = createFee({
-           fee: fee.amount[0],
-           payer: fee?.payer,
-           gasLimit: parseInt(fee.gas, 10),
-         });
+  const body = createBody({ message, memo, timeoutHeight });
+  const feeMessage = createFee({
+    fee: fee.amount[0],
+    payer: fee?.payer,
+    gasLimit: parseInt(fee.gas, 10),
+  });
 
-         const signInfo = createSigners({
-           chainId,
-           mode: signMode,
-           signers: actualSigners,
-         });
+  const signInfo = createSigners({
+    chainId,
+    mode: signMode,
+    signers: actualSigners,
+  });
 
-         const authInfo = createAuthInfo({
-           signerInfo: signInfo,
-           fee: feeMessage,
-         });
+  const authInfo = createAuthInfo({
+    signerInfo: signInfo,
+    fee: feeMessage,
+  });
 
-         const signDoc = createSigDoc({
-           chainId,
-           bodyBytes: body.serializeBinary(),
-           authInfoBytes: authInfo.serializeBinary(),
-           accountNumber: signer.accountNumber,
-         });
+  const signDoc = createSigDoc({
+    chainId,
+    bodyBytes: body.serializeBinary(),
+    authInfoBytes: authInfo.serializeBinary(),
+    accountNumber: signer.accountNumber,
+  });
 
-         const toSignBytes = Buffer.from(signDoc.serializeBinary());
-         const toSignHash = keccak256(Buffer.from(signDoc.serializeBinary()));
+  const toSignBytes = Buffer.from(signDoc.serializeBinary());
+  const toSignHash = keccak256(Buffer.from(signDoc.serializeBinary()));
 
-         const txRaw = new TxRaw();
-         txRaw.setAuthInfoBytes(authInfo.serializeBinary());
-         txRaw.setBodyBytes(body.serializeBinary());
+  const txRaw = new TxRaw();
+  txRaw.setAuthInfoBytes(authInfo.serializeBinary());
+  txRaw.setBodyBytes(body.serializeBinary());
 
-         return {
-           txRaw,
-           signDoc,
-           signers,
-           signer,
-           signBytes: toSignBytes,
-           signHashedBytes: toSignHash,
-           bodyBytes: body.serializeBinary(),
-           authInfoBytes: authInfo.serializeBinary(),
-         };
-       };
+  return {
+    txRaw,
+    signDoc,
+    signers,
+    signer,
+    signBytes: toSignBytes,
+    signHashedBytes: toSignHash,
+    bodyBytes: body.serializeBinary(),
+    authInfoBytes: authInfo.serializeBinary(),
+  };
+};
 
 /**
  * @typedef {Object} CreateTransactionArgs
