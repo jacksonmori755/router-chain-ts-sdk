@@ -62,6 +62,13 @@ export interface InboundType {
     timestamp: string;
   }[];
   outbounds: OutboundType[];
+  inboundOutboundMapping: {
+    middlewareContract: string;
+    outboundDocMap: string;
+    inboundDocMap: string;
+    blockHeight: number;
+    timeStamp: string;
+  };
 }
 
 export interface OutboundType {

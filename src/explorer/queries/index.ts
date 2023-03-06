@@ -210,8 +210,8 @@ export const latestInboundsQuery = `
 `;
 
 export const latestApplicationsInboundsQuery = `
-  query getLatestInbounds($address: String! $limit: Int!, $offset: Int!){
-    paginatedInbound(where:{routerBridgeContract:$address},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  query getLatestInbounds($address: String!, $blockHeight:Int, $limit: Int!, $offset: Int!, $order: Sort){
+    paginatedInbound(where:{routerBridgeContract:$address},filter:{blockHeight:{gt:$blockHeight}},sortBy:{blockHeight:$order},limit:$limit,offset:$offset){
     totalRecords
     inbounds{
       attestationId
@@ -239,6 +239,13 @@ export const latestApplicationsInboundsQuery = `
         blockHeight
       }
       feePayer
+      inboundOutboundMapping{
+        middlewareContract
+        outboundDocMap
+        inboundDocMap
+        blockHeight
+        timeStamp
+      }
       outbounds{
       eventNonce
       destinationChainType

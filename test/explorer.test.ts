@@ -1,11 +1,12 @@
 import { RouterExplorer } from '../src';
 
 describe('Queries Test', () => {
-  const explorer = new RouterExplorer('local');
+  const explorer = new RouterExplorer(
+    'devnet',
+    'router1vhndln95yd7rngslzvf6sax6axcshkxqpmpr886ntelh28p9ghuq0dnult'
+  );
   it('Fetch Crosstalk by search - ', async () => {
-    const CrossTalks = await explorer.getCrossTalkBySearch(
-      '0xacc31145414df1712198d660155fcde7d09ca3d1'
-    );
+    const CrossTalks = await explorer.getLatestInbounds(1, 1, 612947, 'asc');
     console.log('Crosstalk =>', JSON.stringify(CrossTalks));
     expect(CrossTalks).toBeDefined();
   });

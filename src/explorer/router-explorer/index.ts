@@ -174,7 +174,12 @@ export class RouterExplorer {
    * @return {Inbounds}
    * @throws {Error}
    */
-  public async getLatestInbounds(limit: Number = 10, offset: Number = 1) {
+  public async getLatestInbounds(
+    limit: Number = 10,
+    offset: Number = 1,
+    blockHeight: Number = 0,
+    order: string = 'desc'
+  ) {
     try {
       const data = await gqlFetcher(
         this.chainEnvironment,
@@ -185,6 +190,8 @@ export class RouterExplorer {
           address: this.applicationAddress,
           limit: limit,
           offset: offset,
+          blockHeight: blockHeight,
+          order: order,
         }
       );
       return data;
