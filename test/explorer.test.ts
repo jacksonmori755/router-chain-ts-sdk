@@ -6,7 +6,7 @@ describe('Queries Test', () => {
     'router1vhndln95yd7rngslzvf6sax6axcshkxqpmpr886ntelh28p9ghuq0dnult'
   );
   it('Fetch Crosstalk by search - ', async () => {
-    const CrossTalks = await explorer.getLatestInbounds(1, 1, 612947, 'asc');
+    const CrossTalks = await explorer.getLatestInbounds();
     console.log('Crosstalk =>', JSON.stringify(CrossTalks));
     expect(CrossTalks).toBeDefined();
   });

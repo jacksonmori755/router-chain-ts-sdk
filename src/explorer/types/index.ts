@@ -196,6 +196,7 @@ export interface CrossTalkType {
   destinationTxFeeInRoute: string;
   relayerFeeInRoute: string;
   refundFeeInRoute: string;
+  feePayer: string;
   AckRequest: AckRequest;
   historyStatus: {
     status: string;
