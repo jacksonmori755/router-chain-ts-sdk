@@ -36,6 +36,7 @@ export const getNetworkType = (type: string) => {
 
 export type NetworkEndpoints = {
   explorerGql: string;
+  explorerGqlWs: string;
   lcdEndpoint: string;
   grpcEndpoint: string;
   tmEndpoint: string;
