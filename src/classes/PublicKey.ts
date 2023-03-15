@@ -1,6 +1,6 @@
 import { BECH32_PUBKEY_ACC_PREFIX } from '../utils';
 import { bech32 } from 'bech32';
-import { PubKey } from '@routerprotocol/chain-api/crypto/ethsecp256k1/keys_pb';
+import { PubKey } from '@routerprotocol/chain-api/ethermint/crypto/v1/ethsecp256k1/keys_pb';
 import { Any } from 'google-protobuf/google/protobuf/any_pb';
 import { toBuffer } from 'ethereumjs-util';
 import secp256k1, { publicKeyConvert } from 'secp256k1';
@@ -43,8 +43,7 @@ export class PublicKey {
 
   private constructor(key: Uint8Array, type?: string) {
     this.key = key;
-    this.type =
-      type || '/routerprotocol.routerchain.crypto.ethsecp256k1.PubKey';
+    this.type = type || '/ethermint.crypto.v1.ethsecp256k1.PubKey';
   }
 
   static fromBase64(publicKey: string): PublicKey {
@@ -59,7 +58,7 @@ export class PublicKey {
         : privateKey;
     const privateKeyBuff = Buffer.from(privateKeyHex.toString(), 'hex');
     const publicKeyByte = secp256k1.publicKeyCreate(privateKeyBuff, true);
-    const type = '/routerprotocol.routerchain.crypto.ethsecp256k1.PubKey';
+    const type = '/ethermint.crypto.v1.ethsecp256k1.PubKey';
 
     return new PublicKey(publicKeyByte, type);
   }

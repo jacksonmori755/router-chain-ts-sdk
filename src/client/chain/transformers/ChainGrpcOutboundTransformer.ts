@@ -94,19 +94,27 @@ export class ChainGrpcOutboundTransformer {
     ): OutgoingBatchTx.AsObject {
 
         return {
-            nonce: outgoingBatchTx.getNonce(),
-            destinationchaintype: outgoingBatchTx.getDestinationchaintype(),
-            destinationchainid: outgoingBatchTx.getDestinationchainid(),
-            contractcallsList: outgoingBatchTx.getContractcallsList().map(ChainGrpcOutboundTransformer.getContractCallObject),
-            relayerfee: outgoingBatchTx.getRelayerfee() ? outgoingBatchTx.getRelayerfee()?.toObject() : undefined,
-            destinationgaslimit: outgoingBatchTx.getDestinationgaslimit(),
-            destinationgasprice: outgoingBatchTx.getDestinationgasprice(),
-            outgoingtxfeeinroute: outgoingBatchTx.getOutgoingtxfeeinroute() ? outgoingBatchTx.getOutgoingtxfeeinroute()?.toObject() : undefined,
-            expirytimestamp: outgoingBatchTx.getExpirytimestamp(),
-            isatomic: outgoingBatchTx.getIsatomic(),
-            sourceaddress: outgoingBatchTx.getSourceaddress(),
-            status: outgoingBatchTx.getStatus()
-        }
+          nonce: outgoingBatchTx.getNonce(),
+          destinationchaintype: outgoingBatchTx.getDestinationchaintype(),
+          destinationchainid: outgoingBatchTx.getDestinationchainid(),
+          contractcallsList: outgoingBatchTx
+            .getContractcallsList()
+            .map(ChainGrpcOutboundTransformer.getContractCallObject),
+          relayerfee: outgoingBatchTx.getRelayerfee()
+            ? outgoingBatchTx.getRelayerfee()?.toObject()
+            : undefined,
+          destinationgaslimit: outgoingBatchTx.getDestinationgaslimit(),
+          destinationgasprice: outgoingBatchTx.getDestinationgasprice(),
+          outgoingtxfeeinroute: outgoingBatchTx.getOutgoingtxfeeinroute()
+            ? outgoingBatchTx.getOutgoingtxfeeinroute()?.toObject()
+            : undefined,
+          expirytimestamp: outgoingBatchTx.getExpirytimestamp(),
+          isatomic: outgoingBatchTx.getIsatomic(),
+          sourceaddress: outgoingBatchTx.getSourceaddress(),
+          status: outgoingBatchTx.getStatus(),
+          routeAmount: outgoingBatchTx.getRouteAmount(),
+          routeRecipient: outgoingBatchTx.getRouteRecipient(),
+        };
     }
 
     private static getContractCallObject(
