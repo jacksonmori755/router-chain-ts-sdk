@@ -12,4 +12,5 @@ export enum ChainId {
   Mainnet = 'router-1',
   Testnet = 'router-1',
   Devnet = 'router-1',
+  AlphaDevnet = 'router_9000-1',
 }

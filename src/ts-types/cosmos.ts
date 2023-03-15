@@ -34,3 +34,8 @@ export enum DevnetCosmosChainId {
   Router = 'router-777',
   router1 = 'router-777',
 }
+
+export enum AlphaDevnetCosmosChainId {
+  Router = 'router_9000-1',
+  router1 = 'router-777',
+}
