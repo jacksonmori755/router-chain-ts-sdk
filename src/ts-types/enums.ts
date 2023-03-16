@@ -6,6 +6,7 @@ export enum EthereumChainId {
   Kovan = 42,
   Ganache = 1337,
   HardHat = 31337,
+  AlphaDevnet = 9000,
 }
 
 export enum ChainId {
