@@ -5,12 +5,13 @@ import {
 } from '@routerprotocol/chain-api/cosmos/tx/v1beta1/tx_pb';
 import { DirectSignResponse } from '@cosmjs/proto-signing';
 import { SignDoc as CosmosSignDoc } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
-import { createTransaction, CreateTransactionArgs } from './tx';
+import { createTransaction } from './tx';
 import {
   BaseAccount,
   BigNumberInBase,
   ChainRestAuthApi,
   ChainRestTendermintApi,
+  CreateTransactionArgs,
   DEFAULT_TIMEOUT_HEIGHT,
   EthereumChainId,
   getAddressFromRouterAddress,

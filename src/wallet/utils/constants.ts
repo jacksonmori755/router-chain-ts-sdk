@@ -5,4 +5,4 @@ export const GAS_LIMIT_MULTIPLIER = 1.2;
 export const GAS_PRICE_MULTIPLIER = 1.1;
 export const TX_DEFAULTS_GAS = 80_000_000;
 export const DEFAULT_GAS_PRICE = new BigNumberInBase(6).times(GWEI_IN_WEI);
-export const INJ_DENOM = 'inj';
+export const ROUTER_DENOM = 'route';
