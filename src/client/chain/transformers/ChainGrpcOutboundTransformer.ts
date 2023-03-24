@@ -108,12 +108,15 @@ export class ChainGrpcOutboundTransformer {
           outgoingtxfeeinroute: outgoingBatchTx.getOutgoingtxfeeinroute()
             ? outgoingBatchTx.getOutgoingtxfeeinroute()?.toObject()
             : undefined,
+          outboundackgaslimit: outgoingBatchTx.getOutboundackgaslimit(),
+          chaintimestamp: outgoingBatchTx.getChaintimestamp(),
           expirytimestamp: outgoingBatchTx.getExpirytimestamp(),
           isatomic: outgoingBatchTx.getIsatomic(),
           sourceaddress: outgoingBatchTx.getSourceaddress(),
           status: outgoingBatchTx.getStatus(),
           routeAmount: outgoingBatchTx.getRouteAmount(),
           routeRecipient: outgoingBatchTx.getRouteRecipient(),
+          asmaddress: outgoingBatchTx.getAsmaddress()
         };
     }
 

@@ -84,6 +84,7 @@ export class ChainGrpcCrossTalkTransformer {
             sourcechaintype: crossTalkRequest.getSourcechaintype(),
             sourcechainid: crossTalkRequest.getSourcechainid(),
             sourcetxhash: crossTalkRequest.getSourcetxhash(),
+            sourcetimestamp: crossTalkRequest.getSourcetimestamp(),
             destinationchaintype: crossTalkRequest.getDestinationchaintype(),
             destinationchainid: crossTalkRequest.getDestinationchainid(),
             destinationgaslimit: crossTalkRequest.getDestinationgaslimit(),
@@ -101,6 +102,7 @@ export class ChainGrpcCrossTalkTransformer {
             ackgaslimit: crossTalkRequest.getAckgaslimit(),
             ackgasprice: crossTalkRequest.getAckgasprice(),
             feepayer: crossTalkRequest.getFeepayer(),
+            asmaddress: crossTalkRequest.getAsmaddress(),
             status: crossTalkRequest.getStatus(),
         }
 

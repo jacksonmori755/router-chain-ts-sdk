@@ -37,6 +37,7 @@ export class ChainGrpcInboundTransformer {
       feepayer: incomingTx.getFeepayer(),
       routeamount: incomingTx.getRouteamount(),
       routerecipient: incomingTx.getRouterecipient(),
+      asmaddress: incomingTx.getAsmaddress(),
       status: incomingTx.getStatus(),
     };
   }
