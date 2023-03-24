@@ -402,7 +402,7 @@ export const searchSpecificInboundQuery = `
 
 export const searchSpecificInboundSrcChainIdQuery = `
   query getLatestInbounds($sourceChainIds: [String],$searchTerm: String!,$limit: Int!, $offset: Int!){
-    paginatedInbound(filter:{chainId:{in:$sourceChainIds}},where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm,routerBridgeContract:$searchTerm,formAttestationId:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+    paginatedInbound(where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm,routerBridgeContract:$searchTerm,formAttestationId:$searchTerm},filter:{chainId:{in:$sourceChainIds}},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     inbounds{
       attestationId
@@ -870,7 +870,7 @@ export const searchSpecificOutboundQuery = `
 
 export const searchSpecificOutboundDestChainIdQuery = `
   query getLatestOutbounds($destinationChainIds: [String],$searchTerm: String!,$limit: Int!, $offset: Int!){
-    paginatedOutbound(filter:{destinationChainId:{in:$destinationChainIds}},where_or:{sourceAddress:$searchTerm,destinationTxHash:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+    paginatedOutbound(where_or:{sourceAddress:$searchTerm,destinationTxHash:$searchTerm},filter:{destinationChainId:{in:$destinationChainIds}},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     outbounds{
       eventNonce
@@ -999,7 +999,7 @@ export const filterApplicationOutboundQuery = `
 `;
 export const filterApplicationOutboundDestChainQuery = `
   query getLatestOutbounds($destinationChainIsd: [String],$address: String!,$limit: Int!, $offset: Int!){
-    paginatedOutbound(filter:{destinationChainId:{in:$destinationChainIds}},where:{sourceAddress:$address},sortBy:{outgoingTxNonce:desc},limit:$limit,offset:$offset){
+    paginatedOutbound(where:{sourceAddress:$address},filter:{destinationChainId:{in:$destinationChainIds}},sortBy:{outgoingTxNonce:desc},limit:$limit,offset:$offset){
     totalRecords
     outbounds{
       eventNonce
@@ -1437,7 +1437,7 @@ export const searchSpecificCrossTalkQuery = `
 
 export const searchSpecificCrossTalkSrcChainIdQuery = `
   query getCrossTalkByFormAttestationId($sourceChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrossTalk(filter:{sourceChainId:{in:$sourceChainIds}},where_or:{sourceTxHash:$searchTerm, requestTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  paginatedCrossTalk(where_or:{sourceTxHash:$searchTerm,requestTxOrigin:$searchTerm},filter:{sourceChainId:{in:$sourceChainIds}},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     crossTalks{
       attestationId
@@ -1542,7 +1542,7 @@ export const searchSpecificCrossTalkSrcChainIdQuery = `
 
 export const searchSpecificCrossTalkDestChainIdQuery = `
   query getCrossTalkByFormAttestationId($destinationChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrossTalk(filter:{destinationChainId:{in:$destinationChainIds}},where_or:{sourceTxHash:$searchTerm, requestTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  paginatedCrossTalk(where_or:{sourceTxHash:$searchTerm,requestTxOrigin:$searchTerm},filter:{destinationChainId:{in:$destinationChainIds}},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     crossTalks{
       attestationId
@@ -1647,7 +1647,7 @@ export const searchSpecificCrossTalkDestChainIdQuery = `
 
 export const searchSpecificCrossTalkChainIdQuery = `
   query getCrossTalkByFormAttestationId($sourceChainIds: [String],$destinationChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrossTalk(filter:{sourceChainId:{in:$sourceChainIds},destinationChainId:{in:$destinationChainIds}},where_or:{sourceTxHash:$searchTerm, requestTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  paginatedCrossTalk(where_or:{sourceTxHash:$searchTerm,requestTxOrigin:$searchTerm},filter:{sourceChainId:{in:$sourceChainIds},destinationChainId:{in:$destinationChainIds}},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     crossTalks{
       attestationId
