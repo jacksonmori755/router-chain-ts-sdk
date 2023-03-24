@@ -2,11 +2,16 @@ import { ValsetUpdatedClaimHash } from "@routerprotocol/chain-api/attestation/va
 import { BridgeValidator } from "@routerprotocol/chain-api/attestation/bridge_validator_pb";
 import { getClaimHash } from "./util";
 
-export function getValsetUpdatedClaimHash(claimHashObject: ValsetUpdatedClaimHash.AsObject) : Uint8Array {
+/**
+ * Get ValsetUpdated ClaimHash
+ * @param valset 
+ * @returns 
+ */
+export function getValsetUpdatedClaimHash(valset: ValsetUpdatedClaimHash.AsObject) : Uint8Array {
     const claimHash = new ValsetUpdatedClaimHash();
 
     let bridgeValidators: Array<BridgeValidator> = 
-        claimHashObject.membersList.map(
+        valset.membersList.map(
             validatorObj => {
                 const bridgeValidator = new BridgeValidator();
                 bridgeValidator.setPower(validatorObj.power);
@@ -15,13 +20,13 @@ export function getValsetUpdatedClaimHash(claimHashObject: ValsetUpdatedClaimHas
             }
         )
 
-    claimHash.setChaintype(claimHashObject.chaintype)
-    claimHash.setChainid(claimHashObject.chainid)
-    claimHash.setEventnonce(claimHashObject.eventnonce)
-    claimHash.setValsetnonce(claimHashObject.valsetnonce)
-    claimHash.setBlockheight(claimHashObject.blockheight)
+    claimHash.setChaintype(valset.chaintype)
+    claimHash.setChainid(valset.chainid)
+    claimHash.setEventnonce(valset.eventnonce)
+    claimHash.setValsetnonce(valset.valsetnonce)
+    claimHash.setBlockheight(valset.blockheight)
     claimHash.setMembersList(bridgeValidators)
-    claimHash.setSourcetxhash(claimHashObject.sourcetxhash)
+    claimHash.setSourcetxhash(valset.sourcetxhash)
 
     return getClaimHash(claimHash.serializeBinary())
 }

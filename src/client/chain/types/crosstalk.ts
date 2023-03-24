@@ -2,129 +2,157 @@ import { CrossTalkRequestClaimHash } from "@routerprotocol/chain-api/crosstalk/c
 import { CrossTalkAckRequestClaimHash } from "@routerprotocol/chain-api/crosstalk/cross_talk_ack_request_pb";
 import { getClaimHash } from "./util";
 
-export function getCrossTalkRequestClaimHash(claimHashObject: CrossTalkRequestClaimHash.AsObject) : Uint8Array {
+/**
+ * Get CrossTalkRequest ClaimHash
+ * 
+ * @param crossTalkRequest
+ * @returns 
+ */
+export function getCrossTalkRequestClaimHash(crossTalkRequest: CrossTalkRequestClaimHash.AsObject) : Uint8Array {
     const claimHash = new CrossTalkRequestClaimHash();
 
-    claimHash.setEventnonce(claimHashObject.eventnonce)
-    claimHash.setBlockheight(claimHashObject.blockheight)
-    claimHash.setSourcechaintype(claimHashObject.sourcechaintype)
-    claimHash.setSourcechainid(claimHashObject.sourcechainid)
-    claimHash.setSourcetxhash(claimHashObject.sourcetxhash)
-    claimHash.setDestinationchaintype(claimHashObject.destinationchaintype)
-    claimHash.setDestinationchainid(claimHashObject.destinationchainid)
-    claimHash.setDestinationgaslimit(claimHashObject.destinationgaslimit)
-    claimHash.setDestinationgasprice(claimHashObject.destinationgasprice)
-    claimHash.setRequestsender(claimHashObject.requestsender)
-    claimHash.setRequesttxorigin(claimHashObject.requesttxorigin)
-    claimHash.setIsreadcall(claimHashObject.isreadcall)
-    claimHash.setRequestnonce(claimHashObject.requestnonce)
-    claimHash.setIsatomic(claimHashObject.isatomic)
-    claimHash.setExpirytimestamp(claimHashObject.expirytimestamp)
-    claimHash.setDestcontractaddressesList(claimHashObject.destcontractaddressesList)
-    claimHash.setDestcontractpayloadsList(claimHashObject.destcontractpayloadsList)
-    claimHash.setAcktype(claimHashObject.acktype)
-    claimHash.setAckgaslimit(claimHashObject.ackgaslimit)
-    claimHash.setAckgasprice(claimHashObject.ackgasprice)
-    claimHash.setFeepayer(claimHashObject.feepayer)
+    claimHash.setEventnonce(crossTalkRequest.eventnonce)
+    claimHash.setBlockheight(crossTalkRequest.blockheight)
+    claimHash.setSourcechaintype(crossTalkRequest.sourcechaintype)
+    claimHash.setSourcechainid(crossTalkRequest.sourcechainid)
+    claimHash.setSourcetimestamp(crossTalkRequest.sourcetimestamp)
+    claimHash.setSourcetxhash(crossTalkRequest.sourcetxhash)
+    claimHash.setDestinationchaintype(crossTalkRequest.destinationchaintype)
+    claimHash.setDestinationchainid(crossTalkRequest.destinationchainid)
+    claimHash.setDestinationgaslimit(crossTalkRequest.destinationgaslimit)
+    claimHash.setDestinationgasprice(crossTalkRequest.destinationgasprice)
+    claimHash.setRequestsender(crossTalkRequest.requestsender)
+    claimHash.setRequesttxorigin(crossTalkRequest.requesttxorigin)
+    claimHash.setIsreadcall(crossTalkRequest.isreadcall)
+    claimHash.setRequestnonce(crossTalkRequest.requestnonce)
+    claimHash.setIsatomic(crossTalkRequest.isatomic)
+    claimHash.setExpirytimestamp(crossTalkRequest.expirytimestamp)
+    claimHash.setDestcontractaddressesList(crossTalkRequest.destcontractaddressesList)
+    claimHash.setDestcontractpayloadsList(crossTalkRequest.destcontractpayloadsList)
+    claimHash.setAcktype(crossTalkRequest.acktype)
+    claimHash.setAckgaslimit(crossTalkRequest.ackgaslimit)
+    claimHash.setAckgasprice(crossTalkRequest.ackgasprice)
+    claimHash.setAsmaddress(crossTalkRequest.asmaddress)
 
     return getClaimHash(claimHash.serializeBinary())
 }
 
-export function getCrossTalkAckRequestClaimHash(claimHashObject: CrossTalkAckRequestClaimHash.AsObject) : Uint8Array {
+/**
+ * Get CrossTalkAckRequest ClaimHash
+ * 
+ * @param crossTalkAckRequest 
+ * @returns 
+ */
+export function getCrossTalkAckRequestClaimHash(crossTalkAckRequest: CrossTalkAckRequestClaimHash.AsObject) : Uint8Array {
     const claimHash = new CrossTalkAckRequestClaimHash();
 
-    claimHash.setEventnonce(claimHashObject.eventnonce)
-    claimHash.setBlockheight(claimHashObject.blockheight)
-    claimHash.setRelayerrouteraddress(claimHashObject.relayerrouteraddress)
-    claimHash.setSourcechaintype(claimHashObject.sourcechaintype)
-    claimHash.setSourcechainid(claimHashObject.sourcechainid)
-    claimHash.setChaintype(claimHashObject.chaintype)
-    claimHash.setChainid(claimHashObject.chainid)
-    claimHash.setDestinationtxhash(claimHashObject.destinationtxhash)
-    claimHash.setEventidentifier(claimHashObject.eventidentifier)
-    claimHash.setCrosstalkrequestsender(claimHashObject.crosstalkrequestsender)
-    claimHash.setCrosstalknonce(claimHashObject.crosstalknonce)
-    claimHash.setContractackresponses(claimHashObject.contractackresponses)
-    claimHash.setExecode(claimHashObject.execode)
-    claimHash.setExecstatus(claimHashObject.execstatus)
-    claimHash.setExecflagsList(claimHashObject.execflagsList)
-    claimHash.setExecdataList(claimHashObject.execdataList)
+    claimHash.setEventnonce(crossTalkAckRequest.eventnonce)
+    claimHash.setBlockheight(crossTalkAckRequest.blockheight)
+    claimHash.setRelayerrouteraddress(crossTalkAckRequest.relayerrouteraddress)
+    claimHash.setSourcechaintype(crossTalkAckRequest.sourcechaintype)
+    claimHash.setSourcechainid(crossTalkAckRequest.sourcechainid)
+    claimHash.setChaintype(crossTalkAckRequest.chaintype)
+    claimHash.setChainid(crossTalkAckRequest.chainid)
+    claimHash.setDestinationtxhash(crossTalkAckRequest.destinationtxhash)
+    claimHash.setEventidentifier(crossTalkAckRequest.eventidentifier)
+    claimHash.setCrosstalkrequestsender(crossTalkAckRequest.crosstalkrequestsender)
+    claimHash.setCrosstalknonce(crossTalkAckRequest.crosstalknonce)
+    claimHash.setContractackresponses(crossTalkAckRequest.contractackresponses)
+    claimHash.setExecode(crossTalkAckRequest.execode)
+    claimHash.setExecstatus(crossTalkAckRequest.execstatus)
+    claimHash.setExecflagsList(crossTalkAckRequest.execflagsList)
+    claimHash.setExecdataList(crossTalkAckRequest.execdataList)
 
     return getClaimHash(claimHash.serializeBinary())
 }
 
-export function getMsgCrossTalkRequestClaimHash(claimHashObject: CrossTalkRequestClaimHash.AsObject) : Uint8Array {
+/**
+ * Get MsgCrossTalkRequest ClaimHash
+ * @param msgCrossTalkRequest 
+ * @returns 
+ */
+export function getMsgCrossTalkRequestClaimHash(msgCrossTalkRequest: CrossTalkRequestClaimHash.AsObject) : Uint8Array {
     const claimHash = new CrossTalkRequestClaimHash();
 
-    claimHash.setEventnonce(claimHashObject.eventnonce)
-    claimHash.setBlockheight(claimHashObject.blockheight)
-    claimHash.setSourcechaintype(claimHashObject.sourcechaintype)
-    claimHash.setSourcechainid(claimHashObject.sourcechainid)
-    claimHash.setSourcetxhash(claimHashObject.sourcetxhash)
-    claimHash.setDestinationchaintype(claimHashObject.destinationchaintype)
-    claimHash.setDestinationchainid(claimHashObject.destinationchainid)
-    claimHash.setDestinationgaslimit(claimHashObject.destinationgaslimit)
-    claimHash.setDestinationgasprice(claimHashObject.destinationgasprice)
-    claimHash.setRequestsender(claimHashObject.requestsender)
-    claimHash.setRequesttxorigin(claimHashObject.requesttxorigin)
-    claimHash.setIsreadcall(claimHashObject.isreadcall)
-    claimHash.setRequestnonce(claimHashObject.requestnonce)
-    claimHash.setIsatomic(claimHashObject.isatomic)
-    claimHash.setExpirytimestamp(claimHashObject.expirytimestamp)
-    claimHash.setDestcontractaddressesList(claimHashObject.destcontractaddressesList)
-    claimHash.setDestcontractpayloadsList(claimHashObject.destcontractpayloadsList)
-    claimHash.setAcktype(claimHashObject.acktype)
-    claimHash.setAckgaslimit(claimHashObject.ackgaslimit)
-    claimHash.setAckgasprice(claimHashObject.ackgasprice)
-    claimHash.setFeepayer(claimHashObject.feepayer)
+    claimHash.setEventnonce(msgCrossTalkRequest.eventnonce)
+    claimHash.setBlockheight(msgCrossTalkRequest.blockheight)
+    claimHash.setSourcechaintype(msgCrossTalkRequest.sourcechaintype)
+    claimHash.setSourcechainid(msgCrossTalkRequest.sourcechainid)
+    claimHash.setSourcetxhash(msgCrossTalkRequest.sourcetxhash)
+    claimHash.setSourcetimestamp(msgCrossTalkRequest.sourcetimestamp)
+    claimHash.setDestinationchaintype(msgCrossTalkRequest.destinationchaintype)
+    claimHash.setDestinationchainid(msgCrossTalkRequest.destinationchainid)
+    claimHash.setDestinationgaslimit(msgCrossTalkRequest.destinationgaslimit)
+    claimHash.setDestinationgasprice(msgCrossTalkRequest.destinationgasprice)
+    claimHash.setRequestsender(msgCrossTalkRequest.requestsender)
+    claimHash.setRequesttxorigin(msgCrossTalkRequest.requesttxorigin)
+    claimHash.setIsreadcall(msgCrossTalkRequest.isreadcall)
+    claimHash.setRequestnonce(msgCrossTalkRequest.requestnonce)
+    claimHash.setIsatomic(msgCrossTalkRequest.isatomic)
+    claimHash.setExpirytimestamp(msgCrossTalkRequest.expirytimestamp)
+    claimHash.setDestcontractaddressesList(msgCrossTalkRequest.destcontractaddressesList)
+    claimHash.setDestcontractpayloadsList(msgCrossTalkRequest.destcontractpayloadsList)
+    claimHash.setAcktype(msgCrossTalkRequest.acktype)
+    claimHash.setAckgaslimit(msgCrossTalkRequest.ackgaslimit)
+    claimHash.setAckgasprice(msgCrossTalkRequest.ackgasprice)
+    claimHash.setAsmaddress(msgCrossTalkRequest.asmaddress)
 
     return getClaimHash(claimHash.serializeBinary())
 }
 
-
-export function getMsgCrossTalkAckRequestClaimHash(claimHashObject: CrossTalkAckRequestClaimHash.AsObject) : Uint8Array {
+/**
+ * Get MsgCrossTalkAckRequest ClaimHash
+ * @param msgCrossTalkAckRequest 
+ * @returns 
+ */
+export function getMsgCrossTalkAckRequestClaimHash(msgCrossTalkAckRequest: CrossTalkAckRequestClaimHash.AsObject) : Uint8Array {
     const claimHash = new CrossTalkAckRequestClaimHash();
 
-    claimHash.setEventnonce(claimHashObject.eventnonce)
-    claimHash.setBlockheight(claimHashObject.blockheight)
-    claimHash.setRelayerrouteraddress(claimHashObject.relayerrouteraddress)
-    claimHash.setSourcechaintype(claimHashObject.sourcechaintype)
-    claimHash.setSourcechainid(claimHashObject.sourcechainid)
-    claimHash.setChaintype(claimHashObject.chaintype)
-    claimHash.setChainid(claimHashObject.chainid)
-    claimHash.setDestinationtxhash(claimHashObject.destinationtxhash)
-    claimHash.setEventidentifier(claimHashObject.eventidentifier)
-    claimHash.setCrosstalkrequestsender(claimHashObject.crosstalkrequestsender)
-    claimHash.setCrosstalknonce(claimHashObject.crosstalknonce)
-    claimHash.setContractackresponses(claimHashObject.contractackresponses)
-    claimHash.setExecode(claimHashObject.execode)
-    claimHash.setExecstatus(claimHashObject.execstatus)
-    claimHash.setExecflagsList(claimHashObject.execflagsList)
-    claimHash.setExecdataList(claimHashObject.execdataList)
+    claimHash.setEventnonce(msgCrossTalkAckRequest.eventnonce)
+    claimHash.setBlockheight(msgCrossTalkAckRequest.blockheight)
+    claimHash.setRelayerrouteraddress(msgCrossTalkAckRequest.relayerrouteraddress)
+    claimHash.setSourcechaintype(msgCrossTalkAckRequest.sourcechaintype)
+    claimHash.setSourcechainid(msgCrossTalkAckRequest.sourcechainid)
+    claimHash.setChaintype(msgCrossTalkAckRequest.chaintype)
+    claimHash.setChainid(msgCrossTalkAckRequest.chainid)
+    claimHash.setDestinationtxhash(msgCrossTalkAckRequest.destinationtxhash)
+    claimHash.setEventidentifier(msgCrossTalkAckRequest.eventidentifier)
+    claimHash.setCrosstalkrequestsender(msgCrossTalkAckRequest.crosstalkrequestsender)
+    claimHash.setCrosstalknonce(msgCrossTalkAckRequest.crosstalknonce)
+    claimHash.setContractackresponses(msgCrossTalkAckRequest.contractackresponses)
+    claimHash.setExecode(msgCrossTalkAckRequest.execode)
+    claimHash.setExecstatus(msgCrossTalkAckRequest.execstatus)
+    claimHash.setExecflagsList(msgCrossTalkAckRequest.execflagsList)
+    claimHash.setExecdataList(msgCrossTalkAckRequest.execdataList)
 
     return getClaimHash(claimHash.serializeBinary())
 }
 
-
-export function getMsgCrossTalkAckReceiptClaimHash(claimHashObject: CrossTalkAckRequestClaimHash.AsObject) : Uint8Array {
+/**
+ * Get MsgCrossTalkAckReceipt ClaimHash
+ * 
+ * @param crossTalkAckRequest 
+ * @returns 
+ */
+export function getMsgCrossTalkAckReceiptClaimHash(crossTalkAckRequest: CrossTalkAckRequestClaimHash.AsObject) : Uint8Array {
     const claimHash = new CrossTalkAckRequestClaimHash();
 
-    claimHash.setEventnonce(claimHashObject.eventnonce)
-    claimHash.setBlockheight(claimHashObject.blockheight)
-    claimHash.setRelayerrouteraddress(claimHashObject.relayerrouteraddress)
-    claimHash.setSourcechaintype(claimHashObject.sourcechaintype)
-    claimHash.setSourcechainid(claimHashObject.sourcechainid)
-    claimHash.setChaintype(claimHashObject.chaintype)
-    claimHash.setChainid(claimHashObject.chainid)
-    claimHash.setDestinationtxhash(claimHashObject.destinationtxhash)
-    claimHash.setEventidentifier(claimHashObject.eventidentifier)
-    claimHash.setCrosstalkrequestsender(claimHashObject.crosstalkrequestsender)
-    claimHash.setCrosstalknonce(claimHashObject.crosstalknonce)
-    claimHash.setContractackresponses(claimHashObject.contractackresponses)
-    claimHash.setExecode(claimHashObject.execode)
-    claimHash.setExecstatus(claimHashObject.execstatus)
-    claimHash.setExecflagsList(claimHashObject.execflagsList)
-    claimHash.setExecdataList(claimHashObject.execdataList)
+    claimHash.setEventnonce(crossTalkAckRequest.eventnonce)
+    claimHash.setBlockheight(crossTalkAckRequest.blockheight)
+    claimHash.setRelayerrouteraddress(crossTalkAckRequest.relayerrouteraddress)
+    claimHash.setSourcechaintype(crossTalkAckRequest.sourcechaintype)
+    claimHash.setSourcechainid(crossTalkAckRequest.sourcechainid)
+    claimHash.setChaintype(crossTalkAckRequest.chaintype)
+    claimHash.setChainid(crossTalkAckRequest.chainid)
+    claimHash.setDestinationtxhash(crossTalkAckRequest.destinationtxhash)
+    claimHash.setEventidentifier(crossTalkAckRequest.eventidentifier)
+    claimHash.setCrosstalkrequestsender(crossTalkAckRequest.crosstalkrequestsender)
+    claimHash.setCrosstalknonce(crossTalkAckRequest.crosstalknonce)
+    claimHash.setContractackresponses(crossTalkAckRequest.contractackresponses)
+    claimHash.setExecode(crossTalkAckRequest.execode)
+    claimHash.setExecstatus(crossTalkAckRequest.execstatus)
+    claimHash.setExecflagsList(crossTalkAckRequest.execflagsList)
+    claimHash.setExecdataList(crossTalkAckRequest.execdataList)
 
     return getClaimHash(claimHash.serializeBinary())
 }
