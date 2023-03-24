@@ -1003,7 +1003,7 @@ export const filterApplicationOutboundQuery = `
 `;
 export const filterApplicationOutboundDestChainQuery = `
   query getLatestOutbounds($destinationChainIsd: [String],$address: String!,$limit: Int!, $offset: Int!){
-    paginatedOutbound(filter:{destinationChainId:{in:$destinationChainIds}},where:{sourceAddress:$address},sortBy:{outgoingTxNonce:desc},limit:$limit,offset:$offset){
+    paginatedOutbound(where:{sourceAddress:$address},filter:{destinationChainId:{in:$destinationChainIds}},sortBy:{outgoingTxNonce:desc},limit:$limit,offset:$offset){
     totalRecords
     outbounds{
       id
