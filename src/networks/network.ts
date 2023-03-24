@@ -62,13 +62,13 @@ const CHAIN_INFO: Record<Network, ChainInfo> = {
 };
 
 const ETH_CHAINID: Record<Network, EthereumChainId> = {
-  [Network.Mainnet]: EthereumChainId.Mainnet,
-  [Network.Devnet]: EthereumChainId.Goerli,
-  [Network.Testnet]: EthereumChainId.Goerli,
+  [Network.Mainnet]: EthereumChainId.MainnetEvm,
+  [Network.Devnet]: EthereumChainId.DevnetEvm,
+  [Network.Testnet]: EthereumChainId.TestnetEvm,
   [Network.Local]: EthereumChainId.Goerli,
   [Network.Docker]: EthereumChainId.Goerli,
-  [Network.AlphaDevnet]: EthereumChainId.Goerli,
-  [Network.InternalDevnet]: EthereumChainId.Goerli,
+  [Network.AlphaDevnet]: EthereumChainId.AlphaDevnetEvm,
+  [Network.InternalDevnet]: EthereumChainId.AlphaDevnetEvm,
 };
 
 /**

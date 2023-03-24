@@ -1,5 +1,5 @@
-export const latestBlockQuery = `query getLatestBlocks($limit: Int!, $offset: Int!){
-  paginatedBlock(sortBy:{_id:desc},limit:$limit,offset:$offset){
+export const latestBlockQuery = `query getLatestBlocks($limit: Int!, $timeRange:[Int],$offset: Int!){
+  paginatedBlock(sortBy:{_id:desc},filter:{timestamp:{range:$timeRange}},limit:$limit,offset:$offset){
     totalRecords
     blocks{
       _id
@@ -13,7 +13,7 @@ export const latestBlockQuery = `query getLatestBlocks($limit: Int!, $offset: In
         sender
         status
         receiver
-        timeStamp
+        timestamp
         gasWanted
         gasUsed
         fee
@@ -40,7 +40,7 @@ export const specificBlockQuery = `
         sender
         status
         receiver
-        timeStamp
+        timestamp
         gasWanted
         gasUsed
         fee
@@ -52,8 +52,8 @@ export const specificBlockQuery = `
 }
 `;
 export const latestTransactionsQuery = `
-  query getLatestTransactions($limit: Int!, $offset: Int!){
-    paginatedTransaction(sortBy:{height:desc,timeStamp:desc},limit:$limit,offset:$offset){
+  query getLatestTransactions($timeRange:[Int], $limit: Int!, $offset: Int!){
+    paginatedTransaction(filter:{timestamp:{range:$timeRange}},sortBy:{height:desc,timestamp:desc},limit:$limit,offset:$offset){
     totalRecords
   transactions{
      _id
@@ -61,7 +61,7 @@ export const latestTransactionsQuery = `
     sender
     status
     receiver
-    timeStamp
+    timestamp
     gasWanted
     gasUsed
     fee
@@ -76,7 +76,7 @@ export const latestTransactionsQuery = `
 
 export const latestTransactionsOfAddressQuery = `
   query getLatestTransactions($address: String!,$limit: Int!, $offset: Int!){
-    paginatedTransaction(where_or:{sender:$address, receiver:$address}, sortBy:{height:desc,timeStamp:desc},limit:$limit,offset:$offset){
+    paginatedTransaction(where_or:{sender:$address, receiver:$address}, sortBy:{height:desc,timestamp:desc},limit:$limit,offset:$offset){
     totalRecords
   transactions{
      _id
@@ -84,7 +84,7 @@ export const latestTransactionsOfAddressQuery = `
     sender
     status
     receiver
-    timeStamp
+    timestamp
     gasWanted
     gasUsed
     fee
@@ -105,7 +105,7 @@ export const specificTransactionQuery = `
     sender
     status
     receiver
-    timeStamp
+    timestamp
     gasWanted
     gasUsed
     fee
@@ -118,10 +118,11 @@ export const specificTransactionQuery = `
 `;
 
 export const latestInboundsQuery = `
-  query getLatestInbounds($limit: Int!, $offset: Int!){
-    paginatedInbound(sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  query getLatestInbounds($timeRange:[Int], $limit: Int!, $offset: Int!){
+    paginatedInbound(filter:{createdAt:{range:$timeRange}},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     inbounds{
+      id
       attestationId
       chainType
       attestationType
@@ -133,8 +134,8 @@ export const latestInboundsQuery = `
       routerBridgeContract
       payload
       status
-      formAttestationId
       delegationErrorResponse
+      createdAt
       historyStatus{
         status
         txnHash
@@ -159,7 +160,6 @@ export const latestInboundsQuery = `
       status
       contractCalls
       ackFormAttestationId
-      formAttestationId
       attestationId
       outgoingTxNonce
       outboundTxRequestedBy
@@ -214,6 +214,7 @@ export const latestApplicationsInboundsQuery = `
     paginatedInbound(where:{routerBridgeContract:$address},filter:{blockHeight:{gt:$blockHeight}},sortBy:{blockHeight:$order},limit:$limit,offset:$offset){
     totalRecords
     inbounds{
+      id
       attestationId
       chainType
       attestationType
@@ -225,7 +226,6 @@ export const latestApplicationsInboundsQuery = `
       routerBridgeContract
       payload
       status
-      formAttestationId
       delegationErrorResponse
       historyStatus{
         status
@@ -244,7 +244,7 @@ export const latestApplicationsInboundsQuery = `
         outboundDocMap
         inboundDocMap
         blockHeight
-        timeStamp
+        timestamp
       }
       outbounds{
       eventNonce
@@ -258,7 +258,6 @@ export const latestApplicationsInboundsQuery = `
       status
       contractCalls
       ackFormAttestationId
-      formAttestationId
       attestationId
       outgoingTxNonce
       outboundTxRequestedBy
@@ -309,10 +308,11 @@ export const latestApplicationsInboundsQuery = `
 `;
 
 export const searchSpecificInboundQuery = `
-  query getLatestInbounds($searchTerm: String!,$limit: Int!, $offset: Int!){
-    paginatedInbound(where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm,routerBridgeContract:$searchTerm,formAttestationId:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  query getLatestInbounds($timeRange:[Int], $searchTerm: String!,$limit: Int!, $offset: Int!){
+    paginatedInbound(filter:{createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm,routerBridgeContract:$searchTerm,formAttestationId:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     inbounds{
+      id
       attestationId
       chainType
       attestationType
@@ -324,8 +324,8 @@ export const searchSpecificInboundQuery = `
       routerBridgeContract
       payload
       status
-      formAttestationId
       delegationErrorResponse
+      createdAt
       historyStatus{
         status
         txnHash
@@ -350,7 +350,6 @@ export const searchSpecificInboundQuery = `
       status
       contractCalls
       ackFormAttestationId
-      formAttestationId
       attestationId
       outgoingTxNonce
       outboundTxRequestedBy
@@ -401,10 +400,11 @@ export const searchSpecificInboundQuery = `
 `;
 
 export const searchSpecificInboundSrcChainIdQuery = `
-  query getLatestInbounds($sourceChainIds: [String],$searchTerm: String!,$limit: Int!, $offset: Int!){
-    paginatedInbound(filter:{chainId:{in:$sourceChainIds}},where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm,routerBridgeContract:$searchTerm,formAttestationId:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  query getLatestInbounds($timeRange:[Int], $sourceChainIds: [String],$searchTerm: String!,$limit: Int!, $offset: Int!){
+    paginatedInbound(filter:{chainId:{in:$sourceChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm,routerBridgeContract:$searchTerm,formAttestationId:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     inbounds{
+      id
       attestationId
       chainType
       attestationType
@@ -416,8 +416,8 @@ export const searchSpecificInboundSrcChainIdQuery = `
       routerBridgeContract
       payload
       status
-      formAttestationId
       delegationErrorResponse
+      createdAt
       historyStatus{
         status
         txnHash
@@ -442,7 +442,6 @@ export const searchSpecificInboundSrcChainIdQuery = `
       status
       contractCalls
       ackFormAttestationId
-      formAttestationId
       attestationId
       outgoingTxNonce
       outboundTxRequestedBy
@@ -497,6 +496,7 @@ export const filterApplicationInboundQuery = `
     paginatedInbound(where:{routerBridgeContract:$address},where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     inbounds{
+      id
       attestationId
       chainType
       attestationType
@@ -508,7 +508,7 @@ export const filterApplicationInboundQuery = `
       routerBridgeContract
       payload
       status
-      formAttestationId
+      createdAt
       delegationErrorResponse
       historyStatus{
         status
@@ -586,7 +586,8 @@ export const filterApplicationInboundQuery = `
 
 export const specificInboundQuery = `
   query getInboundByFormAttestationId($formAttestationId: String!){
-  inbound(formAttestationId:$formAttestationId){
+  inbound(id:$formAttestationId){
+    id
     attestationId
     chainType
     attestationType
@@ -598,7 +599,7 @@ export const specificInboundQuery = `
     routerBridgeContract
     payload
     status
-    formAttestationId
+    createdAt
     delegationErrorResponse
     historyStatus{
         status
@@ -624,7 +625,6 @@ export const specificInboundQuery = `
     status
     contractCalls
     ackFormAttestationId
-    formAttestationId
     attestationId
     outgoingTxNonce
     outboundTxRequestedBy
@@ -674,10 +674,11 @@ export const specificInboundQuery = `
 `;
 //sortBy:{blockHeight:desc},
 export const latestOutboundsQuery = `
-  query getLatestOutbounds($limit: Int!, $offset: Int!){
-    paginatedOutbound(sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  query getLatestOutbounds($timeRange:[Int],$limit: Int!, $offset: Int!){
+    paginatedOutbound(filter:{createdAt:{range:$timeRange}},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     outbounds{
+      id
       eventNonce
       destinationChainType
       destinationChainId
@@ -689,7 +690,7 @@ export const latestOutboundsQuery = `
       status
       contractCalls
       ackFormAttestationId
-      formAttestationId
+      createdAt
       attestationId
       outgoingTxNonce
       outboundTxRequestedBy
@@ -743,6 +744,7 @@ export const latestApplicationsOutboundsQuery = `
     paginatedOutbound(where:{sourceAddress:$address},sortBy:{outgoingTxNonce:desc},limit:$limit,offset:$offset){
     totalRecords
     outbounds{
+      id
       eventNonce
       destinationChainType
       destinationChainId
@@ -754,7 +756,6 @@ export const latestApplicationsOutboundsQuery = `
       status
       contractCalls
       ackFormAttestationId
-      formAttestationId
       attestationId
       outgoingTxNonce
       outboundTxRequestedBy
@@ -804,10 +805,11 @@ export const latestApplicationsOutboundsQuery = `
 `;
 
 export const searchSpecificOutboundQuery = `
-  query getLatestOutbounds($searchTerm: String!,$limit: Int!, $offset: Int!){
-    paginatedOutbound(where_or:{sourceAddress:$searchTerm,destinationTxHash:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  query getLatestOutbounds($timeRange:[Int],$searchTerm: String!,$limit: Int!, $offset: Int!){
+    paginatedOutbound(filter:{createdAt:{range:$timeRange}},where_or:{sourceAddress:$searchTerm,destinationTxHash:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     outbounds{
+      id
       eventNonce
       destinationChainType
       destinationChainId
@@ -819,7 +821,7 @@ export const searchSpecificOutboundQuery = `
       status
       contractCalls
       ackFormAttestationId
-      formAttestationId
+      createdAt
       attestationId
       outgoingTxNonce
       outboundTxRequestedBy
@@ -869,10 +871,11 @@ export const searchSpecificOutboundQuery = `
 `;
 
 export const searchSpecificOutboundDestChainIdQuery = `
-  query getLatestOutbounds($destinationChainIds: [String],$searchTerm: String!,$limit: Int!, $offset: Int!){
-    paginatedOutbound(filter:{destinationChainId:{in:$destinationChainIds}},where_or:{sourceAddress:$searchTerm,destinationTxHash:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  query getLatestOutbounds($timeRange:[Int],$destinationChainIds: [String],$searchTerm: String!,$limit: Int!, $offset: Int!){
+    paginatedOutbound(filter:{destinationChainId:{in:$destinationChainIds}, createdAt:{range:$timeRange}},where_or:{sourceAddress:$searchTerm,destinationTxHash:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     outbounds{
+      id
       eventNonce
       destinationChainType
       destinationChainId
@@ -884,7 +887,7 @@ export const searchSpecificOutboundDestChainIdQuery = `
       status
       contractCalls
       ackFormAttestationId
-      formAttestationId
+      createdAt
       attestationId
       outgoingTxNonce
       outboundTxRequestedBy
@@ -938,6 +941,7 @@ export const filterApplicationOutboundQuery = `
     paginatedOutbound(where:{sourceAddress:$address},sortBy:{outgoingTxNonce:desc},limit:$limit,offset:$offset){
     totalRecords
     outbounds{
+      id
       eventNonce
       destinationChainType
       destinationChainId
@@ -949,7 +953,7 @@ export const filterApplicationOutboundQuery = `
       status
       contractCalls
       ackFormAttestationId
-      formAttestationId
+      createdAt
       attestationId
       outgoingTxNonce
       outboundTxRequestedBy
@@ -999,9 +1003,10 @@ export const filterApplicationOutboundQuery = `
 `;
 export const filterApplicationOutboundDestChainQuery = `
   query getLatestOutbounds($destinationChainIsd: [String],$address: String!,$limit: Int!, $offset: Int!){
-    paginatedOutbound(filter:{destinationChainId:{in:$destinationChainIds}},where:{sourceAddress:$address},sortBy:{outgoingTxNonce:desc},limit:$limit,offset:$offset){
+    paginatedOutbound(where:{sourceAddress:$address},filter:{destinationChainId:{in:$destinationChainIds}},sortBy:{outgoingTxNonce:desc},limit:$limit,offset:$offset){
     totalRecords
     outbounds{
+      id
       eventNonce
       destinationChainType
       destinationChainId
@@ -1013,7 +1018,7 @@ export const filterApplicationOutboundDestChainQuery = `
       status
       contractCalls
       ackFormAttestationId
-      formAttestationId
+      createdAt
       attestationId
       outgoingTxNonce
       outboundTxRequestedBy
@@ -1064,7 +1069,8 @@ export const filterApplicationOutboundDestChainQuery = `
 
 export const specificOutboundQuery = `
   query getOutboundByFormAttestationId($formAttestationId: String!){
-  outbound(formAttestationId:$formAttestationId){
+  outbound(id:$formAttestationId){
+      id
       eventNonce
       destinationChainType
       destinationChainId
@@ -1076,7 +1082,7 @@ export const specificOutboundQuery = `
       status
       contractCalls
       ackFormAttestationId
-      formAttestationId
+      createdAt
       attestationId
       outgoingTxNonce
       outboundTxRequestedBy
@@ -1125,12 +1131,13 @@ export const specificOutboundQuery = `
 `;
 
 export const latestCrossTalksQuery = `
-  query getLatestCrossTalks($limit: Int!, $offset: Int!){
-    paginatedCrossTalk(sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  query getLatestCrossTalks($timeRange:[Int], $limit: Int!, $offset: Int!){
+    paginatedCrossTalk(filter:{createdAt:{range:$timeRange}}, sortBy:{blockHeight:desc}, limit:$limit, offset:$offset){
     totalRecords
     crossTalks{
+      id
       attestationId
-      formAttestationId
+      createdAt
       eventNonce
       blockHeight
       sourceChainType
@@ -1231,9 +1238,9 @@ export const latestCrossTalksQuery = `
 
 export const specificCrossTalkQuery = `
   query getCrossTalkByFormAttestationId($formAttestationId: String!){
-  crossTalk(formAttestationId:$formAttestationId){
+  crossTalk(id:$formAttestationId){
       attestationId
-      formAttestationId
+      createdAt
       eventNonce
       blockHeight
       sourceChainType
@@ -1331,12 +1338,13 @@ export const specificCrossTalkQuery = `
 }
 `;
 export const searchSpecificCrossTalkQuery = `
-  query getCrossTalkByFormAttestationId($searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrossTalk(where_or:{sourceTxHash:$searchTerm, requestTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  query getCrossTalkByFormAttestationId($timeRange:[Int], $searchTerm: String! ,$limit: Int!, $offset: Int!){
+  paginatedCrossTalk(filter:{createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, requestTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     crossTalks{
+      id
       attestationId
-      formAttestationId
+      createdAt
       eventNonce
       blockHeight
       sourceChainType
@@ -1436,12 +1444,13 @@ export const searchSpecificCrossTalkQuery = `
 `;
 
 export const searchSpecificCrossTalkSrcChainIdQuery = `
-  query getCrossTalkByFormAttestationId($sourceChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrossTalk(filter:{sourceChainId:{in:$sourceChainIds}},where_or:{sourceTxHash:$searchTerm, requestTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  query getCrossTalkByFormAttestationId($timeRange:[Int],$sourceChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
+  paginatedCrossTalk(filter:{sourceChainId:{in:$sourceChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, requestTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     crossTalks{
+      id
       attestationId
-      formAttestationId
+      createdAt
       eventNonce
       blockHeight
       sourceChainType
@@ -1541,12 +1550,13 @@ export const searchSpecificCrossTalkSrcChainIdQuery = `
 `;
 
 export const searchSpecificCrossTalkDestChainIdQuery = `
-  query getCrossTalkByFormAttestationId($destinationChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrossTalk(filter:{destinationChainId:{in:$destinationChainIds}},where_or:{sourceTxHash:$searchTerm, requestTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  query getCrossTalkByFormAttestationId($timeRange:[Int],$destinationChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
+  paginatedCrossTalk(filter:{destinationChainId:{in:$destinationChainIds},createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, requestTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     crossTalks{
+      id
       attestationId
-      formAttestationId
+      createdAt
       eventNonce
       blockHeight
       sourceChainType
@@ -1646,12 +1656,13 @@ export const searchSpecificCrossTalkDestChainIdQuery = `
 `;
 
 export const searchSpecificCrossTalkChainIdQuery = `
-  query getCrossTalkByFormAttestationId($sourceChainIds: [String],$destinationChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrossTalk(filter:{sourceChainId:{in:$sourceChainIds},destinationChainId:{in:$destinationChainIds}},where_or:{sourceTxHash:$searchTerm, requestTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  query getCrossTalkByFormAttestationId($timeRange:[Int], $sourceChainIds: [String],$destinationChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
+  paginatedCrossTalk(filter:{sourceChainId:{in:$sourceChainIds},destinationChainId:{in:$destinationChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, requestTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     crossTalks{
+      id
       attestationId
-      formAttestationId
+      createdAt
       eventNonce
       blockHeight
       sourceChainType

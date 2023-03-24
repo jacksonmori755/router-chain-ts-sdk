@@ -68,14 +68,20 @@ export class RouterExplorer {
 
   /**
    * Fetches latest Blocks
+   * @param {string} timeRange Time Range
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
    * @return {Blocks}
    * @throws {Error}
    */
-  public async getLatestBlocks(limit: Number = 10, offset: Number = 1) {
+  public async getLatestBlocks(
+    timeRange: number[] = [],
+    limit: Number = 10,
+    offset: Number = 1
+  ) {
     try {
       const data = await gqlFetcher(this.chainEnvironment, latestBlockQuery, {
+        timeRange,
         limit: limit,
         offset: offset,
       });
@@ -87,7 +93,7 @@ export class RouterExplorer {
 
   /**
    * Fetches specific Block
-   * @param {string} height BlocjHeight
+   * @param {string} height BlockHeight
    * @return {Block}
    * @throws {Error}
    */
@@ -103,12 +109,17 @@ export class RouterExplorer {
   }
   /**
    * Fetches latest Transactions
+   * @param {string} timeRange Time Range
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
    * @return {Transactions}
    * @throws {Error}
    */
-  public async getLatestTransactions(limit: Number = 10, offset: Number = 1) {
+  public async getLatestTransactions(
+    timeRange: number[] = [],
+    limit: Number = 10,
+    offset: Number = 1
+  ) {
     try {
       const data = await gqlFetcher(
         this.chainEnvironment,
@@ -116,6 +127,7 @@ export class RouterExplorer {
           ? latestTransactionsOfAddressQuery
           : latestTransactionsQuery,
         {
+          timeRange,
           limit: limit,
           offset: offset,
         }
@@ -175,12 +187,14 @@ export class RouterExplorer {
   }
   /**
    * Fetches latest Inbounds
+   * @param {string} timeRange Time Range
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
    * @return {Inbounds}
    * @throws {Error}
    */
   public async getLatestInbounds(
+    timeRange: number[] = [],
     limit: Number = 10,
     offset: Number = 1,
     blockHeight: Number = 0,
@@ -194,6 +208,7 @@ export class RouterExplorer {
           : latestInboundsQuery,
         {
           address: this.applicationAddress,
+          timeRange,
           limit: limit,
           offset: offset,
           blockHeight: blockHeight,
@@ -209,6 +224,7 @@ export class RouterExplorer {
    * Fetches filtered outbound by search term
    * @param {string} searchTerm Could be source sender address or source transaction hash or router contract address
    * @param {string} sourceChainIds Filter by source chain id
+   * @param {string} timeRange Time Range
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
    * @return {Inbounds}
@@ -217,6 +233,7 @@ export class RouterExplorer {
   public async getInboundBySearch(
     searchTerm: String,
     sourceChainIds: string[] = [],
+    timeRange: number[] = [],
     limit: Number = 10,
     offset: Number = 1
   ) {
@@ -229,6 +246,7 @@ export class RouterExplorer {
         {
           searchTerm: searchTerm,
           sourceChainIds: sourceChainIds,
+          timeRange,
           limit: limit,
           offset: offset,
         }
@@ -293,13 +311,18 @@ export class RouterExplorer {
 
   /**
    * Fetches latest Outbounds
+   * @param {string} timeRange Time Range
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
    * @return {Outbounds}
    * @throws {Error}
    */
 
-  public async getLatestOutbounds(limit: Number = 10, offset: Number = 1) {
+  public async getLatestOutbounds(
+    timeRange: number[] = [],
+    limit: Number = 10,
+    offset: Number = 1
+  ) {
     try {
       const data = await gqlFetcher(
         this.chainEnvironment,
@@ -308,6 +331,7 @@ export class RouterExplorer {
           : latestOutboundsQuery,
         {
           address: this.applicationAddress,
+          timeRange,
           limit: limit,
           offset: offset,
         }
@@ -319,6 +343,7 @@ export class RouterExplorer {
   }
   /**
    * Fetches specific Outbounds
+   * @param {string} timeRange Time Range
    * @param {string} destinationChainId
    * @param {string} searchTerm Middleware Contract Address
    * @param {string} limit Page Limit
@@ -329,6 +354,7 @@ export class RouterExplorer {
   public async getOutboundBySearch(
     searchTerm: String,
     destinationChainIds: string[] = [],
+    timeRange: number[] = [],
     limit: Number = 10,
     offset: Number = 1
   ) {
@@ -340,6 +366,7 @@ export class RouterExplorer {
           : searchSpecificOutboundDestChainIdQuery,
         {
           destinationChainIds: destinationChainIds,
+          timeRange,
           searchTerm: searchTerm,
           limit: limit,
           offset: offset,
@@ -405,19 +432,25 @@ export class RouterExplorer {
 
   /**
    * Fetches latest CrossTalks
+   * @param {string} timeRange Time Range
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
    * @return {CrossTalks}
    * @throws {Error}
    */
 
-  public async getLatestCrossTalks(limit: Number = 10, offset: Number = 1) {
+  public async getLatestCrossTalks(
+    timeRange: number[] = [],
+    limit: Number = 10,
+    offset: Number = 1
+  ) {
     try {
       const data = await gqlFetcher(
         this.chainEnvironment,
         latestCrossTalksQuery,
         {
           address: this.applicationAddress,
+          timeRange,
           limit: limit,
           offset: offset,
         }
@@ -429,6 +462,7 @@ export class RouterExplorer {
   }
   /**
    * Fetches specific CrossTalks
+   * @param {string} timeRange Time Range
    * @param {string} searchTerm Source Sender or Source Transaction Hash
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
@@ -439,6 +473,7 @@ export class RouterExplorer {
     searchTerm: String,
     srcChainIds: string[] = [],
     dstChainIds: string[] = [],
+    timeRange: number[] = [],
     limit: Number = 10,
     offset: Number = 1
   ) {
@@ -458,6 +493,7 @@ export class RouterExplorer {
           sourceChainIds: srcChainIds,
           destinationChainIds: dstChainIds,
           searchTerm: searchTerm,
+          timeRange,
           limit: limit,
           offset: offset,
         }

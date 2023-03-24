@@ -40,6 +40,7 @@ export type NetworkEndpoints = {
   lcdEndpoint: string;
   grpcEndpoint: string;
   tmEndpoint: string;
+  rpcEndpoint: string;
 };
 
 export type UrlEndpoints = NetworkEndpoints /** Deprecated */

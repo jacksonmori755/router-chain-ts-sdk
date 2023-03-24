@@ -4,12 +4,11 @@ export interface TypedDataField {
 }
 
 export type Eip712ConvertTxArgs = {
-  accountNumber: string
-  sequence: string
-  timeoutHeight: string
-  chainId: string
-  memo?: string
-}
+  accountNumber: string;
+  sequence: string;
+  chainId: string;
+  memo?: string;
+};
 
 export type Eip712ConvertFeeArgs = {
   amount?: {

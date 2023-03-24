@@ -4,6 +4,7 @@ import HDNode from 'hdkey';
 export interface Eip1993ProviderWithMetamask extends Eip1993Provider {
   removeAllListeners(): void;
   isMetaMask: boolean;
+  selectedAddress: string;
 }
 //@ts-ignore
 export interface WindowWithEip1193Provider extends Window {

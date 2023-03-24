@@ -18,10 +18,18 @@ import { DirectSignResponse } from '@cosmjs/proto-signing';
 import {
   ConcreteWalletStrategy,
   EthereumWalletStrategyArgs,
+  onAccountChangeCallback,
+  onChainIdChangeCallback,
 } from '../../types';
 import BaseConcreteStrategy from './Base';
 import { WalletAction, WalletDeviceType } from '../../../types/enums';
 import { UnwrappedPromise } from '../../../types';
+import {
+  Msgs,
+  Eip712ConvertTxArgs,
+  Eip712ConvertFeeArgs,
+} from '../../../../core';
+import { TxToSend, TxContext } from '../../../../tx-ts/ethermint/types';
 
 export default class CosmostationEth extends BaseConcreteStrategy
   implements ConcreteWalletStrategy {
@@ -30,6 +38,43 @@ export default class CosmostationEth extends BaseConcreteStrategy
   constructor(args: EthereumWalletStrategyArgs) {
     super(args);
     this.chainId = args.chainId || CosmosChainId.Router;
+  }
+  simulateTransaction(_signedTx: TxToSend, _nodeUrl: string): Promise<any> {
+    throw new Error('Method not implemented.');
+  }
+  broadcastTransaction(_signedTx: TxToSend, _nodeUrl: string): Promise<any> {
+    throw new Error('Method not implemented.');
+  }
+  simulateSignAndBroadcast(
+    _context: TxContext,
+    _eipData: {
+      msgs: Msgs | Msgs[]; // eslint-disable-next-line class-methods-use-this
+      // eslint-disable-next-line class-methods-use-this
+      tx: Eip712ConvertTxArgs;
+      fee?: Eip712ConvertFeeArgs | undefined;
+      ethereumChainId: EthereumChainId;
+    },
+    _nodeUrl: string
+  ): Promise<any> {
+    throw new Error('Method not implemented.');
+  }
+  onAccountChange?(_callback: onAccountChangeCallback): void {
+    throw new Error('Method not implemented.');
+  }
+  onChainIdChange?(_callback: onChainIdChangeCallback): void {
+    throw new Error('Method not implemented.');
+  }
+  cancelOnChainIdChange?(): void {
+    throw new Error('Method not implemented.');
+  }
+  cancelOnAccountChange?(): void {
+    throw new Error('Method not implemented.');
+  }
+  cancelAllEvents?(): void {
+    throw new Error('Method not implemented.');
+  }
+  disconnect?(): Promise<void> {
+    throw new Error('Method not implemented.');
   }
 
   async getWalletDeviceType(): Promise<WalletDeviceType> {
@@ -70,7 +115,10 @@ export default class CosmostationEth extends BaseConcreteStrategy
 
   async sendEthereumTransaction(
     transaction: unknown,
-    _options: { address: AccountAddress; ethereumChainId: EthereumChainId }
+    _options: {
+      address: AccountAddress;
+      ethereumChainId: EthereumChainId;
+    }
   ): Promise<string> {
     const ethereum = await this.getEthereum();
 
@@ -135,7 +183,11 @@ export default class CosmostationEth extends BaseConcreteStrategy
 
   // eslint-disable-next-line class-methods-use-this
   async signCosmosTransaction(
-    _transaction: { txRaw: TxRaw; accountNumber: number; chainId: string },
+    _transaction: {
+      txRaw: TxRaw;
+      accountNumber: number;
+      chainId: string;
+    },
     _address: AccountAddress
   ): Promise<DirectSignResponse> {
     throw new WalletException(
@@ -152,7 +204,9 @@ export default class CosmostationEth extends BaseConcreteStrategy
     const ethereum = await this.getEthereum();
 
     try {
-      return (await ethereum.request({ method: 'net_version' })) as string;
+      return (await ethereum.request({
+        method: 'net_version',
+      })) as string;
     } catch (e) {
       throw new WalletException(new Error((e as any).message), {
         code: UnspecifiedErrorCode,
@@ -166,7 +220,9 @@ export default class CosmostationEth extends BaseConcreteStrategy
     const ethereum = await this.getEthereum();
 
     try {
-      return (await ethereum.request({ method: 'eth_chainId' })) as string;
+      return (await ethereum.request({
+        method: 'eth_chainId',
+      })) as string;
     } catch (e) {
       throw new WalletException(new Error((e as any).message), {
         code: UnspecifiedErrorCode,

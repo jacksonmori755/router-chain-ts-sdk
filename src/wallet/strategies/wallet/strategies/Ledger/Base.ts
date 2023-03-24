@@ -15,6 +15,8 @@ import { TxRaw } from '@routerprotocol/chain-api/cosmos/tx/v1beta1/tx_pb';
 import {
   ConcreteWalletStrategy,
   EthereumWalletStrategyArgs,
+  onAccountChangeCallback,
+  onChainIdChangeCallback,
 } from '../../../types';
 import { LedgerDerivationPathType, LedgerWalletInfo } from '../../types';
 import BaseConcreteStrategy from '../Base';
@@ -26,6 +28,12 @@ import {
 import LedgerHW from './hw';
 import { domainHash, messageHash } from './utils';
 import { WalletAction, WalletDeviceType } from '../../../../types/enums';
+import {
+  Msgs,
+  Eip712ConvertTxArgs,
+  Eip712ConvertFeeArgs,
+} from '../../../../../core';
+import { TxToSend, TxContext } from '../../../../../tx-ts/ethermint/types';
 
 const getNetworkFromChainId = (chainId: EthereumChainId): Chain => {
   if (chainId === EthereumChainId.Goerli) {
@@ -57,6 +65,42 @@ export default class LedgerBase extends BaseConcreteStrategy
     this.baseDerivationPath = DEFAULT_BASE_DERIVATION_PATH;
     this.derivationPathType = args.derivationPathType;
     this.ledger = new LedgerHW();
+  }
+  simulateTransaction(_signedTx: TxToSend, _nodeUrl: string): Promise<any> {
+    throw new Error('Method not implemented.');
+  }
+  broadcastTransaction(_signedTx: TxToSend, _nodeUrl: string): Promise<any> {
+    throw new Error('Method not implemented.');
+  }
+  simulateSignAndBroadcast(
+    _context: TxContext,
+    _eipData: {
+      msgs: Msgs | Msgs[];
+      tx: Eip712ConvertTxArgs;
+      fee?: Eip712ConvertFeeArgs | undefined;
+      ethereumChainId: EthereumChainId;
+    },
+    _nodeUrl: string
+  ): Promise<any> {
+    throw new Error('Method not implemented.');
+  }
+  onAccountChange?(_callback: onAccountChangeCallback): void {
+    throw new Error('Method not implemented.');
+  }
+  onChainIdChange?(_callback: onChainIdChangeCallback): void {
+    throw new Error('Method not implemented.');
+  }
+  cancelOnChainIdChange?(): void {
+    throw new Error('Method not implemented.');
+  }
+  cancelOnAccountChange?(): void {
+    throw new Error('Method not implemented.');
+  }
+  cancelAllEvents?(): void {
+    throw new Error('Method not implemented.');
+  }
+  disconnect?(): Promise<void> {
+    throw new Error('Method not implemented.');
   }
 
   async getWalletDeviceType(): Promise<WalletDeviceType> {
@@ -171,7 +215,11 @@ export default class LedgerBase extends BaseConcreteStrategy
 
   // eslint-disable-next-line class-methods-use-this
   async signCosmosTransaction(
-    _transaction: { txRaw: TxRaw; accountNumber: number; chainId: string },
+    _transaction: {
+      txRaw: TxRaw;
+      accountNumber: number;
+      chainId: string;
+    },
     _address: AccountAddress
   ): Promise<DirectSignResponse> {
     throw new WalletException(
@@ -205,7 +253,10 @@ export default class LedgerBase extends BaseConcreteStrategy
 
   private async signEthereumTransaction(
     txData: any,
-    options: { address: string; ethereumChainId: EthereumChainId }
+    options: {
+      address: string;
+      ethereumChainId: EthereumChainId;
+    }
   ) {
     const chainId = parseInt(options.ethereumChainId.toString(), 10);
     const nonce = await this.getWeb3().eth.getTransactionCount(options.address);
