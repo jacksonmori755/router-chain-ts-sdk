@@ -46,8 +46,8 @@ export class PublicKey {
     this.type = type || '/ethermint.crypto.v1.ethsecp256k1.PubKey';
   }
 
-  static fromBase64(publicKey: string): PublicKey {
-    return new PublicKey(Buffer.from(publicKey, 'base64'));
+  static fromBase64(publicKey: string, type?: string): PublicKey {
+    return new PublicKey(Buffer.from(publicKey, 'base64'), type);
   }
 
   static fromHex(privateKey: string): PublicKey {
@@ -93,7 +93,6 @@ export class PublicKey {
   public toProto() {
     const proto = new PubKey();
     proto.setKey(this.key);
-
     return proto;
   }
 

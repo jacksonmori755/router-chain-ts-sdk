@@ -1,16 +1,3 @@
-// export interface Coin {
-//   denom: string
-//   amount: string
-// }
-
-// export enum StreamOperation {
-//   Insert = 'insert',
-//   Delete = 'delete',
-//   Replace = 'replace',
-//   Update = 'update',
-//   Invalidate = 'invalidate',
-// }
-
 export enum CosmosChainId {
   Router = 'router-1',
   Cosmoshub = 'cosmoshub-4',
@@ -26,16 +13,14 @@ export enum CosmosChainId {
 }
 
 export enum TestnetCosmosChainId {
-  Router = 'router-888',
-  Cosmoshub = 'cosmoshub-testnet',
+  Router = 'router-1',
+  Cosmoshub = 'cosmoshub',
 }
 
 export enum DevnetCosmosChainId {
-  Router = 'router-777',
-  router1 = 'router-777',
+  Router = 'router-1',
 }
 
 export enum AlphaDevnetCosmosChainId {
   Router = 'router_9000-1',
-  router1 = 'router-777',
 }
