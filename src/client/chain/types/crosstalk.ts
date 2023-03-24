@@ -15,6 +15,7 @@ export function getCrossTalkRequestClaimHash(crossTalkRequest: CrossTalkRequestC
     claimHash.setBlockheight(crossTalkRequest.blockheight)
     claimHash.setSourcechaintype(crossTalkRequest.sourcechaintype)
     claimHash.setSourcechainid(crossTalkRequest.sourcechainid)
+    claimHash.setSourcetimestamp(crossTalkRequest.sourcetimestamp)
     claimHash.setSourcetxhash(crossTalkRequest.sourcetxhash)
     claimHash.setDestinationchaintype(crossTalkRequest.destinationchaintype)
     claimHash.setDestinationchainid(crossTalkRequest.destinationchainid)
@@ -31,7 +32,7 @@ export function getCrossTalkRequestClaimHash(crossTalkRequest: CrossTalkRequestC
     claimHash.setAcktype(crossTalkRequest.acktype)
     claimHash.setAckgaslimit(crossTalkRequest.ackgaslimit)
     claimHash.setAckgasprice(crossTalkRequest.ackgasprice)
-    claimHash.setFeepayer(crossTalkRequest.feepayer)
+    claimHash.setAsmaddress(crossTalkRequest.asmaddress)
 
     return getClaimHash(claimHash.serializeBinary())
 }
@@ -78,6 +79,7 @@ export function getMsgCrossTalkRequestClaimHash(msgCrossTalkRequest: CrossTalkRe
     claimHash.setSourcechaintype(msgCrossTalkRequest.sourcechaintype)
     claimHash.setSourcechainid(msgCrossTalkRequest.sourcechainid)
     claimHash.setSourcetxhash(msgCrossTalkRequest.sourcetxhash)
+    claimHash.setSourcetimestamp(msgCrossTalkRequest.sourcetimestamp)
     claimHash.setDestinationchaintype(msgCrossTalkRequest.destinationchaintype)
     claimHash.setDestinationchainid(msgCrossTalkRequest.destinationchainid)
     claimHash.setDestinationgaslimit(msgCrossTalkRequest.destinationgaslimit)
@@ -93,7 +95,7 @@ export function getMsgCrossTalkRequestClaimHash(msgCrossTalkRequest: CrossTalkRe
     claimHash.setAcktype(msgCrossTalkRequest.acktype)
     claimHash.setAckgaslimit(msgCrossTalkRequest.ackgaslimit)
     claimHash.setAckgasprice(msgCrossTalkRequest.ackgasprice)
-    claimHash.setFeepayer(msgCrossTalkRequest.feepayer)
+    claimHash.setAsmaddress(msgCrossTalkRequest.asmaddress)
 
     return getClaimHash(claimHash.serializeBinary())
 }

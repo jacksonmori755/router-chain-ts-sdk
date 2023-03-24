@@ -14,10 +14,14 @@ export function getMsgInboundRequestClaimHash(msgInboundRequest: InboundRequestC
     claimHash.setEventnonce(msgInboundRequest.eventnonce)
     claimHash.setBlockheight(msgInboundRequest.blockheight)
     claimHash.setSourcetxhash(msgInboundRequest.sourcetxhash)
+    claimHash.setSourcetimestamp(msgInboundRequest.sourcetimestamp)
     claimHash.setSourcesender(msgInboundRequest.sourcesender)
     claimHash.setRouterbridgecontract(msgInboundRequest.routerbridgecontract)
     claimHash.setPayload(msgInboundRequest.payload)
     claimHash.setGaslimit(msgInboundRequest.gaslimit)
+    claimHash.setRouteamount(msgInboundRequest.routeamount)
+    claimHash.setRouterecipient(msgInboundRequest.routerecipient)
+    claimHash.setAsmaddress(msgInboundRequest.asmaddress)
 
     return getClaimHash(claimHash.serializeBinary())
 }
@@ -35,10 +39,14 @@ export function getIncomingTxClaimHash(incomingTx: InboundRequestClaimHash.AsObj
     claimHash.setEventnonce(incomingTx.eventnonce)
     claimHash.setBlockheight(incomingTx.blockheight)
     claimHash.setSourcetxhash(incomingTx.sourcetxhash)
+    claimHash.setSourcetimestamp(incomingTx.sourcetimestamp)
     claimHash.setSourcesender(incomingTx.sourcesender)
     claimHash.setRouterbridgecontract(incomingTx.routerbridgecontract)
     claimHash.setPayload(incomingTx.payload)
     claimHash.setGaslimit(incomingTx.gaslimit)
+    claimHash.setRouteamount(incomingTx.routeamount)
+    claimHash.setRouterecipient(incomingTx.routerecipient)
+    claimHash.setAsmaddress(incomingTx.asmaddress)
 
     return getClaimHash(claimHash.serializeBinary())
 }

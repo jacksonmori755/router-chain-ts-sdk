@@ -2338,10 +2338,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@routerprotocol/chain-api@^1.1.7":
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/@routerprotocol/chain-api/-/chain-api-1.1.7.tgz#b66ae6eedc78c7fc8e091e11474bd305c4a5b884"
-  integrity sha512-ebcbnZ8z+fvau5M9eu1bbImLi/Z/6muN7yuIopqIRI5jGjUb0Ig9zPwc+LU6IgBs+H+N9cMuMIPIRDQFDjT2Nw==
+"@routerprotocol/chain-api@^1.1.13":
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/@routerprotocol/chain-api/-/chain-api-1.1.13.tgz#fb4b6e1ef46f75efc84238ec0d30af18174ddd7f"
+  integrity sha512-4Qe4jnoYF2OWL5zszyroAfmPCLtcfUyJZCz+f7BcKRmrys17MRx3XStDY2d8NMkQZpU+T3NVmd7xVQ0AjaynJQ==
   dependencies:
     "@improbable-eng/grpc-web" "^0.13.0"
     google-protobuf "^3.13.0"
