@@ -38,7 +38,7 @@ export const internalDevnetChainInfo: ChainInfo = {
 
 export const alphaDevnetChainInfo: ChainInfo = {
          feeDenom: 'route',
-         chainId: 'router-1',
+         chainId: 'router_9000-1',
          env: 'alpha devnet',
        };
 

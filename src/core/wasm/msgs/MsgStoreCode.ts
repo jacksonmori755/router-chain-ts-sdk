@@ -11,6 +11,7 @@ export declare namespace MsgStoreCode {
       denom: string;
       amount: string;
     };
+    instantiatePermission?: number;
   }
 
   export interface DirectSign {

@@ -49,6 +49,7 @@ export default class LedgerTransport {
   async getInstance(): Promise<EthereumApp> {
     if (!this.ledger) {
       const transport = await LedgerTransport.getTransport()
+       //@ts-ignore
       this.ledger = new EthereumApp(transport)
 
       transport.on('disconnect', () => {

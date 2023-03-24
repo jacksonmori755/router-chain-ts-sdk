@@ -1,5 +1,12 @@
 import Web3 from 'web3';
-import { AccountAddress, ChainId, EthereumChainId } from '../../..';
+import {
+  AccountAddress,
+  ChainId,
+  Eip712ConvertFeeArgs,
+  Eip712ConvertTxArgs,
+  EthereumChainId,
+  Msgs,
+} from '../../..';
 import { createAlchemyWeb3 } from '@alch/alchemy-web3';
 import { DirectSignResponse } from '@cosmjs/proto-signing';
 import { GeneralException, WalletException } from '../../../exceptions';
@@ -23,6 +30,7 @@ import CosmostationEth from './strategies/CosmostationEth';
 import { Wallet, WalletDeviceType } from '../../types/enums';
 import { isEthWallet } from './utils';
 import { isCosmosWallet } from '../../wallets/cosmos';
+import { TxContext, TxToSend } from '../../../tx-ts/ethermint/types';
 
 const ethereumWalletsDisabled = (args: WalletStrategyArguments) => {
   const { ethereumOptions } = args;
@@ -242,8 +250,37 @@ export default class WalletStrategy {
     return this.getStrategy().signEip712TypedData(eip712TypedData, address);
   }
 
+  async simulateTransaction(signedTx: TxToSend, nodeUrl: string) {
+    return this.getStrategy().simulateTransaction(signedTx, nodeUrl);
+  }
+
+  async broadcastTransaction(signedTx: TxToSend, nodeUrl: string) {
+    return this.getStrategy().broadcastTransaction(signedTx, nodeUrl);
+  }
+
+  async simulateSignAndBroadcast(
+    context: TxContext,
+    eipData: {
+      msgs: Msgs | Msgs[];
+      tx: Eip712ConvertTxArgs;
+      fee?: Eip712ConvertFeeArgs;
+      ethereumChainId: EthereumChainId;
+    },
+    nodeUrl: string
+  ) {
+    return this.getStrategy().simulateSignAndBroadcast(
+      context,
+      eipData,
+      nodeUrl
+    );
+  }
+
   public async signCosmosTransaction(
-    transaction: { txRaw: TxRaw; accountNumber: number; chainId: string },
+    transaction: {
+      txRaw: TxRaw;
+      accountNumber: number;
+      chainId: string;
+    },
     address: AccountAddress
   ): Promise<DirectSignResponse> {
     if (isEthWallet(this.wallet)) {

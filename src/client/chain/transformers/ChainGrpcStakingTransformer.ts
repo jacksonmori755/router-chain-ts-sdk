@@ -37,6 +37,7 @@ export class ChainGrpcStakingTransformer {
       unbondingTime: params.getUnbondingTime()!.getSeconds(),
       maxValidators: params.getMaxValidators(),
       maxEntries: params.getMaxEntries(),
+      minCommissionRate: params.getMinCommissionRate(),
       historicalEntries: params.getHistoricalEntries(),
       bondDenom: params.getBondDenom(),
     };

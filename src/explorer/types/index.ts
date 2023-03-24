@@ -12,7 +12,7 @@ export interface TransactionType {
   sender: string;
   status: string;
   receiver: string;
-  timeStamp: string;
+  timestamp: number;
   gasWanted: string;
   gasUsed: string;
   fee: string;
@@ -28,7 +28,7 @@ export interface BlockType {
   hash: string;
   proposer: string;
   txn_count: number;
-  timestamp: string;
+  timestamp: number;
   total_gas: string;
   block_reward: string;
   processed: number;
@@ -36,6 +36,7 @@ export interface BlockType {
 }
 
 export interface InboundType {
+  id: string;
   attestationId: string;
   chainType: string;
   attestationType: string;
@@ -47,19 +48,19 @@ export interface InboundType {
   routerBridgeContract: string;
   payload: string;
   status: string;
-  formAttestationId: string;
+  createdAt: number;
   delegationErrorResponse: string;
   feePayer: string;
   historyStatus: {
     status: string;
     txnHash: string;
-    timestamp: string;
+    timestamp: number;
     blockHeight: number;
   }[];
   confirmations: {
     validator: string;
     txnHash: string;
-    timestamp: string;
+    timestamp: number;
   }[];
   outbounds: OutboundType[];
   inboundOutboundMapping: {
@@ -67,11 +68,12 @@ export interface InboundType {
     outboundDocMap: string;
     inboundDocMap: string;
     blockHeight: number;
-    timeStamp: string;
+    timestamp: number;
   };
 }
 
 export interface OutboundType {
+  id: string;
   outgoingTxNonce: number;
   destinationChainType: string;
   destinationChainId: string;
@@ -82,7 +84,7 @@ export interface OutboundType {
   expiryTimestamp: number;
   status: string;
   contractCalls: string;
-  formAttestationId: string;
+  createdAt: number;
   attestationId: string;
   outboundTxRequestedBy: string;
   destinationTxHash: string;
@@ -97,25 +99,25 @@ export interface OutboundType {
   historyStatus: {
     status: string;
     txnHash: string;
-    timestamp: string;
+    timestamp: number;
     blockHeight: number;
   }[];
   outboundSignatures: {
     validator: string;
     txnHash: string;
-    timestamp: string;
+    timestamp: number;
     blockHeight: number;
   }[];
   outboundACKSignatures: {
     validator: string;
     txnHash: string;
-    timestamp: string;
+    timestamp: number;
     blockHeight: number;
   }[];
   confirmations: {
     validator: string;
     txnHash: string;
-    timestamp: string;
+    timestamp: number;
     blockHeight: number;
   }[];
   contractsExecutionData: {
@@ -130,7 +132,7 @@ export interface OutboundType {
 interface HistoryStatusType {
   status: string;
   txnHash: string;
-  timestamp: string;
+  timestamp: number;
 }
 
 interface AckReceipt {
@@ -171,8 +173,9 @@ interface AckRequest {
 }
 
 export interface CrossTalkType {
+  id: string;
   attestationId: string;
-  formAttestationId: string;
+  createdAt: number;
   eventNonce: number;
   blockHeight: number;
   sourceChainType: string;
@@ -201,7 +204,7 @@ export interface CrossTalkType {
   historyStatus: {
     status: string;
     txnHash: string;
-    timestamp: string;
+    timestamp: number;
     blockHeight: number;
   }[];
   contractsExecutionData: {
@@ -213,7 +216,7 @@ export interface CrossTalkType {
   eventConfirmSignatures: {
     validator: string;
     txnHash: string;
-    timestamp: string;
+    timestamp: number;
     blockHeight: string;
     signature: string;
     ethSigner: string;
@@ -221,7 +224,7 @@ export interface CrossTalkType {
   eventAckConfirmSignatures: {
     validator: string;
     txnHash: string;
-    timestamp: string;
+    timestamp: number;
     blockHeight: string;
     signature: string;
     ethSigner: string;

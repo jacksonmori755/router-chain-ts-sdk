@@ -1,5 +1,21 @@
 /* eslint-disable class-methods-use-this */
-import { isServerSide, sleep } from '../../../..';
+import {
+  BigNumberInBase,
+  broadcastRawTx,
+  createTxRawForBroadcast,
+  Eip712ConvertFeeArgs,
+  Eip712ConvertTxArgs,
+  getEtherMintTxPayload,
+  getRouterSignerAddress,
+  hexToBase64,
+  hexToBuff,
+  isServerSide,
+  Msgs,
+  recoverTypedSignaturePubKey,
+  ROUTER_DENOM,
+  simulateRawTx,
+  sleep,
+} from '../../../..';
 import { AccountAddress, ChainId, EthereumChainId } from '../../../..';
 import {
   WalletException,
@@ -19,6 +35,8 @@ import {
 } from '../types';
 import BaseConcreteStrategy from './Base';
 import { WalletAction, WalletDeviceType } from '../../../types/enums';
+import { TxContext, TxToSend } from '../../../../tx-ts/ethermint/types';
+import { GAS_LIMIT_MULTIPLIER, ROUTER_DEFAULT_GAS_PRICE } from '../../../utils';
 
 const $window = ((isServerSide()
   ? {}
@@ -65,7 +83,10 @@ export default class Metamask extends BaseConcreteStrategy
 
   async sendEthereumTransaction(
     transaction: unknown,
-    _options: { address: AccountAddress; ethereumChainId: EthereumChainId }
+    _options: {
+      address: AccountAddress;
+      ethereumChainId: EthereumChainId;
+    }
   ): Promise<string> {
     const ethereum = this.getEthereum();
 
@@ -130,7 +151,11 @@ export default class Metamask extends BaseConcreteStrategy
 
   // eslint-disable-next-line class-methods-use-this
   async signCosmosTransaction(
-    _transaction: { txRaw: TxRaw; accountNumber: number; chainId: string },
+    _transaction: {
+      txRaw: TxRaw;
+      accountNumber: number;
+      chainId: string;
+    },
     _address: AccountAddress
   ): Promise<DirectSignResponse> {
     throw new WalletException(
@@ -141,6 +166,84 @@ export default class Metamask extends BaseConcreteStrategy
         contextModule: WalletAction.SendTransaction,
       }
     );
+  }
+
+  async simulateTransaction(signedTx: TxToSend, nodeUrl: string) {
+    return simulateRawTx(signedTx, nodeUrl);
+  }
+
+  async broadcastTransaction(signedTx: TxToSend, nodeUrl: string) {
+    return broadcastRawTx(signedTx, nodeUrl);
+  }
+
+  async simulateSignAndBroadcast(
+    context: TxContext,
+    eipData: {
+      msgs: Msgs | Msgs[];
+      tx: Eip712ConvertTxArgs;
+      fee?: Eip712ConvertFeeArgs;
+      ethereumChainId: EthereumChainId;
+    },
+    nodeUrl: string
+  ) {
+    const simulatedTxPayload = getEtherMintTxPayload(context, eipData);
+    const simulatedTx = createTxRawForBroadcast(
+      simulatedTxPayload.signDirect.body.toBinary(),
+      simulatedTxPayload.signDirect.authInfo.toBinary(),
+      [new Uint8Array(2)]
+    );
+    const simulationResponse = await this.simulateTransaction(
+      simulatedTx,
+      nodeUrl
+    );
+    const simulatedFee = {
+      amount: [
+        {
+          amount: new BigNumberInBase(ROUTER_DEFAULT_GAS_PRICE)
+            .times(
+              parseInt(
+                (
+                  parseInt(simulationResponse.gas_info.gas_used) *
+                  GAS_LIMIT_MULTIPLIER *
+                  10
+                ).toString()
+              )
+            )
+            .toString(),
+          denom: ROUTER_DENOM,
+        },
+      ],
+      gas: (
+        parseInt(simulationResponse.gas_info.gas_used) *
+        GAS_LIMIT_MULTIPLIER *
+        10
+      ).toString(),
+      feePayer:
+        eipData.fee?.feePayer ??
+        getRouterSignerAddress(this.ethereum.selectedAddress),
+    };
+    eipData.fee = simulatedFee;
+    const txPayload = getEtherMintTxPayload(context, eipData);
+    const signature = await this.signEip712TypedData(
+      JSON.stringify(txPayload.eipToSign),
+      this.ethereum.selectedAddress
+    );
+    const signatureBytes = hexToBuff(signature);
+    const publicKeyHex = recoverTypedSignaturePubKey(
+      txPayload.eipToSign,
+      signature
+    );
+    const publicKey = hexToBase64(publicKeyHex);
+    context.sender.pubkey = publicKey;
+    const txPayloadWithPubKey = getEtherMintTxPayload(context, eipData);
+    const { signDirect } = txPayloadWithPubKey;
+    const bodyBytes = signDirect.body.toBinary();
+    const authInfoBytes = signDirect.authInfo.toBinary();
+    const txRawToSend = createTxRawForBroadcast(bodyBytes, authInfoBytes, [
+      signatureBytes,
+    ]);
+    const broadcastResponse = this.broadcastTransaction(txRawToSend, nodeUrl);
+    return broadcastResponse;
   }
 
   async getNetworkId(): Promise<string> {

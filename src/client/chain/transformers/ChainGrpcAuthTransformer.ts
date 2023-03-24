@@ -27,8 +27,8 @@ export class ChainGrpcAuthTransformer {
 
   static grpcAccountToAccount(ethAccount: Any): Account {
     const account = EthAccount.deserializeBinary(
-      ethAccount.getValue() as Uint8Array,
-    )
+      ethAccount.getValue() as Uint8Array
+    );
     const baseAccount = account.getBaseAccount()!
 
     const pubKey = baseAccount.getPubKey()

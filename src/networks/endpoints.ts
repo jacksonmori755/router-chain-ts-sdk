@@ -5,6 +5,7 @@ export const urlEndpointsMainnet: NetworkEndpoints = {
   lcdEndpoint: 'https://devnet-alpha.lcd.routerprotocol.com',
   grpcEndpoint: 'https://devnet-alpha.grpcweb.routerprotocol.com',
   tmEndpoint: 'https://devnet-alpha.tm.routerprotocol.com/',
+  rpcEndpoint: 'https://devnet.evm.rpc.routerprotocol.com/',
 };
 
 export const urlEndpointsTestnet: NetworkEndpoints = {
@@ -13,6 +14,7 @@ export const urlEndpointsTestnet: NetworkEndpoints = {
   lcdEndpoint: 'https://devnet-alpha.lcd.routerprotocol.com',
   grpcEndpoint: 'https://devnet-alpha.grpcweb.routerprotocol.com',
   tmEndpoint: 'https://devnet-alpha.tm.routerprotocol.com/',
+  rpcEndpoint: 'https://devnet-alpha.evm.rpc.routerprotocol.com/',
 };
 
 export const urlEndpointsInternalDevnet: NetworkEndpoints = {
@@ -21,6 +23,7 @@ export const urlEndpointsInternalDevnet: NetworkEndpoints = {
   lcdEndpoint: 'https://devnet-internal.lcd.routerprotocol.com',
   grpcEndpoint: 'https://devnet-internal.grpcweb.routerprotocol.com',
   tmEndpoint: 'https://devnet-internal.tm.routerprotocol.com/',
+  rpcEndpoint: 'https://devnet-internal.evm.rpc.routerprotocol.com/',
 };
 
 export const urlEndpointsAlphaDevnet: NetworkEndpoints = {
@@ -29,6 +32,7 @@ export const urlEndpointsAlphaDevnet: NetworkEndpoints = {
   lcdEndpoint: 'https://devnet-alpha.lcd.routerprotocol.com',
   grpcEndpoint: 'https://devnet-alpha.grpcweb.routerprotocol.com',
   tmEndpoint: 'https://devnet-alpha.tm.routerprotocol.com/',
+  rpcEndpoint: 'https://devnet-alpha.evm.rpc.routerprotocol.com/',
 };
 
 export const urlEndpointsDevnet: NetworkEndpoints = {
@@ -37,6 +41,7 @@ export const urlEndpointsDevnet: NetworkEndpoints = {
   lcdEndpoint: 'https://devnet.lcd.routerprotocol.com',
   grpcEndpoint: 'https://devnet.grpcweb.routerprotocol.com',
   tmEndpoint: 'https://devnet.tm.routerprotocol.com/',
+  rpcEndpoint: 'https://devnet.evm.rpc.routerprotocol.com/',
 };
 
 export const urlEndpointsLocal: NetworkEndpoints = {
@@ -45,6 +50,7 @@ export const urlEndpointsLocal: NetworkEndpoints = {
   lcdEndpoint: 'https://devnet-alpha.lcd.routerprotocol.com',
   grpcEndpoint: 'https://devnet-alpha.grpcweb.routerprotocol.com',
   tmEndpoint: 'https://devnet-alpha.tm.routerprotocol.com/',
+  rpcEndpoint: 'https://devnet-alpha.evm.rpc.routerprotocol.com/',
 };
 
 export const urlEndpointsDocker: NetworkEndpoints = {
@@ -53,4 +59,5 @@ export const urlEndpointsDocker: NetworkEndpoints = {
   lcdEndpoint: 'https://devnet-alpha.lcd.routerprotocol.com',
   grpcEndpoint: 'https://devnet-alpha.grpcweb.routerprotocol.com',
   tmEndpoint: 'https://devnet-alpha.tm.routerprotocol.com/',
+  rpcEndpoint: 'https://devnet-alpha.evm.rpc.routerprotocol.com/',
 };

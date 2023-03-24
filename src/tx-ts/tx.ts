@@ -14,7 +14,7 @@ import {
 } from '@routerprotocol/chain-api/cosmos/tx/signing/v1beta1/signing_pb';
 import { Coin } from '@routerprotocol/chain-api/cosmos/base/v1beta1/coin_pb';
 import { PubKey as CosmosPubKey } from '@routerprotocol/chain-api/cosmos/crypto/secp256k1/keys_pb';
-import { PubKey } from '@routerprotocol/chain-api/crypto/ethsecp256k1/keys_pb';
+import { PubKey } from '@routerprotocol/chain-api/ethermint/crypto/v1/ethsecp256k1/keys_pb';
 //import { ExtensionOptionsWeb3Tx } from '@routerprotocol/chain-api/types/tx_ext_pb';
 //import { DirectSignResponse } from '@cosmjs/proto-signing';
 import { DEFAULT_STD_FEE } from '../utils';
@@ -41,10 +41,7 @@ export const getPublicKey = ({
   let proto;
   let path;
 
-  if (chainId.startsWith('router')) {
-    proto = new PubKey();
-    path = '/routerprotocol.routerchain.crypto.ethsecp256k1.PubKey';
-  } else if (chainId.startsWith('evmos')) {
+  if (chainId.startsWith('router') || chainId.startsWith('evmos')) {
     proto = new PubKey();
     path = '/ethermint.crypto.v1.ethsecp256k1.PubKey';
   } else {
