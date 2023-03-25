@@ -309,7 +309,7 @@ export const latestApplicationsInboundsQuery = `
 
 export const searchSpecificInboundQuery = `
   query getLatestInbounds($timeRange:[Int], $searchTerm: String!,$limit: Int!, $offset: Int!){
-    paginatedInbound(filter:{createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm,routerBridgeContract:$searchTerm,formAttestationId:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+    paginatedInbound(filter:{createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm,routerBridgeContract:$searchTerm,id:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     inbounds{
       id
@@ -401,7 +401,7 @@ export const searchSpecificInboundQuery = `
 
 export const searchSpecificInboundSrcChainIdQuery = `
   query getLatestInbounds($timeRange:[Int], $sourceChainIds: [String],$searchTerm: String!,$limit: Int!, $offset: Int!){
-    paginatedInbound(filter:{chainId:{in:$sourceChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm,routerBridgeContract:$searchTerm,formAttestationId:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+    paginatedInbound(filter:{chainId:{in:$sourceChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm,sourceSender:$searchTerm,routerBridgeContract:$searchTerm,id:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     inbounds{
       id
@@ -534,7 +534,6 @@ export const filterApplicationInboundQuery = `
       status
       contractCalls
       ackFormAttestationId
-      formAttestationId
       attestationId
       outgoingTxNonce
       outboundTxRequestedBy
