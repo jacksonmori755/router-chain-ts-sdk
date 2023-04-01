@@ -1,6 +1,7 @@
 import { MsgApproveFeepayerRequest as BaseMsgApproveFeepayerRequest } from '@routerprotocol/chain-api/metastore/tx_pb';
 import { ChainTypeMap } from '@routerprotocol/chain-api/multichain/chain_type_pb';
 import snakeCaseKeys from 'snakecase-keys';
+import { toUtf8 } from '../../../utils';
 import { MsgBase } from '../../MsgBase';
 
 export declare namespace MsgApproveFeepayerRequest {
@@ -8,7 +9,7 @@ export declare namespace MsgApproveFeepayerRequest {
     feepayer: string;
     chaintype: ChainTypeMap[keyof ChainTypeMap];
     chainid: string;
-    // daapaddresses: string;
+    daapaddresses: string;
   }
 
   export interface DirectSign {
@@ -54,7 +55,7 @@ export default class MsgApproveFeepayerRequest extends MsgBase<
     message.setFeepayer(params.feepayer);
     message.setChaintype(params.chaintype);
     message.setChainid(params.chainid);
-    // message.setDaapaddresses(params.daapaddresses);
+    message.setDaapaddresses(toUtf8(params.daapaddresses));
 
     return message;
   }

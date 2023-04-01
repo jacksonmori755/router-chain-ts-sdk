@@ -9,13 +9,13 @@ export const urlEndpointsMainnet: NetworkEndpoints = {
 };
 
 export const urlEndpointsTestnet: NetworkEndpoints = {
-  explorerGql: 'https://alpha-explorer-api.routerprotocol.com/gql/query',
-  explorerGqlWs: 'wss://alpha-explorer-api.routerprotocol.com/gql/query',
-  lcdEndpoint: 'https://devnet-alpha.lcd.routerprotocol.com',
-  grpcEndpoint: 'https://devnet-alpha.grpcweb.routerprotocol.com',
-  tmEndpoint: 'https://devnet-alpha.tm.routerprotocol.com/',
-  rpcEndpoint: 'https://devnet-alpha.evm.rpc.routerprotocol.com/',
-};
+         explorerGql: 'https://explorer-api.testnet.routerchain.dev/gql/query',
+         explorerGqlWs: 'wss://explorer-api.testnet.routerchain.dev/gql/query',
+         lcdEndpoint: 'https://lcd.testnet.routerchain.dev/',
+         grpcEndpoint: 'https://grpcweb.testnet.routerchain.dev/',
+         tmEndpoint: 'https://tm.rpc.testnet.routerchain.dev/',
+         rpcEndpoint: 'https://evm.rpc.testnet.routerchain.dev/',
+       };
 
 export const urlEndpointsInternalDevnet: NetworkEndpoints = {
   explorerGql: 'https://alpha-explorer-api.routerprotocol.com/gql/query',

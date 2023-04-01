@@ -37,7 +37,9 @@ const wrapTypeToArray = <T>(obj: T | T[]) => {
 function createAnyMessage(msg: MessageGenerated) {
   let binaryValue;
   try {
+    console.log('SDK msg =>', msg);
     binaryValue = msg.message.serializeBinary();
+    console.log('SDK binaryValue =>', binaryValue);
   } catch (e) {
     binaryValue = msg.message.toBinary();
   }

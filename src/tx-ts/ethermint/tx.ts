@@ -23,13 +23,14 @@ export const getEtherMintTxPayload = (
   const cosmosMsg = Array.isArray(eipData.msgs)
     ? eipData.msgs.map(msg => msg.toDirectSign())
     : eipData.msgs.toDirectSign();
-
+  console.log('SDK cosmosMsg =>', cosmosMsg);
+  console.log('SDK json.stringify cosmosMsg =>', JSON.stringify(cosmosMsg));
   const cosmosPayload = createCosmosPayload(
     context,
     cosmosMsg,
     eipData.fee ?? DEFAULT_STD_FEE
   );
-
+  console.log('SDK cosmosPayload =>', cosmosPayload);
   return {
     signDirect: cosmosPayload.signDirect,
     legacyAmino: cosmosPayload.legacyAmino,
