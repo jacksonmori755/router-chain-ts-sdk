@@ -6,6 +6,12 @@ export interface KeyValueAny {
   [key: string]: any;
 }
 
+interface EventHistoryType {
+  name: string;
+  timestamp: number;
+  height: number;
+}
+
 export interface TransactionType {
   _id: string;
   height: number;
@@ -51,6 +57,7 @@ export interface InboundType {
   createdAt: number;
   delegationErrorResponse: string;
   feePayer: string;
+  eventHistory: EventHistoryType[];
   historyStatus: {
     status: string;
     txnHash: string;
@@ -96,6 +103,7 @@ export interface OutboundType {
   relayerFeeInRoute: string;
   refundFeeInRoute: string;
   delegationErrorResponse: string;
+  eventHistory: EventHistoryType[];
   historyStatus: {
     status: string;
     txnHash: string;
@@ -201,6 +209,7 @@ export interface CrossTalkType {
   refundFeeInRoute: string;
   feePayer: string;
   AckRequest: AckRequest;
+  eventHistory: EventHistoryType[];
   historyStatus: {
     status: string;
     txnHash: string;

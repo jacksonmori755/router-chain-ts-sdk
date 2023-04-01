@@ -75,24 +75,24 @@ export const latestTransactionsQuery = `
 `;
 
 export const latestTransactionsOfAddressQuery = `
-  query getLatestTransactions($address: String!,$limit: Int!, $offset: Int!){
-    paginatedTransaction(where_or:{sender:$address, receiver:$address}, sortBy:{height:desc,timestamp:desc},limit:$limit,offset:$offset){
+  query getLatestTransactions($timeRange:[Int], $address: String!,$limit: Int!, $offset: Int!){
+   paginatedTransaction(filter:{timestamp:{range:$timeRange}}, where_or:{sender:$address, receiver:$address}, sortBy:{height:desc,timestamp:desc}, limit:$limit, offset:$offset){
     totalRecords
-  transactions{
-     _id
-    height
-    sender
-    status
-    receiver
-    timestamp
-    gasWanted
-    gasUsed
-    fee
-    event_logs
-    success
-    rawLog
-    routePrice
-  }
+    transactions{
+      _id
+      height
+      sender
+      status
+      receiver
+      timestamp
+      gasWanted
+      gasUsed
+      fee
+      event_logs
+      success
+      rawLog
+      routePrice
+    }
   }
 }
 `;
@@ -148,7 +148,13 @@ export const latestInboundsQuery = `
         blockHeight
       }
       feePayer
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       outbounds{
+      id
       eventNonce
       destinationChainType
       destinationChainId
@@ -172,6 +178,11 @@ export const latestInboundsQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       delegationErrorResponse
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       historyStatus{
         status
         txnHash
@@ -239,6 +250,11 @@ export const latestApplicationsInboundsQuery = `
         blockHeight
       }
       feePayer
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       inboundOutboundMapping{
         middlewareContract
         outboundDocMap
@@ -247,6 +263,7 @@ export const latestApplicationsInboundsQuery = `
         timestamp
       }
       outbounds{
+      id
       eventNonce
       destinationChainType
       destinationChainId
@@ -270,6 +287,11 @@ export const latestApplicationsInboundsQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       delegationErrorResponse
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       historyStatus{
         status
         txnHash
@@ -338,7 +360,13 @@ export const searchSpecificInboundQuery = `
         blockHeight
       }
       feePayer
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       outbounds{
+      id
       eventNonce
       destinationChainType
       destinationChainId
@@ -362,6 +390,11 @@ export const searchSpecificInboundQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       delegationErrorResponse
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       historyStatus{
         status
         txnHash
@@ -430,7 +463,13 @@ export const searchSpecificInboundSrcChainIdQuery = `
         blockHeight
       }
       feePayer
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       outbounds{
+      id
       eventNonce
       destinationChainType
       destinationChainId
@@ -454,6 +493,11 @@ export const searchSpecificInboundSrcChainIdQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       delegationErrorResponse
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       historyStatus{
         status
         txnHash
@@ -522,7 +566,13 @@ export const filterApplicationInboundQuery = `
         blockHeight   
       }
       feePayer
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       outbounds{
+      id
       eventNonce
       destinationChainType
       destinationChainId
@@ -546,6 +596,11 @@ export const filterApplicationInboundQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       delegationErrorResponse
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       historyStatus{
         status
         txnHash
@@ -612,7 +667,13 @@ export const specificInboundQuery = `
         blockHeight
       }
     feePayer
+    eventHistory{
+        name
+        timestamp
+        height
+      }
     outbounds{
+    id
     eventNonce
     destinationChainType
     destinationChainId
@@ -636,6 +697,11 @@ export const specificInboundQuery = `
     relayerFeeInRoute
     refundFeeInRoute
     delegationErrorResponse
+    eventHistory{
+        name
+        timestamp
+        height
+      }
     historyStatus{
       status
       txnHash
@@ -702,6 +768,11 @@ export const latestOutboundsQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       delegationErrorResponse
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       historyStatus{
         status
         txnHash
@@ -767,6 +838,11 @@ export const latestApplicationsOutboundsQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       delegationErrorResponse
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       historyStatus{
         status
         txnHash
@@ -833,6 +909,11 @@ export const searchSpecificOutboundQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       delegationErrorResponse
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       historyStatus{
         status
         txnHash
@@ -899,6 +980,11 @@ export const searchSpecificOutboundDestChainIdQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       delegationErrorResponse
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       historyStatus{
         status
         txnHash
@@ -965,6 +1051,11 @@ export const filterApplicationOutboundQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       delegationErrorResponse
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       historyStatus{
         status
         txnHash
@@ -1030,6 +1121,11 @@ export const filterApplicationOutboundDestChainQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       delegationErrorResponse
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       historyStatus{
         status
         txnHash
@@ -1094,6 +1190,11 @@ export const specificOutboundQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       delegationErrorResponse
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       historyStatus{
         status
         txnHash
@@ -1162,6 +1263,11 @@ export const latestCrossTalksQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       feePayer
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       AckRequest{
         ackgaslimit
         ackgasprice
@@ -1238,6 +1344,7 @@ export const latestCrossTalksQuery = `
 export const specificCrossTalkQuery = `
   query getCrossTalkByFormAttestationId($formAttestationId: String!){
   crossTalk(id:$formAttestationId){
+      id
       attestationId
       createdAt
       eventNonce
@@ -1265,6 +1372,11 @@ export const specificCrossTalkQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       feePayer
+      eventHistory{
+        name
+        timestamp
+        height
+      }
         AckRequest{
         ackgaslimit
         ackgasprice
@@ -1369,6 +1481,11 @@ export const searchSpecificCrossTalkQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       feePayer
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       AckRequest{
         ackgaslimit
         ackgasprice
@@ -1475,6 +1592,11 @@ export const searchSpecificCrossTalkSrcChainIdQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       feePayer
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       AckRequest{
         ackgaslimit
         ackgasprice
@@ -1581,6 +1703,11 @@ export const searchSpecificCrossTalkDestChainIdQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       feePayer
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       AckRequest{
         ackgaslimit
         ackgasprice
@@ -1687,6 +1814,11 @@ export const searchSpecificCrossTalkChainIdQuery = `
       relayerFeeInRoute
       refundFeeInRoute
       feePayer
+      eventHistory{
+        name
+        timestamp
+        height
+      }
       AckRequest{
         ackgaslimit
         ackgasprice

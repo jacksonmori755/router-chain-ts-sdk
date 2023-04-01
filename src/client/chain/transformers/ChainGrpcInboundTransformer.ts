@@ -38,6 +38,8 @@ export class ChainGrpcInboundTransformer {
       routeamount: incomingTx.getRouteamount(),
       routerecipient: incomingTx.getRouterecipient(),
       status: incomingTx.getStatus(),
+      txorigin: incomingTx.getTxorigin(),
+      asmaddress: incomingTx.getAsmaddress(),
     };
   }
 }

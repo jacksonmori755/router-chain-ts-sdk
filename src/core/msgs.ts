@@ -17,6 +17,7 @@ import {
   MsgMigrateContract,
 } from './wasm';
 import { MsgWithdrawDelegatorReward } from './distribution';
+import { MsgApproveFeepayerRequest } from './metastore';
 
 /**
  * @group Message
@@ -38,5 +39,6 @@ export type Msgs =
   | MsgInstantiateContract
   | MsgExecuteContract
   | MsgUpdateAdmin
-  | MsgMigrateContract;
+  | MsgMigrateContract
+  | MsgApproveFeepayerRequest;
 

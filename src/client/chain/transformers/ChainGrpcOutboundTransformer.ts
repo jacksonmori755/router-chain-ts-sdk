@@ -114,6 +114,10 @@ export class ChainGrpcOutboundTransformer {
           status: outgoingBatchTx.getStatus(),
           routeAmount: outgoingBatchTx.getRouteAmount(),
           routeRecipient: outgoingBatchTx.getRouteRecipient(),
+          outboundackgaslimit: outgoingBatchTx.getOutboundackgaslimit(),
+          chaintimestamp: outgoingBatchTx.getChaintimestamp(),
+          asmaddress: outgoingBatchTx.getAsmaddress(),
+          middlewarecontracttype: outgoingBatchTx.getMiddlewarecontracttype(),
         };
     }
 

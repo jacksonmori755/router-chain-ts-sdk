@@ -147,6 +147,7 @@ export class RouterExplorer {
    */
   public async getLatestTransactionsByAddress(
     address: String,
+    timeRange: number[] = [],
     limit: Number = 10,
     offset: Number = 1
   ) {
@@ -155,6 +156,7 @@ export class RouterExplorer {
         this.chainEnvironment,
         latestTransactionsOfAddressQuery,
         {
+          timeRange,
           address: address,
           limit: limit,
           offset: offset,

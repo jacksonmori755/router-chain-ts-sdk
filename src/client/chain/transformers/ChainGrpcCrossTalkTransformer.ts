@@ -79,30 +79,34 @@ export class ChainGrpcCrossTalkTransformer {
         crossTalkRequest: CrossTalkRequest
     ): CrossTalkRequest.AsObject {
         return {
-            eventnonce: crossTalkRequest.getEventnonce(),
-            blockheight: crossTalkRequest.getBlockheight(),
-            sourcechaintype: crossTalkRequest.getSourcechaintype(),
-            sourcechainid: crossTalkRequest.getSourcechainid(),
-            sourcetxhash: crossTalkRequest.getSourcetxhash(),
-            destinationchaintype: crossTalkRequest.getDestinationchaintype(),
-            destinationchainid: crossTalkRequest.getDestinationchainid(),
-            destinationgaslimit: crossTalkRequest.getDestinationgaslimit(),
-            destinationgasprice: crossTalkRequest.getDestinationgasprice(),
-            destinationtxfeeinroute: crossTalkRequest.getDestinationtxfeeinroute()? crossTalkRequest.getDestinationtxfeeinroute()?.toObject(): undefined,
-            requestsender: crossTalkRequest.getRequestsender(),
-            requesttxorigin: crossTalkRequest.getRequesttxorigin(),
-            isreadcall: crossTalkRequest.getIsreadcall(),
-            requestnonce: crossTalkRequest.getRequestnonce(),
-            isatomic: crossTalkRequest.getIsatomic(),
-            expirytimestamp: crossTalkRequest.getExpirytimestamp(),
-            destcontractaddressesList: crossTalkRequest.getDestcontractaddressesList(),
-            destcontractpayloadsList: crossTalkRequest.getDestcontractaddressesList(),
-            acktype: crossTalkRequest.getAcktype(),
-            ackgaslimit: crossTalkRequest.getAckgaslimit(),
-            ackgasprice: crossTalkRequest.getAckgasprice(),
-            feepayer: crossTalkRequest.getFeepayer(),
-            status: crossTalkRequest.getStatus(),
-        }
+          eventnonce: crossTalkRequest.getEventnonce(),
+          blockheight: crossTalkRequest.getBlockheight(),
+          sourcechaintype: crossTalkRequest.getSourcechaintype(),
+          sourcechainid: crossTalkRequest.getSourcechainid(),
+          sourcetxhash: crossTalkRequest.getSourcetxhash(),
+          destinationchaintype: crossTalkRequest.getDestinationchaintype(),
+          destinationchainid: crossTalkRequest.getDestinationchainid(),
+          destinationgaslimit: crossTalkRequest.getDestinationgaslimit(),
+          destinationgasprice: crossTalkRequest.getDestinationgasprice(),
+          destinationtxfeeinroute: crossTalkRequest.getDestinationtxfeeinroute()
+            ? crossTalkRequest.getDestinationtxfeeinroute()?.toObject()
+            : undefined,
+          requestsender: crossTalkRequest.getRequestsender(),
+          requesttxorigin: crossTalkRequest.getRequesttxorigin(),
+          isreadcall: crossTalkRequest.getIsreadcall(),
+          requestnonce: crossTalkRequest.getRequestnonce(),
+          isatomic: crossTalkRequest.getIsatomic(),
+          expirytimestamp: crossTalkRequest.getExpirytimestamp(),
+          destcontractaddressesList: crossTalkRequest.getDestcontractaddressesList(),
+          destcontractpayloadsList: crossTalkRequest.getDestcontractaddressesList(),
+          acktype: crossTalkRequest.getAcktype(),
+          ackgaslimit: crossTalkRequest.getAckgaslimit(),
+          ackgasprice: crossTalkRequest.getAckgasprice(),
+          feepayer: crossTalkRequest.getFeepayer(),
+          status: crossTalkRequest.getStatus(),
+          sourcetimestamp: crossTalkRequest.getSourcetimestamp(),
+          asmaddress: crossTalkRequest.getAsmaddress(),
+        };
 
     }
 
