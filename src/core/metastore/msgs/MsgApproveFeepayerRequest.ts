@@ -9,7 +9,7 @@ export declare namespace MsgApproveFeepayerRequest {
     feepayer: string;
     // chaintype: ChainTypeMap[keyof ChainTypeMap];
     // chainid: string;
-    daapaddresses: string;
+    dappaddresses: string;
   }
 
   export interface DirectSign {
@@ -55,11 +55,15 @@ export default class MsgApproveFeepayerRequest extends MsgBase<
                                                       message.setFeepayer(
                                                         params.feepayer
                                                       );
-                                                      // message.setChaintype(params.chaintype);
-                                                      // message.setChainid(params.chainid);
+                                                      // message.setChaintype(
+                                                      //   params.chaintype
+                                                      // );
+                                                      // message.setChainid(
+                                                      //   params.chainid
+                                                      // );
                                                       message.setDaapaddress(
                                                         toUtf8(
-                                                          params.daapaddresses
+                                                          params.dappaddresses
                                                         )
                                                       );
 
@@ -77,15 +81,43 @@ export default class MsgApproveFeepayerRequest extends MsgBase<
   }
 
   public toAmino(): MsgApproveFeepayerRequest.Amino {
-    const proto = this.toProto();
-    const message = {
-      ...snakeCaseKeys(proto.toObject()),
-    };
-    return ({
-      type: 'metastore/ApproveFeepayerRequest',
-      ...message,
-    } as unknown) as MsgApproveFeepayerRequest.Amino;
-  }
+                                                      const proto = this.toProto();
+                                                      console.log(
+                                                        'SDK toProto =>',
+                                                        proto
+                                                      );
+                                                      // console.log(
+                                                      //   'SDK proto.toObject() =>',
+                                                      //   proto.toObject()
+                                                      // );
+                                                      const message = {
+                                                        ...snakeCaseKeys(
+                                                          proto.toObject()
+                                                        ),
+                                                      };
+                                                      const daapaddresses_byte_array = proto.getDaapaddress_asU8();
+                                                      console.log(
+                                                        'SDK daapaddresses_byte_array =>',
+                                                        daapaddresses_byte_array
+                                                      );
+                                                      //@ts-ignore
+                                                      message.daapaddress = Array.from(
+                                                        daapaddresses_byte_array
+                                                      );
+                                                      console.log(
+                                                        'SDK toProto after converting to number array =>',
+                                                        message
+                                                      );
+                                                      console.log(
+                                                        'SDK toProto after converting to number array =>',
+                                                        JSON.stringify(message)
+                                                      );
+                                                      return ({
+                                                        type:
+                                                          'metastore/ApproveFeepayerRequest',
+                                                        ...message,
+                                                      } as unknown) as MsgApproveFeepayerRequest.Amino;
+                                                    }
 
   public toWeb3(): MsgApproveFeepayerRequest.Web3 {
     const amino = this.toAmino();

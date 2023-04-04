@@ -8,7 +8,7 @@ import { EthereumChainId } from '../../ts-types';
 import { TxRaw } from './lib/@buf/cosmos_cosmos-sdk.bufbuild_es/cosmos/tx/v1beta1/tx_pb.js';
 import { createCosmosPayload, getPostOptions } from './utils';
 import { TxContext, TxToSend } from './types';
-import { DEFAULT_STD_FEE } from '../../utils';
+import { DEFAULT_STD_FEE, toUtf8 } from '../../utils';
 
 export const getEtherMintTxPayload = (
   context: TxContext,
@@ -20,6 +20,7 @@ export const getEtherMintTxPayload = (
   }
 ) => {
   const eip712Payload = getEip712TypedData(eipData);
+  console.log('SDK getEtherMintTxPayload eip712Payload =>', eip712Payload);
   const cosmosMsg = Array.isArray(eipData.msgs)
     ? eipData.msgs.map(msg => msg.toDirectSign())
     : eipData.msgs.toDirectSign();
@@ -31,6 +32,15 @@ export const getEtherMintTxPayload = (
     eipData.fee ?? DEFAULT_STD_FEE
   );
   console.log('SDK cosmosPayload =>', cosmosPayload);
+  console.log(
+    'SDK signDirect signbytes=>',
+    toUtf8(cosmosPayload.signDirect.signBytes)
+  );
+  console.log('SDK cosmosPayload =>', cosmosPayload);
+  console.log(
+    'SDK signDirect legacyAmino=>',
+    toUtf8(cosmosPayload.legacyAmino.signBytes)
+  );
   return {
     signDirect: cosmosPayload.signDirect,
     legacyAmino: cosmosPayload.legacyAmino,

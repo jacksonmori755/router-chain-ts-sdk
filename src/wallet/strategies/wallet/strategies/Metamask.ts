@@ -37,6 +37,7 @@ import BaseConcreteStrategy from './Base';
 import { WalletAction, WalletDeviceType } from '../../../types/enums';
 import { TxContext, TxToSend } from '../../../../tx-ts/ethermint/types';
 import { GAS_LIMIT_MULTIPLIER, ROUTER_DEFAULT_GAS_PRICE } from '../../../utils';
+//import { ethers } from 'ethers';
 
 const $window = ((isServerSide()
   ? {}
@@ -186,72 +187,89 @@ export default class Metamask extends BaseConcreteStrategy
     },
     nodeUrl: string
   ) {
-    const simulatedTxPayload = getEtherMintTxPayload(context, eipData);
-    const simulatedTx = createTxRawForBroadcast(
-      simulatedTxPayload.signDirect.body.toBinary(),
-      simulatedTxPayload.signDirect.authInfo.toBinary(),
-      [new Uint8Array(2)]
-    );
-    const simulationResponse = await this.simulateTransaction(
-      simulatedTx,
-      nodeUrl
-    );
-    const simulatedFee = {
-      amount: [
-        {
-          amount: new BigNumberInBase(ROUTER_DEFAULT_GAS_PRICE)
-            .times(
-              parseInt(
-                (
-                  parseInt(simulationResponse.gas_info.gas_used) *
-                  GAS_LIMIT_MULTIPLIER *
-                  10
-                ).toString()
+      const simulatedTxPayload = getEtherMintTxPayload(context, eipData);
+      const simulatedTx = createTxRawForBroadcast(
+        simulatedTxPayload.signDirect.body.toBinary(),
+        simulatedTxPayload.signDirect.authInfo.toBinary(),
+        [new Uint8Array(2)]
+      );
+      const simulationResponse = await this.simulateTransaction(
+        simulatedTx,
+        nodeUrl
+      );
+      const simulatedFee = {
+        amount: [
+          {
+            amount: new BigNumberInBase(ROUTER_DEFAULT_GAS_PRICE)
+              .times(
+                parseInt(
+                  (
+                    parseInt(simulationResponse.gas_info.gas_used) *
+                    GAS_LIMIT_MULTIPLIER *
+                    10
+                  ).toString()
+                )
               )
-            )
-            .toString(),
-          denom: ROUTER_DENOM,
-        },
-      ],
-      gas: (
-        parseInt(simulationResponse.gas_info.gas_used) *
-        GAS_LIMIT_MULTIPLIER *
-        10
-      ).toString(),
-      feePayer:
-        eipData.fee?.feePayer ??
-        getRouterSignerAddress(this.ethereum.selectedAddress),
-    };
-    eipData.fee = simulatedFee;
-    const txPayload = getEtherMintTxPayload(context, eipData);
-    const signature = await this.signEip712TypedData(
-      JSON.stringify(txPayload.eipToSign),
-      this.ethereum.selectedAddress
-    );
-    const signatureBytes = hexToBuff(signature);
-    const publicKeyHex = recoverTypedSignaturePubKey(
-      txPayload.eipToSign,
-      signature
-    );
-    const publicKey = hexToBase64(publicKeyHex);
-    context.sender.pubkey = publicKey;
-    console.log('SDK publicKey log =>', JSON.stringify(publicKey));
-    const txPayloadWithPubKey = getEtherMintTxPayload(context, eipData);
-    const { signDirect } = txPayloadWithPubKey;
-    console.log(
-      'SDK signDirect.signBytes Log =>',
-      JSON.stringify(signDirect.signBytes)
-    );
-    const bodyBytes = signDirect.body.toBinary();
-    console.log('SDK bodyBytes Log =>', JSON.stringify(bodyBytes));
-    const authInfoBytes = signDirect.authInfo.toBinary();
-    console.log('SDK authInfoBytes Log =>', JSON.stringify(authInfoBytes));
-    const txRawToSend = createTxRawForBroadcast(bodyBytes, authInfoBytes, [
-      signatureBytes,
-    ]);
-    const broadcastResponse = this.broadcastTransaction(txRawToSend, nodeUrl);
-    return broadcastResponse;
-  }
+              .toString(),
+            denom: ROUTER_DENOM,
+          },
+        ],
+        gas: (
+          parseInt(simulationResponse.gas_info.gas_used) *
+          GAS_LIMIT_MULTIPLIER *
+          10
+        ).toString(),
+        feePayer:
+          eipData.fee?.feePayer ??
+          getRouterSignerAddress(this.ethereum.selectedAddress),
+      };
+      eipData.fee = simulatedFee;
+      const txPayload = getEtherMintTxPayload(context, eipData);
+      // console.log(
+      //   'SDK Keccak Hash of JSON.stringify(txPayload.eipToSign) =>',
+      //   ethers.utils.keccak256(JSON.stringify(txPayload.eipToSign))
+      // );
+      console.log(
+        'SDK txPayload.eipToSign metmask flow =>',
+        txPayload.eipToSign
+      );
+      console.log(
+        'SDK  JSON.stringify(txPayload.eipToSign) =>',
+        JSON.stringify(txPayload.eipToSign)
+      );
+      const signature = await this.signEip712TypedData(
+        JSON.stringify(txPayload.eipToSign),
+        this.ethereum.selectedAddress
+      );
+      console.log(
+        'JSON.stringify(txPayload.eipToSign) =>',
+        JSON.stringify(txPayload.eipToSign)
+      );
+      const signatureBytes = hexToBuff(signature);
+      console.log('SDK signatureBytes', signatureBytes);
+      const publicKeyHex = recoverTypedSignaturePubKey(
+        txPayload.eipToSign,
+        signature
+      );
+      const publicKey = hexToBase64(publicKeyHex);
+      context.sender.pubkey = publicKey;
+      console.log('SDK publicKey log =>', JSON.stringify(publicKey));
+      const txPayloadWithPubKey = getEtherMintTxPayload(context, eipData);
+      const { signDirect } = txPayloadWithPubKey;
+      console.log(
+        'SDK signDirect.signBytes Log =>',
+        JSON.stringify(signDirect.signBytes)
+      );
+      const bodyBytes = signDirect.body.toBinary();
+      console.log('SDK bodyBytes Log =>', JSON.stringify(bodyBytes));
+      const authInfoBytes = signDirect.authInfo.toBinary();
+      console.log('SDK authInfoBytes Log =>', JSON.stringify(authInfoBytes));
+      const txRawToSend = createTxRawForBroadcast(bodyBytes, authInfoBytes, [
+        signatureBytes,
+      ]);
+      const broadcastResponse = this.broadcastTransaction(txRawToSend, nodeUrl);
+      return broadcastResponse;
+    }
 
   async getNetworkId(): Promise<string> {
     const ethereum = this.getEthereum();

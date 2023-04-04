@@ -43,9 +43,15 @@ export abstract class MsgBase<
     value: Omit<AminoRepresentation, 'type'>
   } {
     const amino = this.toAmino()
+    console.log('SDK Amino =>', amino);
+    console.log('SDK Amino =>', JSON.stringify(amino));
     // @ts-ignore
     const { type, ...value } = amino
-
+    console.log('SDK snakecaseKeys(value) from amino =>', snakecaseKeys(value));
+    console.log(
+      'SDK snakecaseKeys(value) from amino =>',
+      JSON.stringify(snakecaseKeys(value))
+    );
     return {
       type: type as string,
       value: snakecaseKeys(value) as Omit<AminoRepresentation, 'type'>,
