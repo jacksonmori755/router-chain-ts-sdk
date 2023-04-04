@@ -31,16 +31,16 @@ export const dockerChainInfo: ChainInfo = {
        };
 
 export const internalDevnetChainInfo: ChainInfo = {
-         feeDenom: 'route',
-         chainId: 'router-1',
-         env: 'internal devnet',
-       };
+  feeDenom: 'route',
+  chainId: 'router-1',
+  env: 'internal-devnet',
+};
 
 export const alphaDevnetChainInfo: ChainInfo = {
-         feeDenom: 'route',
-         chainId: 'router_9000-1',
-         env: 'alpha devnet',
-       };
+  feeDenom: 'route',
+  chainId: 'router_9000-1',
+  env: 'alpha-devnet',
+};
 
 export enum ChainType {
   EVM = 'CHAIN_TYPE_EVM',

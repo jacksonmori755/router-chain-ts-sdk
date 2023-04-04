@@ -31,7 +31,7 @@ import { ChainInfo, getNetworkType, Network, NetworkEndpoints } from './types';
  * Supported network endpoints for Router chain. Also see {@link Network} for network names.
  * 
  * @example
- * const endpoint =  networkEndpoints["alpha devnet"]; // here, 'alpha devnet' is network name
+ * const endpoint =  networkEndpoints["alpha-devnet"]; // here, 'alpha-devnet' is network name
  * 
  * @group Network
  */

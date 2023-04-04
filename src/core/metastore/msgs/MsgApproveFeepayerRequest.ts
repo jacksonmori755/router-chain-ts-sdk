@@ -1,5 +1,5 @@
 import { MsgApproveFeepayerRequest as BaseMsgApproveFeepayerRequest } from '@routerprotocol/chain-api/metastore/tx_pb';
-import { ChainTypeMap } from '@routerprotocol/chain-api/multichain/chain_type_pb';
+//import { ChainTypeMap } from '@routerprotocol/chain-api/multichain/chain_type_pb';
 import snakeCaseKeys from 'snakecase-keys';
 import { toUtf8 } from '../../../utils';
 import { MsgBase } from '../../MsgBase';
@@ -7,8 +7,8 @@ import { MsgBase } from '../../MsgBase';
 export declare namespace MsgApproveFeepayerRequest {
   export interface Params {
     feepayer: string;
-    chaintype: ChainTypeMap[keyof ChainTypeMap];
-    chainid: string;
+    // chaintype: ChainTypeMap[keyof ChainTypeMap];
+    // chainid: string;
     daapaddresses: string;
   }
 
@@ -49,16 +49,22 @@ export default class MsgApproveFeepayerRequest extends MsgBase<
   }
 
   public toProto(): MsgApproveFeepayerRequest.Proto {
-    const { params } = this;
+                                                      const { params } = this;
 
-    const message = new BaseMsgApproveFeepayerRequest();
-    message.setFeepayer(params.feepayer);
-    message.setChaintype(params.chaintype);
-    message.setChainid(params.chainid);
-    message.setDaapaddresses(toUtf8(params.daapaddresses));
+                                                      const message = new BaseMsgApproveFeepayerRequest();
+                                                      message.setFeepayer(
+                                                        params.feepayer
+                                                      );
+                                                      // message.setChaintype(params.chaintype);
+                                                      // message.setChainid(params.chainid);
+                                                      message.setDaapaddress(
+                                                        toUtf8(
+                                                          params.daapaddresses
+                                                        )
+                                                      );
 
-    return message;
-  }
+                                                      return message;
+                                                    }
 
   public toData(): MsgApproveFeepayerRequest.Data {
     const proto = this.toProto();
