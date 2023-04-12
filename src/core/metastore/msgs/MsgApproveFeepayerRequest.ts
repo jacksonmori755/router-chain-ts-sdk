@@ -1,14 +1,11 @@
 import { MsgApproveFeepayerRequest as BaseMsgApproveFeepayerRequest } from '@routerprotocol/chain-api/metastore/tx_pb';
-//import { ChainTypeMap } from '@routerprotocol/chain-api/multichain/chain_type_pb';
 import snakeCaseKeys from 'snakecase-keys';
-import { toUtf8 } from '../../../utils';
 import { MsgBase } from '../../MsgBase';
 
 export declare namespace MsgApproveFeepayerRequest {
   export interface Params {
     feepayer: string;
-    // chaintype: ChainTypeMap[keyof ChainTypeMap];
-    // chainid: string;
+    chainid: string;
     dappaddresses: string;
   }
 
@@ -49,26 +46,15 @@ export default class MsgApproveFeepayerRequest extends MsgBase<
   }
 
   public toProto(): MsgApproveFeepayerRequest.Proto {
-                                                      const { params } = this;
+    const { params } = this;
 
-                                                      const message = new BaseMsgApproveFeepayerRequest();
-                                                      message.setFeepayer(
-                                                        params.feepayer
-                                                      );
-                                                      // message.setChaintype(
-                                                      //   params.chaintype
-                                                      // );
-                                                      // message.setChainid(
-                                                      //   params.chainid
-                                                      // );
-                                                      message.setDaapaddress(
-                                                        toUtf8(
-                                                          params.dappaddresses
-                                                        )
-                                                      );
+    const message = new BaseMsgApproveFeepayerRequest();
+    message.setFeePayer(params.feepayer);
+    message.setChainId(params.chainid);
+    message.setDappAddress(params.dappaddresses);
 
-                                                      return message;
-                                                    }
+    return message;
+  }
 
   public toData(): MsgApproveFeepayerRequest.Data {
     const proto = this.toProto();
@@ -81,43 +67,15 @@ export default class MsgApproveFeepayerRequest extends MsgBase<
   }
 
   public toAmino(): MsgApproveFeepayerRequest.Amino {
-                                                      const proto = this.toProto();
-                                                      console.log(
-                                                        'SDK toProto =>',
-                                                        proto
-                                                      );
-                                                      // console.log(
-                                                      //   'SDK proto.toObject() =>',
-                                                      //   proto.toObject()
-                                                      // );
-                                                      const message = {
-                                                        ...snakeCaseKeys(
-                                                          proto.toObject()
-                                                        ),
-                                                      };
-                                                      const daapaddresses_byte_array = proto.getDaapaddress_asU8();
-                                                      console.log(
-                                                        'SDK daapaddresses_byte_array =>',
-                                                        daapaddresses_byte_array
-                                                      );
-                                                      //@ts-ignore
-                                                      message.daapaddress = Array.from(
-                                                        daapaddresses_byte_array
-                                                      );
-                                                      console.log(
-                                                        'SDK toProto after converting to number array =>',
-                                                        message
-                                                      );
-                                                      console.log(
-                                                        'SDK toProto after converting to number array =>',
-                                                        JSON.stringify(message)
-                                                      );
-                                                      return ({
-                                                        type:
-                                                          'metastore/ApproveFeepayerRequest',
-                                                        ...message,
-                                                      } as unknown) as MsgApproveFeepayerRequest.Amino;
-                                                    }
+    const proto = this.toProto();
+    const message = {
+      ...snakeCaseKeys(proto.toObject()),
+    };
+    return ({
+      type: 'metastore/ApproveFeepayerRequest',
+      ...message,
+    } as unknown) as MsgApproveFeepayerRequest.Amino;
+  }
 
   public toWeb3(): MsgApproveFeepayerRequest.Web3 {
     const amino = this.toAmino();
