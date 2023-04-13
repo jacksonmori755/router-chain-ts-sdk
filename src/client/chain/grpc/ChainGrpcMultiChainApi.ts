@@ -22,52 +22,50 @@ import { ChainGrpcMultiChainTransformer } from '../transformers';
  * ```
  */
 export class ChainGrpcMultiChainApi extends BaseConsumer {
+         /**
+          *
+          * @param chainType chain type.
+          * @param chainId chain ID.
+          * @returns chain configuration.
+          */
+         async fetchChainConfig(chainId: string) {
+           const request = new QueryGetChainConfigRequest();
+           request.setChainId(chainId);
 
-    /**
-     * 
-     * @param chainType chain type.
-     * @param chainId chain ID.
-     * @returns chain configuration.
-     */
-    async fetchChainConfig(chainType: number, chainId: string) {
-        const request = new QueryGetChainConfigRequest();
-        request.setChainType(chainType);
-        request.setChainId(chainId);
+           try {
+             const response = await this.request<
+               QueryGetChainConfigRequest,
+               QueryGetChainConfigResponse,
+               typeof MultiChainQuery.ChainConfig
+             >(request, MultiChainQuery.ChainConfig);
 
-        try {
-            const response = await this.request<
-            QueryGetChainConfigRequest,
-            QueryGetChainConfigResponse,
-            typeof MultiChainQuery.ChainConfig
-            >(request, MultiChainQuery.ChainConfig);
+             console.log('api call success');
 
-            console.log("api call success")
+             return ChainGrpcMultiChainTransformer.chainConfig(response);
+           } catch (e) {
+             //@ts-ignore
+             throw new Error(e.message);
+           }
+         }
 
-            return ChainGrpcMultiChainTransformer.chainConfig(response);
-        } catch (e) {
-            //@ts-ignore
-            throw new Error(e.message);
-        }
-    }
+         /**
+          *
+          * @returns chain configuration list for all supported chains.
+          */
+         async fetchAllChainConfig() {
+           const request = new QueryAllChainConfigRequest();
 
-    /**
-     * 
-     * @returns chain configuration list for all supported chains.
-     */
-    async fetchAllChainConfig() {
-        const request = new QueryAllChainConfigRequest();
+           try {
+             const response = await this.request<
+               QueryAllChainConfigRequest,
+               QueryAllChainConfigResponse,
+               typeof MultiChainQuery.ChainConfigAll
+             >(request, MultiChainQuery.ChainConfigAll);
 
-        try {
-            const response = await this.request<
-            QueryAllChainConfigRequest,
-            QueryAllChainConfigResponse,
-            typeof MultiChainQuery.ChainConfigAll
-            >(request, MultiChainQuery.ChainConfigAll);
-
-            return ChainGrpcMultiChainTransformer.allChainConfig(response);
-        } catch (e) {
-            //@ts-ignore
-            throw new Error(e.message);
-        }
-    }
-}
+             return ChainGrpcMultiChainTransformer.allChainConfig(response);
+           } catch (e) {
+             //@ts-ignore
+             throw new Error(e.message);
+           }
+         }
+       }
