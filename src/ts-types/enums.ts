@@ -10,6 +10,7 @@ export enum EthereumChainId {
   DevnetEvm = 9000,
   TestnetEvm = 9000,
   MainnetEvm = 9000,
+  InternalDevnet = 9000,
 }
 
 export enum ChainId {
