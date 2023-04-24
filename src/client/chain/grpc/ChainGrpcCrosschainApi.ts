@@ -17,20 +17,6 @@ import BaseConsumer from '../../BaseGrpcConsumer';
 import { ChainGrpcCrosschainTransformer } from '../transformers';
 import { PageRequest } from '@routerprotocol/chain-api/cosmos/base/query/v1beta1/pagination_pb';
 
-/**
- * The bank module is responsible for handling multi-asset coin transfers between accounts.
- * 
- * @group gRPC API
- * 
- * @example
- * To use Bank methods, initialise a {@link ChainGrpcBankApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
- * ```ts
- * const endpoint =  getEndpointsForNetwork(Network.Devnet).grpcEndpoint;
- * const bankClient = new ChainGrpcBankApi(endpoint);
- * const response = await bankClient.fetchBalances("router12avkt8c0lk76atge8f3pe2t6fj4jsc8038d742");
- * ```
- */
-
 export class ChainGrpcCrosschainApi extends BaseConsumer {
 
   async fetchCrosschainRequests(pageRequestObject?: PageRequest.AsObject) {
@@ -61,7 +47,7 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
     }
   }
 
-  async fetchCrosschainRequestConfirmations(sourceChainId: string, requestIdentifier: number, claimHash: Uint8Array, pageRequestObject?: PageRequest.AsObject) {
+  async fetchCrosschainRequestConfirmations(sourceChainId: string, requestIdentifier: number, claimHash: Uint8Array | string, pageRequestObject?: PageRequest.AsObject) {
     const request = new QueryAllCrosschainRequestConfirmRequest();
     request.setSourcechainid(sourceChainId);
     request.setRequestidentifier(requestIdentifier);
@@ -122,7 +108,7 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
     }
   }
 
-  async fetchCrosschainAckRequestConfirmations(sourceChainId: string, requestIdentifier: number, claimHash: Uint8Array, pageRequestObject?: PageRequest.AsObject) {
+  async fetchCrosschainAckRequestConfirmations(sourceChainId: string, requestIdentifier: number, claimHash: Uint8Array | string, pageRequestObject?: PageRequest.AsObject) {
     const request = new QueryAllCrosschainAckRequestConfirmRequest();
     request.setAcksrcchainid(sourceChainId);
     request.setAckrequestidentifier(requestIdentifier);
@@ -155,7 +141,7 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
     }
   }
 
-  async fetchCrosschainRequestConfirmation(sourceChainId: string, requestIdentifier: number, claimHash: Uint8Array, orchestrator: string) {
+  async fetchCrosschainRequestConfirmation(sourceChainId: string, requestIdentifier: number, claimHash: Uint8Array | string, orchestrator: string) {
     const request = new QueryGetCrosschainRequestConfirmRequest();
     request.setSourcechainid(sourceChainId);
     request.setRequestidentifier(requestIdentifier);
@@ -178,7 +164,7 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
     }
   }
 
-  async fetchCrosschainAckRequestConfirmation(sourceChainId: string, requestIdentifier: number, claimHash: Uint8Array, orchestrator: string) {
+  async fetchCrosschainAckRequestConfirmation(sourceChainId: string, requestIdentifier: number, claimHash: Uint8Array | string, orchestrator: string) {
     const request = new  QueryGetCrosschainAckRequestConfirmRequest();
     request.setAcksrcchainid(sourceChainId);
     request.setAckrequestidentifier(requestIdentifier);
@@ -192,7 +178,7 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
         typeof CrosschainQuery.CrosschainAckRequestConfirm
       >(request, CrosschainQuery.CrosschainAckRequestConfirm);
 
-      return ChainGrpcBankTransformer.crosschainAckRequestConfirmation(
+      return ChainGrpcCrosschainTransformer.crosschainAckRequestConfirmation(
         response
       );
     } catch (e) {
