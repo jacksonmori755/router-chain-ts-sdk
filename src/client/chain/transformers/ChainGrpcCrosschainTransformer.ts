@@ -7,7 +7,7 @@ import {
     QueryAllCrosschainAckRequestResponse,
     QueryAllCrosschainAckRequestConfirmResponse,
     QueryGetCrosschainRequestConfirmResponse,
-    QueryGetCrosschainAckRequestConfirmRequest,
+    QueryGetCrosschainAckRequestConfirmResponse,
 } from '@routerprotocol/chain-api/routerchain/crosschain/query_pb';
 import { CrosschainRequestConfirm } from '@routerprotocol/chain-api/routerchain/crosschain/crosschain_request_confirm_pb';
 import { CrosschainAckRequest } from '@routerprotocol/chain-api/routerchain/crosschain/crosschain_ack_request_pb';
@@ -75,14 +75,20 @@ export class ChainGrpcCrosschainTransformer {
     }
 
     static crosschainAckRequestConfirmation(
-        request: QueryGetCrosschainAckRequestConfirmRequest
-    ): QueryGetCrosschainAckRequestConfirmRequest.AsObject {
+        request: QueryGetCrosschainAckRequestConfirmResponse
+    ): QueryGetCrosschainAckRequestConfirmResponse.AsObject {
+
+        const crosschainAckRequestConfirm = request.getCrosschainackrequestconfirm()
 
         return {
-            acksrcchainid: request.getAcksrcchainid(),
-            ackrequestidentifier: request.getAckrequestidentifier(),
-            claimhash: request.getClaimhash(),
-            orchestrator: request.getOrchestrator(),
+            crosschainackrequestconfirm: crosschainAckRequestConfirm != null ? {
+                orchestrator: crosschainAckRequestConfirm.getOrchestrator(),
+                acksrcchainid: crosschainAckRequestConfirm.getAcksrcchainid(),
+                ackrequestidentifier: crosschainAckRequestConfirm.getAckrequestidentifier(),
+                claimhash: crosschainAckRequestConfirm.getClaimhash(),
+                ethsigner: crosschainAckRequestConfirm.getEthsigner(),
+                signature: crosschainAckRequestConfirm.getSignature(),
+            } : undefined
         }
     }
 
