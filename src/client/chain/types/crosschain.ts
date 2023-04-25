@@ -1,11 +1,11 @@
 // TODO: New claim hash object is required
 // import { CrossChainClaimHash } from "@routerprotocol/chain-api/routerchain/crosschain/claim";
-// import { CrosschainRequest } from "@routerprotocol/chain-api/routerchain/crosschain/crosschain_request_pb";
-// import { CrosschainAckRequest } from "@routerprotocol/chain-api/routerchain/crosschain/crosschain_ack_request_pb";
+import { CrosschainRequest } from "@routerprotocol/chain-api/routerchain/crosschain/crosschain_request_pb";
+import { CrosschainAckRequest } from "@routerprotocol/chain-api/routerchain/crosschain/crosschain_ack_request_pb";
 // import { getClaimHash } from "./util";
 
 // crosschainRequest: CrosschainRequest.AsObject
-export function getCrosschainClaimHash() : Uint8Array {
+export function getCrosschainClaimHash(crosschainRequest: CrosschainRequest.AsObject) : Uint8Array {
     //const claimHash = new CrosschainRequest()
 
     // claimHash.setSrcChainId(crosschainRequest.srcChainId)
@@ -27,7 +27,7 @@ export function getCrosschainClaimHash() : Uint8Array {
     return new Uint8Array([10])
 }
 
-export function getCrosschainAckClaimHash() : Uint8Array {
+export function getCrosschainAckClaimHash(crosschainAckRequest: CrosschainAckRequest.AsObject) : Uint8Array {
     // const claimHash = new CrosschainAckRequest()
 
     // claimHash.setAckSrcChainId(crosschainRequest.ackSrcChainId)
