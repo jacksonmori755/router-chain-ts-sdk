@@ -7,3 +7,4 @@ export * from './ChainGrpcWasmTransformer';
 export * from './ChainGrpcAttestationTransformer';
 export * from './ChainGrpcMultiChainTransformer';
 export * from './ChainGrpcCrosschainTransformer';
+export * from './ChainGrpcMetastoreTransformer';
