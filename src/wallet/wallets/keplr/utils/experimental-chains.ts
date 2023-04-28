@@ -113,7 +113,7 @@ export const experimentalChainsConfig = {
            rpcConfig: undefined,
            restConfig: undefined,
            chainId: getChainInfoForNetwork(Network.Devnet),
-           chainName: 'Router - Devnet',
+           chainName: 'Router-Devnet',
            stakeCurrency: {
              coinDenom: ROUTER_DENOM.toUpperCase(),
              coinMinimalDenom: ROUTER_DENOM,

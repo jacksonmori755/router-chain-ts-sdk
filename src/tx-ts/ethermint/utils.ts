@@ -251,9 +251,8 @@ export function generatePostBodyBroadcast(
   txRaw: TxToSend,
   broadcastMode: string = BroadcastMode.Sync
 ) {
-  return `{ "tx_bytes": [${txRaw.message
-    .toBinary()
-    .toString()}], "mode": "${broadcastMode}" }`;
+  const txBase64 = Buffer.from(txRaw.message.toBinary()).toString('base64');
+  return `{ "tx_bytes": "${txBase64}", "mode": "${broadcastMode}" }`;
 }
 
 export const getPostOptions = (signedTx: TxToSend) => {

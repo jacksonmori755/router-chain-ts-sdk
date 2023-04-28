@@ -132,22 +132,23 @@ export class ChainGrpcCrosschainTransformer {
     ): CrosschainAckRequest.AsObject{
         
         return {
-            ackSrcChainId: request.getAckSrcChainId(),
-            ackRequestIdentifier: request.getAckRequestIdentifier(),
-            blockheight: request.getBlockheight(),
-            desttxhash: request.getDesttxhash(),
-            relayerrouteraddress: request.getRelayerrouteraddress(),
-            ackDestChainId: request.getAckDestChainId(),
-            requestSender: request.getRequestSender(),
-            requestidentifier: request.getRequestidentifier(),
-            ackSrcChainType: request.getAckSrcChainType(),
-            ackDestChainType: request.getAckDestChainType(),
-            execdata: request.getExecdata(),
-            execstatus: request.getExecstatus(),
-            ethsigner: request.getEthsigner(),
-            signature: request.getSignature(),
-            status: request.getStatus(),
-        }
+          ackSrcChainId: request.getAckSrcChainId(),
+          ackRequestIdentifier: request.getAckRequestIdentifier(),
+          blockheight: request.getBlockheight(),
+          desttxhash: request.getDesttxhash(),
+          relayerrouteraddress: request.getRelayerrouteraddress(),
+          ackDestChainId: request.getAckDestChainId(),
+          requestSender: request.getRequestSender(),
+          requestidentifier: request.getRequestidentifier(),
+          ackSrcChainType: request.getAckSrcChainType(),
+          ackDestChainType: request.getAckDestChainType(),
+          execdata: request.getExecdata(),
+          execstatus: request.getExecstatus(),
+          ethsigner: request.getEthsigner(),
+          signature: request.getSignature(),
+          status: request.getStatus(),
+          feeconsumed: request.getFeeconsumed(),
+        };
     }
 
     private static crosschainAckRequestConfirmObj(
