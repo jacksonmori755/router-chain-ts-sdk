@@ -312,20 +312,20 @@ export const specificCrosschainQuery = `
     voter
     ackRequest{
       eventAckRequestCreated{
-        AttestationId
-        AckSrcChainId
-        AckRequestIdentifier
-        BlockHeight
-        DestTxHash
-        RelayerRouterAddress
-        AckDestChainId
-        RequestSender
-        RequestIdentifier
-        AckSrcChainType
-        AckDestChainType
-        ExecData
-        ExecStatus
-        Status
+        attestationId
+        ackSrcChainId
+        ackRequestIdentifier
+        blockHeight
+        destTxHash
+        relayerRouterAddress
+        ackDestChainId
+        requestSender
+        requestIdentifier
+        ackSrcChainType
+        ackDestChainType
+        execData
+        execStatus
+        status
       }
       eventAttestationVote{
         attestationType
@@ -387,6 +387,13 @@ export const specificCrosschainQuery = `
     createdAt
     updatedAt
     relayerFee
+    relayerFeeInRoute
+    refundFeeInRoute
+    feePayer
+    errorResponse
+    relayerAddress
+    execStatus
+    execData
   }
 }
 `;
@@ -527,6 +534,13 @@ export const searchSpecificCrosschainQuery = `
       relayerAddress
       execStatus
       execData
+      relayerFeeInRoute
+      refundFeeInRoute
+      feePayer
+      errorResponse
+      relayerAddress
+      execStatus
+      execData
     }
     }
 }
@@ -587,20 +601,20 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
       voter
       ackRequest{
         eventAckRequestCreated{
-          AttestationId
-          AckSrcChainId
-          AckRequestIdentifier
-          BlockHeight
-          DestTxHash
-          RelayerRouterAddress
-          AckDestChainId
-          RequestSender
-          RequestIdentifier
-          AckSrcChainType
-          AckDestChainType
-          ExecData
-          ExecStatus
-          Status
+          attestationId
+          ackSrcChainId
+          ackRequestIdentifier
+          blockHeight
+          destTxHash
+          relayerRouterAddress
+          ackDestChainId
+          requestSender
+          requestIdentifier
+          ackSrcChainType
+          ackDestChainType
+          execData
+          execStatus
+          status
         }
         eventAttestationVote{
           attestationType
@@ -662,6 +676,13 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
       createdAt
       updatedAt
       relayerFee
+      relayerFeeInRoute
+      refundFeeInRoute
+      feePayer
+      errorResponse
+      relayerAddress
+      execStatus
+      execData
     }
     }
 }
@@ -722,20 +743,20 @@ export const searchSpecificCrosschainDestChainIdQuery = `
       voter
       ackRequest{
         eventAckRequestCreated{
-          AttestationId
-          AckSrcChainId
-          AckRequestIdentifier
-          BlockHeight
-          DestTxHash
-          RelayerRouterAddress
-          AckDestChainId
-          RequestSender
-          RequestIdentifier
-          AckSrcChainType
-          AckDestChainType
-          ExecData
-          ExecStatus
-          Status
+          attestationId
+          ackSrcChainId
+          ackRequestIdentifier
+          blockHeight
+          destTxHash
+          relayerRouterAddress
+          ackDestChainId
+          requestSender
+          requestIdentifier
+          ackSrcChainType
+          ackDestChainType
+          execData
+          execStatus
+          status
         }
         eventAttestationVote{
           attestationType
@@ -797,6 +818,13 @@ export const searchSpecificCrosschainDestChainIdQuery = `
       createdAt
       updatedAt
       relayerFee
+      relayerFeeInRoute
+      refundFeeInRoute
+      feePayer
+      errorResponse
+      relayerAddress
+      execStatus
+      execData
     }
     }
 }
