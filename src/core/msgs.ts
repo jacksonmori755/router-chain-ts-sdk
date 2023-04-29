@@ -22,6 +22,7 @@ import {
   MsgCwStoreCode,
   MsgExecuteCwContract,
   MsgInstantiateCwContract,
+  MsgMigrateCwContract,
 } from './rwasm';
 
 /**
@@ -48,5 +49,6 @@ export type Msgs =
   | MsgExecuteCwContract
   | MsgUpdateAdmin
   | MsgMigrateContract
+  | MsgMigrateCwContract
   | MsgApproveFeepayerRequest;
 
