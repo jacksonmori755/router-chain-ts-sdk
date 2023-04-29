@@ -91,7 +91,7 @@ export interface EvmContractMetadata {
 }
 
 export interface EventCrosschainAckReceiptCreated {
-  attestationId: string[];
+  attestationId: string;
   ackReceiptSrcChainId: string;
   ackReceiptIdentifier: number;
   ackReceiptBlockHeight: number;
@@ -112,20 +112,20 @@ export interface AckReceiptRequest {
 }
 
 export interface EventCrosschainAckRequestCreated {
-  AttestationId: string;
-  AckSrcChainId: string;
-  AckRequestIdentifier: number;
-  BlockHeight: number;
-  DestTxHash: string;
-  RelayerRouterAddress: string;
-  AckDestChainId: string;
-  RequestSender: string;
-  RequestIdentifier: number;
-  AckSrcChainType: number;
-  AckDestChainType: number;
-  ExecData: string;
-  ExecStatus: Boolean;
-  Status: string;
+  attestationId: string;
+  ackSrcChainId: string;
+  ackRequestIdentifier: number;
+  blockHeight: number;
+  destTxHash: string;
+  relayerRouterAddress: string;
+  ackDestChainId: string;
+  requestSender: string;
+  requestIdentifier: number;
+  ackSrcChainType: number;
+  ackDestChainType: number;
+  execData: string;
+  execStatus: Boolean;
+  status: string;
 }
 
 export interface EventAttestationVote {
@@ -193,6 +193,13 @@ export interface CrosschainType {
   createdAt: number;
   updatedAt: number;
   relayerFee: string;
+  relayerFeeInRoute: string;
+  refundFeeInRoute: string;
+  feePayer: string;
+  errorResponse: string;
+  relayerAddress: string;
+  execStatus: number;
+  execData: string;
 }
 
 export interface PaginatedCrosschain {

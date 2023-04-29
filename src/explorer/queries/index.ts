@@ -534,13 +534,6 @@ export const searchSpecificCrosschainQuery = `
       relayerAddress
       execStatus
       execData
-      relayerFeeInRoute
-      refundFeeInRoute
-      feePayer
-      errorResponse
-      relayerAddress
-      execStatus
-      execData
     }
     }
 }
