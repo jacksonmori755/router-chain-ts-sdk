@@ -52,10 +52,19 @@ export interface EventHistory {
   txnHash: string;
 }
 
-export interface HistoryStatusType {
+interface HistoryStatusType {
   status: string;
   txnHash: string;
   timestamp: number;
+  blockHeight: number;
+}
+
+interface VoteAttestationType{
+	chainType: string;
+	chainId:     string;
+	eventNonce:  number;
+	voter:       string;
+	blockHeight: number;
 }
 
 export interface EventSignatureType {
@@ -65,14 +74,6 @@ export interface EventSignatureType {
   blockHeight: number;
   signature: string;
   ethSigner: string;
-}
-
-export interface ContractExecutionType {
-  destContractAddress: string;
-  status: boolean;
-  payload: string;
-  requestPayload: string;
-  responsePayload: string;
 }
 
 export interface CrosschainRouterPacket {
@@ -101,7 +102,7 @@ export interface EventCrosschainAckReceiptCreated {
   status: string;
 }
 
-export interface AckReceiptRequest {
+interface AckReceiptRequest {
   ackReceipt: EventCrosschainAckReceiptCreated;
   historyStatus: HistoryStatusType[];
   relayerFeeInRoute: string;
@@ -111,7 +112,7 @@ export interface AckReceiptRequest {
   claimHash: string;
 }
 
-export interface EventCrosschainAckRequestCreated {
+interface EventCrosschainAckRequestCreated {
   attestationId: string;
   ackSrcChainId: string;
   ackRequestIdentifier: number;
@@ -128,15 +129,6 @@ export interface EventCrosschainAckRequestCreated {
   status: string;
 }
 
-export interface EventAttestationVote {
-  attestationType: number;
-  attestationId: string;
-  chainType: number;
-  chainId: string;
-  eventNonce: number;
-  voter: string;
-}
-
 export interface EventCrosschainAckRequestConfirm {
   ackSrcChainId: string;
   ackRequestIdentifier: number;
@@ -148,7 +140,6 @@ export interface EventCrosschainAckRequestConfirm {
 
 export interface AckRequest {
   eventAckRequestCreated: EventCrosschainAckRequestCreated;
-  eventAttestationVote: EventAttestationVote[];
   eventAckRequestConfirm: EventCrosschainAckRequestConfirm;
   status: string;
   historyStatus: HistoryStatusType[];
@@ -163,6 +154,7 @@ export interface AckRequest {
   ackGasLimit: number;
   ackGasPrice: number;
   feePayer: string;
+  eventSignatures: VoteAttestationType[];
 }
 
 export interface CrosschainType {
@@ -185,7 +177,7 @@ export interface CrosschainType {
   status: string;
   eventHistory: EventHistory[];
   historyStatus: HistoryStatusType[];
-  eventConfirmSignatures: EventSignatureType[];
+  eventConfirmSignatures: VoteAttestationType[];
   voter: string;
   ackRequest: AckRequest;
   customFormAttestationId: string;
@@ -204,5 +196,5 @@ export interface CrosschainType {
 
 export interface PaginatedCrosschain {
   totalRecords: number;
-  crossTalks: CrosschainType[];
+  crossChains: CrosschainType[];
 }

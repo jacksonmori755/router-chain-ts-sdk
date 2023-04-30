@@ -155,6 +155,7 @@ export const latestCrosschainsQuery = `
         height
         timestamp
         txnHash
+        height
       }
       historyStatus{
         status
@@ -162,12 +163,11 @@ export const latestCrosschainsQuery = `
         timestamp
       }
       eventConfirmSignatures{
-        validator
-        txnHash
-        timestamp
+        chainType
+        chainId
+        eventNonce
+        voter
         blockHeight
-        signature
-        ethSigner
       }
       voter
       ackRequest{
@@ -186,14 +186,6 @@ export const latestCrosschainsQuery = `
           execData
           execStatus
           status
-        }
-        eventAttestationVote{
-          attestationType
-          attestationId
-          chainType
-          chainId
-          eventNonce
-          voter
         }
         eventAckRequestConfirm{
           ackSrcChainId
@@ -241,6 +233,13 @@ export const latestCrosschainsQuery = `
         ackGasLimit
         ackGasPrice
         feePayer
+        eventSignatures{
+          chainType
+          chainId
+          eventNonce
+          voter
+          blockHeight
+        }
       }
       customFormAttestationId
       destinationTxHash
@@ -263,137 +262,136 @@ export const specificCrosschainQuery = `
   query getCrosschainByFormAttestationId($formAttestationId: String!){
   crosschain(id:$formAttestationId){
     id
-    attestationId
-    srcChainId
-    requestIdentifier
-    blockHeight
-    sourceTxHash
-    srcTimestamp
-    srcTxOrigin
-    routeAmount
-    routeRecipient
-    destChainId
-    requestSender
-    requestMetadata{
-      destGasLimit
-      destGasPrice
-      ackGasLimit
-      ackGasPrice
-      ackType
-      isReadCall
-      asmAddress
-    }
-    requestPacket{
-      handler
-      payload
-    }
-    srcChainType
-    destChainType
-    status
-    eventHistory{
-      name
-      height
-      timestamp
-      txnHash
-    }
-    historyStatus{
-      status
-      txnHash
-      timestamp
-    }
-    eventConfirmSignatures{
-      validator
-      txnHash
-      timestamp
+      attestationId
+      srcChainId
+      requestIdentifier
       blockHeight
-      signature
-      ethSigner
-    }
-    voter
-    ackRequest{
-      eventAckRequestCreated{
-        attestationId
-        ackSrcChainId
-        ackRequestIdentifier
-        blockHeight
-        destTxHash
-        relayerRouterAddress
-        ackDestChainId
-        requestSender
-        requestIdentifier
-        ackSrcChainType
-        ackDestChainType
-        execData
-        execStatus
-        status
+      sourceTxHash
+      srcTimestamp
+      srcTxOrigin
+      routeAmount
+      routeRecipient
+      destChainId
+      requestSender
+      requestMetadata{
+        destGasLimit
+        destGasPrice
+        ackGasLimit
+        ackGasPrice
+        ackType
+        isReadCall
+        asmAddress
       }
-      eventAttestationVote{
-        attestationType
-        attestationId
-        chainType
-        chainId
-        eventNonce
-        voter
+      requestPacket{
+        handler
+        payload
       }
-      eventAckRequestConfirm{
-        ackSrcChainId
-        ackRequestIdentifier
-        claimHash
-        ethSigner
-        signature
-        orchestrator
-      }
+      srcChainType
+      destChainType
       status
+      eventHistory{
+        name
+        height
+        timestamp
+        txnHash
+        height
+      }
       historyStatus{
         status
         txnHash
         timestamp
       }
+      eventConfirmSignatures{
+        chainType
+        chainId
+        eventNonce
+        voter
+        blockHeight
+      }
       voter
-      claimHash
-      txFeeInRoute
-      chainType
-      chainId
-      requestIdentifier
-      customFormAttestationId
-      ackReceiptRequest{
-        ackReceipt{
+      ackRequest{
+        eventAckRequestCreated{
           attestationId
-          ackReceiptSrcChainId
-          ackReceiptIdentifier
-          ackReceiptBlockHeight
-          ackReceiptTxHash
+          ackSrcChainId
+          ackRequestIdentifier
+          blockHeight
+          destTxHash
           relayerRouterAddress
+          ackDestChainId
+          requestSender
           requestIdentifier
+          ackSrcChainType
+          ackDestChainType
+          execData
+          execStatus
           status
         }
+        eventAckRequestConfirm{
+          ackSrcChainId
+          ackRequestIdentifier
+          claimHash
+          ethSigner
+          signature
+          orchestrator
+        }
+        status
         historyStatus{
           status
           txnHash
           timestamp
         }
-        relayerFeeInRoute
-        refundFeeInRoute
-        ackReceiptKey
-        status
+        voter
         claimHash
+        txFeeInRoute
+        chainType
+        chainId
+        requestIdentifier
+        customFormAttestationId
+        ackReceiptRequest{
+          ackReceipt{
+            attestationId
+            ackReceiptSrcChainId
+            ackReceiptIdentifier
+            ackReceiptBlockHeight
+            ackReceiptTxHash
+            relayerRouterAddress
+            requestIdentifier
+            status
+          }
+          historyStatus{
+            status
+            txnHash
+            timestamp
+          }
+          relayerFeeInRoute
+          refundFeeInRoute
+          ackReceiptKey
+          status
+          claimHash
+        }
+        ackGasLimit
+        ackGasPrice
+        feePayer
+        eventSignatures{
+          chainType
+          chainId
+          eventNonce
+          voter
+          blockHeight
+        }
       }
-      ackGasLimit
-      ackGasPrice
+      customFormAttestationId
+      destinationTxHash
+      createdAt
+      updatedAt
+      relayerFee
+			relayerFeeInRoute
+      refundFeeInRoute
       feePayer
-    }
-    customFormAttestationId
-    destinationTxHash
-    createdAt
-    updatedAt
-    relayerFee
-    relayerFeeInRoute
-    refundFeeInRoute
-    feePayer
-    errorResponse
-    relayerAddress
-    execStatus
-    execData
+      errorResponse
+      relayerAddress
+      execStatus
+      execData
   }
 }
 `;
@@ -435,6 +433,7 @@ export const searchSpecificCrosschainQuery = `
         height
         timestamp
         txnHash
+        height
       }
       historyStatus{
         status
@@ -442,12 +441,11 @@ export const searchSpecificCrosschainQuery = `
         timestamp
       }
       eventConfirmSignatures{
-        validator
-        txnHash
-        timestamp
+        chainType
+        chainId
+        eventNonce
+        voter
         blockHeight
-        signature
-        ethSigner
       }
       voter
       ackRequest{
@@ -466,14 +464,6 @@ export const searchSpecificCrosschainQuery = `
           execData
           execStatus
           status
-        }
-        eventAttestationVote{
-          attestationType
-          attestationId
-          chainType
-          chainId
-          eventNonce
-          voter
         }
         eventAckRequestConfirm{
           ackSrcChainId
@@ -521,6 +511,13 @@ export const searchSpecificCrosschainQuery = `
         ackGasLimit
         ackGasPrice
         feePayer
+        eventSignatures{
+          chainType
+          chainId
+          eventNonce
+          voter
+          blockHeight
+        }
       }
       customFormAttestationId
       destinationTxHash
@@ -544,7 +541,7 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
   paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
-     id
+      id
       attestationId
       srcChainId
       requestIdentifier
@@ -577,6 +574,7 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
         height
         timestamp
         txnHash
+        height
       }
       historyStatus{
         status
@@ -584,12 +582,11 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
         timestamp
       }
       eventConfirmSignatures{
-        validator
-        txnHash
-        timestamp
+        chainType
+        chainId
+        eventNonce
+        voter
         blockHeight
-        signature
-        ethSigner
       }
       voter
       ackRequest{
@@ -608,14 +605,6 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
           execData
           execStatus
           status
-        }
-        eventAttestationVote{
-          attestationType
-          attestationId
-          chainType
-          chainId
-          eventNonce
-          voter
         }
         eventAckRequestConfirm{
           ackSrcChainId
@@ -663,13 +652,20 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
         ackGasLimit
         ackGasPrice
         feePayer
+        eventSignatures{
+          chainType
+          chainId
+          eventNonce
+          voter
+          blockHeight
+        }
       }
       customFormAttestationId
       destinationTxHash
       createdAt
       updatedAt
       relayerFee
-      relayerFeeInRoute
+			relayerFeeInRoute
       refundFeeInRoute
       feePayer
       errorResponse
@@ -719,6 +715,7 @@ export const searchSpecificCrosschainDestChainIdQuery = `
         height
         timestamp
         txnHash
+        height
       }
       historyStatus{
         status
@@ -726,12 +723,11 @@ export const searchSpecificCrosschainDestChainIdQuery = `
         timestamp
       }
       eventConfirmSignatures{
-        validator
-        txnHash
-        timestamp
+        chainType
+        chainId
+        eventNonce
+        voter
         blockHeight
-        signature
-        ethSigner
       }
       voter
       ackRequest{
@@ -750,14 +746,6 @@ export const searchSpecificCrosschainDestChainIdQuery = `
           execData
           execStatus
           status
-        }
-        eventAttestationVote{
-          attestationType
-          attestationId
-          chainType
-          chainId
-          eventNonce
-          voter
         }
         eventAckRequestConfirm{
           ackSrcChainId
@@ -805,13 +793,20 @@ export const searchSpecificCrosschainDestChainIdQuery = `
         ackGasLimit
         ackGasPrice
         feePayer
+        eventSignatures{
+          chainType
+          chainId
+          eventNonce
+          voter
+          blockHeight
+        }
       }
       customFormAttestationId
       destinationTxHash
       createdAt
       updatedAt
       relayerFee
-      relayerFeeInRoute
+			relayerFeeInRoute
       refundFeeInRoute
       feePayer
       errorResponse
@@ -861,6 +856,7 @@ export const searchSpecificCrosschainChainIdQuery = `
         height
         timestamp
         txnHash
+        height
       }
       historyStatus{
         status
@@ -868,12 +864,11 @@ export const searchSpecificCrosschainChainIdQuery = `
         timestamp
       }
       eventConfirmSignatures{
-        validator
-        txnHash
-        timestamp
+        chainType
+        chainId
+        eventNonce
+        voter
         blockHeight
-        signature
-        ethSigner
       }
       voter
       ackRequest{
@@ -892,14 +887,6 @@ export const searchSpecificCrosschainChainIdQuery = `
           execData
           execStatus
           status
-        }
-        eventAttestationVote{
-          attestationType
-          attestationId
-          chainType
-          chainId
-          eventNonce
-          voter
         }
         eventAckRequestConfirm{
           ackSrcChainId
@@ -947,6 +934,13 @@ export const searchSpecificCrosschainChainIdQuery = `
         ackGasLimit
         ackGasPrice
         feePayer
+        eventSignatures{
+          chainType
+          chainId
+          eventNonce
+          voter
+          blockHeight
+        }
       }
       customFormAttestationId
       destinationTxHash
