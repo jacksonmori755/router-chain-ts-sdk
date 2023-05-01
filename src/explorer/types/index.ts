@@ -64,7 +64,8 @@ interface VoteAttestationType{
 	chainId:     string;
 	eventNonce:  number;
 	voter:       string;
-	blockHeight: number;
+  blockHeight: number;
+  timestamp: number;
 }
 
 export interface EventSignatureType {
