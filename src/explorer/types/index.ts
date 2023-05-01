@@ -196,5 +196,5 @@ export interface CrosschainType {
 
 export interface PaginatedCrosschain {
   totalRecords: number;
-  crossChains: CrosschainType[];
+  crosschains: CrosschainType[];
 }

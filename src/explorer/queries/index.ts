@@ -168,6 +168,7 @@ export const latestCrosschainsQuery = `
         eventNonce
         voter
         blockHeight
+        timestamp
       }
       voter
       ackRequest{
@@ -239,6 +240,7 @@ export const latestCrosschainsQuery = `
           eventNonce
           voter
           blockHeight
+          timestamp
         }
       }
       customFormAttestationId

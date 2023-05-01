@@ -16,7 +16,7 @@
 //   //   'vendor broom dress vivid magnet boy square vast solar tonight wet way buffalo dismiss scan hollow fitness phrase farm deliver october path broken rack';
 
 //   const privateKeyHash =
-//     '91327BBEBCE69AF2E51ECFE11E034FD88ED686711E8659B5FFA2A7829B3B43E0';
+//     '';
 //   const privateKey = PrivateKey.fromPrivateKey(privateKeyHash);
 //   const alice = privateKey.toBech32();
 //   const alice_pubkey = privateKey.toPublicKey();
