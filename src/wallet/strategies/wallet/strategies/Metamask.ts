@@ -224,46 +224,28 @@ export default class Metamask extends BaseConcreteStrategy
     };
     eipData.fee = simulatedFee;
     const txPayload = getEtherMintTxPayload(context, eipData);
-    // console.log(
-    //   'SDK Keccak Hash of JSON.stringify(txPayload.eipToSign) =>',
-    //   ethers.utils.keccak256(JSON.stringify(txPayload.eipToSign))
-    // );
-    console.log('SDK txPayload.eipToSign metmask flow =>', txPayload.eipToSign);
-    console.log(
-      'SDK  JSON.stringify(txPayload.eipToSign) =>',
-      JSON.stringify(txPayload.eipToSign)
-    );
     const signature = await this.signEip712TypedData(
       JSON.stringify(txPayload.eipToSign),
       this.ethereum.selectedAddress
     );
-    console.log(
-      'JSON.stringify(txPayload.eipToSign) =>',
-      JSON.stringify(txPayload.eipToSign)
-    );
     const signatureBytes = hexToBuff(signature);
-    console.log('SDK signatureBytes', signatureBytes);
     const publicKeyHex = recoverTypedSignaturePubKey(
       txPayload.eipToSign,
       signature
     );
     const publicKey = hexToBase64(publicKeyHex);
     context.sender.pubkey = publicKey;
-    console.log('SDK publicKey log =>', JSON.stringify(publicKey));
     const txPayloadWithPubKey = getEtherMintTxPayload(context, eipData);
     const { signDirect } = txPayloadWithPubKey;
-    console.log(
-      'SDK signDirect.signBytes Log =>',
-      JSON.stringify(signDirect.signBytes)
-    );
     const bodyBytes = signDirect.body.toBinary();
-    console.log('SDK bodyBytes Log =>', JSON.stringify(bodyBytes));
     const authInfoBytes = signDirect.authInfo.toBinary();
-    console.log('SDK authInfoBytes Log =>', JSON.stringify(authInfoBytes));
     const txRawToSend = createTxRawForBroadcast(bodyBytes, authInfoBytes, [
       signatureBytes,
     ]);
-    const broadcastResponse = this.broadcastTransaction(txRawToSend, nodeUrl);
+    const broadcastResponse = await this.broadcastTransaction(
+      txRawToSend,
+      nodeUrl
+    );
     return broadcastResponse;
   }
 

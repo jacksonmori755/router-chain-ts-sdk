@@ -57,7 +57,7 @@ export class RouterExplorer {
              );
              return data;
            } catch (e) {
-             console.log(`Error | getLatestBlocks | ${e}`);
+             throw new Error(`Error | getLatestBlocks | ${e}`);
            }
          }
 
@@ -78,7 +78,7 @@ export class RouterExplorer {
              );
              return data;
            } catch (e) {
-             console.log(`Error | getLatestBlocks | ${e}`);
+             throw new Error(`Error | getLatestBlocks | ${e}`);
            }
          }
          /**
@@ -108,7 +108,7 @@ export class RouterExplorer {
              );
              return data;
            } catch (e) {
-             console.log(`Error | getLatestTransactions | ${e}`);
+             throw new Error(`Error | getLatestTransactions | ${e}`);
            }
          }
          /**
@@ -138,7 +138,7 @@ export class RouterExplorer {
              );
              return data;
            } catch (e) {
-             console.log(`Error | getLatestTransactions | ${e}`);
+             throw new Error(`Error | getLatestTransactions | ${e}`);
            }
          }
          /**
@@ -158,7 +158,7 @@ export class RouterExplorer {
              );
              return data;
            } catch (e) {
-             console.log(`Error | getLatestTransactions | ${e}`);
+             throw new Error(`Error | getLatestTransactions | ${e}`);
            }
          }
 
@@ -189,7 +189,7 @@ export class RouterExplorer {
              );
              return data;
            } catch (e) {
-             console.log(`Error | getLatestCrosschains | ${e}`);
+             throw new Error(`Error | getLatestCrosschains | ${e}`);
            }
          }
          /**
@@ -232,7 +232,7 @@ export class RouterExplorer {
              );
              return data;
            } catch (e) {
-             console.log(`Error | getCrosschainBySearch | ${e}`);
+             throw new Error(`Error | getCrosschainBySearch | ${e}`);
            }
          }
          /**
@@ -252,7 +252,7 @@ export class RouterExplorer {
              );
              return data;
            } catch (e) {
-             console.log(`Error | getCrosschainByAttestationId | ${e}`);
+             throw new Error(`Error | getCrosschainByAttestationId | ${e}`);
            }
          }
        }

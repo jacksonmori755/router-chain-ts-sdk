@@ -37,9 +37,7 @@ const wrapTypeToArray = <T>(obj: T | T[]) => {
 function createAnyMessage(msg: MessageGenerated) {
   let binaryValue;
   try {
-    console.log('SDK msg =>', msg);
     binaryValue = msg.message.serializeBinary();
-    console.log('SDK binaryValue =>', binaryValue);
   } catch (e) {
     binaryValue = msg.message.toBinary();
   }
@@ -261,9 +259,5 @@ export const getPostOptions = (signedTx: TxToSend) => {
     headers: { 'Content-Type': 'application/json' },
     body: generatePostBodyBroadcast(signedTx),
   };
-  console.log(
-    'SDK Tx Bytes => ',
-    JSON.stringify(generatePostBodyBroadcast(signedTx))
-  );
   return postOptions;
 };
