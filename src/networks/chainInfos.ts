@@ -20,7 +20,7 @@ export const devnetChainInfo: ChainInfo = {
 
 export const localChainInfo: ChainInfo = {
          feeDenom: 'route',
-         chainId: 'router-1',
+         chainId: 'router_9000-1',
          env: 'local',
        };
 

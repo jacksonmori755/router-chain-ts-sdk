@@ -163,14 +163,13 @@ export const latestCrosschainsQuery = `
         timestamp
       }
       eventConfirmSignatures{
-        chainType
-        chainId
-        eventNonce
-        voter
-        blockHeight
+        validator
+        txnHash
         timestamp
+        blockHeight
+        signature
+        ethSigner
       }
-      voter
       ackRequest{
         eventAckRequestCreated{
           attestationId
@@ -202,7 +201,6 @@ export const latestCrosschainsQuery = `
           txnHash
           timestamp
         }
-        voter
         claimHash
         txFeeInRoute
         chainType
@@ -234,6 +232,9 @@ export const latestCrosschainsQuery = `
         ackGasLimit
         ackGasPrice
         feePayer
+        relayerFeeInRoute
+        refundFeeInRoute
+        errorResponse
         eventSignatures{
           chainType
           chainId
@@ -245,8 +246,17 @@ export const latestCrosschainsQuery = `
       }
       customFormAttestationId
       destinationTxHash
+      eventAckConfirmSignatures{
+        validator
+        txnHash
+        timestamp
+        blockHeight
+        signature
+        ethSigner
+      }
       createdAt
       updatedAt
+      destTxFeeInRoute
       relayerFee
 			relayerFeeInRoute
       refundFeeInRoute
@@ -255,6 +265,14 @@ export const latestCrosschainsQuery = `
       relayerAddress
       execStatus
       execData
+      eventSignatures{
+        chainType
+        chainId
+        eventNonce
+        voter
+        blockHeight
+        timestamp
+      }
     }
     }
 }
@@ -304,13 +322,13 @@ export const specificCrosschainQuery = `
         timestamp
       }
       eventConfirmSignatures{
-        chainType
-        chainId
-        eventNonce
-        voter
+        validator
+        txnHash
+        timestamp
         blockHeight
+        signature
+        ethSigner
       }
-      voter
       ackRequest{
         eventAckRequestCreated{
           attestationId
@@ -342,7 +360,6 @@ export const specificCrosschainQuery = `
           txnHash
           timestamp
         }
-        voter
         claimHash
         txFeeInRoute
         chainType
@@ -374,18 +391,31 @@ export const specificCrosschainQuery = `
         ackGasLimit
         ackGasPrice
         feePayer
+        relayerFeeInRoute
+        refundFeeInRoute
+        errorResponse
         eventSignatures{
           chainType
           chainId
           eventNonce
           voter
           blockHeight
+          timestamp
         }
       }
       customFormAttestationId
       destinationTxHash
+      eventAckConfirmSignatures{
+        validator
+        txnHash
+        timestamp
+        blockHeight
+        signature
+        ethSigner
+      }
       createdAt
       updatedAt
+      destTxFeeInRoute
       relayerFee
 			relayerFeeInRoute
       refundFeeInRoute
@@ -394,6 +424,14 @@ export const specificCrosschainQuery = `
       relayerAddress
       execStatus
       execData
+      eventSignatures{
+        chainType
+        chainId
+        eventNonce
+        voter
+        blockHeight
+        timestamp
+      }
   }
 }
 `;
@@ -443,13 +481,13 @@ export const searchSpecificCrosschainQuery = `
         timestamp
       }
       eventConfirmSignatures{
-        chainType
-        chainId
-        eventNonce
-        voter
+        validator
+        txnHash
+        timestamp
         blockHeight
+        signature
+        ethSigner
       }
-      voter
       ackRequest{
         eventAckRequestCreated{
           attestationId
@@ -481,7 +519,6 @@ export const searchSpecificCrosschainQuery = `
           txnHash
           timestamp
         }
-        voter
         claimHash
         txFeeInRoute
         chainType
@@ -513,18 +550,31 @@ export const searchSpecificCrosschainQuery = `
         ackGasLimit
         ackGasPrice
         feePayer
+        relayerFeeInRoute
+        refundFeeInRoute
+        errorResponse
         eventSignatures{
           chainType
           chainId
           eventNonce
           voter
           blockHeight
+          timestamp
         }
       }
       customFormAttestationId
       destinationTxHash
+      eventAckConfirmSignatures{
+        validator
+        txnHash
+        timestamp
+        blockHeight
+        signature
+        ethSigner
+      }
       createdAt
       updatedAt
+      destTxFeeInRoute
       relayerFee
 			relayerFeeInRoute
       refundFeeInRoute
@@ -533,6 +583,14 @@ export const searchSpecificCrosschainQuery = `
       relayerAddress
       execStatus
       execData
+      eventSignatures{
+        chainType
+        chainId
+        eventNonce
+        voter
+        blockHeight
+        timestamp
+      }
     }
     }
 }
@@ -584,13 +642,13 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
         timestamp
       }
       eventConfirmSignatures{
-        chainType
-        chainId
-        eventNonce
-        voter
+        validator
+        txnHash
+        timestamp
         blockHeight
+        signature
+        ethSigner
       }
-      voter
       ackRequest{
         eventAckRequestCreated{
           attestationId
@@ -622,7 +680,6 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
           txnHash
           timestamp
         }
-        voter
         claimHash
         txFeeInRoute
         chainType
@@ -654,18 +711,31 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
         ackGasLimit
         ackGasPrice
         feePayer
+        relayerFeeInRoute
+        refundFeeInRoute
+        errorResponse
         eventSignatures{
           chainType
           chainId
           eventNonce
           voter
           blockHeight
+          timestamp
         }
       }
       customFormAttestationId
       destinationTxHash
+      eventAckConfirmSignatures{
+        validator
+        txnHash
+        timestamp
+        blockHeight
+        signature
+        ethSigner
+      }
       createdAt
       updatedAt
+      destTxFeeInRoute
       relayerFee
 			relayerFeeInRoute
       refundFeeInRoute
@@ -674,6 +744,14 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
       relayerAddress
       execStatus
       execData
+      eventSignatures{
+        chainType
+        chainId
+        eventNonce
+        voter
+        blockHeight
+        timestamp
+      }
     }
     }
 }
@@ -725,13 +803,13 @@ export const searchSpecificCrosschainDestChainIdQuery = `
         timestamp
       }
       eventConfirmSignatures{
-        chainType
-        chainId
-        eventNonce
-        voter
+        validator
+        txnHash
+        timestamp
         blockHeight
+        signature
+        ethSigner
       }
-      voter
       ackRequest{
         eventAckRequestCreated{
           attestationId
@@ -763,7 +841,6 @@ export const searchSpecificCrosschainDestChainIdQuery = `
           txnHash
           timestamp
         }
-        voter
         claimHash
         txFeeInRoute
         chainType
@@ -795,18 +872,31 @@ export const searchSpecificCrosschainDestChainIdQuery = `
         ackGasLimit
         ackGasPrice
         feePayer
+        relayerFeeInRoute
+        refundFeeInRoute
+        errorResponse
         eventSignatures{
           chainType
           chainId
           eventNonce
           voter
           blockHeight
+          timestamp
         }
       }
       customFormAttestationId
       destinationTxHash
+      eventAckConfirmSignatures{
+        validator
+        txnHash
+        timestamp
+        blockHeight
+        signature
+        ethSigner
+      }
       createdAt
       updatedAt
+      destTxFeeInRoute
       relayerFee
 			relayerFeeInRoute
       refundFeeInRoute
@@ -815,6 +905,14 @@ export const searchSpecificCrosschainDestChainIdQuery = `
       relayerAddress
       execStatus
       execData
+      eventSignatures{
+        chainType
+        chainId
+        eventNonce
+        voter
+        blockHeight
+        timestamp
+      }
     }
     }
 }
@@ -866,13 +964,13 @@ export const searchSpecificCrosschainChainIdQuery = `
         timestamp
       }
       eventConfirmSignatures{
-        chainType
-        chainId
-        eventNonce
-        voter
+        validator
+        txnHash
+        timestamp
         blockHeight
+        signature
+        ethSigner
       }
-      voter
       ackRequest{
         eventAckRequestCreated{
           attestationId
@@ -904,7 +1002,6 @@ export const searchSpecificCrosschainChainIdQuery = `
           txnHash
           timestamp
         }
-        voter
         claimHash
         txFeeInRoute
         chainType
@@ -936,18 +1033,31 @@ export const searchSpecificCrosschainChainIdQuery = `
         ackGasLimit
         ackGasPrice
         feePayer
+        relayerFeeInRoute
+        refundFeeInRoute
+        errorResponse
         eventSignatures{
           chainType
           chainId
           eventNonce
           voter
           blockHeight
+          timestamp
         }
       }
       customFormAttestationId
       destinationTxHash
+      eventAckConfirmSignatures{
+        validator
+        txnHash
+        timestamp
+        blockHeight
+        signature
+        ethSigner
+      }
       createdAt
       updatedAt
+      destTxFeeInRoute
       relayerFee
 			relayerFeeInRoute
       refundFeeInRoute
@@ -956,6 +1066,14 @@ export const searchSpecificCrosschainChainIdQuery = `
       relayerAddress
       execStatus
       execData
+      eventSignatures{
+        chainType
+        chainId
+        eventNonce
+        voter
+        blockHeight
+        timestamp
+      }
     }
     }
 }

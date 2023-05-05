@@ -59,11 +59,11 @@ interface HistoryStatusType {
   blockHeight: number;
 }
 
-interface VoteAttestationType{
-	chainType: string;
-	chainId:     string;
-	eventNonce:  number;
-	voter:       string;
+interface VoteAttestationType {
+  chainType: string;
+  chainId: string;
+  eventNonce: number;
+  voter: string;
   blockHeight: number;
   timestamp: number;
 }
@@ -126,7 +126,7 @@ interface EventCrosschainAckRequestCreated {
   ackSrcChainType: number;
   ackDestChainType: number;
   execData: string;
-  execStatus: Boolean;
+  execStatus: boolean;
   status: string;
 }
 
@@ -144,7 +144,6 @@ export interface AckRequest {
   eventAckRequestConfirm: EventCrosschainAckRequestConfirm;
   status: string;
   historyStatus: HistoryStatusType[];
-  voter: string[];
   claimHash: string;
   txFeeInRoute: string;
   chainType: string;
@@ -155,6 +154,9 @@ export interface AckRequest {
   ackGasLimit: number;
   ackGasPrice: number;
   feePayer: string;
+  relayerFeeInRoute: string;
+  refundFeeInRoute: string;
+  errorResponse: string;
   eventSignatures: VoteAttestationType[];
 }
 
@@ -178,21 +180,22 @@ export interface CrosschainType {
   status: string;
   eventHistory: EventHistory[];
   historyStatus: HistoryStatusType[];
-  eventConfirmSignatures: VoteAttestationType[];
-  voter: string;
+  eventConfirmSignatures: EventSignatureType[];
   ackRequest: AckRequest;
   customFormAttestationId: string;
   destinationTxHash: string;
+  eventAckConfirmSignatures: EventSignatureType[];
   createdAt: number;
   updatedAt: number;
+  destTxFeeInRoute: string;
   relayerFee: string;
   relayerFeeInRoute: string;
   refundFeeInRoute: string;
   feePayer: string;
   errorResponse: string;
   relayerAddress: string;
-  execStatus: number;
-  execData: string;
+  execStatus: boolean;
+  eventSignatures: VoteAttestationType[];
 }
 
 export interface PaginatedCrosschain {
