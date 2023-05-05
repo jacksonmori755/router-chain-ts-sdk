@@ -6,6 +6,7 @@ import {
   MsgExecuteCwContract,
   Msgs,
 } from '../../core';
+import { TransactionException } from '../../exceptions';
 import {
   getChainInfoForNetwork,
   getEthereumChainIdForNetwork,
@@ -172,6 +173,6 @@ export const executeQueryMetamask = async ({
     const broadcastResponse = await broadcastRawTx(txRawToSend, nodeUrl);
     return broadcastResponse;
   } catch (e) {
-    throw e;
+    throw new TransactionException(new Error((e as any).message));
   }
 };

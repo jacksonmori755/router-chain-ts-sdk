@@ -24,6 +24,8 @@ export interface TxClientBroadcastResponse {
   gasUsed: number;
   timestamp: string;
   events?: any[];
+  logsList?: any[];
+  eventsList?: any[];
 }
 
 export interface TxClientSimulateResponse {
