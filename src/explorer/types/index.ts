@@ -195,10 +195,24 @@ export interface CrosschainType {
   errorResponse: string;
   relayerAddress: string;
   execStatus: boolean;
+  execData: string;
   eventSignatures: VoteAttestationType[];
 }
 
 export interface PaginatedCrosschain {
   totalRecords: number;
   crosschains: CrosschainType[];
+}
+
+export interface InboundOutboundMapType {
+  id: string;
+  inboundId: string;
+  outboundId: string;
+  inboundChainId: string;
+  inboundNonce: string;
+  outboundChainId: string;
+  outboundNonce: string;
+  middlewareContract: string;
+  blockHeight: number;
+  timestamp: number;
 }

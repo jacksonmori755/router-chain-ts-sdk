@@ -119,7 +119,7 @@ export const specificTransactionQuery = `
 
 export const latestCrosschainsQuery = `
   query getLatestCrosschains($timeRange:[Int], $limit: Int!, $offset: Int!){
-    paginatedCrosschain(filter:{updatedAt:{range:$timeRange}}, sortBy:{blockHeight:desc}, limit:$limit, offset:$offset){
+    paginatedCrosschain(filter:{updatedAt:{range:$timeRange}}, sortBy:{updatedAt:desc}, limit:$limit, offset:$offset){
     totalRecords
     crosschains{
       id
@@ -437,7 +437,7 @@ export const specificCrosschainQuery = `
 `;
 export const searchSpecificCrosschainQuery = `
   query getCrosschainByFormAttestationId($timeRange:[Int], $searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrosschain(filter:{createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  paginatedCrosschain(filter:{createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm},sortBy:{updatedAt:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
       id
@@ -598,7 +598,7 @@ export const searchSpecificCrosschainQuery = `
 
 export const searchSpecificCrosschainSrcChainIdQuery = `
   query getCrosschainByFormAttestationId($timeRange:[Int],$sourceChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm},sortBy:{updatedAt:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
       id
@@ -759,7 +759,7 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
 
 export const searchSpecificCrosschainDestChainIdQuery = `
   query getCrosschainByFormAttestationId($timeRange:[Int],$destinationChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrosschain(filter:{destChainId:{in:$destinationChainIds},createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  paginatedCrosschain(filter:{destChainId:{in:$destinationChainIds},createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm},sortBy:{updatedAt:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
      id
@@ -920,7 +920,7 @@ export const searchSpecificCrosschainDestChainIdQuery = `
 
 export const searchSpecificCrosschainChainIdQuery = `
   query getCrosschainByFormAttestationId($timeRange:[Int], $sourceChainIds: [String],$destinationChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds},destChainId:{in:$destinationChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm},sortBy:{blockHeight:desc},limit:$limit,offset:$offset){
+  paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds},destChainId:{in:$destinationChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm},sortBy:{updatedAt:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
       id
@@ -1076,6 +1076,22 @@ export const searchSpecificCrosschainChainIdQuery = `
       }
     }
     }
+}
+`;
+
+export const inboundOutboundQuery = `
+query findOutboundsToInbound($inboundId:String!){
+  outboundToInboundMap(inboundId:$inboundId){
+    id
+    inboundId
+    outboundId
+    inboundNonce
+    outboundChainId
+    outboundNonce
+    middlewareContract
+    blockHeight
+    timestamp
+  }
 }
 `;
 

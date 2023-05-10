@@ -11,6 +11,7 @@ import {
   specificBlockQuery,
   specificCrosschainQuery,
   specificTransactionQuery,
+  inboundOutboundQuery,
 } from '../queries';
 import { gqlFetcher } from '../utils';
 
@@ -253,6 +254,26 @@ export class RouterExplorer {
              return data;
            } catch (e) {
              throw new Error(`Error | getCrosschainByAttestationId | ${e}`);
+           }
+         }
+         /**
+          * Fetches specific Transaction
+          * @param {string} inboundId
+          * @return {InboundOutboundMap[]}
+          * @throws {Error}
+          */
+         public async getOutboundsForInbound(inboundId: String) {
+           try {
+             const data = await gqlFetcher(
+               this.chainEnvironment,
+               inboundOutboundQuery,
+               {
+                 inboundId,
+               }
+             );
+             return data;
+           } catch (e) {
+             throw new Error(`Error | getOutboundsForInbound | ${e}`);
            }
          }
        }
