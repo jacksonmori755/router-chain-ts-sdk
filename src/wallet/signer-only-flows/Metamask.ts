@@ -32,6 +32,14 @@ import { GAS_LIMIT_MULTIPLIER, ROUTER_DEFAULT_GAS_PRICE } from '../utils';
 
 /**
  * Executes query on cosmwasm contract on router chain via metamask
+ * @param networkEnv - Network Environment of Router Chain
+ * @param contractAddress - CosmWasm contract address
+ * @param executeMsg - Execution Query
+ * @param nodeUrl - LCD node Url
+ * @param ethereumAddress - Ethereum address of user
+ * @param metmaskSigner - window.ethereum
+ * @param funds - if contract requires funds with execution
+ * @param memo - String
  * @return {BroadcastResponse}
  * @throws {Error}
  */

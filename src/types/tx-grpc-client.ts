@@ -116,4 +116,6 @@ export interface TxResponse {
   gasUsed: number;
   timestamp: string;
   events?: any[];
+  logsList?: any[];
+  eventsList?: any[];
 }
