@@ -119,7 +119,7 @@ export const specificTransactionQuery = `
 
 export const latestCrosschainsQuery = `
   query getLatestCrosschains($timeRange:[Int], $limit: Int!, $offset: Int!){
-    paginatedCrosschain(filter:{updatedAt:{range:$timeRange}}, sortBy:{updatedAt:desc}, limit:$limit, offset:$offset){
+    paginatedCrosschain(filter:{updatedAt:{range:$timeRange}}, sortBy:{createdAt:desc}, limit:$limit, offset:$offset){
     totalRecords
     crosschains{
       id
@@ -196,6 +196,13 @@ export const latestCrosschainsQuery = `
           orchestrator
         }
         status
+        eventHistory{
+          name
+          height
+          timestamp
+          txnHash
+          height
+        }
         historyStatus{
           status
           txnHash
@@ -233,6 +240,7 @@ export const latestCrosschainsQuery = `
         ackGasPrice
         feePayer
         relayerFeeInRoute
+        relayerIncentiveInRoute
         refundFeeInRoute
         errorResponse
         eventSignatures{
@@ -259,6 +267,7 @@ export const latestCrosschainsQuery = `
       destTxFeeInRoute
       relayerFee
 			relayerFeeInRoute
+      relayerIncentiveInRoute
       refundFeeInRoute
       feePayer
       errorResponse
@@ -355,6 +364,13 @@ export const specificCrosschainQuery = `
           orchestrator
         }
         status
+        eventHistory{
+          name
+          height
+          timestamp
+          txnHash
+          height
+        }
         historyStatus{
           status
           txnHash
@@ -392,6 +408,7 @@ export const specificCrosschainQuery = `
         ackGasPrice
         feePayer
         relayerFeeInRoute
+        relayerIncentiveInRoute
         refundFeeInRoute
         errorResponse
         eventSignatures{
@@ -418,6 +435,7 @@ export const specificCrosschainQuery = `
       destTxFeeInRoute
       relayerFee
 			relayerFeeInRoute
+      relayerIncentiveInRoute
       refundFeeInRoute
       feePayer
       errorResponse
@@ -437,7 +455,7 @@ export const specificCrosschainQuery = `
 `;
 export const searchSpecificCrosschainQuery = `
   query getCrosschainByFormAttestationId($timeRange:[Int], $searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrosschain(filter:{createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm},sortBy:{updatedAt:desc},limit:$limit,offset:$offset){
+  paginatedCrosschain(filter:{createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
       id
@@ -514,6 +532,13 @@ export const searchSpecificCrosschainQuery = `
           orchestrator
         }
         status
+        eventHistory{
+          name
+          height
+          timestamp
+          txnHash
+          height
+        }
         historyStatus{
           status
           txnHash
@@ -551,6 +576,7 @@ export const searchSpecificCrosschainQuery = `
         ackGasPrice
         feePayer
         relayerFeeInRoute
+        relayerIncentiveInRoute
         refundFeeInRoute
         errorResponse
         eventSignatures{
@@ -577,6 +603,7 @@ export const searchSpecificCrosschainQuery = `
       destTxFeeInRoute
       relayerFee
 			relayerFeeInRoute
+      relayerIncentiveInRoute
       refundFeeInRoute
       feePayer
       errorResponse
@@ -598,7 +625,7 @@ export const searchSpecificCrosschainQuery = `
 
 export const searchSpecificCrosschainSrcChainIdQuery = `
   query getCrosschainByFormAttestationId($timeRange:[Int],$sourceChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm},sortBy:{updatedAt:desc},limit:$limit,offset:$offset){
+  paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
       id
@@ -675,6 +702,13 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
           orchestrator
         }
         status
+        eventHistory{
+          name
+          height
+          timestamp
+          txnHash
+          height
+        }
         historyStatus{
           status
           txnHash
@@ -712,6 +746,7 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
         ackGasPrice
         feePayer
         relayerFeeInRoute
+        relayerIncentiveInRoute
         refundFeeInRoute
         errorResponse
         eventSignatures{
@@ -738,6 +773,7 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
       destTxFeeInRoute
       relayerFee
 			relayerFeeInRoute
+      relayerIncentiveInRoute
       refundFeeInRoute
       feePayer
       errorResponse
@@ -759,7 +795,7 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
 
 export const searchSpecificCrosschainDestChainIdQuery = `
   query getCrosschainByFormAttestationId($timeRange:[Int],$destinationChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrosschain(filter:{destChainId:{in:$destinationChainIds},createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm},sortBy:{updatedAt:desc},limit:$limit,offset:$offset){
+  paginatedCrosschain(filter:{destChainId:{in:$destinationChainIds},createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
      id
@@ -836,6 +872,13 @@ export const searchSpecificCrosschainDestChainIdQuery = `
           orchestrator
         }
         status
+        eventHistory{
+          name
+          height
+          timestamp
+          txnHash
+          height
+        }
         historyStatus{
           status
           txnHash
@@ -873,6 +916,7 @@ export const searchSpecificCrosschainDestChainIdQuery = `
         ackGasPrice
         feePayer
         relayerFeeInRoute
+        relayerIncentiveInRoute
         refundFeeInRoute
         errorResponse
         eventSignatures{
@@ -899,6 +943,7 @@ export const searchSpecificCrosschainDestChainIdQuery = `
       destTxFeeInRoute
       relayerFee
 			relayerFeeInRoute
+      relayerIncentiveInRoute
       refundFeeInRoute
       feePayer
       errorResponse
@@ -920,7 +965,7 @@ export const searchSpecificCrosschainDestChainIdQuery = `
 
 export const searchSpecificCrosschainChainIdQuery = `
   query getCrosschainByFormAttestationId($timeRange:[Int], $sourceChainIds: [String],$destinationChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds},destChainId:{in:$destinationChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm},sortBy:{updatedAt:desc},limit:$limit,offset:$offset){
+  paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds},destChainId:{in:$destinationChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
       id
@@ -997,6 +1042,13 @@ export const searchSpecificCrosschainChainIdQuery = `
           orchestrator
         }
         status
+        eventHistory{
+          name
+          height
+          timestamp
+          txnHash
+          height
+        }
         historyStatus{
           status
           txnHash
@@ -1034,6 +1086,7 @@ export const searchSpecificCrosschainChainIdQuery = `
         ackGasPrice
         feePayer
         relayerFeeInRoute
+        relayerIncentiveInRoute
         refundFeeInRoute
         errorResponse
         eventSignatures{
@@ -1060,6 +1113,7 @@ export const searchSpecificCrosschainChainIdQuery = `
       destTxFeeInRoute
       relayerFee
 			relayerFeeInRoute
+      relayerIncentiveInRoute
       refundFeeInRoute
       feePayer
       errorResponse

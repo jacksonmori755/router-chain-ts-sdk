@@ -13,6 +13,15 @@ import {
   specificTransactionQuery,
   inboundOutboundQuery,
 } from '../queries';
+import {
+  BlockType,
+  CrosschainType,
+  InboundOutboundMapType,
+  PaginatedBlock,
+  PaginatedCrosschain,
+  PaginatedTransaction,
+  TransactionType,
+} from '../types';
 import { gqlFetcher } from '../utils';
 
 /**
@@ -38,14 +47,14 @@ export class RouterExplorer {
           * @param {string} timeRange Time Range
           * @param {string} limit Page Limit
           * @param {string} offset Page Number
-          * @return {Blocks}
+          * @return {PaginatedBlock}
           * @throws {Error}
           */
          public async getLatestBlocks(
            timeRange: number[] = [],
            limit: Number = 10,
            offset: Number = 1
-         ) {
+         ): Promise<{ paginatedBlock: PaginatedBlock }> {
            try {
              const data = await gqlFetcher(
                this.chainEnvironment,
@@ -65,10 +74,12 @@ export class RouterExplorer {
          /**
           * Fetches specific Block
           * @param {string} height BlockHeight
-          * @return {Block}
+          * @return {BlockType}
           * @throws {Error}
           */
-         public async getBlockByHeight(height: Number) {
+         public async getBlockByHeight(
+           height: Number
+         ): Promise<{ block: BlockType }> {
            try {
              const data = await gqlFetcher(
                this.chainEnvironment,
@@ -87,14 +98,14 @@ export class RouterExplorer {
           * @param {string} timeRange Time Range
           * @param {string} limit Page Limit
           * @param {string} offset Page Number
-          * @return {Transactions}
+          * @return {PaginatedTransaction}
           * @throws {Error}
           */
          public async getLatestTransactions(
            timeRange: number[] = [],
            limit: Number = 10,
            offset: Number = 1
-         ) {
+         ): Promise<{ paginatedTransaction: PaginatedTransaction }> {
            try {
              const data = await gqlFetcher(
                this.chainEnvironment,
@@ -117,7 +128,7 @@ export class RouterExplorer {
           * @param {string} address Address
           * @param {string} limit Page Limit
           * @param {string} offset Page Number
-          * @return {Transactions}
+          * @return {PaginatedTransaction}
           * @throws {Error}
           */
          public async getLatestTransactionsByAddress(
@@ -125,7 +136,7 @@ export class RouterExplorer {
            timeRange: number[] = [],
            limit: Number = 10,
            offset: Number = 1
-         ) {
+         ): Promise<{ paginatedTransaction: PaginatedTransaction }> {
            try {
              const data = await gqlFetcher(
                this.chainEnvironment,
@@ -148,7 +159,9 @@ export class RouterExplorer {
           * @return {Transaction}
           * @throws {Error}
           */
-         public async getTransactionByHash(hash: String) {
+         public async getTransactionByHash(
+           hash: String
+         ): Promise<{ transaction: TransactionType }> {
            try {
              const data = await gqlFetcher(
                this.chainEnvironment,
@@ -168,7 +181,7 @@ export class RouterExplorer {
           * @param {string} timeRange Time Range
           * @param {string} limit Page Limit
           * @param {string} offset Page Number
-          * @return {Crosschains}
+          * @return {PaginatedCrosschain}
           * @throws {Error}
           */
 
@@ -176,7 +189,7 @@ export class RouterExplorer {
            timeRange: number[] = [],
            limit: Number = 10,
            offset: Number = 1
-         ) {
+         ): Promise<{ paginatedCrosschain: PaginatedCrosschain }> {
            try {
              const data = await gqlFetcher(
                this.chainEnvironment,
@@ -199,7 +212,7 @@ export class RouterExplorer {
           * @param {string} searchTerm Source Sender or Source Transaction Hash
           * @param {string} limit Page Limit
           * @param {string} offset Page Number
-          * @return {Crosschains}
+          * @return {PaginatedCrosschain}
           * @throws {Error}
           */
          public async getCrosschainBySearch(
@@ -209,7 +222,7 @@ export class RouterExplorer {
            timeRange: number[] = [],
            limit: Number = 10,
            offset: Number = 1
-         ) {
+         ): Promise<{ paginatedCrosschain: PaginatedCrosschain }> {
            try {
              const data = await gqlFetcher(
                this.chainEnvironment,
@@ -239,10 +252,12 @@ export class RouterExplorer {
          /**
           * Fetches specific Crosschain
           * @param {string} formAttestationId
-          * @return {Crosschain}
+          * @return {CrosschainType}
           * @throws {Error}
           */
-         public async getCrosschainByAttestationId(formAttestationId: String) {
+         public async getCrosschainByAttestationId(
+           formAttestationId: String
+         ): Promise<{ crosschain: CrosschainType }> {
            try {
              const data = await gqlFetcher(
                this.chainEnvironment,
@@ -259,10 +274,12 @@ export class RouterExplorer {
          /**
           * Fetches specific Transaction
           * @param {string} inboundId
-          * @return {InboundOutboundMap[]}
+          * @return {InboundOutboundMapType[]}
           * @throws {Error}
           */
-         public async getOutboundsForInbound(inboundId: String) {
+         public async getOutboundsForInbound(
+           inboundId: String
+         ): Promise<{ outboundToInboundMap: InboundOutboundMapType[] }> {
            try {
              const data = await gqlFetcher(
                this.chainEnvironment,

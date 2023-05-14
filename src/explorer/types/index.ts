@@ -143,6 +143,7 @@ export interface AckRequest {
   eventAckRequestCreated: EventCrosschainAckRequestCreated;
   eventAckRequestConfirm: EventCrosschainAckRequestConfirm;
   status: string;
+  eventHistory: EventHistory[];
   historyStatus: HistoryStatusType[];
   claimHash: string;
   txFeeInRoute: string;
@@ -155,6 +156,7 @@ export interface AckRequest {
   ackGasPrice: number;
   feePayer: string;
   relayerFeeInRoute: string;
+  relayerIncentiveInRoute: string;
   refundFeeInRoute: string;
   errorResponse: string;
   eventSignatures: VoteAttestationType[];
@@ -190,6 +192,7 @@ export interface CrosschainType {
   destTxFeeInRoute: string;
   relayerFee: string;
   relayerFeeInRoute: string;
+  relayerIncentiveInRoute: string;
   refundFeeInRoute: string;
   feePayer: string;
   errorResponse: string;

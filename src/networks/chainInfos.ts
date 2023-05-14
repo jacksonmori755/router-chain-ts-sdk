@@ -1,28 +1,28 @@
 import { ChainConfigurationtype, ChainInfo } from './types';
 
 export const mainnetChainInfo: ChainInfo = {
-         feeDenom: 'route',
-         chainId: 'router-1',
-         env: 'mainnet',
-       };
+  feeDenom: 'route',
+  chainId: 'router_9600-1',
+  env: 'mainnet',
+};
 
 export const testnetChainInfo: ChainInfo = {
-         feeDenom: 'route',
-         chainId: 'router_9000-1',
-         env: 'testnet',
-       };
+  feeDenom: 'route',
+  chainId: 'router_9601-1',
+  env: 'testnet',
+};
 
 export const devnetChainInfo: ChainInfo = {
-         feeDenom: 'route',
-         chainId: 'router_9000-1',
-         env: 'devnet',
-       };
+  feeDenom: 'route',
+  chainId: 'router_9603-1',
+  env: 'devnet',
+};
 
 export const localChainInfo: ChainInfo = {
-         feeDenom: 'route',
-         chainId: 'router_9000-1',
-         env: 'local',
-       };
+  feeDenom: 'route',
+  chainId: 'router_9604-1',
+  env: 'local',
+};
 
 export const dockerChainInfo: ChainInfo = {
          feeDenom: 'route',
@@ -37,10 +37,10 @@ export const internalDevnetChainInfo: ChainInfo = {
        };
 
 export const alphaDevnetChainInfo: ChainInfo = {
-  feeDenom: 'route',
-  chainId: 'router_9000-1',
-  env: 'alpha-devnet',
-};
+         feeDenom: 'route',
+         chainId: 'router_9605-1',
+         env: 'alpha-devnet',
+       };
 
 export enum ChainType {
   EVM = 'CHAIN_TYPE_EVM',
