@@ -12,7 +12,7 @@ import {
 import { CrosschainRequestConfirm } from '@routerprotocol/chain-api/routerchain/crosschain/crosschain_request_confirm_pb';
 import { CrosschainAckRequest } from '@routerprotocol/chain-api/routerchain/crosschain/crosschain_ack_request_pb';
 import { CrosschainAckRequestConfirm } from '@routerprotocol/chain-api/routerchain/crosschain/crosschain_ack_request_confirm_pb';
-
+import { Coin } from '@routerprotocol/chain-api/cosmos/base/v1beta1/coin_pb';
 export class ChainGrpcCrosschainTransformer {
 
     static crosschainRequests(
@@ -95,6 +95,7 @@ export class ChainGrpcCrosschainTransformer {
     private static crosschainRequestObj(
         request: CrosschainRequest
     ): CrosschainRequest.AsObject {
+
         return {
             srcChainId: request.getSrcChainId(),
             requestIdentifier: request.getRequestIdentifier(),
@@ -105,11 +106,15 @@ export class ChainGrpcCrosschainTransformer {
             routeAmount: request.getRouteAmount(),
             routeRecipient: request.getRouteRecipient(),
             destChainId: request.getDestChainId(),
+            destGasLimit: request.getDestGasLimit(),
+            destGasPrice: request.getDestGasPrice(),
+            relayerIncentive: ChainGrpcCrosschainTransformer.coinObject(request.getRelayerIncentive()),
             requestSender: request.getRequestSender(),
             requestMetadata: request.getRequestMetadata(),
             requestPacket: request.getRequestPacket(),
             srcChainType: request.getSrcChainType(),
             destChainType: request.getDestChainType(),
+            destTxFeeDeducted: ChainGrpcCrosschainTransformer.coinObject(request.getDestTxFeeDeducted()),
             status: request.getStatus(),
         }
     }
@@ -142,12 +147,16 @@ export class ChainGrpcCrosschainTransformer {
           requestidentifier: request.getRequestidentifier(),
           ackSrcChainType: request.getAckSrcChainType(),
           ackDestChainType: request.getAckDestChainType(),
+          feeconsumed: request.getFeeconsumed(),
           execdata: request.getExecdata(),
           execstatus: request.getExecstatus(),
           ethsigner: request.getEthsigner(),
           signature: request.getSignature(),
+          ackGasLimit: request.getAckGasLimit(),
+          ackGasPrice: request.getAckGasPrice(),
+          ackFeeDeducted: ChainGrpcCrosschainTransformer.coinObject(request.getAckFeeDeducted()),
+          ackRelayerIncentive: ChainGrpcCrosschainTransformer.coinObject(request.getAckRelayerIncentive()),
           status: request.getStatus(),
-          feeconsumed: request.getFeeconsumed(),
         };
     }
 
@@ -171,6 +180,17 @@ export class ChainGrpcCrosschainTransformer {
         return {
             nextKey: pageResponse.getNextKey(),
             total: pageResponse.getTotal()
+        }
+    }
+
+    private static coinObject(coin: Coin | undefined): Coin.AsObject | undefined {
+        if (coin == null) {
+            return undefined
+        }
+        
+        return {
+            denom: coin.getDenom(),
+            amount: coin.getAmount()
         }
     }
 
