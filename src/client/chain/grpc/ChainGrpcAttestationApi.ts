@@ -31,7 +31,7 @@ import { ChainGrpcAttestationTransformer } from '../transformers';
  */
 export class ChainGrpcAttestationApi extends BaseConsumer {
          /**
-          *
+          * Fetch latest valset nonce
           * @returns latest valset nonce.
           */
          async fetchLatestValsetNonce() {
@@ -52,7 +52,7 @@ export class ChainGrpcAttestationApi extends BaseConsumer {
          }
 
          /**
-          *
+          * Fetches all valsets
           * @returns all valsets.
           */
          async fetchAllValsets() {

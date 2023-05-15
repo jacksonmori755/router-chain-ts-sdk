@@ -21,6 +21,11 @@ import BaseConsumer from '../../BaseGrpcConsumer';
  * ```
  */
 export class ChainGrpcIbcApi extends BaseConsumer {
+  /**
+   * 
+   * @param hash 
+   * @returns 
+   */
   async fetchDenomTrace(hash: string) {
     const request = new QueryDenomTraceRequest();
     request.setHash(hash);
@@ -39,6 +44,10 @@ export class ChainGrpcIbcApi extends BaseConsumer {
     }
   }
 
+  /**
+   * 
+   * @returns 
+   */
   async fetchDenomsTrace() {
     const request = new QueryDenomTracesRequest();
 
