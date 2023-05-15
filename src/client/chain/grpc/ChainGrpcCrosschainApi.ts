@@ -17,8 +17,26 @@ import BaseConsumer from '../../BaseGrpcConsumer';
 import { ChainGrpcCrosschainTransformer } from '../transformers';
 import { PageRequest } from '@routerprotocol/chain-api/cosmos/base/query/v1beta1/pagination_pb';
 
+/**
+ * The Crosschain module is responsible for handling inbound, outbound and crosstalk requests.
+ * 
+ * @group gRPC API
+ * 
+ * @example
+ * To use Crosschain methods, initialise a {@link ChainGrpcCrosschainApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
+ * ```ts
+ * const endpoint =  getEndpointsForNetwork(Network.Devnet).grpcEndpoint;
+ * const client = new ChainGrpcCrosschainApi(endpoint);
+ * const response = await client.fetchCrosschainRequests();
+ * ```
+ */
 export class ChainGrpcCrosschainApi extends BaseConsumer {
 
+  /**
+   * Fetches all crosschain requests
+   * @param pageRequestObject 
+   * @returns 
+   */
   async fetchCrosschainRequests(pageRequestObject?: PageRequest.AsObject) {
     const request = new QueryAllCrosschainRequestRequest();
 
@@ -47,6 +65,14 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
     }
   }
 
+  /**
+   * Fetch crosschain request confirmations
+   * @param sourceChainId 
+   * @param requestIdentifier 
+   * @param claimHash 
+   * @param pageRequestObject 
+   * @returns 
+   */
   async fetchCrosschainRequestConfirmations(sourceChainId: string, requestIdentifier: number, claimHash: Uint8Array | string, pageRequestObject?: PageRequest.AsObject) {
     const request = new QueryAllCrosschainRequestConfirmRequest();
     request.setSourcechainid(sourceChainId);
@@ -80,6 +106,11 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
     }
   }
 
+  /**
+   * Fetch crosschain ack requests
+   * @param pageRequestObject 
+   * @returns 
+   */
   async fetchCrosschainAckRequests(pageRequestObject?: PageRequest.AsObject) {
     const request = new QueryAllCrosschainAckRequestRequest();
 
@@ -108,6 +139,14 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
     }
   }
 
+  /**
+   * Fetch crosschain ack request confirmations
+   * @param sourceChainId 
+   * @param requestIdentifier 
+   * @param claimHash 
+   * @param pageRequestObject 
+   * @returns 
+   */
   async fetchCrosschainAckRequestConfirmations(sourceChainId: string, requestIdentifier: number, claimHash: Uint8Array | string, pageRequestObject?: PageRequest.AsObject) {
     const request = new QueryAllCrosschainAckRequestConfirmRequest();
     request.setAcksrcchainid(sourceChainId);
@@ -141,6 +180,14 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
     }
   }
 
+  /**
+   * Fetch crosschain request confirmation
+   * @param sourceChainId 
+   * @param requestIdentifier 
+   * @param claimHash 
+   * @param orchestrator 
+   * @returns 
+   */
   async fetchCrosschainRequestConfirmation(sourceChainId: string, requestIdentifier: number, claimHash: Uint8Array | string, orchestrator: string) {
     const request = new QueryGetCrosschainRequestConfirmRequest();
     request.setSourcechainid(sourceChainId);
@@ -164,6 +211,14 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
     }
   }
 
+  /**
+   * Fetch crosschain ack request confirmation
+   * @param sourceChainId 
+   * @param requestIdentifier 
+   * @param claimHash 
+   * @param orchestrator 
+   * @returns 
+   */
   async fetchCrosschainAckRequestConfirmation(sourceChainId: string, requestIdentifier: number, claimHash: Uint8Array | string, orchestrator: string) {
     const request = new  QueryGetCrosschainAckRequestConfirmRequest();
     request.setAcksrcchainid(sourceChainId);
