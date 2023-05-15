@@ -17,6 +17,19 @@ import BaseConsumer from '../../BaseGrpcConsumer';
 import { ChainGrpcCrosschainTransformer } from '../transformers';
 import { PageRequest } from '@routerprotocol/chain-api/cosmos/base/query/v1beta1/pagination_pb';
 
+/**
+ * The Crosschain module is responsible for handling inbound, outbound and crosstalk requests.
+ * 
+ * @group gRPC API
+ * 
+ * @example
+ * To use Crosschain methods, initialise a {@link ChainGrpcCrosschainApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
+ * ```ts
+ * const endpoint =  getEndpointsForNetwork(Network.Devnet).grpcEndpoint;
+ * const client = new ChainGrpcCrosschainApi(endpoint);
+ * const response = await client.fetchCrosschainRequests();
+ * ```
+ */
 export class ChainGrpcCrosschainApi extends BaseConsumer {
 
   async fetchCrosschainRequests(pageRequestObject?: PageRequest.AsObject) {
