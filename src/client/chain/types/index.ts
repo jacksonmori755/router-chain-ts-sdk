@@ -6,5 +6,6 @@ export * from './custom/gov';
 export * from './custom/mint';
 export * from './custom/staking';
 export * from './attestation';
+export * from './crosschain';
 
 export const ChainModule = { ...ChainErrorModule };
