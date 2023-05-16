@@ -4,7 +4,11 @@ import { CrosschainAckReceiptClaimHash } from "@routerprotocol/chain-api/routerc
 import { getClaimHash } from "./util";
 
 
-// crosschainRequest: CrosschainRequest.AsObject
+/**
+ * gets CrosschainClaimHash
+ * @param crosschainRequest 
+ * @returns 
+ */
 export function getCrosschainClaimHash(crosschainRequest: CrosschainRequestClaimHash.AsObject) : Uint8Array {
     const claimHash = new CrosschainRequestClaimHash()
 
@@ -26,6 +30,11 @@ export function getCrosschainClaimHash(crosschainRequest: CrosschainRequestClaim
     return getClaimHash(claimHash.serializeBinary())
 }
 
+/**
+ * gets CrosschainAckClaimHash
+ * @param crosschainAckRequest 
+ * @returns 
+ */
 export function getCrosschainAckClaimHash(crosschainAckRequest: CrosschainAckRequestClaimHash.AsObject) : Uint8Array {
     const claimHash = new CrosschainAckRequestClaimHash()
 
