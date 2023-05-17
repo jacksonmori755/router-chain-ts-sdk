@@ -273,11 +273,13 @@ export class RouterExplorer {
          }
          /**
           * Fetches specific Transaction
+          * @param {string} middlewareContract
           * @param {string} inboundId
           * @return {InboundOutboundMapType[]}
           * @throws {Error}
           */
          public async getOutboundsForInbound(
+           middlewareContract: String,
            inboundId: String
          ): Promise<{ outboundToInboundMap: InboundOutboundMapType[] }> {
            try {
@@ -285,6 +287,7 @@ export class RouterExplorer {
                this.chainEnvironment,
                inboundOutboundQuery,
                {
+                 middlewareContract,
                  inboundId,
                }
              );

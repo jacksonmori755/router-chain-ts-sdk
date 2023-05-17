@@ -208,7 +208,6 @@ export interface PaginatedCrosschain {
 }
 
 export interface InboundOutboundMapType {
-  id: string;
   inboundId: string;
   outboundId: string;
   inboundChainId: string;
