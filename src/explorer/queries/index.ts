@@ -1134,9 +1134,8 @@ export const searchSpecificCrosschainChainIdQuery = `
 `;
 
 export const inboundOutboundQuery = `
-query findOutboundsToInbound($inboundId:String!){
-  outboundToInboundMap(inboundId:$inboundId){
-    id
+query findOutboundsToInbound($middlewareContract:String!,$inboundId:String!){
+  outboundToInboundMap(where:{middlewareContract:$middlewareContract, inboundId:$inboundId}){
     inboundId
     outboundId
     inboundNonce
