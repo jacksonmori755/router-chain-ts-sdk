@@ -11,7 +11,13 @@ import {
   QueryGetCrosschainRequestConfirmRequest,
   QueryGetCrosschainRequestConfirmResponse,
   QueryGetCrosschainAckRequestConfirmRequest,
-  QueryGetCrosschainAckRequestConfirmResponse
+  QueryGetCrosschainAckRequestConfirmResponse,
+  QueryGetCrosschainAckRequestRequest,
+  QueryGetCrosschainAckReceiptResponse,
+  QueryGetCrosschainAckRequestResponse,
+  QueryGetCrosschainRequestRequest,
+  QueryGetCrosschainAckReceiptRequest,
+  QueryGetCrosschainRequestResponse
 } from '@routerprotocol/chain-api/routerchain/crosschain/query_pb';
 import BaseConsumer from '../../BaseGrpcConsumer';
 import { ChainGrpcCrosschainTransformer } from '../transformers';
@@ -58,7 +64,7 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
         typeof CrosschainQuery.CrosschainRequestAll
       >(request, CrosschainQuery.CrosschainRequestAll);
 
-      return ChainGrpcCrosschainTransformer.crosschainRequests(response);
+      return response.toObject();
     } catch (e) {
       //@ts-ignore
       throw new Error(e.message);
@@ -97,9 +103,7 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
         typeof CrosschainQuery.CrosschainRequestConfirmAll
       >(request, CrosschainQuery.CrosschainRequestConfirmAll);
 
-      return ChainGrpcCrosschainTransformer.crosschainRequestConfirmations(
-        response
-      );
+      return response.toObject();
     } catch (e) {
       //@ts-ignore
       throw new Error(e.message);
@@ -132,7 +136,7 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
         typeof CrosschainQuery.CrosschainAckRequestAll
       >(request, CrosschainQuery.CrosschainAckRequestAll);
 
-      return ChainGrpcCrosschainTransformer.crosschainAckRequests(response);
+      return response.toObject();
     } catch (e) {
       //@ts-ignore
       throw new Error(e.message);
@@ -171,9 +175,7 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
         typeof CrosschainQuery.CrosschainAckRequestConfirmAll
       >(request, CrosschainQuery.CrosschainAckRequestConfirmAll);
 
-      return ChainGrpcCrosschainTransformer.crosschainAckRequestConfirmations(
-        response
-      );
+      return response.toObject();
     } catch (e) {
       //@ts-ignore
       throw new Error(e.message);
@@ -202,9 +204,7 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
         typeof CrosschainQuery.CrosschainRequestConfirm
       >(request, CrosschainQuery.CrosschainRequestConfirm);
 
-      return ChainGrpcCrosschainTransformer.crosschainRequestConfirmation(
-        response
-      );
+      return response.toObject()
     } catch (e) {
       //@ts-ignore
       throw new Error(e.message);
@@ -233,9 +233,85 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
         typeof CrosschainQuery.CrosschainAckRequestConfirm
       >(request, CrosschainQuery.CrosschainAckRequestConfirm);
 
-      return ChainGrpcCrosschainTransformer.crosschainAckRequestConfirmation(
-        response
-      );
+      return response.toObject()
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
+    }
+  }
+
+  /**
+   * fetch CrosschainAckRequestConfirmation
+   * 
+   * @param sourceChainId 
+   * @param requestIdentifier 
+   * @returns 
+   */
+  async fetchCrosschainAckRequest(sourceChainId: string, requestIdentifier: number) {
+    const request = new  QueryGetCrosschainAckRequestConfirmRequest();
+    request.setAcksrcchainid(sourceChainId);
+    request.setAckrequestidentifier(requestIdentifier);
+
+    try {
+      const response = await this.request<
+      QueryGetCrosschainAckRequestRequest,
+      QueryGetCrosschainAckRequestResponse,
+        typeof CrosschainQuery.CrosschainAckRequest
+      >(request, CrosschainQuery.CrosschainAckRequest);
+
+      return response.toObject();
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
+    }
+  }
+
+  /**
+   * fetch CrosschainRequest
+   * 
+   * @param sourceChainId 
+   * @param requestIdentifier 
+   * @returns 
+   */
+  async fetchCrosschainRequest(sourceChainId: string, requestIdentifier: number) {
+    const request = new  QueryGetCrosschainRequestRequest();
+    request.setSourcechainid(sourceChainId);
+    request.setRequestidentifier(requestIdentifier);
+
+    try {
+      const response = await this.request<
+      QueryGetCrosschainRequestRequest,
+      QueryGetCrosschainRequestResponse,
+        typeof CrosschainQuery.CrosschainRequest
+      >(request, CrosschainQuery.CrosschainRequest);
+
+      return response.toObject();
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
+    }
+  }
+
+  /**
+   * fetch CrosschainAckReceipt
+   * 
+   * @param ackReceiptSrcChainId 
+   * @param ackReceiptIdentifier 
+   * @returns 
+   */
+  async fetchCrosschainAckReceipt(ackReceiptSrcChainId: string, ackReceiptIdentifier: number) {
+    const request = new  QueryGetCrosschainAckReceiptRequest();
+    request.setAckreceiptsrcchainid(ackReceiptSrcChainId);
+    request.setAckreceiptidentifier(ackReceiptIdentifier);
+
+    try {
+      const response = await this.request<
+      QueryGetCrosschainAckReceiptRequest,
+      QueryGetCrosschainAckReceiptResponse,
+        typeof CrosschainQuery.CrosschainAckReceipt
+      >(request, CrosschainQuery.CrosschainAckReceipt);
+
+      return response.toObject();
     } catch (e) {
       //@ts-ignore
       throw new Error(e.message);
