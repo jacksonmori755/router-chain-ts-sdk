@@ -20,7 +20,6 @@ import {
   QueryGetCrosschainRequestResponse
 } from '@routerprotocol/chain-api/routerchain/crosschain/query_pb';
 import BaseConsumer from '../../BaseGrpcConsumer';
-import { ChainGrpcCrosschainTransformer } from '../transformers';
 import { PageRequest } from '@routerprotocol/chain-api/cosmos/base/query/v1beta1/pagination_pb';
 
 /**
