@@ -37,20 +37,20 @@ import { GAS_LIMIT_MULTIPLIER, ROUTER_DEFAULT_GAS_PRICE } from '../utils';
  * @param executeMsg - Execution Query
  * @param nodeUrl - LCD node Url
  * @param ethereumAddress - Ethereum address of user
- * @param metmaskSigner - window.ethereum
+ * @param injectedSigner - Ex- window.ethereum or any injected wallet signer
  * @param funds - if contract requires funds with execution
  * @param memo - String
  * @return {BroadcastResponse}
  * @throws {Error}
  */
 
-export const executeQueryMetamask = async ({
+export const executeQueryInjected = async ({
   networkEnv,
   contractAddress,
   executeMsg,
   nodeUrl,
   ethereumAddress,
-  metmaskSigner,
+  injectedSigner,
   funds,
   memo,
 }: {
@@ -59,7 +59,7 @@ export const executeQueryMetamask = async ({
   executeMsg: Record<string, unknown>;
   nodeUrl: string;
   ethereumAddress: string;
-  metmaskSigner: any;
+  injectedSigner: any;
   funds?: {
     denom: string;
     amount: string;
@@ -152,7 +152,7 @@ export const executeQueryMetamask = async ({
     const txPayload = getEtherMintTxPayload(context, eipData);
 
     //Taking signature from user
-    const signature = await metmaskSigner.request({
+    const signature = await injectedSigner.request({
       method: 'eth_signTypedData_v4',
       params: [ethereumAddress, JSON.stringify(txPayload.eipToSign)],
     });

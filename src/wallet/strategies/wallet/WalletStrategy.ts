@@ -1,6 +1,5 @@
 import Web3 from 'web3';
 import { AccountAddress, ChainId, EthereumChainId, Msgs } from '../../..';
-import { createAlchemyWeb3 } from '@alch/alchemy-web3';
 import { DirectSignResponse } from '@cosmjs/proto-signing';
 import { GeneralException, WalletException } from '../../../exceptions';
 import { TxRaw } from '@routerprotocol/chain-api/cosmos/tx/v1beta1/tx_pb';
@@ -117,9 +116,10 @@ const createWeb3 = (args: WalletStrategyArguments): Web3 => {
     );
   }
 
-  const alchemyUrl = (wsRpcUrl as string) || (rpcUrl as string);
+  const web3Provider = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+  web3Provider.setProvider(new Web3.providers.WebsocketProvider(wsRpcUrl));
 
-  return (createAlchemyWeb3(alchemyUrl) as unknown) as Web3;
+  return web3Provider;
 };
 
 const createStrategies = (

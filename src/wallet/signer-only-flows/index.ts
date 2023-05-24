@@ -1,1 +1,1 @@
-export * from './Metamask';
+export * from './Injected';

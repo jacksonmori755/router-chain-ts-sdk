@@ -16,7 +16,7 @@ export const getRequestMetadataWithoutAck = (destGasLimit: number): string => {
   );
 };
 
-export const getRequestMetadataWitAck = (
+export const getRequestMetadataWithAck = (
   destGasLimit: number,
   ackType: number,
   ackGasLimit: number

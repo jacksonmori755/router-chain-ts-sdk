@@ -1,6 +1,24 @@
 /* eslint-disable class-methods-use-this */
-import { sleep } from '../../../..';
-import { AccountAddress, ChainId, EthereumChainId } from '../../../..';
+import {
+  BaseAccount,
+  BigNumberInBase,
+  broadcastRawTx,
+  ChainRestAuthApi,
+  createTxRawForBroadcast,
+  getEtherMintTxPayload,
+  getRouterSignerAddress,
+  hexToBase64,
+  hexToBuff,
+  ROUTER_DENOM,
+  simulateRawTx,
+  sleep,
+} from '../../../..';
+import {
+  AccountAddress,
+  ChainId,
+  EthereumChainId,
+  recoverTypedSignaturePubKey,
+} from '../../../..';
 import {
   ErrorType,
   MetamaskException,
@@ -20,8 +38,13 @@ import {
 } from '../../types';
 import BaseConcreteStrategy from './Base';
 import { WalletAction, WalletDeviceType } from '../../../types/enums';
-import { Msgs } from '../../../../core';
-import { TxToSend } from '../../../../tx-ts/ethermint/types';
+import {
+  Eip712ConvertFeeArgs,
+  Eip712ConvertTxArgs,
+  Msgs,
+} from '../../../../core';
+import { TxContext, TxToSend } from '../../../../tx-ts/ethermint/types';
+import { GAS_LIMIT_MULTIPLIER, ROUTER_DEFAULT_GAS_PRICE } from '../../../utils';
 
 export default class WalletConnect extends BaseConcreteStrategy
                  implements ConcreteWalletStrategy {
@@ -57,26 +80,171 @@ export default class WalletConnect extends BaseConcreteStrategy
                    this.createWalletConnectProvider();
                  }
                  simulateTransaction(
-                   _signedTx: TxToSend,
-                   _nodeUrl: string
+                   signedTx: TxToSend,
+                   nodeUrl: string
                  ): Promise<any> {
-                   throw new Error('Method not implemented.');
+                   return simulateRawTx(signedTx, nodeUrl);
                  }
                  broadcastTransaction(
-                   _signedTx: TxToSend,
-                   _nodeUrl: string
+                   signedTx: TxToSend,
+                   nodeUrl: string
                  ): Promise<any> {
-                   throw new Error('Method not implemented.');
+                   return broadcastRawTx(signedTx, nodeUrl);
                  }
-                 simulateSignAndBroadcast(_args: {
+                 async simulateSignAndBroadcast({
+                   ethChainId,
+                   cosmosChainId,
+                   txMsg,
+                   nodeUrl,
+                   memo,
+                 }: {
                    ethChainId: string;
                    cosmosChainId: string;
                    txMsg: Msgs;
                    nodeUrl: string;
                    memo?: string;
                  }): Promise<any> {
-                   throw new Error('Method not implemented.');
-                 }
+                                    //Account Info
+                                    const parsedEthChainId = ethChainId.startsWith(
+                                      '0x'
+                                    )
+                                      ? parseInt(ethChainId, 16)
+                                      : parseInt(ethChainId);
+                                    const userAccountInfo = await new ChainRestAuthApi(
+                                      nodeUrl
+                                    ).fetchAccount(
+                                      getRouterSignerAddress(
+                                        this.walletConnectProvider
+                                          ?.selectedAddress
+                                      )
+                                    );
+                                    const baseAccount = BaseAccount.fromRestApi(
+                                      userAccountInfo
+                                    );
+                                    const accountDetails = baseAccount.toAccountDetails();
+                                    const context: TxContext = {
+                                      chain: {
+                                        chainId: parsedEthChainId,
+                                        cosmosChainId: cosmosChainId,
+                                      },
+                                      sender: {
+                                        accountAddress: getRouterSignerAddress(
+                                          this.walletConnectProvider
+                                            ?.selectedAddress
+                                        ),
+                                        sequence: accountDetails.sequence,
+                                        accountNumber:
+                                          accountDetails.accountNumber,
+                                        pubkey:
+                                          accountDetails.pubKey?.key ?? '',
+                                      },
+                                      memo: memo ?? '',
+                                    };
+
+                                    //EIP DATA
+                                    const eipData: {
+                                      msgs: Msgs | Msgs[];
+                                      tx: Eip712ConvertTxArgs;
+                                      fee?: Eip712ConvertFeeArgs;
+                                      ethereumChainId: EthereumChainId;
+                                    } = {
+                                      msgs: [txMsg],
+                                      tx: {
+                                        accountNumber: accountDetails.accountNumber.toString(),
+                                        sequence: accountDetails.sequence.toString(),
+                                        chainId: cosmosChainId,
+                                      },
+                                      ethereumChainId: parsedEthChainId,
+                                      fee: {
+                                        feePayer: getRouterSignerAddress(
+                                          this.walletConnectProvider
+                                            ?.selectedAddress
+                                        ),
+                                      },
+                                    };
+                                    // Simulationx
+                                    const simulatedTxPayload = getEtherMintTxPayload(
+                                      context,
+                                      eipData
+                                    );
+                                    const simulatedTx = createTxRawForBroadcast(
+                                      simulatedTxPayload.signDirect.body.toBinary(),
+                                      simulatedTxPayload.signDirect.authInfo.toBinary(),
+                                      [new Uint8Array(2)]
+                                    );
+                                    const simulationResponse = await this.simulateTransaction(
+                                      simulatedTx,
+                                      nodeUrl
+                                    );
+                                    const simulatedFee = {
+                                      amount: [
+                                        {
+                                          amount: new BigNumberInBase(
+                                            ROUTER_DEFAULT_GAS_PRICE
+                                          )
+                                            .times(
+                                              parseInt(
+                                                (
+                                                  parseInt(
+                                                    simulationResponse.gas_info
+                                                      .gas_used
+                                                  ) * GAS_LIMIT_MULTIPLIER
+                                                ).toString()
+                                              )
+                                            )
+                                            .toString(),
+                                          denom: ROUTER_DENOM,
+                                        },
+                                      ],
+                                      gas: parseInt(
+                                        (
+                                          parseInt(
+                                            simulationResponse.gas_info.gas_used
+                                          ) * GAS_LIMIT_MULTIPLIER
+                                        ).toString()
+                                      ).toString(),
+                                      feePayer:
+                                        eipData.fee?.feePayer ??
+                                        getRouterSignerAddress(
+                                          this.walletConnectProvider
+                                            ?.selectedAddress
+                                        ),
+                                    };
+                                    eipData.fee = simulatedFee;
+                                    const txPayload = getEtherMintTxPayload(
+                                      context,
+                                      eipData
+                                    );
+                                    const signature = await this.signEip712TypedData(
+                                      JSON.stringify(txPayload.eipToSign),
+                                      this.walletConnectProvider
+                                        ?.selectedAddress
+                                    );
+                                    const signatureBytes = hexToBuff(signature);
+                                    const publicKeyHex = recoverTypedSignaturePubKey(
+                                      txPayload.eipToSign,
+                                      signature
+                                    );
+                                    const publicKey = hexToBase64(publicKeyHex);
+                                    context.sender.pubkey = publicKey;
+                                    const txPayloadWithPubKey = getEtherMintTxPayload(
+                                      context,
+                                      eipData
+                                    );
+                                    const { signDirect } = txPayloadWithPubKey;
+                                    const bodyBytes = signDirect.body.toBinary();
+                                    const authInfoBytes = signDirect.authInfo.toBinary();
+                                    const txRawToSend = createTxRawForBroadcast(
+                                      bodyBytes,
+                                      authInfoBytes,
+                                      [signatureBytes]
+                                    );
+                                    const broadcastResponse = await this.broadcastTransaction(
+                                      txRawToSend,
+                                      nodeUrl
+                                    );
+                                    return broadcastResponse;
+                                  }
                  onChainIdChange?(_callback: onChainIdChangeCallback): void {
                    throw new Error('Method not implemented.');
                  }
@@ -151,7 +319,7 @@ export default class WalletConnect extends BaseConcreteStrategy
                    await this.connect();
 
                    try {
-                     return await this.walletConnectProvider!.request({
+                     return await this.walletConnectProvider?.request({
                        method: 'eth_signTypedData',
                        params: [address, eip712json],
                      });
