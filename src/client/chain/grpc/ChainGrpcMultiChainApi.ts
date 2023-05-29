@@ -1,12 +1,15 @@
 import { Query as MultiChainQuery } from '@routerprotocol/chain-api/multichain/query_pb_service';
-import { 
-    QueryAllChainConfigRequest,
-    QueryAllChainConfigResponse, 
-    QueryGetChainConfigRequest, 
-    QueryGetChainConfigResponse
- } from '@routerprotocol/chain-api/multichain/query_pb';
+import {
+  QueryAllChainConfigRequest,
+  QueryAllChainConfigResponse,
+  QueryGetChainConfigRequest,
+  QueryGetChainConfigResponse,
+  QueryAllContractConfigRequest,
+  QueryAllContractConfigResponse,
+  QueryGetContractConfigRequest,
+  QueryGetContractConfigResponse
+} from '@routerprotocol/chain-api/multichain/query_pb';
 import BaseConsumer from '../../BaseGrpcConsumer';
-import { ChainGrpcMultiChainTransformer } from '../transformers';
 
 /**
  * The Multichain module is responsible for persisting the configuration of all supported chains by the Router chain and provides chain configuration related methods.
@@ -22,50 +25,93 @@ import { ChainGrpcMultiChainTransformer } from '../transformers';
  * ```
  */
 export class ChainGrpcMultiChainApi extends BaseConsumer {
-         /**
-          *
-          * @param chainType chain type.
-          * @param chainId chain ID.
-          * @returns chain configuration.
-          */
-         async fetchChainConfig(chainId: string) {
-           const request = new QueryGetChainConfigRequest();
-           request.setChainId(chainId);
+  /**
+   *
+   * @param chainType chain type.
+   * @param chainId chain ID.
+   * @returns chain configuration.
+   */
+  async fetchChainConfig(chainId: string) {
+    const request = new QueryGetChainConfigRequest();
+    request.setChainId(chainId);
 
-           try {
-             const response = await this.request<
-               QueryGetChainConfigRequest,
-               QueryGetChainConfigResponse,
-               typeof MultiChainQuery.ChainConfig
-             >(request, MultiChainQuery.ChainConfig);
+    try {
+      const response = await this.request<
+        QueryGetChainConfigRequest,
+        QueryGetChainConfigResponse,
+        typeof MultiChainQuery.ChainConfig
+      >(request, MultiChainQuery.ChainConfig);
 
-             console.log('api call success');
+      return response.toObject();
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
+    }
+  }
 
-             return ChainGrpcMultiChainTransformer.chainConfig(response);
-           } catch (e) {
-             //@ts-ignore
-             throw new Error(e.message);
-           }
-         }
+  /**
+   *
+   * @returns chain configuration list for all supported chains.
+   */
+  async fetchAllChainConfig() {
+    const request = new QueryAllChainConfigRequest();
 
-         /**
-          *
-          * @returns chain configuration list for all supported chains.
-          */
-         async fetchAllChainConfig() {
-           const request = new QueryAllChainConfigRequest();
+    try {
+      const response = await this.request<
+        QueryAllChainConfigRequest,
+        QueryAllChainConfigResponse,
+        typeof MultiChainQuery.ChainConfigAll
+      >(request, MultiChainQuery.ChainConfigAll);
 
-           try {
-             const response = await this.request<
-               QueryAllChainConfigRequest,
-               QueryAllChainConfigResponse,
-               typeof MultiChainQuery.ChainConfigAll
-             >(request, MultiChainQuery.ChainConfigAll);
+      return response.toObject();
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
+    }
+  }
 
-             return ChainGrpcMultiChainTransformer.allChainConfig(response);
-           } catch (e) {
-             //@ts-ignore
-             throw new Error(e.message);
-           }
-         }
-       }
+  /**
+   * 
+   * @param chainId 
+   * @returns 
+   */
+  async fetchContractConfig(chainId: string) {
+    const request = new QueryGetContractConfigRequest();
+    request.setChainId(chainId);
+
+    try {
+      const response = await this.request<
+      QueryGetContractConfigRequest,
+      QueryGetContractConfigResponse,
+        typeof MultiChainQuery.ContractConfig
+      >(request, MultiChainQuery.ContractConfig);
+
+      return response.toObject();
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
+    }
+  }
+
+  /**
+   * 
+   * @returns 
+   */
+  async fetchAllContractConfig() {
+    const request = new QueryAllContractConfigRequest();
+
+    try {
+      const response = await this.request<
+      QueryAllContractConfigRequest,
+      QueryAllContractConfigResponse,
+        typeof MultiChainQuery.ContractConfigAll
+      >(request, MultiChainQuery.ContractConfigAll);
+
+      return response.toObject();
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
+    }
+  }
+
+}
