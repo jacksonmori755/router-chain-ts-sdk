@@ -27,6 +27,13 @@ export const DUST_AMOUNT = 0.0001;
 export const PAGINATION_TOTAL_PAGE_LIMIT: number = 10000;
 export const DEFAULT_PAGINATION_TOTAL_COUNT: number = 1000000;
 
+
+export const DEFAULT_BLOCK_TIMEOUT_HEIGHT = 30;
+export const DEFAULT_BLOCK_TIME_IN_SECONDS = 2;
+export const DEFAULT_TX_BLOCK_INCLUSION_TIMEOUT_IN_MS =
+  DEFAULT_BLOCK_TIMEOUT_HEIGHT * DEFAULT_BLOCK_TIME_IN_SECONDS * 1000;
+export const DEFAULT_TIMESTAMP_TIMEOUT_MS = 60 * 1000 * 3;
+
 export const DEFAULT_STD_FEE = {
   amount: [
     {
@@ -42,7 +49,6 @@ export const DEFAULT_STD_FEE = {
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 export const DEFAULT_EXCHANGE_LIMIT = 200000;
-export const DEFAULT_TIMESTAMP_TIMEOUT_MS = 60 * 1000 * 3;
 
 export const DEFAULT_STD_FEE_BY_DENOM = (denom: string = 'route') => ({
   amount: [

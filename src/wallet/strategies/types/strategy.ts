@@ -4,9 +4,11 @@ import {
   CosmosChainId,
   ChainId,
   EthereumChainId,
+  Msgs,
 } from '../../../'
 import type Web3 from 'web3'
 import { Wallet, WalletDeviceType } from '../../types/enums'
+import { TxToSend } from '../../../tx-ts/ethermint/types'
 
 export type onAccountChangeCallback = (account: string) => void
 export type onChainIdChangeCallback = () => void
@@ -126,6 +128,34 @@ export interface ConcreteWalletStrategy
    * @param address - ethereum address
    */
   signEip712TypedData(eip712TypedData: string, address: string): Promise<string>
+
+  simulateTransaction(signedTx: TxToSend, nodeUrl: string) : Promise<any>
+  broadcastTransaction(signedTx: TxToSend, nodeUrl: string) : Promise<any>
+  /**
+   * Will create an EIP712 json for tx according to Tx Msg sent
+   * Will sign that EIP712 json and prepare rawtx
+   * Will broadcast the signed tx to the network
+   * @param ethChainId - Ethereum Chain Id of Router Chain
+   * @param cosmosChainId - Cosmos Chain Id of Router Chain
+   * @param txMsg -  Transaction Message 
+   * @param nodeUrl - LCD node Url 
+   * @param memo - String
+   */
+  simulateSignAndBroadcast(
+    {
+    ethChainId,
+cosmosChainId,
+    txMsg,
+    nodeUrl,
+    memo,
+  }: {
+   ethChainId: string;
+cosmosChainId: string;
+    txMsg: Msgs;
+    nodeUrl: string;
+    memo?: string;
+  }
+  ): Promise<any>
 
   getNetworkId(): Promise<string>
 

@@ -1,48 +1,52 @@
-import { ConcreteException } from '../exception'
+import { ConcreteException } from '../exception';
 import {
   ChainCosmosErrorCode,
   ErrorContext,
   ErrorContextCode,
   ErrorType,
   UnspecifiedErrorCode,
-} from '../types'
+} from '../types';
 
 export const mapMessage = (
-  message: string,
-): { message: string; code: ErrorContextCode } => {
-  const [, parsedMessage] = message.split('message index: 0:')
-  const [actualMessage] = parsedMessage.split(': invalid request')
-  const trimmedMessage = actualMessage.trim().trimEnd()
+         message: string
+       ): { message: string; code: ErrorContextCode } => {
+         const [, parsedMessage] = message.split('message index: 0:');
+         if (parsedMessage) {
+           const [actualMessage] = parsedMessage.split(': invalid request');
+           const trimmedMessage = actualMessage.trim().trimEnd();
 
-  if (trimmedMessage.toLowerCase().includes('insufficient fee')) {
-    return {
-      message: 'You do not have enough funds to cover transaction fees.',
-      code: ChainCosmosErrorCode.ErrInsufficientFee,
-    }
-  }
+           if (trimmedMessage.toLowerCase().includes('insufficient fee')) {
+             return {
+               message:
+                 'You do not have enough funds to cover transaction fees.',
+               code: ChainCosmosErrorCode.ErrInsufficientFee,
+             };
+           }
 
-  if (trimmedMessage.toLowerCase().includes('insufficient funds')) {
-    return {
-      message: 'You do not have enough funds to cover transaction fees.',
-      code: ChainCosmosErrorCode.ErrInsufficientFunds,
-    }
-  }
+           if (trimmedMessage.toLowerCase().includes('insufficient funds')) {
+             return {
+               message:
+                 'You do not have enough funds to cover transaction fees.',
+               code: ChainCosmosErrorCode.ErrInsufficientFunds,
+             };
+           }
+         }
 
-  return { message: trimmedMessage, code: UnspecifiedErrorCode }
-}
+         return { message: message, code: UnspecifiedErrorCode };
+       };
 
 export class TransactionException extends ConcreteException {
   constructor(error: Error, context?: ErrorContext) {
-    super(error, context)
+    super(error, context);
 
-    this.type = ErrorType.ChainError
+    this.type = ErrorType.ChainError;
   }
 
   public parse(): void {
-    const { message } = this
-    const { message: parsedMessage, code } = mapMessage(message)
+    const { message } = this;
+    const { message: parsedMessage, code } = mapMessage(message);
 
-    this.setMessage(parsedMessage)
-    this.setContextCode(code)
+    this.setMessage(parsedMessage);
+    this.setContextCode(code);
   }
 }

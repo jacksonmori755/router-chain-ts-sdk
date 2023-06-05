@@ -1,24 +1,27 @@
 import { getNetworkType, Network } from '../../networks';
 import {
-  filterApplicationInboundQuery,
-  filterApplicationOutboundQuery,
-  latestApplicationsInboundsQuery,
-  latestApplicationsOutboundsQuery,
   latestBlockQuery,
-  latestCrossTalksQuery,
-  latestInboundsQuery,
-  latestOutboundsQuery,
   latestTransactionsOfAddressQuery,
   latestTransactionsQuery,
-  searchSpecificCrossTalkQuery,
-  searchSpecificInboundQuery,
-  searchSpecificOutboundQuery,
+  latestCrosschainsQuery,
+  searchSpecificCrosschainChainIdQuery,
+  searchSpecificCrosschainDestChainIdQuery,
+  searchSpecificCrosschainQuery,
+  searchSpecificCrosschainSrcChainIdQuery,
   specificBlockQuery,
-  specificCrossTalkQuery,
-  specificInboundQuery,
-  specificOutboundQuery,
+  specificCrosschainQuery,
   specificTransactionQuery,
+  inboundOutboundQuery,
 } from '../queries';
+import {
+  BlockType,
+  CrosschainType,
+  InboundOutboundMapType,
+  PaginatedBlock,
+  PaginatedCrosschain,
+  PaginatedTransaction,
+  TransactionType,
+} from '../types';
 import { gqlFetcher } from '../utils';
 
 /**
@@ -26,438 +29,271 @@ import { gqlFetcher } from '../utils';
  */
 
 export class RouterExplorer {
-  public readonly chainEnvironment: Network;
-  public readonly applicationAddress: string | null;
+         public readonly chainEnvironment: Network;
+         public readonly applicationAddress: string | null;
 
-  constructor(chainEnvironment: string, applicationAddress: string = '') {
-    this.chainEnvironment = getNetworkType(chainEnvironment);
-    this.applicationAddress = applicationAddress;
-  }
+         constructor(
+           chainEnvironment: string,
+           applicationAddress: string = ''
+         ) {
+           this.chainEnvironment = getNetworkType(chainEnvironment);
+           this.applicationAddress = applicationAddress;
+         }
 
-  // public async getLatestTransactions(limit:number, offset:number){
-  // // Fetch latest txn related to the contract related to the application contract
-  // }
+         //Fetch latest blocks from explorer db
 
-  // public async getTransaction(transactionHash:string){
-  // //Fetch a particular txn with txn hash
-  // }
+         /**
+          * Fetches latest Blocks
+          * @param {string} timeRange Time Range
+          * @param {string} limit Page Limit
+          * @param {string} offset Page Number
+          * @return {PaginatedBlock}
+          * @throws {Error}
+          */
+         public async getLatestBlocks(
+           timeRange: number[] = [],
+           limit: Number = 10,
+           offset: Number = 1
+         ): Promise<{ paginatedBlock: PaginatedBlock }> {
+           try {
+             const data = await gqlFetcher(
+               this.chainEnvironment,
+               latestBlockQuery,
+               {
+                 timeRange,
+                 limit: limit,
+                 offset: offset,
+               }
+             );
+             return data;
+           } catch (e) {
+             throw new Error(`Error | getLatestBlocks | ${e}`);
+           }
+         }
 
-  // public async getInboundTransactions(limit:number, offset:number){
-  // //Fetch latest inbound txns related to application contract
-  // }
+         /**
+          * Fetches specific Block
+          * @param {string} height BlockHeight
+          * @return {BlockType}
+          * @throws {Error}
+          */
+         public async getBlockByHeight(
+           height: Number
+         ): Promise<{ block: BlockType }> {
+           try {
+             const data = await gqlFetcher(
+               this.chainEnvironment,
+               specificBlockQuery,
+               {
+                 height: height,
+               }
+             );
+             return data;
+           } catch (e) {
+             throw new Error(`Error | getLatestBlocks | ${e}`);
+           }
+         }
+         /**
+          * Fetches latest Transactions
+          * @param {string} timeRange Time Range
+          * @param {string} limit Page Limit
+          * @param {string} offset Page Number
+          * @return {PaginatedTransaction}
+          * @throws {Error}
+          */
+         public async getLatestTransactions(
+           timeRange: number[] = [],
+           limit: Number = 10,
+           offset: Number = 1
+         ): Promise<{ paginatedTransaction: PaginatedTransaction }> {
+           try {
+             const data = await gqlFetcher(
+               this.chainEnvironment,
+               this.applicationAddress
+                 ? latestTransactionsOfAddressQuery
+                 : latestTransactionsQuery,
+               {
+                 timeRange,
+                 limit: limit,
+                 offset: offset,
+               }
+             );
+             return data;
+           } catch (e) {
+             throw new Error(`Error | getLatestTransactions | ${e}`);
+           }
+         }
+         /**
+          * Fetches latest Transactions for a specific address
+          * @param {string} address Address
+          * @param {string} limit Page Limit
+          * @param {string} offset Page Number
+          * @return {PaginatedTransaction}
+          * @throws {Error}
+          */
+         public async getLatestTransactionsByAddress(
+           address: String,
+           timeRange: number[] = [],
+           limit: Number = 10,
+           offset: Number = 1
+         ): Promise<{ paginatedTransaction: PaginatedTransaction }> {
+           try {
+             const data = await gqlFetcher(
+               this.chainEnvironment,
+               latestTransactionsOfAddressQuery,
+               {
+                 timeRange,
+                 address: address,
+                 limit: limit,
+                 offset: offset,
+               }
+             );
+             return data;
+           } catch (e) {
+             throw new Error(`Error | getLatestTransactions | ${e}`);
+           }
+         }
+         /**
+          * Fetches specific Transaction
+          * @param {string} hash
+          * @return {Transaction}
+          * @throws {Error}
+          */
+         public async getTransactionByHash(
+           hash: String
+         ): Promise<{ transaction: TransactionType }> {
+           try {
+             const data = await gqlFetcher(
+               this.chainEnvironment,
+               specificTransactionQuery,
+               {
+                 hash: hash,
+               }
+             );
+             return data;
+           } catch (e) {
+             throw new Error(`Error | getLatestTransactions | ${e}`);
+           }
+         }
 
-  // public async getInboundTransaction(inboundNonce: string, chainId:ChainIdType, chainType:ChainTypeType){
-  // // Fetch a particular inbound transaction
-  // }
+         /**
+          * Fetches latest Crosschains
+          * @param {string} timeRange Time Range
+          * @param {string} limit Page Limit
+          * @param {string} offset Page Number
+          * @return {PaginatedCrosschain}
+          * @throws {Error}
+          */
 
-  // public async getOutboundTransactions(limit:number, offset:number){
-  // //Fetch latest outbound txns related to application contract
-  // }
-
-  // public async getOutboundTransaction(inboundNonce: string, chainId:ChainIdType, chainType:ChainTypeType){
-  // // Fetch a particular outbound transaction
-  // }
-
-  //Fetch latest blocks from explorer db
-
-  /**
-   * Fetches latest Blocks
-   * @param {string} limit Page Limit
-   * @param {string} offset Page Number
-   * @return {Blocks}
-   * @throws {Error}
-   */
-  public async getLatestBlocks(limit: Number = 10, offset: Number = 1) {
-    try {
-      const data = await gqlFetcher(this.chainEnvironment, latestBlockQuery, {
-        limit: limit,
-        offset: offset,
-      });
-      return data;
-    } catch (e) {
-      console.log(`Error | getLatestBlocks | ${e}`);
-    }
-  }
-
-  /**
-   * Fetches specific Block
-   * @param {string} height BlocjHeight
-   * @return {Block}
-   * @throws {Error}
-   */
-  public async getBlockByHeight(height: Number) {
-    try {
-      const data = await gqlFetcher(this.chainEnvironment, specificBlockQuery, {
-        height: height,
-      });
-      return data;
-    } catch (e) {
-      console.log(`Error | getLatestBlocks | ${e}`);
-    }
-  }
-  /**
-   * Fetches latest Transactions
-   * @param {string} limit Page Limit
-   * @param {string} offset Page Number
-   * @return {Transactions}
-   * @throws {Error}
-   */
-  public async getLatestTransactions(limit: Number = 10, offset: Number = 1) {
-    try {
-      const data = await gqlFetcher(
-        this.chainEnvironment,
-        this.applicationAddress
-          ? latestTransactionsOfAddressQuery
-          : latestTransactionsQuery,
-        {
-          limit: limit,
-          offset: offset,
-        }
-      );
-      return data;
-    } catch (e) {
-      console.log(`Error | getLatestTransactions | ${e}`);
-    }
-  }
-  /**
-   * Fetches latest Transactions for a specific address
-   * @param {string} address Address
-   * @param {string} limit Page Limit
-   * @param {string} offset Page Number
-   * @return {Transactions}
-   * @throws {Error}
-   */
-  public async getLatestTransactionsByAddress(
-    address: String,
-    limit: Number = 10,
-    offset: Number = 1
-  ) {
-    try {
-      const data = await gqlFetcher(
-        this.chainEnvironment,
-        latestTransactionsOfAddressQuery,
-        {
-          address: address,
-          limit: limit,
-          offset: offset,
-        }
-      );
-      return data;
-    } catch (e) {
-      console.log(`Error | getLatestTransactions | ${e}`);
-    }
-  }
-  /**
-   * Fetches specific Transaction
-   * @param {string} hash
-   * @return {Transaction}
-   * @throws {Error}
-   */
-  public async getTransactionByHash(hash: String) {
-    try {
-      const data = await gqlFetcher(
-        this.chainEnvironment,
-        specificTransactionQuery,
-        {
-          hash: hash,
-        }
-      );
-      return data;
-    } catch (e) {
-      console.log(`Error | getLatestTransactions | ${e}`);
-    }
-  }
-  /**
-   * Fetches latest Inbounds
-   * @param {string} limit Page Limit
-   * @param {string} offset Page Number
-   * @return {Inbounds}
-   * @throws {Error}
-   */
-  public async getLatestInbounds(limit: Number = 10, offset: Number = 1) {
-    try {
-      const data = await gqlFetcher(
-        this.chainEnvironment,
-        this.applicationAddress
-          ? latestApplicationsInboundsQuery
-          : latestInboundsQuery,
-        {
-          address: this.applicationAddress,
-          limit: limit,
-          offset: offset,
-        }
-      );
-      return data;
-    } catch (e) {
-      console.log(`Error | getLatestInbounds | ${e}`);
-    }
-  }
-  /**
-   * Fetches filtered outbound by search term
-   * @param {string} searchTerm Could be source sender address or source transaction hash or router contract address
-   * @param {string} limit Page Limit
-   * @param {string} offset Page Number
-   * @return {Inbounds}
-   * @throws {Error}
-   */
-  public async getInboundBySearch(
-    searchTerm: String,
-    limit: Number = 10,
-    offset: Number = 1
-  ) {
-    try {
-      const data = await gqlFetcher(
-        this.chainEnvironment,
-        searchSpecificInboundQuery,
-        {
-          searchTerm: searchTerm,
-          limit: limit,
-          offset: offset,
-        }
-      );
-      return data;
-    } catch (e) {
-      console.log(`Error | getLatestInbounds | ${e}`);
-    }
-  }
-  //For Application specific contracts
-
-  /**
-   * Fetches filtered inbounds application specific
-   * @param {string} searchTerm Could be source sender address or source transaction hash or router contract address
-   * @param {string} limit Page Limit
-   * @param {string} offset Page Number
-   * @return {Blocks}
-   * @throws {Error}
-   */
-
-  public async getFilteredInbounds(
-    searchTerm: String,
-    limit: Number = 10,
-    offset: Number = 1
-  ) {
-    try {
-      const data = await gqlFetcher(
-        this.chainEnvironment,
-        filterApplicationInboundQuery,
-        {
-          address: this.applicationAddress,
-          searchTerm: searchTerm,
-          limit: limit,
-          offset: offset,
-        }
-      );
-      return data;
-    } catch (e) {
-      console.log(`Error | getLatestInbounds | ${e}`);
-    }
-  }
-  /**
-   * Fetches specific inbound
-   * @param {string} formAttestationId
-   * @return {Inbound}
-   * @throws {Error}
-   */
-  public async getInboundByAttestationId(formAttestationId: String) {
-    try {
-      const data = await gqlFetcher(
-        this.chainEnvironment,
-        specificInboundQuery,
-        {
-          formAttestationId: formAttestationId,
-        }
-      );
-      return data;
-    } catch (e) {
-      console.log(`Error | getLatestInbounds | ${e}`);
-    }
-  }
-
-  /**
-   * Fetches latest Outbounds
-   * @param {string} limit Page Limit
-   * @param {string} offset Page Number
-   * @return {Outbounds}
-   * @throws {Error}
-   */
-
-  public async getLatestOutbounds(limit: Number = 10, offset: Number = 1) {
-    try {
-      const data = await gqlFetcher(
-        this.chainEnvironment,
-        this.applicationAddress
-          ? latestApplicationsOutboundsQuery
-          : latestOutboundsQuery,
-        {
-          address: this.applicationAddress,
-          limit: limit,
-          offset: offset,
-        }
-      );
-      return data;
-    } catch (e) {
-      console.log(`Error | getLatestOutbounds | ${e}`);
-    }
-  }
-  /**
-   * Fetches specific Outbounds
-   * @param {string} destinationChainType
-   * @param {string} destinationChainId
-   * @param {string} sourceAddress
-   * @param {string} limit Page Limit
-   * @param {string} offset Page Number
-   * @return {Outbounds}
-   * @throws {Error}
-   */
-  public async getOutboundBySearch(
-    destinationChainType: String,
-    destinationChainId: String,
-    sourceAddress: String,
-    limit: Number = 10,
-    offset: Number = 1
-  ) {
-    try {
-      const data = await gqlFetcher(
-        this.chainEnvironment,
-        searchSpecificOutboundQuery,
-        {
-          destinationChainType: destinationChainType,
-          destinationChainId: destinationChainId,
-          sourceAddress: sourceAddress,
-          limit: limit,
-          offset: offset,
-        }
-      );
-      return data;
-    } catch (e) {
-      console.log(`Error | getOutboundBySearch | ${e}`);
-    }
-  }
-  //For Application specific contracts
-  /**
-   * Fetches application specific Outbounds
-   * @param {string} destinationChainType
-   * @param {string} destinationChainId
-   * @param {string} sourceAddress
-   * @param {string} limit Page Limit
-   * @param {string} offset Page Number
-   * @return {Outbounds}
-   * @throws {Error}
-   */
-  public async getFilteredOutbounds(
-    destinationChainType: String,
-    destinationChainId: String,
-    limit: Number = 10,
-    offset: Number = 1
-  ) {
-    try {
-      const data = await gqlFetcher(
-        this.chainEnvironment,
-        filterApplicationOutboundQuery,
-        {
-          address: this.applicationAddress,
-          destinationChainType: destinationChainType,
-          destinationChainId: destinationChainId,
-          limit: limit,
-          offset: offset,
-        }
-      );
-      return data;
-    } catch (e) {
-      console.log(`Error | getOutboundBySearch | ${e}`);
-    }
-  }
-  /**
-   * Fetches specific Outbound
-   * @param {string} formAttestationId
-   * @return {Outbound}
-   * @throws {Error}
-   */
-  public async getOutboundByAttestationId(formAttestationId: String) {
-    try {
-      const data = await gqlFetcher(
-        this.chainEnvironment,
-        specificOutboundQuery,
-        {
-          formAttestationId: formAttestationId,
-        }
-      );
-      return data;
-    } catch (e) {
-      console.log(`Error | getOutboundByAttestationId | ${e}`);
-    }
-  }
-
-  /**
-   * Fetches latest CrossTalks
-   * @param {string} limit Page Limit
-   * @param {string} offset Page Number
-   * @return {CrossTalks}
-   * @throws {Error}
-   */
-
-  public async getLatestCrossTalks(limit: Number = 10, offset: Number = 1) {
-    try {
-      const data = await gqlFetcher(
-        this.chainEnvironment,
-        latestCrossTalksQuery,
-        {
-          address: this.applicationAddress,
-          limit: limit,
-          offset: offset,
-        }
-      );
-      return data;
-    } catch (e) {
-      console.log(`Error | getLatestCrossTalks | ${e}`);
-    }
-  }
-  /**
-   * Fetches specific CrossTalks
-   * @param {string} searchTerm Source Sender or Source Transaction Hash
-   * @param {string} limit Page Limit
-   * @param {string} offset Page Number
-   * @return {CrossTalks}
-   * @throws {Error}
-   */
-  public async getCrossTalkBySearch(
-    searchTerm: String,
-    limit: Number = 10,
-    offset: Number = 1
-  ) {
-    try {
-      const data = await gqlFetcher(
-        this.chainEnvironment,
-        searchSpecificCrossTalkQuery,
-        {
-          searchTerm: searchTerm,
-          limit: limit,
-          offset: offset,
-        }
-      );
-      return data;
-    } catch (e) {
-      console.log(`Error | getCrossTalkBySearch | ${e}`);
-    }
-  }
-  /**
-   * Fetches specific CrossTalk
-   * @param {string} formAttestationId
-   * @return {CrossTalk}
-   * @throws {Error}
-   */
-  public async getCrossTalkByAttestationId(formAttestationId: String) {
-    try {
-      const data = await gqlFetcher(
-        this.chainEnvironment,
-        specificCrossTalkQuery,
-        {
-          formAttestationId: formAttestationId,
-        }
-      );
-      return data;
-    } catch (e) {
-      console.log(`Error | getCrossTalkByAttestationId | ${e}`);
-    }
-  }
-}
+         public async getLatestCrosschains(
+           timeRange: number[] = [],
+           limit: Number = 10,
+           offset: Number = 1
+         ): Promise<{ paginatedCrosschain: PaginatedCrosschain }> {
+           try {
+             const data = await gqlFetcher(
+               this.chainEnvironment,
+               latestCrosschainsQuery,
+               {
+                 address: this.applicationAddress,
+                 timeRange,
+                 limit: limit,
+                 offset: offset,
+               }
+             );
+             return data;
+           } catch (e) {
+             throw new Error(`Error | getLatestCrosschains | ${e}`);
+           }
+         }
+         /**
+          * Fetches specific Crosschains
+          * @param {string} timeRange Time Range
+          * @param {string} searchTerm Source Sender or Source Transaction Hash
+          * @param {string} limit Page Limit
+          * @param {string} offset Page Number
+          * @return {PaginatedCrosschain}
+          * @throws {Error}
+          */
+         public async getCrosschainBySearch(
+           searchTerm: String,
+           srcChainIds: string[] = [],
+           dstChainIds: string[] = [],
+           timeRange: number[] = [],
+           limit: Number = 10,
+           offset: Number = 1
+         ): Promise<{ paginatedCrosschain: PaginatedCrosschain }> {
+           try {
+             const data = await gqlFetcher(
+               this.chainEnvironment,
+               srcChainIds.length === 0 && dstChainIds.length === 0
+                 ? searchSpecificCrosschainQuery
+                 : srcChainIds.length > 0 && dstChainIds.length > 0
+                 ? searchSpecificCrosschainChainIdQuery
+                 : srcChainIds.length > 0
+                 ? searchSpecificCrosschainSrcChainIdQuery
+                 : dstChainIds.length > 0
+                 ? searchSpecificCrosschainDestChainIdQuery
+                 : searchSpecificCrosschainQuery,
+               {
+                 sourceChainIds: srcChainIds,
+                 destinationChainIds: dstChainIds,
+                 searchTerm: searchTerm,
+                 timeRange,
+                 limit: limit,
+                 offset: offset,
+               }
+             );
+             return data;
+           } catch (e) {
+             throw new Error(`Error | getCrosschainBySearch | ${e}`);
+           }
+         }
+         /**
+          * Fetches specific Crosschain
+          * @param {string} formAttestationId
+          * @return {CrosschainType}
+          * @throws {Error}
+          */
+         public async getCrosschainByAttestationId(
+           formAttestationId: String
+         ): Promise<{ crosschain: CrosschainType }> {
+           try {
+             const data = await gqlFetcher(
+               this.chainEnvironment,
+               specificCrosschainQuery,
+               {
+                 formAttestationId: formAttestationId,
+               }
+             );
+             return data;
+           } catch (e) {
+             throw new Error(`Error | getCrosschainByAttestationId | ${e}`);
+           }
+         }
+         /**
+          * Fetches specific Transaction
+          * @param {string} middlewareContract
+          * @param {string} inboundId
+          * @return {InboundOutboundMapType[]}
+          * @throws {Error}
+          */
+         public async getOutboundsForInbound(
+           middlewareContract: String,
+           inboundId: String
+         ): Promise<{ outboundToInboundMap: InboundOutboundMapType[] }> {
+           try {
+             const data = await gqlFetcher(
+               this.chainEnvironment,
+               inboundOutboundQuery,
+               {
+                 middlewareContract,
+                 inboundId,
+               }
+             );
+             return data;
+           } catch (e) {
+             throw new Error(`Error | getOutboundsForInbound | ${e}`);
+           }
+         }
+       }

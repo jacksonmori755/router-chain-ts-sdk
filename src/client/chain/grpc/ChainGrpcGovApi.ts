@@ -20,7 +20,17 @@ import { paginationRequestFromPagination } from '../../../utils/pagination';
 import { ChainGrpcGovTransformer } from '../transformers/ChainGrpcGovTransformer';
 
 /**
+ * The Gov module is responsible for handling Governance. Fetch information like proposals, votes and tally.
+ * 
  * @group gRPC API
+ * 
+ * @example
+ * To use Gov methods, initialise a {@link ChainGrpcGovApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
+ * ```ts
+ * const endpoint =  getEndpointsForNetwork(Network.Devnet).grpcEndpoint;
+ * const client = new ChainGrpcGovApi(endpoint);
+ * const response = await client.fetchProposal(1);
+ * ```
  */
 export class ChainGrpcGovApi extends BaseConsumer {
   async fetchModuleParams() {

@@ -42,10 +42,9 @@ export abstract class MsgBase<
     type: string
     value: Omit<AminoRepresentation, 'type'>
   } {
-    const amino = this.toAmino()
+    const amino = this.toAmino();
     // @ts-ignore
-    const { type, ...value } = amino
-
+    const { type, ...value } = amino;
     return {
       type: type as string,
       value: snakecaseKeys(value) as Omit<AminoRepresentation, 'type'>,

@@ -18,9 +18,11 @@ import {
 } from '../../../../exceptions'
 import { TxRaw } from '@routerprotocol/chain-api/cosmos/tx/v1beta1/tx_pb'
 import { KeplrWallet } from '../../../wallets/keplr'
-import { ConcreteWalletStrategy } from '../../types'
+import { ConcreteWalletStrategy, onAccountChangeCallback, onChainIdChangeCallback } from '../../types'
 import BaseConcreteStrategy from './Base'
 import { WalletAction, WalletDeviceType } from '../../../types/enums'
+import { Msgs } from '../../../../core'
+import { TxToSend } from '../../../../tx-ts/ethermint/types'
 
 export default class Keplr
   extends BaseConcreteStrategy
@@ -32,6 +34,39 @@ export default class Keplr
     super(args)
     this.chainId = args.chainId || CosmosChainId.Router
     this.keplrWallet = new KeplrWallet(args.chainId)
+  }
+  simulateTransaction(_signedTx: TxToSend, _nodeUrl: string): Promise<any> {
+    throw new Error('Method not implemented.')
+  }
+  broadcastTransaction(_signedTx: TxToSend, _nodeUrl: string): Promise<any> {
+    throw new Error('Method not implemented.')
+  }
+  simulateSignAndBroadcast(_args: {
+                   ethChainId: string;
+                   cosmosChainId: string;
+                   txMsg: Msgs;
+                   nodeUrl: string;
+                   memo?: string;
+                 }): Promise<any> {
+    throw new Error('Method not implemented.')
+  }
+  onAccountChange?(_callback: onAccountChangeCallback): void {
+    throw new Error('Method not implemented.')
+  }
+  onChainIdChange?(_callback: onChainIdChangeCallback): void {
+    throw new Error('Method not implemented.')
+  }
+  cancelOnChainIdChange?(): void {
+    throw new Error('Method not implemented.')
+  }
+  cancelOnAccountChange?(): void {
+    throw new Error('Method not implemented.')
+  }
+  cancelAllEvents?(): void {
+    throw new Error('Method not implemented.')
+  }
+  disconnect?(): Promise<void> {
+    throw new Error('Method not implemented.')
   }
 
   async getWalletDeviceType(): Promise<WalletDeviceType> {

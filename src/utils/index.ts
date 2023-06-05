@@ -10,3 +10,4 @@ export * from './utf8';
 export * from './crypto';
 export * from './buff';
 export * from './transaction';
+export * from './requestMetadata';

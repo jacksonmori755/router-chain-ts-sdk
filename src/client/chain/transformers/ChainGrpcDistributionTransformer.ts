@@ -5,8 +5,8 @@ import {
 } from '@routerprotocol/chain-api/cosmos/distribution/v1beta1/query_pb';
 import { cosmosSdkDecToBigNumber } from '../../../utils';
 import { Coin } from '../../../types';
-import { DistributionModuleParams } from '../types/distribution';
-import { ValidatorRewards } from '../types/distribution';
+import { DistributionModuleParams } from '../types/custom/distribution';
+import { ValidatorRewards } from '../types/custom/distribution';
 
 export class ChainGrpcDistributionTransformer {
   static moduleParamsResponseToModuleParams(

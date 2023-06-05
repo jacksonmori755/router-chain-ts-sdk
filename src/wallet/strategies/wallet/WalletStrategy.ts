@@ -1,6 +1,5 @@
 import Web3 from 'web3';
-import { AccountAddress, ChainId, EthereumChainId } from '../../..';
-import { createAlchemyWeb3 } from '@alch/alchemy-web3';
+import { AccountAddress, ChainId, EthereumChainId, Msgs } from '../../..';
 import { DirectSignResponse } from '@cosmjs/proto-signing';
 import { GeneralException, WalletException } from '../../../exceptions';
 import { TxRaw } from '@routerprotocol/chain-api/cosmos/tx/v1beta1/tx_pb';
@@ -23,6 +22,7 @@ import CosmostationEth from './strategies/CosmostationEth';
 import { Wallet, WalletDeviceType } from '../../types/enums';
 import { isEthWallet } from './utils';
 import { isCosmosWallet } from '../../wallets/cosmos';
+import { TxToSend } from '../../../tx-ts/ethermint/types';
 
 const ethereumWalletsDisabled = (args: WalletStrategyArguments) => {
   const { ethereumOptions } = args;
@@ -116,9 +116,10 @@ const createWeb3 = (args: WalletStrategyArguments): Web3 => {
     );
   }
 
-  const alchemyUrl = (wsRpcUrl as string) || (rpcUrl as string);
+  const web3Provider = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+  web3Provider.setProvider(new Web3.providers.WebsocketProvider(wsRpcUrl));
 
-  return (createAlchemyWeb3(alchemyUrl) as unknown) as Web3;
+  return web3Provider;
 };
 
 const createStrategies = (
@@ -136,156 +137,234 @@ const createStrategies = (
 };
 
 export default class WalletStrategy {
-  public strategies: Record<Wallet, ConcreteWalletStrategy | undefined>;
+                 public strategies: Record<
+                   Wallet,
+                   ConcreteWalletStrategy | undefined
+                 >;
 
-  public wallet: Wallet;
+                 public wallet: Wallet;
 
-  constructor(args: WalletStrategyArguments) {
-    this.strategies = createStrategies(args);
-    this.wallet =
-      args.wallet || args.ethereumOptions ? Wallet.Metamask : Wallet.Keplr;
-  }
+                 constructor(args: WalletStrategyArguments) {
+                   this.strategies = createStrategies(args);
+                   this.wallet =
+                     args.wallet || args.ethereumOptions
+                       ? Wallet.Metamask
+                       : Wallet.Keplr;
+                 }
 
-  public getWallet(): Wallet {
-    return this.wallet;
-  }
+                 public getWallet(): Wallet {
+                   return this.wallet;
+                 }
 
-  public setWallet(wallet: Wallet) {
-    this.wallet = wallet;
-  }
+                 public setWallet(wallet: Wallet) {
+                   this.wallet = wallet;
+                 }
 
-  public getStrategy(): ConcreteWalletStrategy {
-    if (!this.strategies[this.wallet]) {
-      throw new GeneralException(
-        new Error(`Wallet ${this.wallet} is not enabled/available!`)
-      );
-    }
+                 public getStrategy(): ConcreteWalletStrategy {
+                   if (!this.strategies[this.wallet]) {
+                     throw new GeneralException(
+                       new Error(
+                         `Wallet ${this.wallet} is not enabled/available!`
+                       )
+                     );
+                   }
 
-    return this.strategies[this.wallet] as ConcreteWalletStrategy;
-  }
+                   return this.strategies[
+                     this.wallet
+                   ] as ConcreteWalletStrategy;
+                 }
 
-  public getAddresses(): Promise<AccountAddress[]> {
-    return this.getStrategy().getAddresses();
-  }
+                 public getAddresses(): Promise<AccountAddress[]> {
+                   return this.getStrategy().getAddresses();
+                 }
 
-  public getWalletDeviceType(): Promise<WalletDeviceType> {
-    return this.getStrategy().getWalletDeviceType();
-  }
+                 public getWalletDeviceType(): Promise<WalletDeviceType> {
+                   return this.getStrategy().getWalletDeviceType();
+                 }
 
-  public getPubKey(): Promise<string> {
-    return this.getStrategy().getPubKey();
-  }
+                 public getPubKey(): Promise<string> {
+                   return this.getStrategy().getPubKey();
+                 }
 
-  public getChainId(): Promise<string> {
-    return this.getStrategy().getChainId();
-  }
+                 public getChainId(): Promise<string> {
+                   return this.getStrategy().getChainId();
+                 }
 
-  public getNetworkId(): Promise<string> {
-    return this.getStrategy().getNetworkId();
-  }
+                 public getNetworkId(): Promise<string> {
+                   return this.getStrategy().getNetworkId();
+                 }
 
-  public async getEthereumTransactionReceipt(txHash: string): Promise<void> {
-    return this.getStrategy().getEthereumTransactionReceipt(txHash);
-  }
+                 public async getEthereumTransactionReceipt(
+                   txHash: string
+                 ): Promise<void> {
+                   return this.getStrategy().getEthereumTransactionReceipt(
+                     txHash
+                   );
+                 }
 
-  public async confirm(address: AccountAddress): Promise<string> {
-    return this.getStrategy().confirm(address);
-  }
+                 public async confirm(
+                   address: AccountAddress
+                 ): Promise<string> {
+                   return this.getStrategy().confirm(address);
+                 }
 
-  public async disconnectWallet() {
-    const strategy = this.getStrategy();
+                 public async disconnectWallet() {
+                   const strategy = this.getStrategy();
 
-    if (strategy.disconnect !== undefined) {
-      await strategy.disconnect();
-    }
+                   if (strategy.disconnect !== undefined) {
+                     await strategy.disconnect();
+                   }
 
-    this.wallet = Wallet.Metamask;
-  }
+                   this.wallet = Wallet.Metamask;
+                 }
 
-  public async sendTransaction(
-    tx: DirectSignResponse | TxRaw,
-    options: { address: AccountAddress; chainId: ChainId }
-  ): Promise<string> {
-    return this.getStrategy().sendTransaction(tx, options);
-  }
+                 public async sendTransaction(
+                   tx: DirectSignResponse | TxRaw,
+                   options: { address: AccountAddress; chainId: ChainId }
+                 ): Promise<string> {
+                   return this.getStrategy().sendTransaction(tx, options);
+                 }
 
-  public async sendEthereumTransaction(
-    tx: any /* TODO */,
-    options: {
-      address: AccountAddress /* Ethereum address */;
-      ethereumChainId: EthereumChainId;
-    }
-  ): Promise<string> {
-    return this.getStrategy().sendEthereumTransaction(tx, options);
-  }
+                 public async sendEthereumTransaction(
+                   tx: any /* TODO */,
+                   options: {
+                     address: AccountAddress /* Ethereum address */;
+                     ethereumChainId: EthereumChainId;
+                   }
+                 ): Promise<string> {
+                   return this.getStrategy().sendEthereumTransaction(
+                     tx,
+                     options
+                   );
+                 }
 
-  /** @deprecated * */
-  public async signTransaction(
-    data:
-      | string /* When using EIP712 typed data */
-      | { txRaw: TxRaw; accountNumber: number; chainId: string },
-    address: AccountAddress
-  ): Promise<string | DirectSignResponse> {
-    return this.getStrategy().signTransaction(data, address);
-  }
+                 /** @deprecated * */
+                 public async signTransaction(
+                   data:
+                     | string /* When using EIP712 typed data */
+                     | { txRaw: TxRaw; accountNumber: number; chainId: string },
+                   address: AccountAddress
+                 ): Promise<string | DirectSignResponse> {
+                   return this.getStrategy().signTransaction(data, address);
+                 }
 
-  public async signEip712TypedData(
-    eip712TypedData: string,
-    address: AccountAddress
-  ): Promise<string> {
-    if (isCosmosWallet(this.wallet)) {
-      throw new WalletException(
-        new Error(`You can't sign Ethereum Transaction using ${this.wallet}`)
-      );
-    }
+                 public async signEip712TypedData(
+                   eip712TypedData: string,
+                   address: AccountAddress
+                 ): Promise<string> {
+                   if (isCosmosWallet(this.wallet)) {
+                     throw new WalletException(
+                       new Error(
+                         `You can't sign Ethereum Transaction using ${this.wallet}`
+                       )
+                     );
+                   }
 
-    return this.getStrategy().signEip712TypedData(eip712TypedData, address);
-  }
+                   return this.getStrategy().signEip712TypedData(
+                     eip712TypedData,
+                     address
+                   );
+                 }
 
-  public async signCosmosTransaction(
-    transaction: { txRaw: TxRaw; accountNumber: number; chainId: string },
-    address: AccountAddress
-  ): Promise<DirectSignResponse> {
-    if (isEthWallet(this.wallet)) {
-      throw new WalletException(
-        new Error(`You can't sign Cosmos Transaction using ${this.wallet}`)
-      );
-    }
+                 async simulateTransaction(
+                   signedTx: TxToSend,
+                   nodeUrl: string
+                 ) {
+                   return this.getStrategy().simulateTransaction(
+                     signedTx,
+                     nodeUrl
+                   );
+                 }
 
-    return this.getStrategy().signCosmosTransaction(transaction, address);
-  }
+                 async broadcastTransaction(
+                   signedTx: TxToSend,
+                   nodeUrl: string
+                 ) {
+                   return this.getStrategy().broadcastTransaction(
+                     signedTx,
+                     nodeUrl
+                   );
+                 }
 
-  public getWeb3(): Web3 {
-    return this.getStrategy().getWeb3();
-  }
+                 async simulateSignAndBroadcast({
+                   ethChainId,
+                   cosmosChainId,
+                   txMsg,
+                   nodeUrl,
+                   memo,
+                 }: {
+                   ethChainId: string;
+                   cosmosChainId: string;
+                   txMsg: Msgs;
+                   nodeUrl: string;
+                   memo?: string;
+                 }) {
+                   return this.getStrategy().simulateSignAndBroadcast({
+                     ethChainId,
+                     cosmosChainId,
+                     txMsg,
+                     nodeUrl,
+                     memo,
+                   });
+                 }
 
-  public onAccountChange(callback: onAccountChangeCallback): void {
-    if (this.getStrategy().onAccountChange) {
-      return this.getStrategy().onAccountChange!(callback);
-    }
-  }
+                 public async signCosmosTransaction(
+                   transaction: {
+                     txRaw: TxRaw;
+                     accountNumber: number;
+                     chainId: string;
+                   },
+                   address: AccountAddress
+                 ): Promise<DirectSignResponse> {
+                   if (isEthWallet(this.wallet)) {
+                     throw new WalletException(
+                       new Error(
+                         `You can't sign Cosmos Transaction using ${this.wallet}`
+                       )
+                     );
+                   }
 
-  public onChainIdChange(callback: onChainIdChangeCallback): void {
-    if (this.getStrategy().onChainIdChange) {
-      return this.getStrategy().onChainIdChange!(callback);
-    }
-  }
+                   return this.getStrategy().signCosmosTransaction(
+                     transaction,
+                     address
+                   );
+                 }
 
-  public cancelOnChainIdChange(): void {
-    if (this.getStrategy().cancelOnChainIdChange) {
-      return this.getStrategy().cancelOnChainIdChange!();
-    }
-  }
+                 public getWeb3(): Web3 {
+                   return this.getStrategy().getWeb3();
+                 }
 
-  public cancelAllEvents(): void {
-    if (this.getStrategy().cancelAllEvents) {
-      return this.getStrategy().cancelAllEvents!();
-    }
-  }
+                 public onAccountChange(
+                   callback: onAccountChangeCallback
+                 ): void {
+                   if (this.getStrategy().onAccountChange) {
+                     return this.getStrategy().onAccountChange!(callback);
+                   }
+                 }
 
-  public cancelOnAccountChange(): void {
-    if (this.getStrategy().cancelOnAccountChange) {
-      return this.getStrategy().cancelOnAccountChange!();
-    }
-  }
-}
+                 public onChainIdChange(
+                   callback: onChainIdChangeCallback
+                 ): void {
+                   if (this.getStrategy().onChainIdChange) {
+                     return this.getStrategy().onChainIdChange!(callback);
+                   }
+                 }
+
+                 public cancelOnChainIdChange(): void {
+                   if (this.getStrategy().cancelOnChainIdChange) {
+                     return this.getStrategy().cancelOnChainIdChange!();
+                   }
+                 }
+
+                 public cancelAllEvents(): void {
+                   if (this.getStrategy().cancelAllEvents) {
+                     return this.getStrategy().cancelAllEvents!();
+                   }
+                 }
+
+                 public cancelOnAccountChange(): void {
+                   if (this.getStrategy().cancelOnAccountChange) {
+                     return this.getStrategy().cancelOnAccountChange!();
+                   }
+                 }
+               }

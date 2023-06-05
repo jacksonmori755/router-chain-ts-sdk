@@ -8,9 +8,24 @@ import {
 import BaseConsumer from '../../BaseGrpcConsumer';
 
 /**
+ * The IBC module provides functions for denom trace (base denom and its path)
+ * 
  * @group gRPC API
+ * 
+ * @example
+ * To use IBC methods, initialise a {@link ChainGrpcIbcApi} object to with a gRPC endpoint. An endpoint can be retrieved by using {@link networkEndpoints}.
+ * ```ts
+ * const endpoint =  getEndpointsForNetwork(Network.Devnet).grpcEndpoint;
+ * const client = new ChainGrpcIbcApi(endpoint);
+ * const response = await client.fetchDenomsTrace();
+ * ```
  */
 export class ChainGrpcIbcApi extends BaseConsumer {
+  /**
+   * 
+   * @param hash 
+   * @returns 
+   */
   async fetchDenomTrace(hash: string) {
     const request = new QueryDenomTraceRequest();
     request.setHash(hash);
@@ -29,6 +44,10 @@ export class ChainGrpcIbcApi extends BaseConsumer {
     }
   }
 
+  /**
+   * 
+   * @returns 
+   */
   async fetchDenomsTrace() {
     const request = new QueryDenomTracesRequest();
 

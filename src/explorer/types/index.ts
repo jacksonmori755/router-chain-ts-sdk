@@ -7,178 +7,214 @@ export interface KeyValueAny {
 }
 
 export interface TransactionType {
-  _id: String;
-  height: Number;
-  sender: String;
-  status: String;
-  receiver: String;
-  timeStamp: String;
-  gasWanted: String;
-  gasUsed: String;
-  fee: String;
-  event_logs: String;
-  success: String;
-  txnRaw: String;
-  rawLog: String;
+  _id: string;
+  height: number;
+  sender: string;
+  status: string;
+  receiver: string;
+  timestamp: number;
+  gasWanted: string;
+  gasUsed: string;
+  fee: string;
+  event_logs: string;
+  success: string;
+  txnRaw: string;
+  rawLog: string;
   routePrice: string;
 }
 
 export interface BlockType {
-  _id: Number;
-  hash: String;
-  proposer: String;
-  txn_count: Number;
-  timestamp: String;
-  total_gas: String;
-  block_reward: String;
-  processed: Number;
+  _id: number;
+  hash: string;
+  proposer: string;
+  txn_count: number;
+  timestamp: number;
+  total_gas: string;
+  block_reward: string;
+  processed: number;
   transactions: TransactionType[];
 }
 
-export interface InboundType {
-  attestationId: String;
-  chainType: String;
-  attestationType: String;
-  chainId: String;
-  eventNonce: Number;
-  blockHeight: Number;
-  sourceTxHash: String;
-  sourceSender: String;
-  routerBridgeContract: String;
-  payload: String;
-  status: String;
-  formAttestationId: String;
-  historyStatus: {
-    status: string;
-    txnHash: string;
-    timestamp: string;
-  }[];
-  confirmations: {
-    validator: string;
-    txnHash: string;
-    timestamp: string;
-  }[];
-}
-
-export interface OutboundType {
-  outgoingTxNonce: Number;
-  destinationChainType: String;
-  destinationChainId: String;
-  relayerFee: String;
-  outgoingTxFee: String;
-  isAtomic: Boolean;
-  sourceAddress: String;
-  expiryTimestamp: Number;
-  status: String;
-  contractCalls: String;
-  formAttestationId: String;
-  attestationId: String;
-  outboundTxRequestedBy: String;
-  destinationTxHash: String;
-  feeConsumed: Number;
-  blockHeight: Number;
-  historyStatus: {
-    status: string;
-    txnHash: string;
-    timestamp: string;
-    blockHeight: number;
-  }[];
-  outboundSignatures: {
-    validator: string;
-    txnHash: string;
-    timestamp: string;
-    blockHeight: number;
-  }[];
-  outboundACKSignatures: {
-    validator: string;
-    txnHash: string;
-    timestamp: string;
-    blockHeight: number;
-  }[];
-  confirmations: {
-    validator: string;
-    txnHash: string;
-    timestamp: string;
-    blockHeight: number;
-  }[];
-  contractsExecutionData: {
-    destContractAddress: String;
-    status: Boolean;
-    payload: String;
-  }[];
-  contractAckResponses: Boolean[];
-}
-
-export interface CrossTalkType {
-  attestationId: String;
-  formAttestationId: String;
-  eventNonce: Number;
-  blockHeight: Number;
-  sourceChainType: String;
-  sourceChainId: String;
-  sourceTxHash: String;
-  destinationChainType: String;
-  destinationChainId: String;
-  destinationTxHash: String;
-  destinationGasLimit: Number;
-  destinationGasPrice: Number;
-  requestSender: String;
-  requestNonce: Number;
-  isAtomic: Boolean;
-  expiryTimestamp: Number;
-  ackType: Number;
-  ackGasLimit: Number;
-  ackGasPrice: Number;
-  historyStatus: {
-    status: string;
-    txnHash: string;
-    timestamp: string;
-    blockHeight: number;
-  }[];
-  contractsExecutionData: {
-    destContractAddress: String;
-    status: Boolean;
-    payload: String;
-  }[];
-  eventConfirmSignatures: {
-    validator: String;
-    txnHash: String;
-    timestamp: String;
-    blockHeight: String;
-    signature: String;
-    ethSigner: String;
-  }[];
-  eventAckConfirmSignatures: {
-    validator: String;
-    txnHash: String;
-    timestamp: String;
-    blockHeight: String;
-    signature: String;
-    ethSigner: String;
-  }[];
-}
-
 export interface PaginatedBlock {
-  totalRecords: Number;
+  totalRecords: number;
   blocks: BlockType[];
 }
 
 export interface PaginatedTransaction {
-  totalRecords: Number;
+  totalRecords: number;
   transactions: TransactionType[];
 }
 
-export interface PaginatedInbound {
-  totalRecords: Number;
-  inbounds: InboundType[];
+export interface EventHistory {
+  name: string;
+  height: number;
+  timestamp: number;
+  txnHash: string;
 }
 
-export interface PaginatedOutbound {
-  totalRecords: Number;
-  outbounds: OutboundType[];
+interface HistoryStatusType {
+  status: string;
+  txnHash: string;
+  timestamp: number;
+  blockHeight: number;
 }
 
-export interface PaginatedCrossTalk {
-  totalRecords: Number;
-  crossTalks: CrossTalkType[];
+interface VoteAttestationType {
+  chainType: string;
+  chainId: string;
+  eventNonce: number;
+  voter: string;
+  blockHeight: number;
+  timestamp: number;
+}
+
+export interface EventSignatureType {
+  validator: string;
+  txnHash: string;
+  timestamp: number;
+  blockHeight: number;
+  signature: string;
+  ethSigner: string;
+}
+
+export interface CrosschainRouterPacket {
+  handler: string;
+  payload: string;
+}
+
+export interface EvmContractMetadata {
+  destGasLimit: number;
+  destGasPrice: number;
+  ackGasLimit: number;
+  ackGasPrice: number;
+  ackType: number;
+  isReadCall: boolean;
+  asmAddress: string;
+}
+
+export interface EventCrosschainAckReceiptCreated {
+  attestationId: string;
+  ackReceiptSrcChainId: string;
+  ackReceiptIdentifier: number;
+  ackReceiptBlockHeight: number;
+  ackReceiptTxHash: string;
+  relayerRouterAddress: string;
+  requestIdentifier: number;
+  status: string;
+}
+
+interface AckReceiptRequest {
+  ackReceipt: EventCrosschainAckReceiptCreated;
+  historyStatus: HistoryStatusType[];
+  relayerFeeInRoute: string;
+  refundFeeInRoute: string;
+  ackReceiptKey: string;
+  status: string;
+  claimHash: string;
+}
+
+interface EventCrosschainAckRequestCreated {
+  attestationId: string;
+  ackSrcChainId: string;
+  ackRequestIdentifier: number;
+  blockHeight: number;
+  destTxHash: string;
+  relayerRouterAddress: string;
+  ackDestChainId: string;
+  requestSender: string;
+  requestIdentifier: number;
+  ackSrcChainType: number;
+  ackDestChainType: number;
+  execData: string;
+  execStatus: boolean;
+  status: string;
+}
+
+export interface EventCrosschainAckRequestConfirm {
+  ackSrcChainId: string;
+  ackRequestIdentifier: number;
+  claimHash: string;
+  ethSigner: string;
+  signature: string;
+  orchestrator: string;
+}
+
+export interface AckRequest {
+  eventAckRequestCreated: EventCrosschainAckRequestCreated;
+  eventAckRequestConfirm: EventCrosschainAckRequestConfirm;
+  status: string;
+  eventHistory: EventHistory[];
+  historyStatus: HistoryStatusType[];
+  claimHash: string;
+  txFeeInRoute: string;
+  chainType: string;
+  chainId: string;
+  requestIdentifier: number;
+  customFormAttestationId: string;
+  ackReceiptRequest: AckReceiptRequest;
+  ackGasLimit: number;
+  ackGasPrice: number;
+  feePayer: string;
+  relayerFeeInRoute: string;
+  relayerIncentiveInRoute: string;
+  refundFeeInRoute: string;
+  errorResponse: string;
+  eventSignatures: VoteAttestationType[];
+}
+
+export interface CrosschainType {
+  id: string;
+  attestationId: string;
+  srcChainId: string;
+  requestIdentifier: number;
+  blockHeight: number;
+  sourceTxHash: string;
+  srcTimestamp: number;
+  srcTxOrigin: string;
+  routeAmount: string;
+  routeRecipient: string;
+  destChainId: string;
+  requestSender: string;
+  requestMetadata: EvmContractMetadata;
+  requestPacket: CrosschainRouterPacket;
+  srcChainType: string;
+  destChainType: string;
+  status: string;
+  eventHistory: EventHistory[];
+  historyStatus: HistoryStatusType[];
+  eventConfirmSignatures: EventSignatureType[];
+  ackRequest: AckRequest;
+  customFormAttestationId: string;
+  destinationTxHash: string;
+  eventAckConfirmSignatures: EventSignatureType[];
+  createdAt: number;
+  updatedAt: number;
+  destTxFeeInRoute: string;
+  relayerFee: string;
+  relayerFeeInRoute: string;
+  relayerIncentiveInRoute: string;
+  refundFeeInRoute: string;
+  feePayer: string;
+  errorResponse: string;
+  relayerAddress: string;
+  execStatus: boolean;
+  execData: string;
+  eventSignatures: VoteAttestationType[];
+}
+
+export interface PaginatedCrosschain {
+  totalRecords: number;
+  crosschains: CrosschainType[];
+}
+
+export interface InboundOutboundMapType {
+  inboundId: string;
+  outboundId: string;
+  inboundChainId: string;
+  inboundNonce: string;
+  outboundChainId: string;
+  outboundNonce: string;
+  middlewareContract: string;
+  blockHeight: number;
+  timestamp: number;
 }

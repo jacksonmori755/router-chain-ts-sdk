@@ -22,7 +22,7 @@ import {
   ReDelegation,
   Pool,
   StakingModuleParams,
-} from '../types/staking';
+} from '../types/custom/staking';
 import { cosmosSdkDecToBigNumber, DUST_AMOUNT } from '../../../utils';
 import { grpcPaginationToPagination } from '../../../utils/pagination';
 import { Pagination } from '../../../types';
@@ -37,6 +37,7 @@ export class ChainGrpcStakingTransformer {
       unbondingTime: params.getUnbondingTime()!.getSeconds(),
       maxValidators: params.getMaxValidators(),
       maxEntries: params.getMaxEntries(),
+      minCommissionRate: params.getMinCommissionRate(),
       historicalEntries: params.getHistoricalEntries(),
       bondDenom: params.getBondDenom(),
     };

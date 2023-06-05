@@ -16,3 +16,6 @@ export enum StreamOperation {
 }
 
 export { GrpcCoin };
+
+export * from './tx-grpc-client';
+export * from './tx-rest-client';

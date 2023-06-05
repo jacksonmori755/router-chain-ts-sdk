@@ -8,5 +8,4 @@ export { ChainGrpcStakingApi } from './ChainGrpcStakingApi';
 export { ChainGrpcWasmApi } from './ChainGrpcWasmApi';
 export { ChainGrpcAttestationApi } from './ChainGrpcAttestationApi';
 export { ChainGrpcMultiChainApi } from './ChainGrpcMultiChainApi';
-export { ChainGrpcInboundApi } from './ChainGrpcInboundApi';
-export { ChainGrpcOutboundApi } from './ChainGrpcOutboundApi';
+export { ChainGrpcCrosschainApi } from './ChainGrpcCrosschainApi';

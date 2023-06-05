@@ -1,9 +1,11 @@
 import { ChainErrorModule } from '../../../exceptions';
 
-export * from './auth-rest';
-export * from './bank';
-export * from './gov';
-export * from './mint';
-export * from './staking';
+export * from './custom/auth-rest';
+export * from './custom/bank';
+export * from './custom/gov';
+export * from './custom/mint';
+export * from './custom/staking';
+export * from './attestation';
+export * from './crosschain';
 
 export const ChainModule = { ...ChainErrorModule };

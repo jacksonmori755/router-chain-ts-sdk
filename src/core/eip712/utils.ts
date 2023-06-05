@@ -1,17 +1,13 @@
 import { EthereumChainId } from '../../ts-types';
-import {
-  BigNumberInBase,
-  DEFAULT_GAS_LIMIT,
-  DEFAULT_STD_FEE,
-} from '../../utils';
+import { DEFAULT_GAS_LIMIT, DEFAULT_STD_FEE } from '../../utils';
 import { Eip712ConvertFeeArgs, Eip712ConvertTxArgs } from './types';
 
 export const getEip712Domain = (ethereumChainId: EthereumChainId) => {
   return {
     domain: {
-      name: 'Router Web3',
+      name: 'Cosmos Web3',
       version: '1.0.0',
-      chainId: '0x' + new BigNumberInBase(ethereumChainId).toString(16),
+      chainId: ethereumChainId,
       salt: '0',
       verifyingContract: 'cosmos',
     },
@@ -35,11 +31,20 @@ export const getDefaultEip712Types = () => {
         { name: 'memo', type: 'string' },
         { name: 'msgs', type: 'Msg[]' },
         { name: 'sequence', type: 'string' },
-        { name: 'timeout_height', type: 'string' },
       ],
       Fee: [
-        { name: 'amount', type: 'Coin[]' },
-        { name: 'gas', type: 'string' },
+        {
+          name: 'feePayer',
+          type: 'string',
+        },
+        {
+          name: 'amount',
+          type: 'Coin[]',
+        },
+        {
+          name: 'gas',
+          type: 'string',
+        },
       ],
       Coin: [
         { name: 'denom', type: 'string' },
@@ -91,35 +96,25 @@ export const getTypesIncludingFeePayer = ({
   types: ReturnType<typeof getDefaultEip712Types>;
 }) => {
   if (!fee) {
-    return types;
-  }
-
-  if (!fee.feePayer) {
-    return types;
-  }
-
-  types.types['Fee'].push({ name: 'feePayer', type: 'string' });
-
+              return types;
+            }
   return types;
 };
 
 export const getEipTxDetails = ({
   accountNumber,
   sequence,
-  timeoutHeight,
   chainId,
   memo,
 }: Eip712ConvertTxArgs): {
   account_number: string;
   chain_id: string;
   sequence: string;
-  timeout_height: string;
   memo: string;
 } => {
   return {
     account_number: accountNumber,
     chain_id: chainId,
-    timeout_height: timeoutHeight,
     memo: memo || '',
     sequence,
   };

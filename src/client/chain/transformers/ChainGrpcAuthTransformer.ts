@@ -8,7 +8,7 @@ import {
 import { Any } from 'google-protobuf/google/protobuf/any_pb'
 import { grpcPaginationToPagination } from '../../../utils/pagination'
 import { uint8ArrayToString } from '../../../utils'
-import { Account, AuthModuleParams, EthAccount } from '../types/auth'
+import { Account, AuthModuleParams, EthAccount } from '../types/custom/auth'
 
 export class ChainGrpcAuthTransformer {
   static moduleParamsResponseToModuleParams(
@@ -27,8 +27,8 @@ export class ChainGrpcAuthTransformer {
 
   static grpcAccountToAccount(ethAccount: Any): Account {
     const account = EthAccount.deserializeBinary(
-      ethAccount.getValue() as Uint8Array,
-    )
+      ethAccount.getValue() as Uint8Array
+    );
     const baseAccount = account.getBaseAccount()!
 
     const pubKey = baseAccount.getPubKey()
