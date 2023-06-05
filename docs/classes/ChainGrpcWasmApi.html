@@ -19,7 +19,7 @@
 <div class="tsd-comment tsd-typography"><p>The Wasm module manages contract state and info.</p>
 
 <h3>Example</h3><p>To use Wasm methods, initialise a <a href="ChainGrpcWasmApi.html">ChainGrpcWasmApi</a> object to with a gRPC endpoint. An endpoint can be retrieved by using networkEndpoints.</p>
-<pre><code class="language-ts"><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">endpoint</span><span class="hl-0"> =  </span><span class="hl-6">getEndpointsForNetwork</span><span class="hl-0">(</span><span class="hl-2">Network</span><span class="hl-0">.</span><span class="hl-2">Devnet</span><span class="hl-0">).</span><span class="hl-2">grpcEndpoint</span><span class="hl-0">;</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">client</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">ChainGrpcWasmApi</span><span class="hl-0">(</span><span class="hl-2">endpoint</span><span class="hl-0">);</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">response</span><span class="hl-0"> = </span><span class="hl-1">await</span><span class="hl-0"> </span><span class="hl-2">client</span><span class="hl-0">.</span><span class="hl-6">fetchContractInfo</span><span class="hl-0">(&lt;</span><span class="hl-10">contract</span><span class="hl-0">-</span><span class="hl-10">address</span><span class="hl-0">&gt;);</span>
+<pre><code class="language-ts"><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">endpoint</span><span class="hl-0"> =  </span><span class="hl-6">getEndpointsForNetwork</span><span class="hl-0">(</span><span class="hl-3">Network</span><span class="hl-0">.</span><span class="hl-3">Devnet</span><span class="hl-0">).</span><span class="hl-3">grpcEndpoint</span><span class="hl-0">;</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">client</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">ChainGrpcWasmApi</span><span class="hl-0">(</span><span class="hl-3">endpoint</span><span class="hl-0">);</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">response</span><span class="hl-0"> = </span><span class="hl-2">await</span><span class="hl-0"> </span><span class="hl-3">client</span><span class="hl-0">.</span><span class="hl-6">fetchContractInfo</span><span class="hl-0">(&lt;</span><span class="hl-10">contract</span><span class="hl-0">-</span><span class="hl-10">address</span><span class="hl-0">&gt;);</span>
 </code></pre>
 </div></section>
 <section class="tsd-panel tsd-hierarchy">
@@ -29,7 +29,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">ChainGrpcWasmApi</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/0f74cb3/src/client/chain/grpc/ChainGrpcWasmApi.ts#L44">src/client/chain/grpc/ChainGrpcWasmApi.ts:44</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/b695309/src/client/chain/grpc/ChainGrpcWasmApi.ts#L44">src/client/chain/grpc/ChainGrpcWasmApi.ts:44</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -68,7 +68,7 @@
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> pagination<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PaginationOption</span></h5></li></ul></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ContractAccountsBalanceWithPagination</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/0f74cb3/src/client/chain/grpc/ChainGrpcWasmApi.ts#L52">src/client/chain/grpc/ChainGrpcWasmApi.ts:52</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/b695309/src/client/chain/grpc/ChainGrpcWasmApi.ts#L52">src/client/chain/grpc/ChainGrpcWasmApi.ts:52</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="fetchContractHistory" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>fetch<wbr/>Contract<wbr/>History</span><a href="#fetchContractHistory" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -87,7 +87,7 @@
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span><br/><span>    </span>entriesList<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ContractCodeHistoryEntry</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>pagination<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AsObject</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/0f74cb3/src/client/chain/grpc/ChainGrpcWasmApi.ts#L130">src/client/chain/grpc/ChainGrpcWasmApi.ts:130</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/b695309/src/client/chain/grpc/ChainGrpcWasmApi.ts#L130">src/client/chain/grpc/ChainGrpcWasmApi.ts:130</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="fetchContractInfo" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>fetch<wbr/>Contract<wbr/>Info</span><a href="#fetchContractInfo" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -106,7 +106,7 @@
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ContractInfo</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/0f74cb3/src/client/chain/grpc/ChainGrpcWasmApi.ts#L94">src/client/chain/grpc/ChainGrpcWasmApi.ts:94</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/b695309/src/client/chain/grpc/ChainGrpcWasmApi.ts#L94">src/client/chain/grpc/ChainGrpcWasmApi.ts:94</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="fetchRawContractState" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>fetch<wbr/>Raw<wbr/>Contract<wbr/>State</span><a href="#fetchRawContractState" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -126,7 +126,7 @@
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> query: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8Array</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AsObject</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/0f74cb3/src/client/chain/grpc/ChainGrpcWasmApi.ts#L204">src/client/chain/grpc/ChainGrpcWasmApi.ts:204</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/b695309/src/client/chain/grpc/ChainGrpcWasmApi.ts#L204">src/client/chain/grpc/ChainGrpcWasmApi.ts:204</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="fetchSmartContractState" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>fetch<wbr/>Smart<wbr/>Contract<wbr/>State</span><a href="#fetchSmartContractState" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -147,7 +147,7 @@
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> query: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8Array</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span><br/><span>    </span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/0f74cb3/src/client/chain/grpc/ChainGrpcWasmApi.ts#L163">src/client/chain/grpc/ChainGrpcWasmApi.ts:163</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/router-protocol/router-chain-ts-sdk/blob/b695309/src/client/chain/grpc/ChainGrpcWasmApi.ts#L163">src/client/chain/grpc/ChainGrpcWasmApi.ts:163</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">

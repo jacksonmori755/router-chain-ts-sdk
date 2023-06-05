@@ -2,7 +2,12 @@ import { ValsetUpdatedClaimHash } from "@routerprotocol/chain-api/attestation/va
 import { BridgeValidator } from "@routerprotocol/chain-api/attestation/bridge_validator_pb";
 import { getClaimHash } from "./util";
 
-export function getValsetUpdatedClaimHash(claimHashObject: ValsetUpdatedClaimHash.AsObject) : Uint8Array {
+/**
+ * Get ValsetUpdated ClaimHash
+ * @param valset 
+ * @returns 
+ */
+export function getValsetUpdatedClaimHash(valset: ValsetUpdatedClaimHash.AsObject) : Uint8Array {
     const claimHash = new ValsetUpdatedClaimHash();
 
     let bridgeValidators: Array<BridgeValidator> = claimHashObject.membersList.map(
@@ -18,7 +23,7 @@ export function getValsetUpdatedClaimHash(claimHashObject: ValsetUpdatedClaimHas
     claimHash.setValsetnonce(claimHashObject.valsetnonce)
     claimHash.setBlockheight(claimHashObject.blockheight)
     claimHash.setMembersList(bridgeValidators)
-    claimHash.setSourcetxhash(claimHashObject.sourcetxhash)
+    claimHash.setSourcetxhash(valset.sourcetxhash)
 
     return getClaimHash(claimHash.serializeBinary())
 }
