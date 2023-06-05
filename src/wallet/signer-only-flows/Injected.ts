@@ -184,3 +184,112 @@ export const executeQueryInjected = async ({
     throw new TransactionException(new Error((e as any).message));
   }
 };
+
+export const sendEthTxnToRouterChain = async ({
+  networkEnv,
+  txMsg,
+  nodeUrl,
+  ethereumAddress,
+  injectedSigner,
+  memo,
+}: {
+  networkEnv: string;
+  txMsg: Msgs;
+  nodeUrl: string;
+  ethereumAddress: string;
+  injectedSigner: any;
+  memo?: string;
+}) => {
+  //Account Info
+  const userAccountInfo = await new ChainRestAuthApi(nodeUrl).fetchAccount(
+    getRouterSignerAddress(ethereumAddress)
+  );
+  const baseAccount = BaseAccount.fromRestApi(userAccountInfo);
+  const accountDetails = baseAccount.toAccountDetails();
+  const context: TxContext = {
+    chain: {
+      chainId: getEthereumChainIdForNetwork(getNetworkType(networkEnv)),
+      cosmosChainId: getChainInfoForNetwork(getNetworkType(networkEnv)).chainId,
+    },
+    sender: {
+      accountAddress: getRouterSignerAddress(ethereumAddress),
+      sequence: accountDetails.sequence,
+      accountNumber: accountDetails.accountNumber,
+      pubkey: accountDetails.pubKey?.key ?? '',
+    },
+    memo: memo ?? '',
+  };
+
+  //EIP DATA
+  const eipData: {
+    msgs: Msgs | Msgs[];
+    tx: Eip712ConvertTxArgs;
+    fee?: Eip712ConvertFeeArgs;
+    ethereumChainId: EthereumChainId;
+  } = {
+    msgs: [txMsg],
+    tx: {
+      accountNumber: accountDetails.accountNumber.toString(),
+      sequence: accountDetails.sequence.toString(),
+      chainId: getChainInfoForNetwork(getNetworkType(networkEnv)).chainId,
+    },
+    ethereumChainId: getEthereumChainIdForNetwork(getNetworkType(networkEnv)),
+    fee: {
+      feePayer: getRouterSignerAddress(ethereumAddress),
+    },
+  };
+  // Simulationx
+  const simulatedTxPayload = getEtherMintTxPayload(context, eipData);
+  const simulatedTx = createTxRawForBroadcast(
+    simulatedTxPayload.signDirect.body.toBinary(),
+    simulatedTxPayload.signDirect.authInfo.toBinary(),
+    [new Uint8Array(2)]
+  );
+  const simulationResponse = await simulateRawTx(simulatedTx, nodeUrl);
+  const simulatedFee = {
+    amount: [
+      {
+        amount: new BigNumberInBase(ROUTER_DEFAULT_GAS_PRICE)
+          .times(
+            parseInt(
+              (
+                parseInt(simulationResponse.gas_info.gas_used) *
+                GAS_LIMIT_MULTIPLIER
+              ).toString()
+            )
+          )
+          .toString(),
+        denom: ROUTER_DENOM,
+      },
+    ],
+    gas: parseInt(
+      (
+        parseInt(simulationResponse.gas_info.gas_used) * GAS_LIMIT_MULTIPLIER
+      ).toString()
+    ).toString(),
+    feePayer: eipData.fee?.feePayer ?? getRouterSignerAddress(ethereumAddress),
+  };
+  eipData.fee = simulatedFee;
+  const txPayload = getEtherMintTxPayload(context, eipData);
+  //Taking signature from user
+  const signature = await injectedSigner.request({
+    method: 'eth_signTypedData_v4',
+    params: [ethereumAddress, JSON.stringify(txPayload.eipToSign)],
+  });
+  const signatureBytes = hexToBuff(signature);
+  const publicKeyHex = recoverTypedSignaturePubKey(
+    txPayload.eipToSign,
+    signature
+  );
+  const publicKey = hexToBase64(publicKeyHex);
+  context.sender.pubkey = publicKey;
+  const txPayloadWithPubKey = getEtherMintTxPayload(context, eipData);
+  const { signDirect } = txPayloadWithPubKey;
+  const bodyBytes = signDirect.body.toBinary();
+  const authInfoBytes = signDirect.authInfo.toBinary();
+  const txRawToSend = createTxRawForBroadcast(bodyBytes, authInfoBytes, [
+    signatureBytes,
+  ]);
+  const broadcastResponse = await broadcastRawTx(txRawToSend, nodeUrl);
+  return broadcastResponse;
+};

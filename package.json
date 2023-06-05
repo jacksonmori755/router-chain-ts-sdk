@@ -1,5 +1,5 @@
 {
-  "version": "0.8.48",
+  "version": "0.8.51",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -82,7 +82,7 @@
     "@ledgerhq/hw-transport-webhid": "6.27.1",
     "@ledgerhq/hw-transport-webusb": "6.27.1",
     "@metamask/eth-sig-util": "^4.0.1",
-    "@routerprotocol/chain-api": "^1.1.65",
+    "@routerprotocol/chain-api": "^1.1.67",
     "@types/eth-sig-util": "^2.1.1",
     "@types/ethereumjs-util": "^6.1.0",
     "@types/hdkey": "^2.0.1",
