@@ -549,7 +549,7 @@ const msgSendMsg = MsgSend.fromJSON({
   dstRouterAddress: destinationAddress,
 });
 const RPC = getEndpointsForNetwork(Network.Testnet).lcdEndpoint
-const tx = await const txResponse = await sendEthTxnToRouterChain({
+const tx = await sendEthTxnToRouterChain({
   networkEnv: Network.testnet,
   txMsg: msgSendMsg,
   nodeUrl: RPC,
