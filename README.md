@@ -767,3 +767,21 @@ module.exports = {
 ```
 
 4. yarn start and the webpack errors should be gone.
+
+If you get webpack errors when using vue’s nuxt framework, do this small change in `nuxt.config.js` build key -
+
+```jsx
+build: {
+    extend(config, ctx) {
+      config.module.rules.push({
+        test: /\.js$/, // apply this rule to .js files
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"], // use the preset-env preset
+          },
+        },
+      });
+    },
+  }
+```
