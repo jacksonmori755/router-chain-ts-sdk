@@ -30,138 +30,138 @@ import { ChainGrpcAttestationTransformer } from '../transformers';
  * ```
  */
 export class ChainGrpcAttestationApi extends BaseConsumer {
+         /**
+          * Fetch latest valset nonce
+          * @returns latest valset nonce.
+          */
+         async fetchLatestValsetNonce() {
+           const request = new QueryLatestValsetNonceRequest();
 
-  /**
-   * 
-   * @returns latest valset nonce.
-   */
-  async fetchLatestValsetNonce() {
-    const request = new QueryLatestValsetNonceRequest();
+           try {
+             const response = await this.request<
+               QueryLatestValsetNonceRequest,
+               QueryLatestValsetNonceResponse,
+               typeof AttestationQuery.LatestValsetNonce
+             >(request, AttestationQuery.LatestValsetNonce);
 
-    try {
-      const response = await this.request<
-        QueryLatestValsetNonceRequest,
-        QueryLatestValsetNonceResponse,
-        typeof AttestationQuery.LatestValsetNonce
-      >(request, AttestationQuery.LatestValsetNonce);
-      
-      return ChainGrpcAttestationTransformer.latestValsetNonce(response);
-    } catch (e) {
-      //@ts-ignore
-      throw new Error(e.message);
-    }
-  }
+             return ChainGrpcAttestationTransformer.latestValsetNonce(response);
+           } catch (e) {
+             //@ts-ignore
+             throw new Error(e.message);
+           }
+         }
 
-  /**
-   * 
-   * @returns all valsets.
-   */
-  async fetchAllValsets() {
-    const request = new QueryAllValsetRequest();
+         /**
+          * Fetches all valsets
+          * @returns all valsets.
+          */
+         async fetchAllValsets() {
+           const request = new QueryAllValsetRequest();
 
-    try {
-      const response = await this.request<
-        QueryAllValsetRequest,
-        QueryAllValsetResponse,
-        typeof AttestationQuery.ValsetAll
-      >(request, AttestationQuery.ValsetAll);
+           try {
+             const response = await this.request<
+               QueryAllValsetRequest,
+               QueryAllValsetResponse,
+               typeof AttestationQuery.ValsetAll
+             >(request, AttestationQuery.ValsetAll);
 
-      return ChainGrpcAttestationTransformer.allValset(response);
-    } catch (e) {
-      //@ts-ignore
-      throw new Error(e.message);
-    }
-  }
+             return ChainGrpcAttestationTransformer.allValset(response);
+           } catch (e) {
+             //@ts-ignore
+             throw new Error(e.message);
+           }
+         }
 
-  /**
-   * 
-   * @param valsetNonce nonce of valset.
-   * @returns valset.
-   */
-  async fetchValsetByNonce(valsetNonce: number) {
-    const request = new QueryGetValsetRequest();
-    request.setNonce(valsetNonce);
+         /**
+          *
+          * @param valsetNonce nonce of valset.
+          * @returns valset.
+          */
+         async fetchValsetByNonce(valsetNonce: number) {
+           const request = new QueryGetValsetRequest();
+           request.setNonce(valsetNonce);
 
-    try {
-      const response = await this.request<
-        QueryGetValsetRequest,
-        QueryGetValsetResponse,
-        typeof AttestationQuery.Valset
-      >(request, AttestationQuery.Valset);
+           try {
+             const response = await this.request<
+               QueryGetValsetRequest,
+               QueryGetValsetResponse,
+               typeof AttestationQuery.Valset
+             >(request, AttestationQuery.Valset);
 
-      return ChainGrpcAttestationTransformer.valsetByNonce(response);
-    } catch (e) {
-      //@ts-ignore
-      throw new Error(e.message);
-    }
-  }
+             return ChainGrpcAttestationTransformer.valsetByNonce(response);
+           } catch (e) {
+             //@ts-ignore
+             throw new Error(e.message);
+           }
+         }
 
-  /**
-   * 
-   * @returns latest valset.
-   */
-  async fetchLatestValset() {
-    const request = new QueryLatestValsetRequest();
+         /**
+          *
+          * @returns latest valset.
+          */
+         async fetchLatestValset() {
+           const request = new QueryLatestValsetRequest();
 
-    try {
-      const response = await this.request<
-        QueryLatestValsetRequest,
-        QueryLatestValsetResponse,
-        typeof AttestationQuery.LatestValset
-      >(request, AttestationQuery.LatestValset);
+           try {
+             const response = await this.request<
+               QueryLatestValsetRequest,
+               QueryLatestValsetResponse,
+               typeof AttestationQuery.LatestValset
+             >(request, AttestationQuery.LatestValset);
 
-      return ChainGrpcAttestationTransformer.latestValset(response);
-    } catch (e) {
-      //@ts-ignore
-      throw new Error(e.message);
-    }
-  }
+             return ChainGrpcAttestationTransformer.latestValset(response);
+           } catch (e) {
+             //@ts-ignore
+             throw new Error(e.message);
+           }
+         }
 
-  /**
-   * 
-   * @param chainType chain type.
-   * @param chainId chain ID.
-   * @param valAddress validator address.
-   * @returns last event nonce for a validator.
-   */
-  async fetchLastEventByValidator(chainType: number, chainId: string, valAddress: string) {
-    const request = new QueryLastEventNonceRequest();
-    request.setChainType(chainType);
-    request.setChainId(chainId);
-    request.setValidatorAddress(valAddress);
+         /**
+          *
+          * @param chainType chain type.
+          * @param chainId chain ID.
+          * @param valAddress validator address.
+          * @returns last event nonce for a validator.
+          */
+         async fetchLastEventByValidator(chainId: string, valAddress: string) {
+           const request = new QueryLastEventNonceRequest();
+           request.setChainId(chainId);
+           request.setValidatorAddress(valAddress);
 
-    try {
-      const response = await this.request<
-        QueryLastEventNonceRequest,
-        QueryLastEventNonceResponse,
-        typeof AttestationQuery.LastEventNonce
-      >(request, AttestationQuery.LastEventNonce);
+           try {
+             const response = await this.request<
+               QueryLastEventNonceRequest,
+               QueryLastEventNonceResponse,
+               typeof AttestationQuery.LastEventNonce
+             >(request, AttestationQuery.LastEventNonce);
 
-      return ChainGrpcAttestationTransformer.lastEventByValidator(response);
-    } catch (e) {
-      //@ts-ignore
-      throw new Error(e.message);
-    }
-  }
+             return ChainGrpcAttestationTransformer.lastEventByValidator(
+               response
+             );
+           } catch (e) {
+             //@ts-ignore
+             throw new Error(e.message);
+           }
+         }
 
-  /**
-   * 
-   * @returns list of all orchestrators.
-   */
-  async fetchAllOrchestrators() {
-    const request = new QueryListOrchestratorsRequest();
+         /**
+          *
+          * @returns list of all orchestrators.
+          */
+         async fetchAllOrchestrators() {
+           const request = new QueryListOrchestratorsRequest();
 
-    try {
-      const response = await this.request<
-      QueryListOrchestratorsRequest,
-      QueryListOrchestratorsResponse,
-        typeof AttestationQuery.ListOrchestrators
-      >(request, AttestationQuery.ListOrchestrators);
+           try {
+             const response = await this.request<
+               QueryListOrchestratorsRequest,
+               QueryListOrchestratorsResponse,
+               typeof AttestationQuery.ListOrchestrators
+             >(request, AttestationQuery.ListOrchestrators);
 
-      return ChainGrpcAttestationTransformer.listOrchestrators(response);
-    } catch (e) {
-      //@ts-ignore
-      throw new Error(e.message);
-    }
-  }
-}
+             return ChainGrpcAttestationTransformer.listOrchestrators(response);
+           } catch (e) {
+             //@ts-ignore
+             throw new Error(e.message);
+           }
+         }
+       }

@@ -21,8 +21,8 @@ import { KeplrWallet } from '../../../wallets/keplr'
 import { ConcreteWalletStrategy, onAccountChangeCallback, onChainIdChangeCallback } from '../../types'
 import BaseConcreteStrategy from './Base'
 import { WalletAction, WalletDeviceType } from '../../../types/enums'
-import { Msgs, Eip712ConvertTxArgs, Eip712ConvertFeeArgs } from '../../../../core'
-import { TxToSend, TxContext } from '../../../../tx-ts/ethermint/types'
+import { Msgs } from '../../../../core'
+import { TxToSend } from '../../../../tx-ts/ethermint/types'
 
 export default class Keplr
   extends BaseConcreteStrategy
@@ -41,7 +41,13 @@ export default class Keplr
   broadcastTransaction(_signedTx: TxToSend, _nodeUrl: string): Promise<any> {
     throw new Error('Method not implemented.')
   }
-  simulateSignAndBroadcast(_context: TxContext, _eipData: { msgs: Msgs | Msgs[]; tx: Eip712ConvertTxArgs; fee?: Eip712ConvertFeeArgs | undefined; ethereumChainId: EthereumChainId }, _nodeUrl: string): Promise<any> {
+  simulateSignAndBroadcast(_args: {
+                   ethChainId: string;
+                   cosmosChainId: string;
+                   txMsg: Msgs;
+                   nodeUrl: string;
+                   memo?: string;
+                 }): Promise<any> {
     throw new Error('Method not implemented.')
   }
   onAccountChange?(_callback: onAccountChangeCallback): void {

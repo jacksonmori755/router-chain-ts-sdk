@@ -519,7 +519,7 @@ If you get webpack errors when using with create-react-app, follow these steps -
 yarn add -D @craco/craco
 ```
 ```bash
-yarn add path-browserify stream-browserify stream-http https-browserify os-browserify assert url
+yarn add -D path-browserify stream-browserify stream-http https-browserify os-browserify assert url buffer process crypto-browsify fs
 ```
 2. Add craco.config.js file in your project root.
 ```jsx

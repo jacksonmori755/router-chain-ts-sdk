@@ -80,7 +80,7 @@ export const getEthereumSignerAddress = (address: string | undefined) => {
     return address;
   }
 
-  if (address.startsWith('inj')) {
+  if (address.startsWith('router')) {
     return getAddressFromRouterAddress(address);
   }
 

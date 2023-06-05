@@ -24,12 +24,8 @@ import {
 import BaseConcreteStrategy from './Base';
 import { WalletAction, WalletDeviceType } from '../../../types/enums';
 import { UnwrappedPromise } from '../../../types';
-import {
-  Msgs,
-  Eip712ConvertTxArgs,
-  Eip712ConvertFeeArgs,
-} from '../../../../core';
-import { TxToSend, TxContext } from '../../../../tx-ts/ethermint/types';
+import { Msgs } from '../../../../core';
+import { TxToSend } from '../../../../tx-ts/ethermint/types';
 
 export default class CosmostationEth extends BaseConcreteStrategy
   implements ConcreteWalletStrategy {
@@ -45,17 +41,13 @@ export default class CosmostationEth extends BaseConcreteStrategy
   broadcastTransaction(_signedTx: TxToSend, _nodeUrl: string): Promise<any> {
     throw new Error('Method not implemented.');
   }
-  simulateSignAndBroadcast(
-    _context: TxContext,
-    _eipData: {
-      msgs: Msgs | Msgs[]; // eslint-disable-next-line class-methods-use-this
-      // eslint-disable-next-line class-methods-use-this
-      tx: Eip712ConvertTxArgs;
-      fee?: Eip712ConvertFeeArgs | undefined;
-      ethereumChainId: EthereumChainId;
-    },
-    _nodeUrl: string
-  ): Promise<any> {
+  simulateSignAndBroadcast(_args: {
+    ethChainId: string;
+    cosmosChainId: string;
+    txMsg: Msgs;
+    nodeUrl: string;
+    memo?: string;
+  }): Promise<any> {
     throw new Error('Method not implemented.');
   }
   onAccountChange?(_callback: onAccountChangeCallback): void {

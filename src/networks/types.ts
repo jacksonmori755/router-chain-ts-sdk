@@ -5,8 +5,8 @@
  */
 export enum Network {
   Local = 'local',
-  InternalDevnet = 'internal devnet',
-  AlphaDevnet = 'alpha devnet',
+  InternalDevnet = 'internal-devnet',
+  AlphaDevnet = 'alpha-devnet',
   Devnet = 'devnet',
   Testnet = 'testnet',
   Mainnet = 'mainnet',
@@ -17,9 +17,9 @@ export const getNetworkType = (type: string) => {
   switch (type.toLowerCase()) {
     case 'local':
       return Network.Local;
-    case 'internal devnet':
+    case 'internal-devnet':
       return Network.InternalDevnet;
-    case 'alpha devnet':
+    case 'alpha-devnet':
       return Network.AlphaDevnet;
     case 'devnet':
       return Network.Devnet;

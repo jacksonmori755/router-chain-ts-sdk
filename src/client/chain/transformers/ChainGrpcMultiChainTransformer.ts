@@ -41,21 +41,7 @@ export class ChainGrpcMultiChainTransformer {
   private static getChainConfigObject(
     chainConfig: ChainConfig
   ) : ChainConfig.AsObject {
-    return {
-        chainid: chainConfig.getChainid(),
-        chainname: chainConfig.getChainname(),
-        symbol: chainConfig.getSymbol(),
-        chaintype: chainConfig.getChaintype(),
-        confirmationsrequired: chainConfig.getConfirmationsrequired(),
-        gatewaycontractaddress: chainConfig.getGatewaycontractaddress(),
-        gatewaycontractheight: chainConfig.getGatewaycontractheight(),
-        routercontractaddress: chainConfig.getRoutercontractaddress(),
-        lastobservedeventnonce: chainConfig.getLastobservedeventnonce(),
-        lastobservedeventblockheight: chainConfig.getLastobservedeventblockheight(),
-        lastobservedvalsetnonce: chainConfig.getLastobservedvalsetnonce(),
-        chainEnabled: chainConfig.getChainEnabled(),
-        creator: chainConfig.getCreator(),
-    }
 
+    return chainConfig.toObject();
   }
 }

@@ -1,14 +1,11 @@
 import { RouterExplorer } from '../src';
 
 describe('Queries Test', () => {
-  const explorer = new RouterExplorer(
-    'devnet',
-    'router1vhndln95yd7rngslzvf6sax6axcshkxqpmpr886ntelh28p9ghuq0dnult'
-  );
-  it('Fetch Crosstalk by search - ', async () => {
-    const CrossTalks = await explorer.getLatestBlocks();
-    console.log('Crosstalk =>', JSON.stringify(CrossTalks));
-    expect(CrossTalks).toBeDefined();
+  const explorer = new RouterExplorer('local', '');
+  it('Fetch Crosschain by search - ', async () => {
+    const Crosschains = await explorer.getLatestCrosschains();
+    console.log('Crosschain =>', JSON.stringify(Crosschains));
+    expect(Crosschains).toBeDefined();
   });
 });
 

@@ -31,7 +31,7 @@ import { ChainInfo, getNetworkType, Network, NetworkEndpoints } from './types';
  * Supported network endpoints for Router chain. Also see {@link Network} for network names.
  * 
  * @example
- * const endpoint =  networkEndpoints["alpha devnet"]; // here, 'alpha devnet' is network name
+ * const endpoint =  networkEndpoints["alpha-devnet"]; // here, 'alpha-devnet' is network name
  * 
  * @group Network
  */
@@ -65,10 +65,10 @@ const ETH_CHAINID: Record<Network, EthereumChainId> = {
   [Network.Mainnet]: EthereumChainId.MainnetEvm,
   [Network.Devnet]: EthereumChainId.DevnetEvm,
   [Network.Testnet]: EthereumChainId.TestnetEvm,
-  [Network.Local]: EthereumChainId.Goerli,
+  [Network.Local]: EthereumChainId.LocalEvm,
   [Network.Docker]: EthereumChainId.Goerli,
   [Network.AlphaDevnet]: EthereumChainId.AlphaDevnetEvm,
-  [Network.InternalDevnet]: EthereumChainId.AlphaDevnetEvm,
+  [Network.InternalDevnet]: EthereumChainId.InternalDevnet,
 };
 
 /**
